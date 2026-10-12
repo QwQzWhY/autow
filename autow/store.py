@@ -7,6 +7,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 from .models import RawNotice
+from . import clock
 
 DEFAULT_DB = Path(__file__).resolve().parent.parent / "data" / "autow.db"
 
@@ -65,7 +66,7 @@ CREATE TABLE IF NOT EXISTS meta (
 
 
 def now_iso() -> str:
-    return datetime.now(timezone.utc).astimezone().isoformat(timespec="seconds")
+    return clock.iso_now()
 
 
 class Store:
@@ -270,7 +271,7 @@ class Store:
         )
 
     def qq_counts(self) -> dict[str, int]:
-        today = datetime.now().astimezone().date().isoformat()
+        today = clock.today().isoformat()
         one = lambda sql, *args: self.conn.execute(sql, args).fetchone()[0]
         return {
             "total_received": one("SELECT COUNT(*) FROM qq_log"),

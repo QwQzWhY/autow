@@ -16,6 +16,7 @@ from datetime import datetime
 from pathlib import Path
 
 from .store import Store
+from . import clock
 
 DOCS_DATA = Path(__file__).resolve().parent.parent / "docs" / "data"
 
@@ -42,7 +43,7 @@ def build(store: Store) -> dict:
         for row in store.qq_recent(10)
     ]
     return {
-        "generated_at": datetime.now().astimezone().isoformat(timespec="seconds"),
+        "generated_at": clock.iso_now(),
         "connected": counts["total_received"] > 0,
         **counts,
         "recent": recent,

@@ -98,15 +98,27 @@ Actions 需要能提交结果回仓库：
 
 > 打开 `https://<你的用户名>.github.io/autow/qq.html`
 
-1. 应用商店装 **MacroDroid**（免费）。
-2. 新建宏 → 触发器选 **通知 → 收到通知**，配置：
-   - 应用：QQ
-   - 内容包含：@全体成员
-3. 加动作 **网络 → HTTP 请求**，POST：
-   - 把接入页上「请求地址」「Authorization」「Accept」「Content-Type」「Body」
-     五项依次复制进去。Body 里的 `[notification_title]` 之类是 MacroDroid 的
-     魔法文本变量，粘贴后它自己会识别。
-4. 保存。之后每逢 @全体成员，几秒内待办里就会多一条（前提是大模型判断它需要行动）。
+1. 应用商店装 **MacroDroid**（免费），打开后确保授予**通知使用权**。
+2. 新建宏，**触发器**选 `通知` → `Notification Received`：
+   - Application Selection：选 `QQ`
+   - Text Filtering 保持 `Single Field Mode`，模式选 **Contains**，填 `@全体成员`
+   - 其余保持默认（`Prevent multiple triggers` 默认开启，正好防止 QQ 反复
+     更新同一条通知时重复触发）
+3. **动作**选 `HTTP Request`（在动作列表里按字母排，找 H 开头）：
+   - Request method：**POST**
+   - URL：接入页上那一项
+   - Header Params：三条键值对，把 `Authorization` / `Accept` / `Content-Type`
+     三行分别填进去
+   - Content Body：内容类型选 **application/json**，内容填接入页上的 Body
+   - 勾上 **Block next action until complete**（后面要检查返回码）
+   - 勾上 **Save HTTP return code in integer variable**，变量名填 `http_code`
+4. **再加一个动作**用于排错：`If` → 条件 `http_code != 204` → 里面放一个
+   `Display Notification`，内容填 `AutoW 上传失败：{http_code}`。
+   GitHub 收到事件时返回 **204**，所以只要不是 204 就说明出问题了。
+5. 保存。之后每逢 @全体成员，几秒内待办里就会多一条（前提是大模型判断它需要行动）。
+
+Body 里的 `{not_title}`（群名）和 `{notification}`（消息正文）是 MacroDroid 的
+魔法文本，输入框旁边有插入按钮，粘贴后它会自动识别。
 
 配好之后回到接入页，点「发送测试消息」，页面会一直查到云端确认收到为止——
 不用去 GitHub 翻日志。

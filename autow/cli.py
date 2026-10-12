@@ -18,6 +18,7 @@ import time
 from datetime import datetime
 
 from . import dates, health, llm, publish, qqstatus
+from . import clock
 from .models import RawNotice
 from .store import Store
 
@@ -231,6 +232,28 @@ def cmd_todos(args: argparse.Namespace) -> int:
 # -------------------------------------------------------------------- ingest
 
 
+# -------------------------------------------------------------------- ingest
+
+
+def normalise_time(value: str | None) -> str:
+    """Accept an ISO timestamp, otherwise stamp the message with our own clock.
+
+    The sender is a third-party automation app whose date magic text we cannot
+    verify, and a naive value from it would be read as UTC and land eight hours
+    off. Delivery is near-instant, so our clock is the more reliable source.
+    """
+    text = (value or "").strip()
+    if text:
+        try:
+            parsed = datetime.fromisoformat(text)
+            if parsed.tzinfo is None:
+                parsed = parsed.replace(tzinfo=clock.tz())
+            return parsed.astimezone(clock.tz()).isoformat(timespec="seconds")
+        except ValueError:
+            pass
+    return clock.iso_now()
+
+
 def _qq_notice(digest: str, when: str | None, title: str) -> RawNotice:
     """A QQ message as it is *stored*.
 
@@ -265,11 +288,11 @@ def cmd_ingest(args: argparse.Namespace) -> int:
     group = (data.get("group") or "").strip()
     sender = (data.get("sender") or "").strip()
     text = (data.get("text") or "").strip()
-    when = (data.get("time") or "").strip() or None
+    when = normalise_time(data.get("time"))
     nonce = (data.get("nonce") or "").strip()
 
     store = _store(args)
-    received_at = datetime.now().astimezone().isoformat(timespec="seconds")
+    received_at = clock.iso_now()
     digest = hashlib.sha1(f"{group}|{sender}|{text}".encode("utf-8")).hexdigest()[:16]
 
     if not text:

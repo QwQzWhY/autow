@@ -12,6 +12,7 @@ from datetime import datetime
 from pathlib import Path
 
 from .store import Store
+from . import clock
 
 DOCS_DATA = Path(__file__).resolve().parent.parent / "docs" / "data"
 
@@ -42,7 +43,7 @@ def build(store: Store) -> dict:
         )
     todos.sort(key=lambda t: (t["due_at"] is None, t["due_at"] or "", t["priority"] != "high"))
     return {
-        "generated_at": datetime.now().astimezone().isoformat(timespec="seconds"),
+        "generated_at": clock.iso_now(),
         "count": len(todos),
         "todos": todos,
     }

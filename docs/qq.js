@@ -60,12 +60,17 @@ function payloadTemplate() {
   const base = {
     event_type: 'qq-message',
     client_payload: {
-      group: '[notification_title]',
+      // MacroDroid magic text uses braces; these names come from its docs.
+      group: '{not_title}',
       sender: '',
-      text: '[notification_text]',
+      text: '{notification}',
       time: '[year]-[month]-[day]T[hour]:[minute]',
     },
   };
+  // The timestamp is left out on purpose: MacroDroid's date magic text is not
+  // documented well enough to rely on, and the cloud stamps its own clock on
+  // arrival instead.
+  delete base.client_payload.time;
   return JSON.stringify(base);
 }
 

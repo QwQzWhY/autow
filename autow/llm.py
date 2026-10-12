@@ -24,6 +24,7 @@ from datetime import date, datetime
 from urllib.parse import urlparse
 
 from . import extract
+from . import clock
 from .extract import TodoDraft
 from .models import RawNotice
 
@@ -285,7 +286,7 @@ def analyze(
             return None, "rules"
         return extract.extract_todo(RawNotice(url="", title=title, title_full=title, body=body)), "rules"
 
-    today = date.today()
+    today = clock.today()
     model = cfg["model"]
     key = _cache_key(kind, body, model, today)
     raw = cache.cache_get(key, model) if (cache and use_cache) else None

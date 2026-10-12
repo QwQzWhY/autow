@@ -12,6 +12,7 @@ from dataclasses import dataclass
 from datetime import date, datetime
 
 from . import dates
+from . import clock
 from .models import RawNotice
 
 # Wording that means "you have to do something".
@@ -49,7 +50,7 @@ def is_expired(due_at: str | None, grace_days: int = EXPIRED_GRACE_DAYS) -> bool
     if not due_at:
         return False
     try:
-        days = (datetime.fromisoformat(str(due_at)).date() - date.today()).days
+        days = (datetime.fromisoformat(str(due_at)).date() - clock.today()).days
     except ValueError:
         return False
     return days < -grace_days
@@ -73,7 +74,7 @@ def _deadline_from(body: str, reference: date | None = None) -> tuple[str | None
     `reference` should be the notice's publish date: dates in the body are
     written without a year, and relative to publication they are usually close by.
     """
-    reference = reference or date.today()
+    reference = reference or clock.today()
     best: tuple[date, str] | None = None
     for sentence in _sentences(body):
         if not any(w in sentence for w in DEADLINE_WORDS + ACTION_WORDS):
@@ -92,9 +93,10 @@ def _deadline_from(body: str, reference: date | None = None) -> tuple[str | None
         return None, ""
 
     day, sentence = best
-    clock = dates.parse_time(sentence)
-    if clock:
-        due = datetime(day.year, day.month, day.day, clock[0], clock[1])
+    # Not named `clock`: that would shadow the module imported above.
+    hhmm = dates.parse_time(sentence)
+    if hhmm:
+        due = datetime(day.year, day.month, day.day, hhmm[0], hhmm[1])
     else:
         due = datetime(day.year, day.month, day.day, 23, 59)
     return due.isoformat(timespec="minutes"), sentence
@@ -137,7 +139,7 @@ def extract_todo(notice: RawNotice) -> TodoDraft | None:
         if is_expired(due_at):
             return None
         try:
-            days = (datetime.fromisoformat(due_at).date() - date.today()).days
+            days = (datetime.fromisoformat(due_at).date() - clock.today()).days
             if 0 <= days <= 3:
                 priority = "high"
         except ValueError:

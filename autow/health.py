@@ -18,6 +18,7 @@ from pathlib import Path
 from urllib.parse import urlparse
 
 from . import llm
+from . import clock
 
 DOCS_DATA = Path(__file__).resolve().parent.parent / "docs" / "data"
 
@@ -55,7 +56,7 @@ def build() -> dict:
             "last_error": _scrub(llm.STATS["last_error"], cfg["api_key"]),
         }
     return {
-        "generated_at": datetime.now().astimezone().isoformat(timespec="seconds"),
+        "generated_at": clock.iso_now(),
         "extractor": extractor,
     }
 
