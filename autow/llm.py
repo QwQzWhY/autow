@@ -35,6 +35,40 @@ MAX_BODY_CHARS = 6000
 # cache is otherwise keyed only on the text.
 CACHE_VERSION = 3
 
+# Filled in as calls happen so a run can report why it fell back to rules.
+# A misconfigured endpoint used to be invisible unless someone read the CI log.
+STATS: dict[str, object] = {"attempts": 0, "failures": 0, "last_error": "", "probe": None}
+
+
+def reset_stats() -> None:
+    STATS.update(attempts=0, failures=0, last_error="", probe=None)
+
+
+def probe() -> dict:
+    """One minimal call, purely to prove the endpoint and key work.
+
+    A scan only calls the model when a *new* notice turns up, so a quiet day
+    would otherwise look identical to a broken configuration. This runs every
+    time and is cheap enough to be worth it.
+    """
+    cfg = config()
+    if cfg is None:
+        result = {"ok": False, "error": "未配置 LLM_API_KEY"}
+    elif cfg["mode"] == "mock":
+        result = {"ok": True, "note": "mock 模式，未真正调用"}
+    else:
+        try:
+            _call(
+                [{"role": "user", "content": '只输出这个 JSON，不要别的内容：{"ok": true}'}],
+                cfg,
+                cfg["model"],
+            )
+            result = {"ok": True}
+        except Exception as exc:
+            result = {"ok": False, "error": f"{type(exc).__name__}: {exc}"[:300]}
+    STATS["probe"] = result
+    return result
+
 NOTICE_PROMPT = """你是一个学生事务助理。用户是兰州大学人工智能学院的学生。
 通知有两种来源：学院官网，以及学校层级的通知公告（后者什么都有，噪音很多）。
 你要判断一条通知对学生是否意味着"需要做的具体事情"，并把关键信息抽成结构化数据。
@@ -200,6 +234,7 @@ def analyze(
     raw = cache.cache_get(key, model) if (cache and use_cache) else None
 
     if raw is None:
+        STATS["attempts"] = int(STATS["attempts"]) + 1
         try:
             if cfg["mode"] == "mock":
                 data = _mock_response(
@@ -237,6 +272,8 @@ def analyze(
         # rather than abort the whole scan. The engine tally printed at the end
         # of a run makes a systematic failure obvious.
         except Exception as exc:
+            STATS["failures"] = int(STATS["failures"]) + 1
+            STATS["last_error"] = f"{type(exc).__name__}: {exc}"[:300]
             print(f"    [llm] 调用失败，退回规则抽取：{type(exc).__name__}: {exc}")
             if kind != "notice":
                 return None, "rules"

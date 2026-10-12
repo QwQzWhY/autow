@@ -17,7 +17,7 @@ import sys
 import time
 from datetime import datetime
 
-from . import dates, llm, publish, qqstatus
+from . import dates, health, llm, publish, qqstatus
 from .models import RawNotice
 from .store import Store
 
@@ -36,21 +36,31 @@ def write_dashboards(store: Store) -> None:
     """Refresh everything the phone reads."""
     print("看板数据已写入", publish.write(store))
     qqstatus.write(store)
+    health.write()
 
 
 def describe_llm() -> None:
-    """Say up front which extractor this run will use, and against what.
+    """Say up front which extractor this run will use, and prove it works.
 
-    A misconfigured endpoint used to blow up mid-scan with a stack trace; at
-    least make the configuration visible in the first lines of the log.
+    A misconfigured endpoint used to blow up mid-scan with a stack trace, and
+    then (once that was fixed) silently fell back to the rule extractor. Either
+    way the answer belonged in the first lines of the log, not at the end of a
+    debugging session.
     """
+    llm.reset_stats()
     cfg = llm.config()
     if cfg is None:
         print("大模型：未配置 LLM_API_KEY，本次全部走规则抽取")
-    elif cfg["mode"] == "mock":
+        return
+    if cfg["mode"] == "mock":
         print("大模型：mock 模式（不联网，用规则结果冒充模型输出）")
+        return
+    print(f"大模型：{cfg['model']} @ {cfg['base_url']}")
+    result = llm.probe()
+    if result.get("ok"):
+        print("大模型自检：通过")
     else:
-        print(f"大模型：{cfg['model']} @ {cfg['base_url']}")
+        print(f"大模型自检：失败 —— {result.get('error')}")
 
 
 # --------------------------------------------------------------------- crawl

@@ -11,7 +11,9 @@ import unittest
 from datetime import date, timedelta
 from unittest import mock
 
-from autow import llm
+import json
+
+from autow import health, llm
 from autow.models import RawNotice
 
 SOON = date.today() + timedelta(days=5)
@@ -99,6 +101,72 @@ class TestFallback(unittest.TestCase):
         draft, engine = llm.analyze_notice(a_notice())
         self.assertEqual(engine, "rules")
         self.assertIsNotNone(draft)
+
+
+class TestHealth(unittest.TestCase):
+    """A silent fallback to the rule extractor is the failure mode that matters.
+
+    It produced a plausible-looking board for a whole day before anyone noticed,
+    so the run has to publish what actually happened.
+    """
+
+    def setUp(self):
+        saved = {
+            key: os.environ.get(key)
+            for key in ("LLM_API_KEY", "LLM_BASE_URL", "LLM_MODEL", "AUTOW_LLM_MODE")
+        }
+
+        def restore():
+            for key, value in saved.items():
+                if value is None:
+                    os.environ.pop(key, None)
+                else:
+                    os.environ[key] = value
+
+        self.addCleanup(restore)
+        os.environ.pop("AUTOW_LLM_MODE", None)
+        os.environ["LLM_API_KEY"] = "test-key"
+        os.environ["LLM_BASE_URL"] = "https://api.example.com/v1"
+        llm.reset_stats()
+        self.addCleanup(llm.reset_stats)
+
+    def test_a_failed_call_is_recorded(self):
+        boom = mock.Mock(side_effect=ValueError("unknown url type"))
+        with mock.patch.object(llm, "_call", boom):
+            llm.analyze_notice(a_notice())
+        extractor = health.build()["extractor"]
+        self.assertTrue(extractor["configured"])
+        self.assertEqual(extractor["attempts"], 1)
+        self.assertEqual(extractor["failures"], 1)
+        self.assertFalse(extractor["ok"])
+        self.assertIn("unknown url type", extractor["last_error"])
+
+    def test_no_key_is_reported_as_not_configured(self):
+        os.environ.pop("LLM_API_KEY", None)
+        extractor = health.build()["extractor"]
+        self.assertFalse(extractor["configured"])
+        self.assertEqual(extractor["mode"], "off")
+
+    def test_the_api_key_never_appears_in_the_published_file(self):
+        boom = mock.Mock(side_effect=ValueError("401 Unauthorized"))
+        with mock.patch.object(llm, "_call", boom):
+            llm.analyze_notice(a_notice())
+        published = json.dumps(health.build(), ensure_ascii=False)
+        self.assertNotIn("test-key", published)
+
+    def test_a_failing_probe_is_published(self):
+        # This is the signal that a quiet day cannot hide a broken key.
+        boom = mock.Mock(side_effect=ValueError("401 Unauthorized"))
+        with mock.patch.object(llm, "_call", boom):
+            result = llm.probe()
+        self.assertFalse(result["ok"])
+        self.assertIn("401", result["error"])
+        self.assertIn("401", health.build()["extractor"]["probe"]["error"])
+
+    def test_a_passing_probe_is_published(self):
+        with mock.patch.object(llm, "_call", mock.Mock(return_value={"ok": True})):
+            self.assertTrue(llm.probe()["ok"])
+        self.assertTrue(health.build()["extractor"]["probe"]["ok"])
 
 
 if __name__ == "__main__":

@@ -1,0 +1,8 @@
+{
+  "generated_at": "2026-10-12T21:40:33+08:00",
+  "extractor": {
+    "configured": false,
+    "mode": "off",
+    "note": "未设置 LLM_API_KEY，全部走规则抽取"
+  }
+}
