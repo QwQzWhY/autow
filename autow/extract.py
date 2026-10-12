@@ -39,6 +39,21 @@ SENTENCE_SPLIT = re.compile(r"[。\n；;]")
 EXPIRED_GRACE_DAYS = 3
 
 
+def is_expired(due_at: str | None, grace_days: int = EXPIRED_GRACE_DAYS) -> bool:
+    """True when a deadline is far enough in the past to stop being a todo.
+
+    Shared by both extractors. The rule path always had this check; the model
+    path did not, so a re-run happily resurrected deadlines from June.
+    """
+    if not due_at:
+        return False
+    try:
+        days = (datetime.fromisoformat(str(due_at)).date() - date.today()).days
+    except ValueError:
+        return False
+    return days < -grace_days
+
+
 @dataclass
 class TodoDraft:
     title: str
@@ -118,10 +133,10 @@ def extract_todo(notice: RawNotice) -> TodoDraft | None:
     due_at, evidence = _deadline_from(notice.body, reference)
     priority = "high" if any(w in blob for w in URGENT_WORDS) else "normal"
     if due_at:
+        if is_expired(due_at):
+            return None
         try:
             days = (datetime.fromisoformat(due_at).date() - date.today()).days
-            if days < -EXPIRED_GRACE_DAYS:
-                return None
             if 0 <= days <= 3:
                 priority = "high"
         except ValueError:

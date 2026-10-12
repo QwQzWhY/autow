@@ -34,7 +34,10 @@ MAX_BODY_CHARS = 6000
 # Bump this whenever the prompts or the mock/rule logic change, so cached
 # verdicts from an older version are not reused. LLM calls cost money and the
 # cache is otherwise keyed only on the text.
-CACHE_VERSION = 3
+# Bump this whenever the prompts or the post-processing change, so cached
+# verdicts from an older version are not reused. It is also part of the
+# extractor signature, which is what makes a deployment re-analyse everything.
+CACHE_VERSION = 4
 
 # Filled in as calls happen so a run can report why it fell back to rules.
 # A misconfigured endpoint used to be invisible unless someone read the CI log.
@@ -346,13 +349,17 @@ def analyze(
     if due_at and not _looks_like_datetime(due_at):
         due_at = None
 
+    engine = "mock" if cfg["mode"] == "mock" else "llm"
     draft = TodoDraft(
         title=(data.get("title") or title)[:60],
         detail=(data.get("detail") or "")[:400],
         due_at=due_at,
         priority=priority,
     )
-    return draft, "mock" if cfg["mode"] == "mock" else "llm"
+    if extract.is_expired(draft.due_at):
+        print(f"    [{engine}] 截止时间已过（{draft.due_at}），不作为待办")
+        return None, engine
+    return draft, engine
 
 
 def analyze_notice(notice: RawNotice, cache=None) -> tuple[TodoDraft | None, str]:

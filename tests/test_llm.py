@@ -103,6 +103,71 @@ class TestFallback(unittest.TestCase):
         self.assertIsNotNone(draft)
 
 
+class TestModelOutputIsSanitised(unittest.TestCase):
+    """A model verdict is not the last word.
+
+    The first working run rebuilt the board correctly but resurrected eight
+    deadlines from June and September — the rule path had always dropped
+    expired items and the model path simply did not check.
+    """
+
+    def setUp(self):
+        saved = {
+            key: os.environ.get(key)
+            for key in ("LLM_API_KEY", "LLM_BASE_URL", "LLM_MODEL", "AUTOW_LLM_MODE")
+        }
+
+        def restore():
+            for key, value in saved.items():
+                if value is None:
+                    os.environ.pop(key, None)
+                else:
+                    os.environ[key] = value
+
+        self.addCleanup(restore)
+        os.environ.pop("AUTOW_LLM_MODE", None)
+        os.environ.update(
+            LLM_API_KEY="sk-x",
+            LLM_BASE_URL="https://api.deepseek.com/v1",
+            LLM_MODEL="deepseek-chat",
+        )
+
+    def reply(self, **fields) -> mock.Mock:
+        body = {
+            "action_required": True,
+            "title": "交课程报告",
+            "detail": "发到课程平台",
+            "due_at": None,
+            "priority": "normal",
+        }
+        body.update(fields)
+        return mock.Mock(return_value=body)
+
+    def test_an_expired_deadline_produces_no_todo(self):
+        with mock.patch.object(llm, "_call", self.reply(due_at="2026-06-20T23:59")):
+            draft, _ = llm.analyze_notice(a_notice())
+        self.assertIsNone(draft)
+
+    def test_a_future_deadline_survives(self):
+        soon = date.today() + timedelta(days=5)
+        with mock.patch.object(llm, "_call", self.reply(due_at=f"{soon.isoformat()}T23:59")):
+            draft, _ = llm.analyze_notice(a_notice())
+        self.assertIsNotNone(draft)
+        self.assertEqual(draft.due_at[:10], soon.isoformat())
+
+    def test_a_missing_deadline_is_still_a_todo(self):
+        with mock.patch.object(llm, "_call", self.reply(due_at=None)):
+            draft, _ = llm.analyze_notice(a_notice())
+        self.assertIsNotNone(draft)
+
+    def test_a_deadline_two_days_ago_is_tolerated(self):
+        # A notice published at midnight can legitimately land here.
+        recent = date.today() - timedelta(days=2)
+        with mock.patch.object(llm, "_call", self.reply(due_at=f"{recent.isoformat()}T23:59")):
+            draft, _ = llm.analyze_notice(a_notice())
+        self.assertIsNotNone(draft)
+
+
 class TestHealth(unittest.TestCase):
     """A silent fallback to the rule extractor is the failure mode that matters.
 
