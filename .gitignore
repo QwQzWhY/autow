@@ -15,4 +15,6 @@ android/build/
 android/app/build/
 android/.gradle/
 android/local.properties
+# 例外：通知桥的 APK 要放到看板站点上，方便手机直接下载安装
 *.apk
+!docs/autow-bridge.apk
