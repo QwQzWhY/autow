@@ -1,0 +1,30 @@
+{
+  "generated_at": "2026-10-12T19:51:41+08:00",
+  "count": 2,
+  "todos": [
+    {
+      "key": "lzu-ai:A045HJ3G",
+      "title": "公布人工智能学院研究生奖学金评审实施细则",
+      "detail": "关于公布人工智能学院研究生奖学金评审实施细则的通知",
+      "due_at": null,
+      "priority": "normal",
+      "source": "lzu-ai",
+      "source_label": "学院通知",
+      "url": "https://ai.lzu.edu.cn/news/A045HJ3G",
+      "category": "通知公告",
+      "published_at": "2026-09-24"
+    },
+    {
+      "key": "lzu-ai:A0471XGX",
+      "title": "开展兰州大学人工智能学院以同等学力申请硕士学位工作",
+      "detail": "关于开展兰州大学人工智能学院以同等学力申请硕士学位工作的通知",
+      "due_at": null,
+      "priority": "normal",
+      "source": "lzu-ai",
+      "source_label": "学院通知",
+      "url": "https://ai.lzu.edu.cn/news/A0471XGX",
+      "category": "通知公告",
+      "published_at": "2026-10-09"
+    }
+  ]
+}

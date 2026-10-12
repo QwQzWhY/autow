@@ -1,0 +1,204 @@
+:root {
+  --bg: #f6f7f9;
+  --card: #ffffff;
+  --text: #16181d;
+  --muted: #6b7280;
+  --line: #e5e7eb;
+  --accent: #2563eb;
+  --high: #dc2626;
+  --normal: #2563eb;
+  --low: #9ca3af;
+  --done: #10b981;
+  --shadow: 0 1px 2px rgba(16, 24, 40, .06), 0 1px 3px rgba(16, 24, 40, .08);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0f1115;
+    --card: #171a21;
+    --text: #e8eaed;
+    --muted: #9aa1ad;
+    --line: #262b35;
+    --shadow: 0 1px 2px rgba(0, 0, 0, .4);
+  }
+}
+
+* { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  padding: 0 0 env(safe-area-inset-bottom);
+  background: var(--bg);
+  color: var(--text);
+  font: 15px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+        "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+}
+
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  padding: max(env(safe-area-inset-top), 12px) 16px 10px;
+  background: var(--bg);
+  backdrop-filter: saturate(1.6) blur(12px);
+  border-bottom: 1px solid var(--line);
+}
+
+.topbar__row { display: flex; align-items: center; justify-content: space-between; }
+
+.topbar h1 { margin: 0; font-size: 22px; font-weight: 650; letter-spacing: .3px; }
+
+.topbar__meta { margin: 4px 0 0; font-size: 12px; color: var(--muted); }
+
+.icon-btn {
+  border: 1px solid var(--line);
+  background: var(--card);
+  color: var(--text);
+  width: 36px; height: 36px;
+  border-radius: 10px;
+  font-size: 17px;
+  cursor: pointer;
+}
+
+.icon-btn:active { transform: scale(.94); }
+
+.filters {
+  display: flex;
+  gap: 8px;
+  padding: 12px 16px 4px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.filters::-webkit-scrollbar { display: none; }
+
+.filter {
+  flex: 0 0 auto;
+  padding: 7px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--card);
+  color: var(--muted);
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.filter.is-active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+  font-weight: 600;
+}
+
+.list { padding: 12px 16px 24px; display: flex; flex-direction: column; gap: 10px; }
+
+.empty { color: var(--muted); text-align: center; padding: 40px 0; font-size: 14px; }
+
+.card {
+  position: relative;
+  display: grid;
+  grid-template-columns: 26px 1fr;
+  gap: 10px;
+  padding: 13px 14px 13px 12px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 3px;
+  background: var(--normal);
+}
+
+.card[data-priority="high"]::before { background: var(--high); }
+.card[data-priority="low"]::before { background: var(--low); }
+.card[data-done="true"]::before { background: var(--done); }
+.card[data-done="true"] { opacity: .55; }
+
+.check {
+  appearance: none;
+  width: 22px; height: 22px;
+  margin: 1px 0 0;
+  border: 1.8px solid var(--line);
+  border-radius: 7px;
+  background: transparent;
+  cursor: pointer;
+}
+
+.check:checked {
+  background: var(--done);
+  border-color: var(--done);
+}
+
+.check:checked::after {
+  content: "";
+  display: block;
+  width: 5px; height: 10px;
+  margin: 2px 0 0 7px;
+  border: solid #fff;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.card__title { font-size: 15.5px; font-weight: 600; margin: 0; }
+
+.card[data-done="true"] .card__title { text-decoration: line-through; }
+
+.card__row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  margin-top: 6px;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.due { font-weight: 600; }
+.due--overdue { color: var(--high); }
+.due--soon { color: #d97706; }
+
+.chip {
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: rgba(37, 99, 235, .12);
+  color: var(--accent);
+  font-size: 11px;
+}
+
+.chip--qq { background: rgba(16, 185, 129, .15); color: #0d9488; }
+
+.card__detail {
+  margin: 8px 0 0;
+  font-size: 13px;
+  color: var(--muted);
+  display: none;
+}
+
+.card[data-expanded="true"] .card__detail { display: block; }
+
+.card__toggle {
+  background: none;
+  border: 0;
+  padding: 0;
+  margin-top: 6px;
+  color: var(--accent);
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.footer {
+  padding: 0 16px 28px;
+  text-align: center;
+  font-size: 11.5px;
+  color: var(--muted);
+}
+
+a { color: var(--accent); }

@@ -1,0 +1,67 @@
+name: 扫描通知
+
+# 三种触发方式：
+#   1. 每 2 小时自动跑一次，抓学院官网通知
+#   2. 手机上的 AutoW 通知桥收到 QQ 群消息后，立刻触发一次
+#   3. 手动点击运行
+on:
+  schedule:
+    - cron: "0 */2 * * *"
+  workflow_dispatch:
+  repository_dispatch:
+    types: [qq-message]
+
+permissions:
+  contents: write
+
+# 两次运行不要重叠，否则提交会打架
+concurrency:
+  group: autow-scan
+  cancel-in-progress: false
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: 安装依赖
+        run: |
+          pip install -r requirements.txt
+          python -m playwright install --with-deps chromium
+
+      - name: 抓取学院通知
+        if: github.event_name != 'repository_dispatch'
+        env:
+          # 云端用 Playwright 自带的 Chromium，不用系统 Chrome
+          AUTOW_BROWSER_CHANNEL: ""
+          LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
+          LLM_BASE_URL: ${{ secrets.LLM_BASE_URL }}
+          LLM_MODEL: ${{ secrets.LLM_MODEL }}
+        run: python -m autow run --skip-analyzed --pages 1
+
+      - name: 处理 QQ 群消息
+        if: github.event_name == 'repository_dispatch'
+        env:
+          AUTOW_INGEST_JSON: ${{ toJson(github.event.client_payload) }}
+          LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
+          LLM_BASE_URL: ${{ secrets.LLM_BASE_URL }}
+          LLM_MODEL: ${{ secrets.LLM_MODEL }}
+        run: python -m autow ingest
+
+      - name: 提交结果
+        run: |
+          git config user.name "autow-bot"
+          git config user.email "autow-bot@users.noreply.github.com"
+          git add -A
+          if git diff --staged --quiet; then
+            echo "没有变化"
+          else
+            git commit -m "chore: 更新待办 $(date -u '+%Y-%m-%d %H:%M UTC')"
+            git push
+          fi

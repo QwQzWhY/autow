@@ -1,0 +1,7 @@
+# GitHub Actions runs on Linux; keep the checked-in content LF everywhere so a
+# Windows checkout and a Linux runner agree on the bytes.
+* text=auto eol=lf
+
+*.png binary
+*.apk binary
+*.db binary

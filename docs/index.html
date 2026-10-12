@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0f1115" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#f6f7f9" media="(prefers-color-scheme: light)">
+<title>AutoW · 待办</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar__row">
+    <h1>待办</h1>
+    <button id="refresh" class="icon-btn" title="刷新" aria-label="刷新">↻</button>
+  </div>
+  <p class="topbar__meta" id="meta">加载中…</p>
+</header>
+
+<nav class="filters" id="filters">
+  <button class="filter is-active" data-view="open">待办</button>
+  <button class="filter" data-view="soon">3 天内</button>
+  <button class="filter" data-view="done">已完成</button>
+  <button class="filter" data-view="all">全部</button>
+</nav>
+
+<main id="list" class="list">
+  <p class="empty">加载中…</p>
+</main>
+
+<footer class="footer">
+  <span id="footer-note"></span>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>
