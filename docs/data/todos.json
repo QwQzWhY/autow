@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-10-12T23:44:33+08:00",
-  "count": 7,
+  "generated_at": "2026-10-12T23:45:49+08:00",
+  "count": 8,
   "todos": [
     {
       "key": "lzu-news:1176975.htm",
@@ -13,6 +13,18 @@
       "url": "https://news.lzu.edu.cn/info/1056/1176975.htm",
       "category": "学校通知",
       "published_at": "2026-10-06"
+    },
+    {
+      "key": "qq:4c2618eafb475181",
+      "title": "提交《人工智能导论》课程报告",
+      "detail": "请于明天（2026-10-13）下午 6 点前将《人工智能导论》课程报告提交到课程平台。",
+      "due_at": "2026-10-13T18:00",
+      "priority": "high",
+      "source": "qq",
+      "source_label": "QQ 群",
+      "url": "",
+      "category": "QQ 群消息",
+      "published_at": "2026-10-12"
     },
     {
       "key": "lzu-news:1177735.htm",
