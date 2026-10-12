@@ -59,6 +59,9 @@ jobs:
         run: python -m autow run --skip-analyzed --pages 1
 
       - name: 提交结果
+        # 即使抓取那一步因为配置错误退出，也要把健康状态提交上去，
+        # 否则"为什么失败"只能去翻需要登录才能下载的 CI 日志。
+        if: always()
         run: |
           git config user.name "autow-bot"
           git config user.email "autow-bot@users.noreply.github.com"

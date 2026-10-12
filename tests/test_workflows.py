@@ -50,6 +50,14 @@ class TestWorkflows(unittest.TestCase):
         self.assertEqual(list(triggers), ["repository_dispatch"])
         self.assertIn("qq-message", triggers["repository_dispatch"]["types"])
 
+    def test_the_scan_commits_its_status_even_when_the_crawl_fails(self):
+        # Otherwise a configuration error is invisible: the run goes red and
+        # nothing lands in the repository to explain it.
+        data, _ = load("scan.yml")
+        steps = data["jobs"]["scan"]["steps"]
+        commit = [s for s in steps if s.get("name") == "提交结果"][0]
+        self.assertEqual(commit.get("if"), "always()")
+
     def test_the_heavy_jobs_share_one_concurrency_group(self):
         # Otherwise a scheduled scan and an incoming QQ message can both try to
         # commit at the same moment.

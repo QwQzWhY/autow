@@ -39,7 +39,7 @@ def write_dashboards(store: Store) -> None:
     health.write()
 
 
-def describe_llm() -> None:
+def describe_llm() -> bool:
     """Say up front which extractor this run will use, and prove it works.
 
     A misconfigured endpoint used to blow up mid-scan with a stack trace, and
@@ -51,16 +51,27 @@ def describe_llm() -> None:
     cfg = llm.config()
     if cfg is None:
         print("大模型：未配置 LLM_API_KEY，本次全部走规则抽取")
-        return
+        return True
     if cfg["mode"] == "mock":
         print("大模型：mock 模式（不联网，用规则结果冒充模型输出）")
-        return
+        return True
     print(f"大模型：{cfg['model']} @ {cfg['base_url']}")
+
+    problem = llm.validate_config(cfg)
+    if problem:
+        # A misconfiguration is not a transient failure. Falling back to the
+        # rule extractor here produced a plausible-looking board for a day
+        # before anyone noticed, so refuse to run instead.
+        print(f"大模型配置有误：{problem}")
+        health.write()
+        return False
+
     result = llm.probe()
     if result.get("ok"):
         print("大模型自检：通过")
     else:
         print(f"大模型自检：失败 —— {result.get('error')}")
+    return True
 
 
 # --------------------------------------------------------------------- crawl
@@ -136,7 +147,9 @@ def crawl(args: argparse.Namespace, store: Store) -> tuple[int, int, int]:
 
 def cmd_fetch(args: argparse.Namespace) -> int:
     store = _store(args)
-    describe_llm()
+    if not describe_llm():
+        store.close()
+        return 1
     new_notices, new_todos, analysed = crawl(args, store)
     print(f"{new_notices} 条新通知，{new_todos} 条新待办（分析 {analysed} 条）")
     store.close()
@@ -145,7 +158,9 @@ def cmd_fetch(args: argparse.Namespace) -> int:
 
 def cmd_run(args: argparse.Namespace) -> int:
     store = _store(args)
-    describe_llm()
+    if not describe_llm():
+        store.close()
+        return 1
     new_notices, new_todos, analysed = crawl(args, store)
     print(f"{new_notices} 条新通知，{new_todos} 条新待办（分析 {analysed} 条）")
     write_dashboards(store)

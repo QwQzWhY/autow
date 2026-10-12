@@ -15,6 +15,7 @@ import json
 import os
 from datetime import datetime
 from pathlib import Path
+from urllib.parse import urlparse
 
 from . import llm
 
@@ -37,21 +38,55 @@ def build() -> dict:
     else:
         attempts = int(llm.STATS["attempts"])
         failures = int(llm.STATS["failures"])
+        problem = llm.validate_config(cfg)
+        probe = llm.STATS["probe"]
         extractor = {
             "configured": True,
             "mode": cfg["mode"],
-            "model": cfg["model"],
-            "base_url": cfg["base_url"],
-            "probe": llm.STATS["probe"],
+            "model": _safe(cfg["model"], cfg["api_key"]),
+            # Only the hostname: a whole URL is one paste-mistake away from
+            # being the key itself.
+            "base_url_host": _safe_host(cfg["base_url"]),
+            "probe": _scrub(probe, cfg["api_key"]),
             "attempts": attempts,
             "failures": failures,
-            "ok": attempts > 0 and failures == 0,
-            "last_error": llm.STATS["last_error"],
+            "config_error": problem,
+            "ok": problem is None and attempts > 0 and failures == 0,
+            "last_error": _scrub(llm.STATS["last_error"], cfg["api_key"]),
         }
     return {
         "generated_at": datetime.now().astimezone().isoformat(timespec="seconds"),
         "extractor": extractor,
     }
+
+
+def _safe(value: str, api_key: str = "") -> str:
+    """Never publish something that could be a credential."""
+    text = (value or "").strip()
+    if not text:
+        return ""
+    if llm.secret_like(text) or (api_key and api_key in text):
+        return "(看起来是密钥，已隐藏)"
+    return text
+
+
+def _scrub(value, api_key: str = ""):
+    """Last line of defence: strip the key out of anything we publish.
+
+    Error strings are written by whatever raised, so they can quote the
+    endpoint — which is the key when it was pasted into the wrong field.
+    """
+    if isinstance(value, dict):
+        return {k: _scrub(v, api_key) for k, v in value.items()}
+    if isinstance(value, str):
+        text = value.replace(api_key, "(已隐藏)") if api_key else value
+        return _safe(text, api_key)
+    return value
+
+
+def _safe_host(base_url: str) -> str:
+    host = urlparse(base_url).hostname or ""
+    return host if "." in host else "(无效)"
 
 
 def write(out_dir: Path | None = None) -> Path:

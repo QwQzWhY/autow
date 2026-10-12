@@ -169,5 +169,67 @@ class TestHealth(unittest.TestCase):
         self.assertTrue(health.build()["extractor"]["probe"]["ok"])
 
 
+class TestMisconfiguration(unittest.TestCase):
+    """The first real deployment pasted the API key into the model and base_url
+    fields, and the health file published it to a public repository."""
+
+    KEY = "sk-0000notarealkey0000notarealkey00"
+
+    def setUp(self):
+        saved = {
+            key: os.environ.get(key)
+            for key in ("LLM_API_KEY", "LLM_BASE_URL", "LLM_MODEL", "AUTOW_LLM_MODE")
+        }
+
+        def restore():
+            for key, value in saved.items():
+                if value is None:
+                    os.environ.pop(key, None)
+                else:
+                    os.environ[key] = value
+
+        self.addCleanup(restore)
+        os.environ.pop("AUTOW_LLM_MODE", None)
+
+    def test_a_key_pasted_as_the_base_url_is_rejected(self):
+        os.environ.update(LLM_API_KEY=self.KEY, LLM_BASE_URL=self.KEY, LLM_MODEL="deepseek-chat")
+        problem = llm.validate_config(llm.config())
+        self.assertIsNotNone(problem)
+        self.assertIn("LLM_BASE_URL", problem)
+
+    def test_a_key_pasted_as_the_model_is_rejected(self):
+        os.environ.update(
+            LLM_API_KEY=self.KEY, LLM_BASE_URL="https://api.deepseek.com/v1", LLM_MODEL=self.KEY
+        )
+        problem = llm.validate_config(llm.config())
+        self.assertIsNotNone(problem)
+        self.assertIn("LLM_MODEL", problem)
+
+    def test_a_good_config_passes(self):
+        os.environ.update(
+            LLM_API_KEY=self.KEY,
+            LLM_BASE_URL="https://api.deepseek.com/v1",
+            LLM_MODEL="deepseek-chat",
+        )
+        self.assertIsNone(llm.validate_config(llm.config()))
+
+    def test_real_provider_model_names_are_not_mistaken_for_keys(self):
+        for model in ("deepseek-chat", "glm-4-flash", "qwen-plus", "deepseek-reasoner"):
+            with self.subTest(model):
+                os.environ.update(
+                    LLM_API_KEY=self.KEY,
+                    LLM_BASE_URL="https://api.deepseek.com/v1",
+                    LLM_MODEL=model,
+                )
+                self.assertIsNone(llm.validate_config(llm.config()))
+
+    def test_health_never_publishes_the_key(self):
+        os.environ.update(LLM_API_KEY=self.KEY, LLM_BASE_URL=self.KEY, LLM_MODEL=self.KEY)
+        published = json.dumps(health.build(), ensure_ascii=False)
+        self.assertNotIn(self.KEY, published)
+        self.assertIn("(看起来是密钥，已隐藏)", published)
+        self.assertIsNotNone(health.build()["extractor"]["config_error"])
+
+
 if __name__ == "__main__":
     unittest.main()

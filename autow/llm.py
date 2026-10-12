@@ -21,6 +21,7 @@ import os
 import urllib.error
 import urllib.request
 from datetime import date, datetime
+from urllib.parse import urlparse
 
 from . import extract
 from .extract import TodoDraft
@@ -160,6 +161,44 @@ def normalise_base_url(value: str) -> str:
     if not value.startswith(("http://", "https://")):
         value = "https://" + value
     return value
+
+
+# Values that are credentials, not configuration. Publishing a model name or an
+# endpoint into a public health file is fine — until someone pastes a key into
+# one of those fields, which is exactly what happened on the first deployment.
+# Careful: "glm-4-flash" is a real model name, so provider prefixes are not a
+# reliable signal on their own. These are the ones that are never model names.
+SECRET_PREFIXES = ("sk-", "ghp_", "github_pat_", "xai-", "AKIA", "Bearer ")
+
+
+def secret_like(value: str) -> bool:
+    """Heuristic: does this look like a credential rather than a name?"""
+    text = (value or "").strip()
+    if not text:
+        return False
+    return text.startswith(SECRET_PREFIXES)
+
+
+def validate_config(cfg: dict[str, str] | None) -> str | None:
+    """Return a human-readable problem, or None when the config is usable."""
+    if cfg is None or cfg.get("mode") != "live":
+        return None
+
+    host = urlparse(cfg["base_url"]).hostname or ""
+    if "." not in host:
+        # Never echo the value back: if it is the key, the message itself
+        # becomes the leak (that is exactly how it escaped the second time).
+        return (
+            "LLM_BASE_URL 填的不是一个网址。这一项要填接口地址，"
+            "例如 https://api.deepseek.com/v1 —— 不是 API Key。"
+            + ("（这个值看起来像密钥，已隐去）" if secret_like(host) or len(host) > 40 else "")
+        )
+    if secret_like(cfg["model"]) or cfg["model"] == cfg["api_key"]:
+        return (
+            "LLM_MODEL 填的不是模型名。"
+            "这一项要填模型标识，例如 deepseek-chat —— 不是 API Key。"
+        )
+    return None
 
 
 def _cache_key(kind: str, body: str, model: str, today: date) -> str:
