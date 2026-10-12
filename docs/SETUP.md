@@ -94,25 +94,22 @@ Actions 需要能提交结果回仓库：
 
 ### 方案 A：MacroDroid（推荐，不用编译任何东西）
 
+页面上会直接生成可以复制的配置，不用手抄：
+
+> 打开 `https://<你的用户名>.github.io/autow/qq.html`
+
 1. 应用商店装 **MacroDroid**（免费）。
 2. 新建宏 → 触发器选 **通知 → 收到通知**，配置：
    - 应用：QQ
    - 内容包含：@全体成员
 3. 加动作 **网络 → HTTP 请求**，POST：
-   - URL：`https://api.github.com/repos/<用户名>/<仓库名>/dispatches`
-   - Header 三条：
-     ```
-     Authorization: Bearer <你的 PAT>
-     Accept: application/vnd.github+json
-     Content-Type: application/json
-     ```
-   - Body：
-     ```json
-     {"event_type":"qq-message","client_payload":{"group":"[notification_title]","sender":"","text":"[notification_text]","time":"[year]-[month]-[day]T[hour]:[minute]"}}
-     ```
+   - 把接入页上「请求地址」「Authorization」「Accept」「Content-Type」「Body」
+     五项依次复制进去。Body 里的 `[notification_title]` 之类是 MacroDroid 的
+     魔法文本变量，粘贴后它自己会识别。
 4. 保存。之后每逢 @全体成员，几秒内待办里就会多一条（前提是大模型判断它需要行动）。
 
-`[notification_title]` 这类是 MacroDroid 的魔法文本变量，在下拉列表里能直接选。
+配好之后回到接入页，点「发送测试消息」，页面会一直查到云端确认收到为止——
+不用去 GitHub 翻日志。
 
 ### 方案 B：编译自带的通知桥 APK
 

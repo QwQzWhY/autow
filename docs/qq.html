@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f6f7f9" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0f1115" media="(prefers-color-scheme: dark)">
+<title>QQ 接入 · AutoW</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar__row">
+    <h1>QQ 接入</h1>
+    <a class="icon-btn" href="./" title="返回待办" aria-label="返回待办">←</a>
+  </div>
+  <p class="topbar__meta" id="meta">读状态中…</p>
+</header>
+
+<main class="page">
+
+  <section class="panel" id="status-panel">
+    <div class="status">
+      <span class="dot" id="status-dot"></span>
+      <div>
+        <p class="status__title" id="status-title">检查中…</p>
+        <p class="status__sub" id="status-sub"></p>
+      </div>
+    </div>
+    <div class="stats" id="stats"></div>
+  </section>
+
+  <section class="panel">
+    <h2>最近的 QQ 消息</h2>
+    <p class="hint">
+      为了不把群名和人名发到公开网页上，这里只显示时间和处理结果。
+    </p>
+    <ul class="log" id="log"><li class="log__empty">还没有收到过消息</li></ul>
+  </section>
+
+  <section class="panel">
+    <h2><span class="step">1</span> 建一个访问令牌</h2>
+    <p class="hint">
+      手机要往你的 GitHub 仓库投递消息，需要一个令牌。去
+      <a href="https://github.com/settings/personal-access-tokens/new"
+         target="_blank" rel="noopener">Fine-grained tokens</a> 新建一个：
+    </p>
+    <ul class="list-notes">
+      <li>Repository access：只勾选 <strong>这一个仓库</strong></li>
+      <li>Permissions → Repository permissions → <strong>Contents</strong> 选 <strong>Read and write</strong></li>
+      <li>有效期建议 90 天</li>
+    </ul>
+  </section>
+
+  <section class="panel">
+    <h2><span class="step">2</span> 填仓库和令牌</h2>
+    <p class="hint">只存在这台手机里，除了 api.github.com 不会发往任何地方。</p>
+    <label class="field">
+      <span>仓库</span>
+      <input id="repo" type="text" placeholder="用户名/仓库名" autocapitalize="off"
+             autocomplete="off" spellcheck="false">
+    </label>
+    <label class="field">
+      <span>访问令牌</span>
+      <input id="token" type="password" placeholder="github_pat_…" autocapitalize="off"
+             autocomplete="off" spellcheck="false">
+    </label>
+    <button class="btn btn--primary" id="save">保存</button>
+  </section>
+
+  <section class="panel">
+    <h2><span class="step">3</span> 配到手机上</h2>
+    <div class="seg" id="mode">
+      <button class="seg__item is-active" data-mode="macro">MacroDroid</button>
+      <button class="seg__item" data-mode="apk">通知桥 App</button>
+    </div>
+
+    <div id="macro-guide">
+      <ol class="list-notes">
+        <li>应用商店装 <strong>MacroDroid</strong>，新建宏</li>
+        <li>触发器：通知 → 收到通知；应用选 <strong>QQ</strong>；内容包含 <code>@全体成员</code></li>
+        <li>动作：网络 → HTTP 请求（POST），把下面四项照抄</li>
+      </ol>
+    </div>
+
+    <div id="apk-guide" hidden>
+      <ol class="list-notes">
+        <li>去仓库的 Actions → 构建通知桥 APK → Run workflow</li>
+        <li>下载 Artifacts 里的 APK 装到手机（需允许未知来源）</li>
+        <li>打开 App，把下面的<strong>仓库</strong>和<strong>令牌</strong>填进同样的两个框</li>
+        <li>点「① 开启通知使用权」，在系统设置里勾上它</li>
+      </ol>
+    </div>
+
+    <div class="kv" id="config"></div>
+  </section>
+
+  <section class="panel">
+    <h2><span class="step">4</span> 测试</h2>
+    <p class="hint">
+      点一下，从这台手机发一条假消息给云端。收到就说明整条链路通了。
+    </p>
+    <button class="btn btn--primary" id="test">发送测试消息</button>
+    <p class="result" id="test-result"></p>
+  </section>
+
+  <p class="disclaimer">
+    通知桥只读 QQ 弹出来的通知，不登录账号、不碰聊天记录。主号零风险。<br>
+    默认只转发含 <code>@全体成员</code> 的消息；管理员发言要在 QQ 里把他们设成
+    「特别关注」才会弹通知。
+  </p>
+
+</main>
+
+<script src="qq.js"></script>
+</body>
+</html>

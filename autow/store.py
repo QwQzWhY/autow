@@ -45,6 +45,17 @@ CREATE TABLE IF NOT EXISTS llm_cache (
     response    TEXT NOT NULL,
     created_at  TEXT NOT NULL
 );
+
+-- 只记"收到过一条消息、判断结果是什么"，不留群名、人名和原文。
+-- 这个数据库会跟着仓库走，公开仓库里不能出现聊天内容。
+CREATE TABLE IF NOT EXISTS qq_log (
+    id          INTEGER PRIMARY KEY,
+    received_at TEXT NOT NULL,
+    verdict     TEXT NOT NULL,
+    title       TEXT,
+    length      INTEGER,
+    nonce       TEXT
+);
 """
 
 
@@ -176,3 +187,48 @@ class Store:
                    ORDER BY (t.due_at IS NULL), t.due_at, t.id DESC"""
             )
         )
+
+    # --------------------------------------------------------------- qq log
+
+    def log_qq(
+        self,
+        verdict: str,
+        title: str = "",
+        length: int = 0,
+        nonce: str = "",
+        received_at: str | None = None,
+    ) -> None:
+        """Record the outcome of one incoming QQ message.
+
+        Deliberately stores no group name, sender or message body: this database
+        is committed to the repository, and the dashboard repository is meant to
+        be public. A digest is kept in `notices.external_id` for dedupe instead.
+        """
+        self.conn.execute(
+            """INSERT INTO qq_log (received_at, verdict, title, length, nonce)
+               VALUES (?, ?, ?, ?, ?)""",
+            (received_at or now_iso(), verdict, title[:120], length, nonce[:64]),
+        )
+        self.conn.commit()
+
+    def qq_recent(self, limit: int = 10) -> list[sqlite3.Row]:
+        return list(
+            self.conn.execute(
+                "SELECT * FROM qq_log ORDER BY id DESC LIMIT ?", (limit,)
+            )
+        )
+
+    def qq_counts(self) -> dict[str, int]:
+        today = datetime.now().astimezone().date().isoformat()
+        one = lambda sql, *args: self.conn.execute(sql, args).fetchone()[0]
+        return {
+            "total_received": one("SELECT COUNT(*) FROM qq_log"),
+            "total_todos": one("SELECT COUNT(*) FROM qq_log WHERE verdict = 'todo'"),
+            "today_received": one(
+                "SELECT COUNT(*) FROM qq_log WHERE substr(received_at, 1, 10) = ?", today
+            ),
+            "today_todos": one(
+                "SELECT COUNT(*) FROM qq_log WHERE verdict = 'todo' AND substr(received_at, 1, 10) = ?",
+                today,
+            ),
+        }

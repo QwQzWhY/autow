@@ -15,8 +15,9 @@ import json
 import os
 import sys
 import time
+from datetime import datetime
 
-from . import dates, llm, publish
+from . import dates, llm, publish, qqstatus
 from .models import RawNotice
 from .store import Store
 
@@ -29,6 +30,12 @@ DELAY_BETWEEN_PAGES = 3.0
 
 def _store(args: argparse.Namespace) -> Store:
     return Store(args.db) if args.db else Store()
+
+
+def write_dashboards(store: Store) -> None:
+    """Refresh everything the phone reads."""
+    print("看板数据已写入", publish.write(store))
+    qqstatus.write(store)
 
 
 # --------------------------------------------------------------------- crawl
@@ -113,16 +120,15 @@ def cmd_fetch(args: argparse.Namespace) -> int:
 def cmd_run(args: argparse.Namespace) -> int:
     store = _store(args)
     new_notices, new_todos, analysed = crawl(args, store)
-    path = publish.write(store)
     print(f"{new_notices} 条新通知，{new_todos} 条新待办（分析 {analysed} 条）")
-    print(f"看板数据已写入 {path}")
+    write_dashboards(store)
     store.close()
     return 0
 
 
 def cmd_publish(args: argparse.Namespace) -> int:
     store = _store(args)
-    print("看板数据已写入", publish.write(store))
+    write_dashboards(store)
     store.close()
     return 0
 
@@ -151,21 +157,34 @@ def cmd_todos(args: argparse.Namespace) -> int:
 # -------------------------------------------------------------------- ingest
 
 
+def _qq_notice(digest: str, when: str | None, title: str) -> RawNotice:
+    """A QQ message as it is *stored*.
+
+    The body is intentionally empty and the title carries no group or sender:
+    `data/autow.db` is committed to the repository, and the dashboard repo is
+    meant to be public. Dedupe uses the digest instead of the raw text.
+    """
+    return RawNotice(
+        url="",
+        title=title,
+        title_full=title,
+        published_text=when or "",
+        published_at=(when or "")[:10] or None,
+        category="QQ 群消息",
+        body="",
+        external_id=digest,
+    )
+
+
 def cmd_ingest(args: argparse.Namespace) -> int:
     """Take one forwarded QQ message and decide whether it is a todo.
 
     Input is a JSON object, either via --json or on stdin:
-        {"group": "计科2201班", "sender": "李老师", "text": "…", "time": "2026-10-12T10:00"}
+        {"group": "…", "sender": "…", "text": "…", "time": "2026-10-12T10:00", "nonce": "…"}
     """
     raw = args.json or os.environ.get("AUTOW_INGEST_JSON", "") or sys.stdin.read()
     if not raw.strip():
         print("空输入", file=sys.stderr)
-        return 1
-
-    # Chat messages have no structure to fall back on, so the rule extractor is
-    # useless here — without a model we would either drop everything or add noise.
-    if not llm.config():
-        print("未配置大模型（LLM_API_KEY），QQ 消息无法判断，已跳过。", file=sys.stderr)
         return 1
 
     data = json.loads(raw)
@@ -173,38 +192,50 @@ def cmd_ingest(args: argparse.Namespace) -> int:
     sender = (data.get("sender") or "").strip()
     text = (data.get("text") or "").strip()
     when = (data.get("time") or "").strip() or None
-    if not text:
-        print("消息内容为空", file=sys.stderr)
-        return 1
+    nonce = (data.get("nonce") or "").strip()
 
     store = _store(args)
+    received_at = datetime.now().astimezone().isoformat(timespec="seconds")
     digest = hashlib.sha1(f"{group}|{sender}|{text}".encode("utf-8")).hexdigest()[:16]
-    notice = RawNotice(
-        url=data.get("url") or "",
-        title=f"[{group}] {sender}: {text[:60]}",
-        title_full=f"QQ 群 {group} · {sender}",
-        published_text=when or "",
-        published_at=(when or "")[:10] or None,
-        category="QQ 群消息",
-        body=text,
-        external_id=digest,
-    )
 
-    notice_id, _ = store.upsert_notice(CHAT_SOURCE, notice)
+    if not text:
+        store.log_qq("empty", "", 0, nonce, received_at)
+        write_dashboards(store)
+        print("消息内容为空", file=sys.stderr)
+        store.close()
+        return 1
+
+    # Chat messages have no structure to fall back on, so the rule extractor is
+    # useless here. Without a model we cannot tell "作业截止" from "大家在吗",
+    # so record the fact that a message arrived (the setup page shows it) and
+    # leave the board alone rather than filling it with guesses.
+    if not llm.config():
+        store.upsert_notice(CHAT_SOURCE, _qq_notice(digest, when, "QQ 群消息（未处理）"))
+        store.log_qq("no-model", "", len(text), nonce, received_at)
+        write_dashboards(store)
+        print("未配置大模型（LLM_API_KEY），消息已记录但未处理。", file=sys.stderr)
+        store.close()
+        return 0
+
     draft, engine = llm.analyze(
-        title=notice.title_full,
+        title="QQ 群消息",
         body=text,
         published=when,
         group=group,
         sender=sender,
         kind="chat",
         cache=store,
+        use_cache=False,
     )
     if not draft:
-        print(f"[{engine}] 不需要行动：{text[:60]}")
+        store.upsert_notice(CHAT_SOURCE, _qq_notice(digest, when, "QQ 群消息（无需行动）"))
+        store.log_qq("ignored", "", len(text), nonce, received_at)
+        write_dashboards(store)
+        print(f"[{engine}] 这条消息不需要行动")
         store.close()
         return 0
 
+    notice_id, _ = store.upsert_notice(CHAT_SOURCE, _qq_notice(digest, when, draft.title))
     created = store.add_todo(
         notice_id=notice_id,
         title=draft.title,
@@ -213,11 +244,14 @@ def cmd_ingest(args: argparse.Namespace) -> int:
         priority=draft.priority,
         dedupe_key=f"{CHAT_SOURCE}:{digest}",
     )
+    store.log_qq(
+        "todo" if created else "duplicate", draft.title, len(text), nonce, received_at
+    )
+    write_dashboards(store)
     print(
         f"[{engine}] {'新增' if created else '已存在'}待办："
         f"{draft.title} / {dates.human(draft.due_at)}"
     )
-    publish.write(store)
     store.close()
     return 0
 

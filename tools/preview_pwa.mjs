@@ -16,6 +16,9 @@ const browser = await chromium.launch({
   ignoreDefaultArgs: ['--enable-automation'],
 });
 
+const target = process.argv[2] || '/';
+const out = process.argv[3] || '.probe/pwa.png';
+
 const page = await browser.newPage({
   viewport: { width: 390, height: 844 },
   deviceScaleFactor: 2,
@@ -27,10 +30,17 @@ const errors = [];
 page.on('console', (m) => m.type() === 'error' && errors.push(m.text()));
 page.on('pageerror', (e) => errors.push(String(e)));
 
-await page.goto('http://127.0.0.1:8765/', { waitUntil: 'networkidle' });
+// The setup page needs a repository and token before it renders its config,
+// so prime localStorage before the app script runs.
+await page.addInitScript(() => {
+  localStorage.setItem('autow.qq.repo', 'zhangsan/autow');
+  localStorage.setItem('autow.qq.token', 'github_pat_EXAMPLE');
+});
+
+await page.goto('http://127.0.0.1:8765' + target, { waitUntil: 'networkidle' });
 await page.waitForTimeout(1200);
-await page.screenshot({ path: '.probe/pwa.png', fullPage: true });
-console.log('cards:', await page.locator('.card').count());
+await page.screenshot({ path: out, fullPage: true });
+console.log('url:', page.url());
 console.log('meta:', await page.locator('#meta').innerText());
 console.log('errors:', errors.length ? errors : 'none');
 

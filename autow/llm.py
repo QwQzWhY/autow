@@ -72,6 +72,7 @@ CHAT_PROMPT = """你是一个学生事务助理。用户是兰州大学人工智
 - title 用不超过 30 字的祈使句，说清要做什么。
 - detail 说明要做什么、什么时候交、去哪里做。不要复述群名、人名或闲聊内容，
   这些内容会被发布到公网上。
+- 如果 action_required 为 false，title 和 detail 必须留空字符串，不要摘抄原文。
 
 只输出 JSON，不要任何解释。"""
 
@@ -117,16 +118,20 @@ def _cache_key(kind: str, body: str, model: str, today: date) -> str:
     return f"v{CACHE_VERSION}:{model}:{today.isoformat()}:{digest}"
 
 
-def _mock_response(body: str, title: str = "") -> dict:
+def _mock_response(body: str, title: str, kind: str) -> dict:
     """Deterministic stand-in so the pipeline can be tested without a key."""
-    headline = title.strip() or (body.strip().splitlines()[0][:30] if body.strip() else "待办")
+    headline = title.strip() or "待办"
     draft = extract.extract_todo(
         RawNotice(url="", title=headline, title_full=headline, body=body)
     )
+    # The rule extractor quotes the sentence it matched. That is fine for a
+    # public notice, and wrong for a private chat message standing in for a
+    # model that has been told not to quote. The detail ends up published.
+    detail = "" if (draft and kind == "chat") else (draft.detail if draft else "")
     return {
         "action_required": draft is not None,
         "title": draft.title if draft else "",
-        "detail": draft.detail if draft else "",
+        "detail": detail,
         "due_at": draft.due_at if draft else None,
         "priority": draft.priority if draft else "low",
     }
@@ -162,6 +167,7 @@ def analyze(
     sender: str = "",
     kind: str = "notice",
     cache=None,
+    use_cache: bool = True,
 ) -> tuple[TodoDraft | None, str]:
     """Return (todo or None, engine) where engine is 'llm', 'rules' or 'mock'."""
     cfg = config()
@@ -173,13 +179,14 @@ def analyze(
     today = date.today()
     model = cfg["model"]
     key = _cache_key(kind, body, model, today)
-    raw = cache.cache_get(key, model) if cache else None
+    raw = cache.cache_get(key, model) if (cache and use_cache) else None
 
     if raw is None:
         try:
             if cfg["mode"] == "mock":
-                # Notices already carry a usable title; chat messages do not.
-                data = _mock_response(body, title if kind == "notice" else "")
+                data = _mock_response(
+                    body, title if kind == "notice" else "QQ 群消息", kind
+                )
             else:
                 if kind == "chat":
                     system = CHAT_PROMPT.format(today=today.isoformat())
@@ -202,7 +209,10 @@ def analyze(
                     model,
                 )
             raw = json.dumps(data, ensure_ascii=False)
-            if cache:
+            # Chat verdicts are deliberately never cached: every message is
+            # unique, so a cache buys nothing, and the cached JSON would put a
+            # paraphrase of private chat into a public repository.
+            if cache and use_cache:
                 cache.cache_put(key, model, raw)
         except (urllib.error.URLError, TimeoutError, KeyError, json.JSONDecodeError) as exc:
             print(f"    [llm] 调用失败，退回规则抽取：{type(exc).__name__}: {exc}")

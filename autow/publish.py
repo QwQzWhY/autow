@@ -7,6 +7,7 @@ API and as the deployment artifact.
 from __future__ import annotations
 
 import json
+import os
 from datetime import datetime
 from pathlib import Path
 
@@ -47,7 +48,18 @@ def build(store: Store) -> dict:
     }
 
 
-def write(store: Store, out_dir: Path = DOCS_DATA) -> Path:
+def data_dir() -> Path:
+    """Where the phone reads its data from.
+
+    Overridable so tests never scribble over the real dashboard files that are
+    committed to the repository.
+    """
+    override = os.environ.get("AUTOW_DOCS_DIR")
+    return Path(override) if override else DOCS_DATA
+
+
+def write(store: Store, out_dir: Path | None = None) -> Path:
+    out_dir = out_dir or data_dir()
     out_dir.mkdir(parents=True, exist_ok=True)
     path = out_dir / "todos.json"
     path.write_text(
