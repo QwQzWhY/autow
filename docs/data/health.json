@@ -1,14 +1,16 @@
 {
-  "generated_at": "2026-10-12T14:06:55+00:00",
+  "generated_at": "2026-10-12T14:17:04+00:00",
   "extractor": {
     "configured": true,
     "mode": "live",
-    "model": "(看起来是密钥，已隐藏)",
-    "base_url_host": "(无效)",
-    "probe": null,
+    "model": "deepseek-chat",
+    "base_url_host": "api.deepseek.com",
+    "probe": {
+      "ok": true
+    },
     "attempts": 0,
     "failures": 0,
-    "config_error": "LLM_BASE_URL 填的不是一个网址。这一项要填接口地址，例如 https://api.deepseek.com/v1 —— 不是 API Key。（这个值看起来像密钥，已隐去）",
+    "config_error": null,
     "ok": false,
     "last_error": ""
   }
