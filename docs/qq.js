@@ -176,7 +176,13 @@ function saveSettings() {
   renderConfig();
 }
 
-async function sendTest() {
+// Two probes on purpose. The first proves the phone can reach GitHub; the
+// second proves the model turns a chat message into a todo, which the first
+// cannot show because it is worded so that no action is required.
+const PLAIN_PROBE = '【AutoW 连接测试】看到这条说明手机已经能把消息送到云端了，无需处理。';
+const TODO_PROBE = '【AutoW 测试】《人工智能导论》课程报告请于明天下午 6 点前提交到课程平台。';
+
+async function sendTest(text) {
   const out = $('test-result');
   if (!settings.repo || !settings.token) {
     out.textContent = '先把仓库和令牌填好并保存。';
@@ -190,16 +196,12 @@ async function sendTest() {
   }
 
   const nonce = Math.random().toString(36).slice(2, 10);
-  const stamp = new Date();
-  const pad = (n) => String(n).padStart(2, '0');
   const body = {
     event_type: 'qq-message',
     client_payload: {
       group: 'AutoW 连接测试',
       sender: 'AutoW',
-      text: '【AutoW 连接测试】看到这条说明手机已经能把消息送到云端了，无需处理。',
-      time: `${stamp.getFullYear()}-${pad(stamp.getMonth() + 1)}-${pad(stamp.getDate())}` +
-            `T${pad(stamp.getHours())}:${pad(stamp.getMinutes())}`,
+      text,
       nonce,
     },
   };
@@ -246,12 +248,16 @@ async function sendTest() {
     const data = await loadStatus();
     const hit = data?.recent?.find((item) => item.nonce === nonce);
     if (hit) {
-      out.textContent =
-        `云端已收到（${hit.verdict_label}）。` +
-        (hit.verdict === 'no-model'
-          ? '但你还没配 LLM_API_KEY，所以不会生成待办。'
-          : '链路是通的。');
-      out.className = 'result result--good';
+      if (hit.verdict === 'todo') {
+        out.textContent = `已生成待办《${hit.title}》，去待办页看看。`;
+        out.className = 'result result--good';
+      } else if (hit.verdict === 'no-model') {
+        out.textContent = '云端收到了，但没配 LLM_API_KEY，不会生成待办。';
+        out.className = 'result result--bad';
+      } else {
+        out.textContent = `云端已收到（${hit.verdict_label}）。链路是通的。`;
+        out.className = 'result result--good';
+      }
       return;
     }
     out.textContent = `已发出，等待云端处理…（第 ${i + 1} 次查询）`;
@@ -266,7 +272,8 @@ async function sendTest() {
 $('repo').value = settings.repo;
 $('token').value = settings.token;
 $('save').addEventListener('click', saveSettings);
-$('test').addEventListener('click', sendTest);
+$('test').addEventListener('click', () => sendTest(PLAIN_PROBE));
+$('test-todo').addEventListener('click', () => sendTest(TODO_PROBE));
 
 $('mode').addEventListener('click', (e) => {
   const btn = e.target.closest('.seg__item');
