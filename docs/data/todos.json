@@ -1,7 +1,43 @@
 {
-  "generated_at": "2026-10-12T19:51:41+08:00",
-  "count": 2,
+  "generated_at": "2026-10-12T20:37:37+08:00",
+  "count": 5,
   "todos": [
+    {
+      "key": "lzu-news:1177735.htm",
+      "title": "举办兰州大学2026—2027学年“萃英登峰”大学生骨干培养计划开班仪式和“开班第一课”",
+      "detail": "请各学院认真组织人员报名，于10月14日（星期三）下午18:00前，将参加人员名单（见附件）反馈至twzzb@lzu.edu.cn",
+      "due_at": "2026-10-14T18:00",
+      "priority": "high",
+      "source": "lzu-news",
+      "source_label": "学校通知",
+      "url": "https://news.lzu.edu.cn/info/1056/1177735.htm",
+      "category": "学校通知",
+      "published_at": "2026-10-12"
+    },
+    {
+      "key": "lzu-ai:A0164JT4",
+      "title": "暑期安全模型已部署，请全体人工智能学子一键加载",
+      "detail": "暑期安全模型已部署，请全体人工智能学子一键加载",
+      "due_at": null,
+      "priority": "high",
+      "source": "lzu-ai",
+      "source_label": "学院通知",
+      "url": "https://ai.lzu.edu.cn/news/A0164JT4",
+      "category": "通知公告",
+      "published_at": "2026-07-26"
+    },
+    {
+      "key": "lzu-ai:A028BZSQ",
+      "title": "人工智能学院2027年推荐优秀应届本科毕业生免试攻读研究生工作实施细则",
+      "detail": "人工智能学院2027年推荐优秀应届本科毕业生免试攻读研究生工作实施细则",
+      "due_at": null,
+      "priority": "high",
+      "source": "lzu-ai",
+      "source_label": "学院通知",
+      "url": "https://ai.lzu.edu.cn/news/A028BZSQ",
+      "category": "本科生培养",
+      "published_at": "2026-09-07"
+    },
     {
       "key": "lzu-ai:A045HJ3G",
       "title": "公布人工智能学院研究生奖学金评审实施细则",

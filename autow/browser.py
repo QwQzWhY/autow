@@ -19,7 +19,7 @@ from contextlib import contextmanager
 from pathlib import Path
 from typing import Iterator
 
-from playwright.sync_api import BrowserContext, sync_playwright
+from playwright.sync_api import BrowserContext, Page, sync_playwright
 
 CHROME_UA = (
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
@@ -80,3 +80,43 @@ def stealth_context(
             yield context
         finally:
             context.close()
+
+
+def open_page(context: BrowserContext, url: str, ready_selector: str) -> Page:
+    """Navigate and wait past the WAF challenge.
+
+    Both LZU sites sit behind the same JS challenge: the first response is a 412
+    carrying the challenge script, and the browser then re-requests the page and
+    renders it for real. So we wait for a selector that only exists on the
+    genuine page, reloading once if it never shows up.
+    """
+    page = context.new_page()
+    page.goto(url, wait_until="domcontentloaded", timeout=45_000)
+    try:
+        page.wait_for_selector(ready_selector, state="attached", timeout=20_000)
+    except Exception as first_error:
+        page.reload(wait_until="domcontentloaded", timeout=45_000)
+        try:
+            page.wait_for_selector(ready_selector, state="attached", timeout=25_000)
+        except Exception:
+            _dump_failure(page, url)
+            raise first_error
+    return page
+
+
+def _dump_failure(page: Page, url: str) -> None:
+    """Leave enough evidence behind to explain a failed load."""
+    if not os.environ.get("AUTOW_DUMP"):
+        return
+    out = Path(".debug")
+    out.mkdir(exist_ok=True)
+    slug = url.replace("https://", "").replace("/", "_").replace("?", "_")[:60]
+    try:
+        (out / f"{slug}.html").write_text(page.content(), encoding="utf-8")
+        (out / f"{slug}.txt").write_text(
+            page.evaluate("() => document.body.innerText"), encoding="utf-8"
+        )
+        page.screenshot(path=str(out / f"{slug}.png"), full_page=True)
+        print(f"    [debug] dumped .debug/{slug}.*  title={page.title()!r}")
+    except Exception as exc:  # pragma: no cover - diagnostics only
+        print("    [debug] dump failed:", exc)

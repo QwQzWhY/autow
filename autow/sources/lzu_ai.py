@@ -10,16 +10,16 @@ found on the site itself rather than guessed.
 
 from __future__ import annotations
 
-import os
 from dataclasses import dataclass, field
-from pathlib import Path
 from urllib.parse import urlencode
 
-from playwright.sync_api import BrowserContext, Page
+from playwright.sync_api import BrowserContext
 
 from .. import dates
+from ..browser import open_page
 
 BASE = "https://ai.lzu.edu.cn"
+NAME = "lzu-ai"
 
 # 通知公告 — the section a student actually needs to watch.
 NOTICE_MODULE = "ACA011ZZHQ"
@@ -78,45 +78,6 @@ def list_url(module: str = NOTICE_MODULE, page_no: int = 1) -> str:
     if page_no > 1:
         params["page"] = str(page_no)
     return f"{BASE}/news?{urlencode(params)}"
-
-
-def open_page(context: BrowserContext, url: str, ready_selector: str) -> Page:
-    """Navigate and wait past the WAF challenge.
-
-    The first response is a 412 carrying the challenge script; the browser then
-    re-requests the page and renders it for real. So we wait for a selector
-    that only exists on the genuine page, and retry once if it never shows up.
-    """
-    page = context.new_page()
-    page.goto(url, wait_until="domcontentloaded", timeout=45_000)
-    try:
-        page.wait_for_selector(ready_selector, state="attached", timeout=20_000)
-    except Exception as first_error:
-        page.reload(wait_until="domcontentloaded", timeout=45_000)
-        try:
-            page.wait_for_selector(ready_selector, state="attached", timeout=25_000)
-        except Exception:
-            _dump_failure(page, url)
-            raise first_error
-    return page
-
-
-def _dump_failure(page: Page, url: str) -> None:
-    """Leave enough evidence behind to explain a failed load."""
-    if not os.environ.get("AUTOW_DUMP"):
-        return
-    out = Path(".debug")
-    out.mkdir(exist_ok=True)
-    slug = url.replace("https://", "").replace("/", "_").replace("?", "_")[:60]
-    try:
-        (out / f"{slug}.html").write_text(page.content(), encoding="utf-8")
-        (out / f"{slug}.txt").write_text(
-            page.evaluate("() => document.body.innerText"), encoding="utf-8"
-        )
-        page.screenshot(path=str(out / f"{slug}.png"), full_page=True)
-        print(f"    [debug] dumped .debug/{slug}.*  title={page.title()!r}")
-    except Exception as exc:  # pragma: no cover - diagnostics only
-        print("    [debug] dump failed:", exc)
 
 
 def fetch_list(context: BrowserContext, module: str = NOTICE_MODULE, page_no: int = 1) -> list[RawNotice]:

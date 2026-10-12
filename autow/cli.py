@@ -18,11 +18,10 @@ import time
 
 from . import dates, llm, publish
 from .browser import stealth_context
-from .sources import lzu_ai
+from .sources import SOURCES
 from .sources.lzu_ai import RawNotice
 from .store import Store
 
-NOTICE_SOURCE = "lzu-ai"
 CHAT_SOURCE = "qq"
 
 # The site's WAF starts returning empty 412s if it is hammered, so we crawl
@@ -43,51 +42,57 @@ def crawl(args: argparse.Namespace, store: Store) -> tuple[int, int, int]:
     engines: dict[str, int] = {}
 
     with stealth_context(headless=not args.headful) as context:
-        for page_no in range(1, args.pages + 1):
-            listing = lzu_ai.fetch_list(context, page_no=page_no)
-            if not listing:
-                break
-            print(f"[list p{page_no}] {len(listing)} notices", flush=True)
-
-            for stub in listing:
-                if args.limit and analysed >= args.limit:
-                    break
-                # Check the cheap way first: a list URL already tells us whether
-                # we have seen this notice, so skipping costs no browser request.
-                if args.skip_analyzed and store.has_notice(NOTICE_SOURCE, stub.external_id):
-                    continue
+        for source in SOURCES:
+            for page_no in range(1, args.pages + 1):
                 try:
-                    notice = lzu_ai.fetch_detail(context, stub)
+                    listing = source.fetch_list(context, page_no=page_no)
                 except Exception as exc:
-                    print(f"  FAIL {stub.title[:40]} ({type(exc).__name__})")
-                    continue
+                    print(f"[{source.NAME}] 列表抓取失败：{type(exc).__name__}: {exc}")
+                    break
+                if not listing:
+                    break
+                print(f"[{source.NAME} p{page_no}] {len(listing)} 条", flush=True)
 
-                notice_id, is_new = store.upsert_notice(NOTICE_SOURCE, notice)
-                new_notices += int(is_new)
-                print(
-                    f"  {'NEW ' if is_new else '    '}{notice.published_at or '??'}  "
-                    f"{notice.title_full[:52]}"
-                )
+                for stub in listing:
+                    if args.limit and analysed >= args.limit:
+                        break
+                    # Check the cheap way first: a list URL already tells us
+                    # whether we have seen this notice, so skipping costs no
+                    # browser request.
+                    if args.skip_analyzed and store.has_notice(source.NAME, stub.external_id):
+                        continue
+                    try:
+                        notice = source.fetch_detail(context, stub)
+                    except Exception as exc:
+                        print(f"  FAIL {stub.title[:40]} ({type(exc).__name__})")
+                        continue
 
-                draft, engine = llm.analyze_notice(notice, cache=store)
-                analysed += 1
-                engines[engine] = engines.get(engine, 0) + 1
-                if draft:
-                    created = store.add_todo(
-                        notice_id=notice_id,
-                        title=draft.title,
-                        detail=draft.detail,
-                        due_at=draft.due_at,
-                        priority=draft.priority,
-                        dedupe_key=f"{NOTICE_SOURCE}:{notice.external_id}",
+                    notice_id, is_new = store.upsert_notice(source.NAME, notice)
+                    new_notices += int(is_new)
+                    print(
+                        f"  {'NEW ' if is_new else '    '}{notice.published_at or '??'}  "
+                        f"{notice.title_full[:52]}"
                     )
-                    if created:
-                        new_todos += 1
-                        print(
-                            f"        -> [{engine}] {draft.priority:<6} "
-                            f"{dates.human(draft.due_at):<17} {draft.title}"
+
+                    draft, engine = llm.analyze_notice(notice, cache=store)
+                    analysed += 1
+                    engines[engine] = engines.get(engine, 0) + 1
+                    if draft:
+                        created = store.add_todo(
+                            notice_id=notice_id,
+                            title=draft.title,
+                            detail=draft.detail,
+                            due_at=draft.due_at,
+                            priority=draft.priority,
+                            dedupe_key=f"{source.NAME}:{notice.external_id}",
                         )
-                time.sleep(DELAY_BETWEEN_PAGES)
+                        if created:
+                            new_todos += 1
+                            print(
+                                f"        -> [{engine}] {draft.priority:<6} "
+                                f"{dates.human(draft.due_at):<17} {draft.title}"
+                            )
+                    time.sleep(DELAY_BETWEEN_PAGES)
 
     print(f"\n引擎使用：{engines}")
     return new_notices, new_todos, analysed

@@ -16,7 +16,7 @@ DOCS_DATA = Path(__file__).resolve().parent.parent / "docs" / "data"
 
 SOURCE_LABELS = {
     "lzu-ai": "学院通知",
-    "lzu-main": "学校通知",
+    "lzu-news": "学校通知",
     "qq": "QQ 群",
 }
 

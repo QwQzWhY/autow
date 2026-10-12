@@ -33,14 +33,18 @@ MAX_BODY_CHARS = 6000
 # Bump this whenever the prompts or the mock/rule logic change, so cached
 # verdicts from an older version are not reused. LLM calls cost money and the
 # cache is otherwise keyed only on the text.
-CACHE_VERSION = 2
+CACHE_VERSION = 3
 
 NOTICE_PROMPT = """你是一个学生事务助理。用户是兰州大学人工智能学院的学生。
-你要判断一条学院通知对学生是否意味着"需要做的具体事情"，并把关键信息抽成结构化数据。
+通知有两种来源：学院官网，以及学校层级的通知公告（后者什么都有，噪音很多）。
+你要判断一条通知对学生是否意味着"需要做的具体事情"，并把关键信息抽成结构化数据。
 
 规则：
 - 只关注学生本人需要采取行动的事项（报名、提交材料、面试、缴费、开题、答辩、选课、公示期内提异议等）。
 - 纯粹的新闻、喜报、会议纪要、人事任命、领导讲话、招聘宣讲，action_required 为 false。
+- 学校层级的行政和后勤事项与学生本人无关，action_required 为 false，例如：
+  招聘启事、招标采购、中标公告、停水停电停暖、设备申购、实验室信息报送、
+  干部任免、基金申报、院系院庆公告。面向全校学生的才可能为 true。
 - due_at 是这条事项的截止时间，格式 YYYY-MM-DDTHH:MM。没有明确截止时间就填 null，
   不要凭空编造。文字里只写"公示期自9月24日至9月29日"时，取结束日 23:59。
   通知末尾的落款日期不是截止时间。
