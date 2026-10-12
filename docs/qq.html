@@ -8,7 +8,7 @@
 <title>QQ 接入 · AutoW</title>
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style.css?v=3">
 </head>
 <body>
 
@@ -80,9 +80,21 @@
 
     <div id="macro-guide">
       <ol class="list-notes">
-        <li>应用商店装 <strong>MacroDroid</strong>，新建宏</li>
-        <li>触发器：通知 → 收到通知；应用选 <strong>QQ</strong>；内容包含 <code>@全体成员</code></li>
-        <li>动作：网络 → HTTP 请求（POST），把下面四项照抄</li>
+        <li>应用商店装 <strong>MacroDroid</strong>，并授予<strong>通知使用权</strong></li>
+        <li>新建<strong>宏</strong> → 点 <strong>添加触发器</strong> → 分类选 <code>通知</code> → <code>收到通知</code></li>
+        <li><code>选择应用程序</code>：勾上 <strong>QQ</strong></li>
+        <li>文本筛选选 <code>包括</code>，填 <code>@全体成员</code>
+          <br><small>注意是「包括」不是「包含」，英文原文是 Contains</small></li>
+        <li><code>防止多重触发</code> 保持默认开启，别关</li>
+        <li>点 <strong>添加动作</strong> → 选 <code>HTTP 请求</code></li>
+        <li><code>请求方法</code> 选 <strong>POST</strong>；<code>链接</code> 填下面第一项</li>
+        <li><code>请求头参数</code> 里加下面三条键值对</li>
+        <li><code>内容正文</code>：内容类型选 <code>application/json</code>，正文填最后那一项</li>
+        <li>勾上<strong>「阻止下一动作，直到请求完成」</strong>（新选项可能仍显示英文），
+          再勾 <code>将 HTTP 返回状态码保存在整型变量中</code>，变量名填 <code>http_code</code></li>
+        <li>再添加一个动作排错：<code>If</code> → <code>http_code</code> <strong>不等于</strong>
+          <code>204</code> → 里面放 <code>显示通知</code>，内容填 <code>AutoW 上传失败：{http_code}</code>
+          <br><small>GitHub 收到事件返回的是 204，不是 204 就说明出错了</small></li>
       </ol>
     </div>
 
@@ -119,6 +131,6 @@
 
 </main>
 
-<script src="qq.js"></script>
+<script src="qq.js?v=3"></script>
 </body>
 </html>
