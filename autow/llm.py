@@ -201,6 +201,21 @@ def validate_config(cfg: dict[str, str] | None) -> str | None:
     return None
 
 
+def signature() -> str:
+    """Identifies *how* notices are being judged.
+
+    Stored alongside the data so that switching model — or recovering from the
+    rule fallback to a working key — re-analyses everything instead of leaving
+    stale verdicts attached to notices that were already fetched.
+    """
+    cfg = config()
+    if cfg is None:
+        return "rules-only"
+    if cfg["mode"] == "mock":
+        return "mock"
+    return f"{cfg['model']}@{urlparse(cfg['base_url']).hostname}#v{CACHE_VERSION}"
+
+
 def _cache_key(kind: str, body: str, model: str, today: date) -> str:
     digest = hashlib.sha1(f"{kind}\n{body}".encode("utf-8")).hexdigest()
     return f"v{CACHE_VERSION}:{model}:{today.isoformat()}:{digest}"

@@ -56,6 +56,11 @@ CREATE TABLE IF NOT EXISTS qq_log (
     length      INTEGER,
     nonce       TEXT
 );
+
+CREATE TABLE IF NOT EXISTS meta (
+    key   TEXT PRIMARY KEY,
+    value TEXT NOT NULL
+);
 """
 
 
@@ -139,9 +144,19 @@ class Store:
         due_at: str | None,
         priority: str,
         dedupe_key: str,
-    ) -> bool:
-        """Return True if a new todo was created."""
-        try:
+    ) -> str:
+        """Insert or refresh a todo. Returns 'created', 'updated' or 'unchanged'.
+
+        Refreshing matters when the extractor changes — switching from the rule
+        fallback to a real model used to leave the old verdict stuck to the
+        notice forever, because a duplicate key simply did not insert. `status`
+        is deliberately left alone so a ticked-off item stays ticked off.
+        """
+        row = self.conn.execute(
+            "SELECT id, title, detail, due_at, priority FROM todos WHERE dedupe_key = ?",
+            (dedupe_key,),
+        ).fetchone()
+        if row is None:
             self.conn.execute(
                 """INSERT INTO todos
                        (notice_id, title, detail, due_at, priority, dedupe_key, created_at)
@@ -149,9 +164,45 @@ class Store:
                 (notice_id, title, detail, due_at, priority, dedupe_key, now_iso()),
             )
             self.conn.commit()
-            return True
-        except sqlite3.IntegrityError:
-            return False
+            return "created"
+
+        if (row["title"], row["detail"], row["due_at"], row["priority"]) == (
+            title,
+            detail,
+            due_at,
+            priority,
+        ):
+            return "unchanged"
+
+        self.conn.execute(
+            "UPDATE todos SET title = ?, detail = ?, due_at = ?, priority = ? WHERE id = ?",
+            (title, detail, due_at, priority, row["id"]),
+        )
+        self.conn.commit()
+        return "updated"
+
+    def remove_open_todo(self, dedupe_key: str) -> bool:
+        """Drop a todo that a fresh analysis no longer considers actionable.
+
+        Only unstamped ones: a completed item is the user's record, not ours.
+        """
+        cursor = self.conn.execute(
+            "DELETE FROM todos WHERE dedupe_key = ? AND status = 'open'", (dedupe_key,)
+        )
+        self.conn.commit()
+        return cursor.rowcount > 0
+
+    # ------------------------------------------------------------------- meta
+
+    def get_meta(self, key: str) -> str | None:
+        row = self.conn.execute("SELECT value FROM meta WHERE key = ?", (key,)).fetchone()
+        return row["value"] if row else None
+
+    def set_meta(self, key: str, value: str) -> None:
+        self.conn.execute(
+            "INSERT OR REPLACE INTO meta (key, value) VALUES (?, ?)", (key, value)
+        )
+        self.conn.commit()
 
     def open_todos(self, include_done: bool = False) -> list[sqlite3.Row]:
         where = "" if include_done else "WHERE status = 'open'"

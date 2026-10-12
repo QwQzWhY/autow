@@ -23,6 +23,9 @@ from .store import Store
 
 CHAT_SOURCE = "qq"
 
+# Records which extractor produced the verdicts currently in the database.
+SIGNATURE_KEY = "extractor_signature"
+
 # The site's WAF starts returning empty 412s if it is hammered, so we crawl
 # slowly on purpose. This is a "check a few times a day" job, not a scraper.
 DELAY_BETWEEN_PAGES = 3.0
@@ -88,6 +91,19 @@ def crawl(args: argparse.Namespace, store: Store) -> tuple[int, int, int]:
     new_notices = new_todos = analysed = 0
     engines: dict[str, int] = {}
 
+    # `--skip-analyzed` normally means "only look at notices we have never
+    # seen". That is wrong when the extractor itself changed: the verdicts
+    # already stored were produced by a different brain, so judge them again.
+    signature = llm.signature()
+    stored_signature = store.get_meta(SIGNATURE_KEY)
+    reanalyze = args.skip_analyzed and stored_signature != signature
+    if reanalyze:
+        print(
+            f"抽取器变了（{stored_signature or '未记录'} → {signature}），"
+            "本次重新分析所有通知"
+        )
+    outcomes: dict[str, int] = {}
+
     with stealth_context(headless=not args.headful) as context:
         for source in SOURCES:
             for page_no in range(1, args.pages + 1):
@@ -106,7 +122,11 @@ def crawl(args: argparse.Namespace, store: Store) -> tuple[int, int, int]:
                     # Check the cheap way first: a list URL already tells us
                     # whether we have seen this notice, so skipping costs no
                     # browser request.
-                    if args.skip_analyzed and store.has_notice(source.NAME, stub.external_id):
+                    if (
+                        args.skip_analyzed
+                        and not reanalyze
+                        and store.has_notice(source.NAME, stub.external_id)
+                    ):
                         continue
                     try:
                         notice = source.fetch_detail(context, stub)
@@ -124,24 +144,36 @@ def crawl(args: argparse.Namespace, store: Store) -> tuple[int, int, int]:
                     draft, engine = llm.analyze_notice(notice, cache=store)
                     analysed += 1
                     engines[engine] = engines.get(engine, 0) + 1
+                    key = f"{source.NAME}:{notice.external_id}"
                     if draft:
-                        created = store.add_todo(
+                        outcome = store.add_todo(
                             notice_id=notice_id,
                             title=draft.title,
                             detail=draft.detail,
                             due_at=draft.due_at,
                             priority=draft.priority,
-                            dedupe_key=f"{source.NAME}:{notice.external_id}",
+                            dedupe_key=key,
                         )
-                        if created:
+                        outcomes[outcome] = outcomes.get(outcome, 0) + 1
+                        if outcome == "created":
                             new_todos += 1
+                        if outcome != "unchanged":
                             print(
-                                f"        -> [{engine}] {draft.priority:<6} "
+                                f"        -> [{engine}/{outcome}] {draft.priority:<6} "
                                 f"{dates.human(draft.due_at):<17} {draft.title}"
                             )
+                    elif store.remove_open_todo(key):
+                        # A fresh, better model decided this needs no action.
+                        outcomes["removed"] = outcomes.get("removed", 0) + 1
+                        print(f"        -> [{engine}/removed] 重新判断为无需行动")
                     time.sleep(DELAY_BETWEEN_PAGES)
 
+    # Only record the signature once the whole crawl finished, so a run that
+    # died halfway re-analyses again next time instead of skipping the rest.
+    store.set_meta(SIGNATURE_KEY, signature)
     print(f"\n引擎使用：{engines}")
+    if outcomes:
+        print(f"待办变化：{outcomes}")
     return new_notices, new_todos, analysed
 
 
@@ -278,7 +310,7 @@ def cmd_ingest(args: argparse.Namespace) -> int:
         return 0
 
     notice_id, _ = store.upsert_notice(CHAT_SOURCE, _qq_notice(digest, when, draft.title))
-    created = store.add_todo(
+    outcome = store.add_todo(
         notice_id=notice_id,
         title=draft.title,
         detail=draft.detail,
@@ -287,11 +319,15 @@ def cmd_ingest(args: argparse.Namespace) -> int:
         dedupe_key=f"{CHAT_SOURCE}:{digest}",
     )
     store.log_qq(
-        "todo" if created else "duplicate", draft.title, len(text), nonce, received_at
+        "todo" if outcome == "created" else "duplicate",
+        draft.title,
+        len(text),
+        nonce,
+        received_at,
     )
     write_dashboards(store)
     print(
-        f"[{engine}] {'新增' if created else '已存在'}待办："
+        f"[{engine}] {'新增' if outcome == 'created' else '已存在'}待办："
         f"{draft.title} / {dates.human(draft.due_at)}"
     )
     store.close()
