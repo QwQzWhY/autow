@@ -1,11 +1,19 @@
 {
-  "generated_at": "2026-10-12T23:32:30+08:00",
+  "generated_at": "2026-10-12T23:33:26+08:00",
   "connected": true,
-  "total_received": 2,
+  "total_received": 3,
   "total_todos": 0,
-  "today_received": 2,
+  "today_received": 3,
   "today_todos": 0,
   "recent": [
+    {
+      "at": "2026-10-12T23:33:24+08:00",
+      "verdict": "ignored",
+      "verdict_label": "判断为无需行动",
+      "title": "",
+      "length": 19,
+      "nonce": ""
+    },
     {
       "at": "2026-10-12T23:32:28+08:00",
       "verdict": "ignored",
