@@ -160,12 +160,19 @@ class TestModelOutputIsSanitised(unittest.TestCase):
             draft, _ = llm.analyze_notice(a_notice())
         self.assertIsNotNone(draft)
 
-    def test_a_deadline_two_days_ago_is_tolerated(self):
-        # A notice published at midnight can legitimately land here.
-        recent = date.today() - timedelta(days=2)
-        with mock.patch.object(llm, "_call", self.reply(due_at=f"{recent.isoformat()}T23:59")):
+    def test_a_deadline_from_yesterday_is_tolerated(self):
+        # Same-day deadlines pass before the user gets to them; keep one day of
+        # slack so the item is still visible.
+        yesterday = date.today() - timedelta(days=1)
+        with mock.patch.object(llm, "_call", self.reply(due_at=f"{yesterday.isoformat()}T23:59")):
             draft, _ = llm.analyze_notice(a_notice())
         self.assertIsNotNone(draft)
+
+    def test_a_deadline_from_two_days_ago_is_dropped(self):
+        older = date.today() - timedelta(days=2)
+        with mock.patch.object(llm, "_call", self.reply(due_at=f"{older.isoformat()}T23:59")):
+            draft, _ = llm.analyze_notice(a_notice())
+        self.assertIsNone(draft)
 
 
 class TestHealth(unittest.TestCase):
@@ -238,6 +245,9 @@ class TestMisconfiguration(unittest.TestCase):
     """The first real deployment pasted the API key into the model and base_url
     fields, and the health file published it to a public repository."""
 
+    # A synthetic value shaped like a DeepSeek key. Never paste a real one here:
+    # the first version of this test used the key it was describing, which put
+    # the credential in the repository a second time.
     KEY = "sk-0000notarealkey0000notarealkey00"
 
     def setUp(self):

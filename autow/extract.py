@@ -35,8 +35,9 @@ NOISE_WORDS = ("喜报", "祝贺", "获奖", "纪实", "召开", "举行", "回�
 
 SENTENCE_SPLIT = re.compile(r"[。\n；;]")
 
-# A deadline this far in the past is history, not a todo.
-EXPIRED_GRACE_DAYS = 3
+# A deadline this far in the past is history, not a todo. One day of slack so a
+# notice whose deadline was this morning does not vanish the moment it passes.
+EXPIRED_GRACE_DAYS = 1
 
 
 def is_expired(due_at: str | None, grace_days: int = EXPIRED_GRACE_DAYS) -> bool:

@@ -72,6 +72,9 @@ class TestExtraction(unittest.TestCase):
         )
         self.assertIsNone(extract.extract_todo(notice))
 
+    def test_the_grace_window_is_one_day(self):
+        self.assertEqual(extract.EXPIRED_GRACE_DAYS, 1)
+
     def test_expired_notice_is_dropped(self):
         long_ago = date.today() - timedelta(days=400)
         notice = self.notice(
