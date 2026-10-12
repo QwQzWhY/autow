@@ -1,5 +1,126 @@
 {
-  "generated_at": "2026-10-12T21:22:59+08:00",
-  "count": 0,
-  "todos": []
+  "generated_at": "2026-10-12T13:35:37+00:00",
+  "count": 10,
+  "todos": [
+    {
+      "key": "lzu-news:1176975.htm",
+      "title": "举办兰州大学2026年榆中校区第三届“研途有你”师生趣味运动会",
+      "detail": "请各学院于2026年10月12日（星期一）12:00前将可编辑的word电子版及加盖公章的扫描报名表发送至邮箱wxyygz@lzu.edu.cn",
+      "due_at": "2026-10-12T12:00",
+      "priority": "high",
+      "source": "lzu-news",
+      "source_label": "学校通知",
+      "url": "https://news.lzu.edu.cn/info/1056/1176975.htm",
+      "category": "学校通知",
+      "published_at": "2026-10-06"
+    },
+    {
+      "key": "lzu-news:1177735.htm",
+      "title": "举办兰州大学2026—2027学年“萃英登峰”大学生骨干培养计划开班仪式和“开班第一课”",
+      "detail": "请各学院认真组织人员报名，于10月14日（星期三）下午18:00前，将参加人员名单（见附件）反馈至twzzb@lzu.edu.cn",
+      "due_at": "2026-10-14T18:00",
+      "priority": "high",
+      "source": "lzu-news",
+      "source_label": "学校通知",
+      "url": "https://news.lzu.edu.cn/info/1056/1177735.htm",
+      "category": "学校通知",
+      "published_at": "2026-10-12"
+    },
+    {
+      "key": "lzu-news:1177355.htm",
+      "title": "兰州大学关于开展2026年下半年普通话水平测试报名",
+      "detail": "考生于10月12日9：00——10月15日18：00登录“国家普通话水平测试在线报名系统”（http://bm.cltt.org），打开普通话在线报名网站，根据以下步骤完成报名：点击“在线报名”→注册个人信息并登录→点击“我要报名”→选择“兰州大学语言文字培训测试站”，自主选择测试日期进行网上报名→点击“下一步”→阅读报名须知→填写报名信息→点击“下一步”→提交报名信息成功",
+      "due_at": "2026-10-15T09:00",
+      "priority": "high",
+      "source": "lzu-news",
+      "source_label": "学校通知",
+      "url": "https://news.lzu.edu.cn/info/1056/1177355.htm",
+      "category": "学校通知",
+      "published_at": "2026-10-09"
+    },
+    {
+      "key": "lzu-news:1176655.htm",
+      "title": "兰州大学环境考古与文物科学中心预聘制实验技术人员招聘启事",
+      "detail": "报名截止时间为2026年10月16日",
+      "due_at": "2026-10-16T23:59",
+      "priority": "high",
+      "source": "lzu-news",
+      "source_label": "学校通知",
+      "url": "https://news.lzu.edu.cn/info/1056/1176655.htm",
+      "category": "学校通知",
+      "published_at": "2026-09-30"
+    },
+    {
+      "key": "lzu-news:1176635.htm",
+      "title": "国庆期间开展主旋律电影展映活动",
+      "detail": "关于国庆期间开展主旋律电影展映活动的通知",
+      "due_at": null,
+      "priority": "high",
+      "source": "lzu-news",
+      "source_label": "学校通知",
+      "url": "https://news.lzu.edu.cn/info/1056/1176635.htm",
+      "category": "学校通知",
+      "published_at": "2026-09-30"
+    },
+    {
+      "key": "lzu-news:1177585.htm",
+      "title": "兰州大学威尔士学院聘用制外籍教师招聘公告（Recruitment Announcement｜Contract-Based Faculty in Design, Lanzhou University Wales College）",
+      "detail": "兰州大学威尔士学院聘用制外籍教师招聘公告（Recruitment Announcement｜Contract-Based Faculty in Design, Lanzhou University Wales College）",
+      "due_at": null,
+      "priority": "high",
+      "source": "lzu-news",
+      "source_label": "学校通知",
+      "url": "https://news.lzu.edu.cn/info/1056/1177585.htm",
+      "category": "学校通知",
+      "published_at": "2026-10-10"
+    },
+    {
+      "key": "lzu-ai:A0164JT4",
+      "title": "暑期安全模型已部署，请全体人工智能学子一键加载",
+      "detail": "暑期安全模型已部署，请全体人工智能学子一键加载",
+      "due_at": null,
+      "priority": "high",
+      "source": "lzu-ai",
+      "source_label": "学院通知",
+      "url": "https://ai.lzu.edu.cn/news/A0164JT4",
+      "category": "通知公告",
+      "published_at": "2026-07-26"
+    },
+    {
+      "key": "lzu-ai:A028BZSQ",
+      "title": "人工智能学院2027年推荐优秀应届本科毕业生免试攻读研究生工作实施细则",
+      "detail": "人工智能学院2027年推荐优秀应届本科毕业生免试攻读研究生工作实施细则",
+      "due_at": null,
+      "priority": "high",
+      "source": "lzu-ai",
+      "source_label": "学院通知",
+      "url": "https://ai.lzu.edu.cn/news/A028BZSQ",
+      "category": "本科生培养",
+      "published_at": "2026-09-07"
+    },
+    {
+      "key": "lzu-ai:A045HJ3G",
+      "title": "公布人工智能学院研究生奖学金评审实施细则",
+      "detail": "关于公布人工智能学院研究生奖学金评审实施细则的通知",
+      "due_at": null,
+      "priority": "normal",
+      "source": "lzu-ai",
+      "source_label": "学院通知",
+      "url": "https://ai.lzu.edu.cn/news/A045HJ3G",
+      "category": "通知公告",
+      "published_at": "2026-09-24"
+    },
+    {
+      "key": "lzu-ai:A0471XGX",
+      "title": "开展兰州大学人工智能学院以同等学力申请硕士学位工作",
+      "detail": "关于开展兰州大学人工智能学院以同等学力申请硕士学位工作的通知",
+      "due_at": null,
+      "priority": "normal",
+      "source": "lzu-ai",
+      "source_label": "学院通知",
+      "url": "https://ai.lzu.edu.cn/news/A0471XGX",
+      "category": "通知公告",
+      "published_at": "2026-10-09"
+    }
+  ]
 }
