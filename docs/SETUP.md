@@ -98,22 +98,27 @@ Actions 需要能提交结果回仓库：
 
 > 打开 `https://<你的用户名>.github.io/autow/qq.html`
 
-1. 应用商店装 **MacroDroid**（免费），打开后确保授予**通知使用权**。
-2. 新建宏，**触发器**选 `通知` → `Notification Received`：
-   - Application Selection：选 `QQ`
-   - Text Filtering 保持 `Single Field Mode`，模式选 **Contains**，填 `@全体成员`
-   - 其余保持默认（`Prevent multiple triggers` 默认开启，正好防止 QQ 反复
-     更新同一条通知时重复触发）
-3. **动作**选 `HTTP Request`（在动作列表里按字母排，找 H 开头）：
-   - Request method：**POST**
-   - URL：接入页上那一项
-   - Header Params：三条键值对，把 `Authorization` / `Accept` / `Content-Type`
+下面的菜单名取自 MacroDroid 5.x 简体中文界面的实际用词。个别较新的选项可能还没
+翻译、仍显示英文，按位置找即可。
+
+1. 应用商店装 **MacroDroid**（免费），打开后确保授予**通知使用权**
+   （设置里那一项就叫这个名字）。
+2. 新建**宏**，**触发器**用 `通知` → **`收到通知`**：
+   - `选择应用程序`：勾 **QQ**
+   - 文本筛选保持单字段模式，选 **`包括`**，填 `@全体成员`
+     （注意是「包括」不是「包含」——英文原文是 Contains）
+   - 其余保持默认。`防止多重触发` 默认开启，正好防止 QQ 反复更新同一条通知时重复触发
+3. **动作**选 **`HTTP 请求`**：
+   - `请求方法`：**POST**
+   - `链接`：接入页上那一项
+   - `请求头参数`：三条键值对，把 `Authorization` / `Accept` / `Content-Type`
      三行分别填进去
-   - Content Body：内容类型选 **application/json**，内容填接入页上的 Body
-   - 勾上 **Block next action until complete**（后面要检查返回码）
-   - 勾上 **Save HTTP return code in integer variable**，变量名填 `http_code`
+   - `内容正文`：`内容类型` 选 **application/json**，正文填接入页上的 Body
+   - 勾上「阻止下一动作直到请求完成」那一项（英文约为 Block next action until
+     complete），后面要检查返回码
+   - 勾上 `将 HTTP 返回状态码保存在整型变量中`，变量名填 `http_code`
 4. **再加一个动作**用于排错：`If` → 条件 `http_code != 204` → 里面放一个
-   `Display Notification`，内容填 `AutoW 上传失败：{http_code}`。
+   **`显示通知`**，内容填 `AutoW 上传失败：{http_code}`。
    GitHub 收到事件时返回 **204**，所以只要不是 204 就说明出问题了。
 5. 保存。之后每逢 @全体成员，几秒内待办里就会多一条（前提是大模型判断它需要行动）。
 
