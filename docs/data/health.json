@@ -1,16 +1,14 @@
 {
-  "generated_at": "2026-10-12T13:49:36+00:00",
+  "generated_at": "2026-10-12T13:58:27+00:00",
   "extractor": {
     "configured": true,
     "mode": "live",
-    "model": "sk-0000notarealkey0000notarealkey00",
-    "base_url": "https://sk-0000notarealkey0000notarealkey00",
-    "probe": {
-      "ok": false,
-      "error": "URLError: <urlopen error [Errno -3] Temporary failure in name resolution>"
-    },
+    "model": "(看起来是密钥，已隐藏)",
+    "base_url_host": "(无效)",
+    "probe": null,
     "attempts": 0,
     "failures": 0,
+    "config_error": "LLM_BASE_URL 填的不是一个网址。这一项要填接口地址，例如 https://api.deepseek.com/v1 —— 不是 API Key。（这个值看起来像密钥，已隐去）",
     "ok": false,
     "last_error": ""
   }
