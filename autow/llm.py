@@ -107,10 +107,25 @@ def config() -> dict[str, str] | None:
         return None
     return {
         "mode": "live",
-        "base_url": os.environ.get("LLM_BASE_URL", DEFAULT_BASE_URL).rstrip("/"),
+        "base_url": normalise_base_url(os.environ.get("LLM_BASE_URL", DEFAULT_BASE_URL)),
         "api_key": api_key,
         "model": os.environ.get("LLM_MODEL", DEFAULT_MODEL),
     }
+
+
+def normalise_base_url(value: str) -> str:
+    """Make a pasted endpoint usable.
+
+    The obvious way to fill in LLM_BASE_URL is to copy the host out of the docs,
+    which gives "api.deepseek.com/v1" with no scheme. urllib then rejects it with
+    "unknown url type", so repair it here instead of failing the whole scan.
+    """
+    value = (value or "").strip().rstrip("/")
+    if not value:
+        return DEFAULT_BASE_URL
+    if not value.startswith(("http://", "https://")):
+        value = "https://" + value
+    return value
 
 
 def _cache_key(kind: str, body: str, model: str, today: date) -> str:
@@ -138,6 +153,9 @@ def _mock_response(body: str, title: str, kind: str) -> dict:
 
 
 def _call(messages: list[dict[str, str]], cfg: dict[str, str], model: str) -> dict:
+    url = f"{cfg['base_url']}/chat/completions"
+    if not url.startswith(("http://", "https://")):
+        raise ValueError(f"LLM_BASE_URL 不是有效的地址：{url!r}")
     payload = {
         "model": model,
         "messages": messages,
@@ -145,7 +163,7 @@ def _call(messages: list[dict[str, str]], cfg: dict[str, str], model: str) -> di
         "response_format": {"type": "json_object"},
     }
     request = urllib.request.Request(
-        f"{cfg['base_url']}/chat/completions",
+        url,
         data=json.dumps(payload).encode("utf-8"),
         headers={
             "Content-Type": "application/json",
@@ -214,7 +232,11 @@ def analyze(
             # paraphrase of private chat into a public repository.
             if cache and use_cache:
                 cache.cache_put(key, model, raw)
-        except (urllib.error.URLError, TimeoutError, KeyError, json.JSONDecodeError) as exc:
+        # Deliberately broad: the model call is best-effort, and a misconfigured
+        # endpoint or a malformed response must degrade to the rule extractor
+        # rather than abort the whole scan. The engine tally printed at the end
+        # of a run makes a systematic failure obvious.
+        except Exception as exc:
             print(f"    [llm] 调用失败，退回规则抽取：{type(exc).__name__}: {exc}")
             if kind != "notice":
                 return None, "rules"

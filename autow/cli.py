@@ -38,6 +38,21 @@ def write_dashboards(store: Store) -> None:
     qqstatus.write(store)
 
 
+def describe_llm() -> None:
+    """Say up front which extractor this run will use, and against what.
+
+    A misconfigured endpoint used to blow up mid-scan with a stack trace; at
+    least make the configuration visible in the first lines of the log.
+    """
+    cfg = llm.config()
+    if cfg is None:
+        print("大模型：未配置 LLM_API_KEY，本次全部走规则抽取")
+    elif cfg["mode"] == "mock":
+        print("大模型：mock 模式（不联网，用规则结果冒充模型输出）")
+    else:
+        print(f"大模型：{cfg['model']} @ {cfg['base_url']}")
+
+
 # --------------------------------------------------------------------- crawl
 
 
@@ -111,6 +126,7 @@ def crawl(args: argparse.Namespace, store: Store) -> tuple[int, int, int]:
 
 def cmd_fetch(args: argparse.Namespace) -> int:
     store = _store(args)
+    describe_llm()
     new_notices, new_todos, analysed = crawl(args, store)
     print(f"{new_notices} 条新通知，{new_todos} 条新待办（分析 {analysed} 条）")
     store.close()
@@ -119,6 +135,7 @@ def cmd_fetch(args: argparse.Namespace) -> int:
 
 def cmd_run(args: argparse.Namespace) -> int:
     store = _store(args)
+    describe_llm()
     new_notices, new_todos, analysed = crawl(args, store)
     print(f"{new_notices} 条新通知，{new_todos} 条新待办（分析 {analysed} 条）")
     write_dashboards(store)
