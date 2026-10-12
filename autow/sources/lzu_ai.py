@@ -10,13 +10,15 @@ found on the site itself rather than guessed.
 
 from __future__ import annotations
 
-from dataclasses import dataclass, field
 from urllib.parse import urlencode
 
 from playwright.sync_api import BrowserContext
 
 from .. import dates
 from ..browser import open_page
+from ..models import RawNotice
+
+__all__ = ["NAME", "NOTICE_MODULE", "RawNotice", "list_url", "fetch_list", "fetch_detail"]
 
 BASE = "https://ai.lzu.edu.cn"
 NAME = "lzu-ai"
@@ -48,29 +50,6 @@ _DETAIL_JS = """
   };
 }
 """
-
-
-@dataclass
-class RawNotice:
-    """A notice as it appears on the list page (body not yet fetched)."""
-
-    url: str
-    title: str
-    date_text: str = ""
-    title_full: str = ""
-    published_text: str = ""
-    published_at: str | None = None
-    category: str = ""
-    body: str = ""
-    attachments: list[str] = field(default_factory=list)
-
-    # Stable identity for dedupe. Derived from the URL for notices; callers that
-    # have no URL (QQ messages) set it explicitly.
-    external_id: str = ""
-
-    def __post_init__(self) -> None:
-        if not self.external_id and self.url:
-            self.external_id = self.url.rstrip("/").rsplit("/", 1)[-1]
 
 
 def list_url(module: str = NOTICE_MODULE, page_no: int = 1) -> str:

@@ -1,0 +1,47 @@
+name: 处理 QQ 群消息
+
+# 手机上的通知桥一收到 @全体成员 / 关注的人发言，就立刻触发这里。
+#
+# 这个 job 刻意不装任何依赖：不需要浏览器，`autow ingest` 只用标准库。
+# 所以从消息发出到你手机看板上出现，通常在半分钟到一分钟之间。
+on:
+  repository_dispatch:
+    types: [qq-message]
+
+permissions:
+  contents: write
+
+# 和定时扫描共用一个组，避免两边同时提交打架
+concurrency:
+  group: autow-scan
+  cancel-in-progress: false
+
+jobs:
+  ingest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: 判断这条消息要不要做成待办
+        env:
+          AUTOW_INGEST_JSON: ${{ toJson(github.event.client_payload) }}
+          LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
+          LLM_BASE_URL: ${{ secrets.LLM_BASE_URL }}
+          LLM_MODEL: ${{ secrets.LLM_MODEL }}
+        run: python -m autow ingest
+
+      - name: 提交结果
+        run: |
+          git config user.name "autow-bot"
+          git config user.email "autow-bot@users.noreply.github.com"
+          git add -A
+          if git diff --staged --quiet; then
+            echo "没有需要记录的变化"
+          else
+            git commit -m "chore: QQ 群消息 $(date -u '+%Y-%m-%d %H:%M UTC')"
+            git push
+          fi

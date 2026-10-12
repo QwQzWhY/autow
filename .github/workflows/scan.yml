@@ -1,15 +1,16 @@
 name: 扫描通知
 
-# 三种触发方式：
-#   1. 每 2 小时自动跑一次，抓学院官网通知
-#   2. 手机上的 AutoW 通知桥收到 QQ 群消息后，立刻触发一次
-#   3. 手动点击运行
+# 每小时自动跑一次，抓学院官网和学校新闻网的通知。
+#
+# QQ 群消息走的是另一个 workflow（qq.yml），因为它不需要浏览器，
+# 可以跑得快得多。两者共用同一个 concurrency 组，避免提交打架。
+#
+# 想改频率就改这个 cron。学校的通知一天也就几条，每小时已经足够；
+# 再密只会给你的账号和学校服务器增加无谓的负担。
 on:
   schedule:
-    - cron: "0 */2 * * *"
+    - cron: "0 * * * *"
   workflow_dispatch:
-  repository_dispatch:
-    types: [qq-message]
 
 permissions:
   contents: write
@@ -30,13 +31,17 @@ jobs:
           python-version: "3.12"
           cache: pip
 
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ hashFiles('requirements.txt') }}
+
       - name: 安装依赖
         run: |
           pip install -r requirements.txt
           python -m playwright install --with-deps chromium
 
-      - name: 抓取学院通知
-        if: github.event_name != 'repository_dispatch'
+      - name: 抓取通知
         env:
           # 云端用 Playwright 自带的 Chromium，不用系统 Chrome
           AUTOW_BROWSER_CHANNEL: ""
@@ -44,15 +49,6 @@ jobs:
           LLM_BASE_URL: ${{ secrets.LLM_BASE_URL }}
           LLM_MODEL: ${{ secrets.LLM_MODEL }}
         run: python -m autow run --skip-analyzed --pages 1
-
-      - name: 处理 QQ 群消息
-        if: github.event_name == 'repository_dispatch'
-        env:
-          AUTOW_INGEST_JSON: ${{ toJson(github.event.client_payload) }}
-          LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
-          LLM_BASE_URL: ${{ secrets.LLM_BASE_URL }}
-          LLM_MODEL: ${{ secrets.LLM_MODEL }}
-        run: python -m autow ingest
 
       - name: 提交结果
         run: |

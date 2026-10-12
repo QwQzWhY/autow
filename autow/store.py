@@ -6,7 +6,7 @@ import sqlite3
 from datetime import datetime, timezone
 from pathlib import Path
 
-from .sources.lzu_ai import RawNotice
+from .models import RawNotice
 
 DEFAULT_DB = Path(__file__).resolve().parent.parent / "data" / "autow.db"
 

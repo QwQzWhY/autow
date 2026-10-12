@@ -2,6 +2,10 @@ const DATA_URL = 'data/todos.json';
 const DONE_KEY = 'autow.done';
 const VIEW_KEY = 'autow.view';
 
+// QQ 群消息是事件驱动的，云端处理完就写进 todos.json。页面开着的时候定期
+// 拉一次，不用手动点刷新也能看到新待办；切回前台时立刻拉一次。
+const REFRESH_MS = 60_000;
+
 const state = {
   todos: [],
   generatedAt: null,
@@ -119,19 +123,40 @@ function render() {
 }
 
 async function load() {
+  let data;
   try {
     const res = await fetch(DATA_URL + '?t=' + Date.now(), { cache: 'no-store' });
     if (!res.ok) throw new Error('HTTP ' + res.status);
-    const data = await res.json();
-    state.todos = data.todos || [];
-    state.generatedAt = data.generated_at;
+    data = await res.json();
   } catch (err) {
     $('meta').textContent = '数据加载失败';
     $('list').innerHTML = `<p class="empty">读不到 data/todos.json（${err.message}）。<br>云端任务跑过之后才会有数据。</p>`;
     return;
   }
+  // Skip the re-render when nothing changed, so an expanded card does not
+  // collapse under the user every 60 seconds.
+  const unchanged = data.generated_at && data.generated_at === state.generatedAt;
+  state.todos = data.todos || [];
+  state.generatedAt = data.generated_at;
+  if (unchanged) return;
   render();
 }
+
+let pollTimer = null;
+
+function schedulePoll() {
+  clearInterval(pollTimer);
+  if (document.visibilityState === 'visible') {
+    pollTimer = setInterval(load, REFRESH_MS);
+  }
+}
+
+document.addEventListener('visibilitychange', () => {
+  if (document.visibilityState === 'visible') load();
+  schedulePoll();
+});
+
+window.addEventListener('online', () => load());
 
 $('filters').addEventListener('click', (e) => {
   const btn = e.target.closest('.filter');
@@ -155,3 +180,4 @@ if ('serviceWorker' in navigator) {
 }
 
 load();
+schedulePoll();

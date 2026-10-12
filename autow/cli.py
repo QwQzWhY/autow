@@ -17,9 +17,7 @@ import sys
 import time
 
 from . import dates, llm, publish
-from .browser import stealth_context
-from .sources import SOURCES
-from .sources.lzu_ai import RawNotice
+from .models import RawNotice
 from .store import Store
 
 CHAT_SOURCE = "qq"
@@ -38,6 +36,12 @@ def _store(args: argparse.Namespace) -> Store:
 
 def crawl(args: argparse.Namespace, store: Store) -> tuple[int, int, int]:
     """Fetch notices and extract todos. Returns (new notices, new todos, analysed)."""
+    # Imported lazily on purpose: the QQ ingest path shares this module and runs
+    # in a job with no dependencies installed, so Playwright must not be
+    # reachable from `import autow.cli`.
+    from .browser import stealth_context
+    from .sources import SOURCES
+
     new_notices = new_todos = analysed = 0
     engines: dict[str, int] = {}
 

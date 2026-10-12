@@ -24,7 +24,7 @@ from datetime import date, datetime
 
 from . import extract
 from .extract import TodoDraft
-from .sources.lzu_ai import RawNotice
+from .models import RawNotice
 
 DEFAULT_BASE_URL = "https://api.deepseek.com/v1"
 DEFAULT_MODEL = "deepseek-chat"

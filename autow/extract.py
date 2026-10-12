@@ -12,7 +12,7 @@ from dataclasses import dataclass
 from datetime import date, datetime
 
 from . import dates
-from .sources.lzu_ai import RawNotice
+from .models import RawNotice
 
 # Wording that means "you have to do something".
 ACTION_WORDS = (

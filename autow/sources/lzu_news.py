@@ -16,7 +16,7 @@ from playwright.sync_api import BrowserContext
 
 from .. import dates
 from ..browser import open_page
-from .lzu_ai import RawNotice
+from ..models import RawNotice
 
 BASE = "https://news.lzu.edu.cn"
 NAME = "lzu-news"
