@@ -242,8 +242,11 @@ async function sendTest(text) {
     return;
   }
 
+  // The cloud usually answers within half a minute, but this reads a file that
+  // GitHub Pages only republishes after it rebuilds — about a minute more. The
+  // window has to cover the deploy, not just the workflow.
   out.textContent = '已发出，等待云端处理…';
-  for (let i = 0; i < 20; i++) {
+  for (let i = 0; i < 60; i++) {
     await new Promise((r) => setTimeout(r, 4000));
     const data = await loadStatus();
     const hit = data?.recent?.find((item) => item.nonce === nonce);
@@ -260,11 +263,14 @@ async function sendTest(text) {
       }
       return;
     }
-    out.textContent = `已发出，等待云端处理…（第 ${i + 1} 次查询）`;
+    out.textContent =
+      i < 15
+        ? `已发出，等待云端处理…（第 ${i + 1} 次查询）`
+        : `云端多半已经处理完了，在等 GitHub Pages 重新发布…（已等 ${Math.round((i + 1) * 4 / 60)} 分钟）`;
   }
   out.textContent =
-    '等了两分钟还没看到。去 GitHub 的 Actions 页面看「处理 QQ 群消息」这次运行有没有报错。';
-  out.className = 'result result--bad';
+    '还没同步到网页。先把这一页刷新一下再看——如果还是没有，去 GitHub 的 Actions 页面看「处理 QQ 群消息」有没有报错。';
+  out.className = 'result';
 }
 
 // --------------------------------------------------------------------- init
