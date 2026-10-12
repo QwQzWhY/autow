@@ -1,1 +1,4 @@
 playwright>=1.40
+
+# 测试用：校验 .github/workflows/*.yml 能被正确解析
+pyyaml>=6.0

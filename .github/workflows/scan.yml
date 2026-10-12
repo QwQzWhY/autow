@@ -11,6 +11,14 @@ on:
   schedule:
     - cron: "0 * * * *"
   workflow_dispatch:
+  # 改了爬虫代码就自动跑一次，算是烟囱测试。只盯代码路径，不带 data/ 和
+  # docs/data/，否则这个 workflow 自己提交的数据会把它再触发一遍，无限循环。
+  push:
+    paths:
+      - "autow/**"
+      - "tests/**"
+      - "requirements.txt"
+      - ".github/workflows/scan.yml"
 
 permissions:
   contents: write
