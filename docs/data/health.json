@@ -1,17 +1,15 @@
 {
-  "generated_at": "2026-10-13T11:06:47+08:00",
+  "generated_at": "2026-10-13T12:51:14+08:00",
   "extractor": {
     "configured": true,
     "mode": "live",
     "model": "deepseek-chat",
     "base_url_host": "api.deepseek.com",
-    "probe": {
-      "ok": true
-    },
-    "attempts": 0,
+    "probe": null,
+    "attempts": 1,
     "failures": 0,
     "config_error": null,
-    "ok": false,
+    "ok": true,
     "last_error": ""
   }
 }

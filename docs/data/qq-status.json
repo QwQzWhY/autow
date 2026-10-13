@@ -1,11 +1,19 @@
 {
-  "generated_at": "2026-10-13T11:06:47+08:00",
+  "generated_at": "2026-10-13T12:51:14+08:00",
   "connected": true,
-  "total_received": 5,
+  "total_received": 6,
   "total_todos": 1,
-  "today_received": 0,
+  "today_received": 1,
   "today_todos": 0,
   "recent": [
+    {
+      "at": "2026-10-13T12:51:13+08:00",
+      "verdict": "duplicate",
+      "verdict_label": "重复消息，已忽略",
+      "title": "提交人工智能导论课程报告",
+      "length": 41,
+      "nonce": "p18a78do"
+    },
     {
       "at": "2026-10-12T23:45:47+08:00",
       "verdict": "todo",
