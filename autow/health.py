@@ -43,6 +43,11 @@ def build() -> dict:
         # A run that never calls the model — a QQ ingest, say — would otherwise
         # publish `probe: null` and make a healthy system look unverified.
         probe = llm.STATS["probe"] or _previous_probe()
+        # `ok` used to require attempts > 0, which meant a perfectly healthy run
+        # that simply had no new notices to judge published `ok: false` — exactly
+        # the misleading signal this file exists to prevent. A run with nothing
+        # to do is fine as long as the self-check passes and nothing failed.
+        probe_ok = isinstance(probe, dict) and probe.get("ok") is True
         extractor = {
             "configured": True,
             "mode": cfg["mode"],
@@ -54,7 +59,7 @@ def build() -> dict:
             "attempts": attempts,
             "failures": failures,
             "config_error": problem,
-            "ok": problem is None and attempts > 0 and failures == 0,
+            "ok": problem is None and failures == 0 and probe_ok,
             "last_error": _scrub(llm.STATS["last_error"], cfg["api_key"]),
         }
     return {

@@ -386,6 +386,24 @@ class TestHealthKeepsTheLastProbe(unittest.TestCase):
             self.assertTrue(probe["ok"])
             self.assertNotIn("carried_over", probe)
 
+    def test_a_run_with_nothing_to_do_is_still_ok(self):
+        # No new notices means no model calls. That is healthy, not broken.
+        with tempfile.TemporaryDirectory() as tmp:
+            with mock.patch.dict(os.environ, {"AUTOW_DOCS_DIR": tmp}):
+                llm.reset_stats()
+                llm.STATS["probe"] = {"ok": True}
+                extractor = health.build()["extractor"]
+            self.assertEqual(extractor["attempts"], 0)
+            self.assertEqual(extractor["failures"], 0)
+            self.assertTrue(extractor["ok"])
+
+    def test_a_failing_self_check_is_not_ok(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            with mock.patch.dict(os.environ, {"AUTOW_DOCS_DIR": tmp}):
+                llm.reset_stats()
+                llm.STATS["probe"] = {"ok": False, "error": "401"}
+                self.assertFalse(health.build()["extractor"]["ok"])
+
 
 if __name__ == "__main__":
     unittest.main()
