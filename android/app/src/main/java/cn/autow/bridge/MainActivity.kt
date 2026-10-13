@@ -22,6 +22,7 @@ class MainActivity : Activity() {
     private lateinit var tokenField: EditText
     private lateinit var keywordField: EditText
     private lateinit var statusView: TextView
+    private lateinit var seenView: TextView
     private lateinit var config: Config
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -112,6 +113,13 @@ class MainActivity : Activity() {
         }
         root.addView(statusView)
 
+        seenView = TextView(this).apply {
+            textSize = 12f
+            setTextColor(Color.parseColor("#777777"))
+            setPadding(0, dp(14), 0, 0)
+        }
+        root.addView(seenView)
+
         setContentView(ScrollView(this).apply { addView(root) })
     }
 
@@ -126,6 +134,28 @@ class MainActivity : Activity() {
             append(if (config.isConfigured) "✅ 仓库已配置\n" else "⚠️ 仓库未配置\n")
             append("\n最近一次：\n")
             append(config.lastResult)
+        }
+        seenView.text = buildSeenReport()
+    }
+
+    /** Shows what the notification listener has actually seen, if anything. */
+    private fun buildSeenReport(): String {
+        val seen = config.seen()
+        if (seen.isEmpty()) {
+            return """
+                ── 还没读到任何 QQ 通知 ──
+                让群里有人发一条 @全体成员 的消息试试。
+                如果这里一直是空的，说明通知使用权没生效（看上面第一行）。
+            """.trimIndent()
+        }
+        return buildString {
+            appendLine("── 最近读到的 QQ 通知（最多 5 条）──")
+            for (item in seen) {
+                val mark = if (item.optBoolean("matched")) "✅ 已匹配关键词" else "⏭ 未匹配关键词"
+                appendLine("${item.optString("at")}  $mark")
+                appendLine("   标题：${item.optString("title")}")
+                appendLine("   正文：${item.optString("text")}")
+            }
         }
     }
 

@@ -26,7 +26,6 @@ class QqNotificationListener : NotificationListenerService() {
         if (sbn.packageName !in QQ_PACKAGES) return
 
         val config = Config(applicationContext)
-        if (!config.isConfigured) return
 
         val extras = notification.extras ?: return
         val group = extras.getCharSequence(Notification.EXTRA_TITLE)?.toString().orEmpty()
@@ -42,7 +41,12 @@ class QqNotificationListener : NotificationListenerService() {
         // QQ puts the group in the title and "sender: text" in the body; on some
         // versions the sender becomes the title instead. Search all of it.
         val haystack = listOf(group, sub, body).joinToString(" ")
-        if (config.keywordList.none { haystack.contains(it) }) return
+        val matched = config.keywordList.any { haystack.contains(it) }
+        // Record before filtering, so a wrong guess about where QQ puts the text
+        // shows up as "captured but not matched" instead of silence.
+        config.recordSeen(sbn.packageName, group, body, matched)
+        if (!matched) return
+        if (!config.isConfigured) return
 
         val sender = body.substringBefore(':', "").substringBefore('：', "").trim().ifBlank { group }
         val hash = "$group|$sender|$body".hashCode().toString()

@@ -2,6 +2,8 @@ package cn.autow.bridge
 
 import android.content.Context
 import android.content.SharedPreferences
+import org.json.JSONArray
+import org.json.JSONObject
 
 /**
  * Settings live in SharedPreferences on the device. The GitHub token is the only
@@ -34,6 +36,35 @@ class Config(context: Context) {
         get() = prefs.getString(KEY_LAST, "还没有转发过消息") ?: ""
         set(value) = prefs.edit().putString(KEY_LAST, value).apply()
 
+    /**
+     * The last few QQ notifications seen, whether or not they matched.
+     *
+     * Without this, "nothing happened" is indistinguishable from "the listener
+     * never fired", "QQ puts the text somewhere unexpected" and "the upload
+     * failed" — the hardest part of setting this up on a phone.
+     */
+    fun seen(): List<JSONObject> = try {
+        val array = JSONArray(prefs.getString(KEY_SEEN, "[]"))
+        (0 until array.length()).map { array.getJSONObject(it) }
+    } catch (e: Exception) {
+        emptyList()
+    }
+
+    fun recordSeen(packageName: String, title: String, text: String, matched: Boolean) {
+        val array = JSONArray()
+        array.put(
+            JSONObject().apply {
+                put("at", nowStamp())
+                put("pkg", packageName)
+                put("title", title.take(60))
+                put("text", text.take(140))
+                put("matched", matched)
+            }
+        )
+        seen().take(4).forEach { array.put(it) }
+        prefs.edit().putString(KEY_SEEN, array.toString()).apply()
+    }
+
     val isConfigured: Boolean
         get() = repo.contains('/') && token.isNotEmpty()
 
@@ -47,6 +78,7 @@ class Config(context: Context) {
         private const val KEY_TOKEN = "token"
         private const val KEY_KEYWORDS = "keywords"
         private const val KEY_LAST = "last_result"
+        private const val KEY_SEEN = "seen"
 
         const val DEFAULT_KEYWORDS = "@全体成员,@所有人"
 
