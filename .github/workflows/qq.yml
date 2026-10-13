@@ -29,6 +29,8 @@ jobs:
       - name: 判断这条消息要不要做成待办
         env:
           AUTOW_INGEST_JSON: ${{ toJson(github.event.client_payload) }}
+          AUTOW_STUDENT_PROFILE: ${{ vars.AUTOW_STUDENT_PROFILE }}
+          AUTOW_STUDENT_GRADE: ${{ vars.AUTOW_STUDENT_GRADE }}
           LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
           LLM_BASE_URL: ${{ secrets.LLM_BASE_URL }}
           LLM_MODEL: ${{ secrets.LLM_MODEL }}

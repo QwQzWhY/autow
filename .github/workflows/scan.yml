@@ -53,6 +53,9 @@ jobs:
         env:
           # 云端用 Playwright 自带的 Chromium，不用系统 Chrome
           AUTOW_BROWSER_CHANNEL: ""
+          # 可选的筛选口径，留空就用代码里的默认值（人工智能学院 / 2026 级本科生）
+          AUTOW_STUDENT_PROFILE: ${{ vars.AUTOW_STUDENT_PROFILE }}
+          AUTOW_STUDENT_GRADE: ${{ vars.AUTOW_STUDENT_GRADE }}
           LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
           LLM_BASE_URL: ${{ secrets.LLM_BASE_URL }}
           LLM_MODEL: ${{ secrets.LLM_MODEL }}

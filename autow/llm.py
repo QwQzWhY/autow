@@ -35,9 +35,10 @@ MAX_BODY_CHARS = 6000
 # Bump this whenever the prompts or the post-processing change, so cached
 # verdicts from an older version are not reused. It is also part of the
 # extractor signature, which is what makes a deployment re-analyse everything.
-CACHE_VERSION = 5
+CACHE_VERSION = 6
 
-DEFAULT_PROFILE = "兰州大学人工智能学院的在读本科生"
+DEFAULT_PROFILE = "兰州大学人工智能学院的本科生"
+DEFAULT_GRADE = "2026 级（2026 年入学，现在是本科一年级）"
 
 # Filled in as calls happen so a run can report why it fell back to rules.
 # A misconfigured endpoint used to be invisible unless someone read the CI log.
@@ -77,15 +78,23 @@ NOTICE_PROMPT = """你是一个学生事务助理。用户是{profile}。
 通知有两种来源：学院官网，以及学校层级的通知公告（后者什么都有，噪音很多）。
 你只保留用户本人需要动手去做的事，其余一律 action_required 为 false。
 
-要保留的（学生本人要做的）：
-- 活动报名与参与：运动会、比赛、讲座报告会、志愿服务、文体活动、社团活动
-- 面向本科生的测试与考试：体测、普通话测试、四六级、课程考试
-- 学籍与培养：选课退课、成绩复核、转专业、推免、毕业设计、评奖评优、助学金
+保留（学生本人能主动报名、参加或提交的，包括自愿性质的）：
+- 考试报名：普通话水平测试、四六级、计算机等级考试、各类资格考试
+- 活动报名与参与：竞赛、讲座报告会、志愿服务、文体活动、社团活动、培训计划
+- 学籍与培养：选课退课、成绩复核、转专业、评奖评优、助学金、助学贷款
 - 需要本人提交材料、缴费、确认、回复的事项
 - 公示期内学生本人可以提异议的事项
 
+判断标准是"学生本人能不能主动去参加或报名"，而不是"是不是每个人都必须做"。
+自愿参加的也要保留，不要因为"不是必须"就丢掉。
+
 注意：即使通知开头写的是"请各学院组织报名""各单位提交名单"，只要最终是学生本人参加
 或学生本人受益，就要保留，并把 title 写成学生自己的动作。
+
+用户的年级是{grade}，还要按年级过滤：
+- 大一新生不会遇到推免、保研、毕业设计、毕业论文、答辩、就业派遣这类临近毕业的事务，
+  看到就直接 action_required 为 false。
+- 已经过去的年级专属事项（例如入学军训、新生报到）也不要保留。
 
 要丢掉的（与学生本人无关）：
 - 招聘启事、招标采购、中标公告、停水停电停暖、设备申购、资产与数据报送、基建维修
@@ -237,6 +246,11 @@ def profile() -> str:
     return os.environ.get("AUTOW_STUDENT_PROFILE", "").strip() or DEFAULT_PROFILE
 
 
+def grade() -> str:
+    """The user's year. Drives the "not for you yet" rules (推免, 毕业设计…)."""
+    return os.environ.get("AUTOW_STUDENT_GRADE", "").strip() or DEFAULT_GRADE
+
+
 def _cache_key(kind: str, body: str, model: str, today: date) -> str:
     digest = hashlib.sha1(f"{kind}\n{body}".encode("utf-8")).hexdigest()
     return f"v{CACHE_VERSION}:{model}:{today.isoformat()}:{digest}"
@@ -326,7 +340,7 @@ def analyze(
                     )
                 else:
                     system = NOTICE_PROMPT.format(
-                        today=today.isoformat(), profile=profile()
+                        today=today.isoformat(), profile=profile(), grade=grade()
                     )
                     user = NOTICE_USER_TEMPLATE.format(
                         title=title,

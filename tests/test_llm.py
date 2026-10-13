@@ -306,5 +306,42 @@ class TestMisconfiguration(unittest.TestCase):
         self.assertIsNotNone(health.build()["extractor"]["config_error"])
 
 
+class TestPrompts(unittest.TestCase):
+    """A missing placeholder raises KeyError inside analyze(), which the broad
+    `except Exception` there turns into a silent fall back to the rule
+    extractor — the exact failure mode that cost a day to find. Catch it here.
+    """
+
+    def test_the_notice_prompt_fills_every_placeholder(self):
+        filled = llm.NOTICE_PROMPT.format(
+            today="2026-10-13", profile=llm.profile(), grade=llm.grade()
+        )
+        for leftover in ("{profile}", "{grade}", "{today}"):
+            self.assertNotIn(leftover, filled)
+
+    def test_the_chat_prompt_fills_every_placeholder(self):
+        self.assertNotIn("{today}", llm.CHAT_PROMPT.format(today="2026-10-13"))
+
+    def test_the_default_profile_names_the_college(self):
+        os.environ.pop("AUTOW_STUDENT_PROFILE", None)
+        self.addCleanup(os.environ.pop, "AUTOW_STUDENT_PROFILE", None)
+        self.assertIn("人工智能学院", llm.profile())
+
+    def test_the_grade_is_configurable_and_defaults_to_2026(self):
+        os.environ.pop("AUTOW_STUDENT_GRADE", None)
+        self.assertIn("2026", llm.grade())
+        os.environ["AUTOW_STUDENT_GRADE"] = "2024 级"
+        self.addCleanup(os.environ.pop, "AUTOW_STUDENT_GRADE", None)
+        self.assertEqual(llm.grade(), "2024 级")
+
+    def test_the_prompt_tells_the_model_to_keep_optional_things(self):
+        # The model dropped 普通话水平测试 by arguing it was not compulsory.
+        filled = llm.NOTICE_PROMPT.format(
+            today="2026-10-13", profile=llm.profile(), grade=llm.grade()
+        )
+        self.assertIn("自愿参加", filled)
+        self.assertIn("推免", filled)
+
+
 if __name__ == "__main__":
     unittest.main()
