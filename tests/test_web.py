@@ -43,6 +43,15 @@ class TestWebPages(unittest.TestCase):
                 with self.subTest(f"{name} -> {asset}"):
                     self.assertTrue(path.exists(), f"{asset} 不存在")
 
+    def test_every_asset_shares_one_version(self):
+        # A fresh script pulling in a cached older module is a runtime error.
+        versions = set()
+        for name in ("index.html", "qq.html", "sw.js", "app.js"):
+            versions |= set(re.findall(r"\?v=(\d+)", read(name)))
+        self.assertEqual(
+            len(versions), 1, f"资源版本号不一致：{sorted(versions)}（改了要一起改）"
+        )
+
 
 if __name__ == "__main__":
     unittest.main()

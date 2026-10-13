@@ -7,7 +7,7 @@ const SHELL_FILES = [
   'index.html',
   'style.css?v=6',
   'app.js?v=6',
-  'todo-view.js',
+  'todo-view.js?v=6',
   'manifest.webmanifest',
 ];
 

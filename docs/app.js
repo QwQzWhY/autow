@@ -1,4 +1,6 @@
-import { dueLabel, filterTodos, splitByNomination } from './todo-view.js';
+// The version query has to match the other assets: a fresh app.js loading a
+// cached older todo-view.js fails at runtime, not with a warning.
+import { dueLabel, filterTodos, splitByNomination } from './todo-view.js?v=6';
 
 const DATA_URL = 'data/todos.json';
 const DONE_KEY = 'autow.done';
