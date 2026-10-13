@@ -189,6 +189,7 @@ class MainActivity : Activity() {
 
     private fun refreshStatus() {
         statusView.text = buildString {
+            append("版本 ${appVersion()}\n")
             append(if (enabled()) "✅ 通知使用权已开启\n" else "⚠️ 还没开启通知使用权\n")
             append(
                 if (KeepAliveService.running) "✅ 后台常驻已开启\n"
@@ -205,6 +206,14 @@ class MainActivity : Activity() {
         }
         seenView.text = buildSeenReport()
     }
+
+    /** The installed build, so a screenshot says which one is being tested. */
+    private fun appVersion(): String =
+        try {
+            packageManager.getPackageInfo(packageName, 0).versionName ?: "?"
+        } catch (e: Exception) {
+            "?"
+        }
 
     /** Shows what the notification listener has actually seen, if anything. */
     private fun buildSeenReport(): String {
