@@ -1,8 +1,15 @@
 // Bump the version here and the ?v= on the script/style tags whenever an asset
 // changes. GitHub Pages caches assets for ten minutes, so without this a phone
 // keeps running the previous version of a file.
-const SHELL = 'autow-shell-v4';
-const SHELL_FILES = ['./', 'index.html', 'style.css?v=4', 'app.js?v=4', 'manifest.webmanifest'];
+const SHELL = 'autow-shell-v5';
+const SHELL_FILES = [
+  './',
+  'index.html',
+  'style.css?v=5',
+  'app.js?v=5',
+  'todo-view.js',
+  'manifest.webmanifest',
+];
 
 self.addEventListener('install', (e) => {
   e.waitUntil(caches.open(SHELL).then((c) => c.addAll(SHELL_FILES)).then(() => self.skipWaiting()));

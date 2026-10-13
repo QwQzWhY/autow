@@ -32,13 +32,12 @@ DEFAULT_BASE_URL = "https://api.deepseek.com/v1"
 DEFAULT_MODEL = "deepseek-chat"
 MAX_BODY_CHARS = 6000
 
-# Bump this whenever the prompts or the mock/rule logic change, so cached
-# verdicts from an older version are not reused. LLM calls cost money and the
-# cache is otherwise keyed only on the text.
 # Bump this whenever the prompts or the post-processing change, so cached
 # verdicts from an older version are not reused. It is also part of the
 # extractor signature, which is what makes a deployment re-analyse everything.
-CACHE_VERSION = 4
+CACHE_VERSION = 5
+
+DEFAULT_PROFILE = "兰州大学人工智能学院的在读本科生"
 
 # Filled in as calls happen so a run can report why it fell back to rules.
 # A misconfigured endpoint used to be invisible unless someone read the CI log.
@@ -74,16 +73,27 @@ def probe() -> dict:
     STATS["probe"] = result
     return result
 
-NOTICE_PROMPT = """你是一个学生事务助理。用户是兰州大学人工智能学院的学生。
+NOTICE_PROMPT = """你是一个学生事务助理。用户是{profile}。
 通知有两种来源：学院官网，以及学校层级的通知公告（后者什么都有，噪音很多）。
-你要判断一条通知对学生是否意味着"需要做的具体事情"，并把关键信息抽成结构化数据。
+你只保留用户本人需要动手去做的事，其余一律 action_required 为 false。
+
+要保留的（学生本人要做的）：
+- 活动报名与参与：运动会、比赛、讲座报告会、志愿服务、文体活动、社团活动
+- 面向本科生的测试与考试：体测、普通话测试、四六级、课程考试
+- 学籍与培养：选课退课、成绩复核、转专业、推免、毕业设计、评奖评优、助学金
+- 需要本人提交材料、缴费、确认、回复的事项
+- 公示期内学生本人可以提异议的事项
+
+注意：即使通知开头写的是"请各学院组织报名""各单位提交名单"，只要最终是学生本人参加
+或学生本人受益，就要保留，并把 title 写成学生自己的动作。
+
+要丢掉的（与学生本人无关）：
+- 招聘启事、招标采购、中标公告、停水停电停暖、设备申购、资产与数据报送、基建维修
+- 面向教师、教职工、研究生、校友的事务（教师培训、学术会议征稿、校友活动等）
+- 纯行政任务：只有学院或单位才能执行、学生本人无事可做的报送与统计
+- 新闻、喜报、会议纪要、领导讲话、活动报道
 
 规则：
-- 只关注学生本人需要采取行动的事项（报名、提交材料、面试、缴费、开题、答辩、选课、公示期内提异议等）。
-- 纯粹的新闻、喜报、会议纪要、人事任命、领导讲话、招聘宣讲，action_required 为 false。
-- 学校层级的行政和后勤事项与学生本人无关，action_required 为 false，例如：
-  招聘启事、招标采购、中标公告、停水停电停暖、设备申购、实验室信息报送、
-  干部任免、基金申报、院系院庆公告。面向全校学生的才可能为 true。
 - due_at 是这条事项的截止时间，格式 YYYY-MM-DDTHH:MM。没有明确截止时间就填 null，
   不要凭空编造。文字里只写"公示期自9月24日至9月29日"时，取结束日 23:59。
   通知末尾的落款日期不是截止时间。
@@ -92,6 +102,8 @@ NOTICE_PROMPT = """你是一个学生事务助理。用户是兰州大学人工�
   可以慢慢看 → low。
 - title 用不超过 30 字的祈使句，说清要做什么，不要照抄原标题。
 - detail 用一到两句话说明要做什么、去哪里做、要注意什么。
+- 拿不准是否与学生本人有关时，action_required 为 false —— 用户宁可漏掉，
+  也不想被无关的事情打扰。
 
 只输出 JSON，不要任何解释。"""
 
@@ -220,6 +232,11 @@ def signature() -> str:
     return f"{cfg['model']}@{urlparse(cfg['base_url']).hostname}#v{CACHE_VERSION}"
 
 
+def profile() -> str:
+    """Who the advice is for. Widening this changes what survives filtering."""
+    return os.environ.get("AUTOW_STUDENT_PROFILE", "").strip() or DEFAULT_PROFILE
+
+
 def _cache_key(kind: str, body: str, model: str, today: date) -> str:
     digest = hashlib.sha1(f"{kind}\n{body}".encode("utf-8")).hexdigest()
     return f"v{CACHE_VERSION}:{model}:{today.isoformat()}:{digest}"
@@ -308,7 +325,9 @@ def analyze(
                         body=body[:MAX_BODY_CHARS],
                     )
                 else:
-                    system = NOTICE_PROMPT.format(today=today.isoformat())
+                    system = NOTICE_PROMPT.format(
+                        today=today.isoformat(), profile=profile()
+                    )
                     user = NOTICE_USER_TEMPLATE.format(
                         title=title,
                         published=published or "未知",

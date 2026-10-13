@@ -1,0 +1,6 @@
+{
+  "name": "autow",
+  "private": true,
+  "type": "module",
+  "description": "Marked as ESM so `node --test` can import docs/*.js directly; the browser does not need this."
+}
