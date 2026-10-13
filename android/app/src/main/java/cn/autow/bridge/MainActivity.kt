@@ -110,10 +110,17 @@ class MainActivity : Activity() {
         )
 
         root.addView(
-            button("③ 保持后台常驻") {
-                KeepAliveService.start(this)
-                askForNotificationPermission()
-                toast("已开启。通知栏会出现一条「AutoW 正在监听」")
+            button("③ 常驻通知：开 / 关") {
+                val turningOn = !config.keepAliveEnabled
+                config.keepAliveEnabled = turningOn
+                if (turningOn) {
+                    KeepAliveService.start(this)
+                    askForNotificationPermission()
+                    toast("已开启常驻，通知栏会出现一条「AutoW 正在监听」")
+                } else {
+                    KeepAliveService.stop(this)
+                    toast("已关掉常驻和那条通知。如果之后收不到消息，再打开它试试")
+                }
                 refreshStatus()
             }
         )
@@ -192,8 +199,11 @@ class MainActivity : Activity() {
             append("版本 ${appVersion()}\n")
             append(if (enabled()) "✅ 通知使用权已开启\n" else "⚠️ 还没开启通知使用权\n")
             append(
-                if (KeepAliveService.running) "✅ 后台常驻已开启\n"
-                else "⚠️ 后台常驻未开启，关掉应用就会停止转发\n"
+                when {
+                    !config.keepAliveEnabled -> "➖ 常驻已关闭（通知栏干净，但保活变弱）\n"
+                    KeepAliveService.running -> "✅ 后台常驻已开启\n"
+                    else -> "⚠️ 后台常驻未开启，关掉应用就会停止转发\n"
+                }
             )
             append(if (config.isConfigured) "✅ 仓库已配置\n" else "⚠️ 仓库未配置\n")
             val connectedAt = config.listenerConnectedAt

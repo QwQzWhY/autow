@@ -49,6 +49,18 @@ class Config(context: Context) {
             prefs.edit().putString(KEY_LISTENER_AT, value).apply()
 
     /**
+     * Whether to run the foreground service.
+     *
+     * Android refuses to let a foreground service exist without a notification,
+     * so the only way to get rid of that notification is to give up the service.
+     * Whether the service is still load-bearing on a whitelisted ColorOS device
+     * is genuinely unknown, so it is the user's call rather than a guess here.
+     */
+    var keepAliveEnabled: Boolean
+        get() = prefs.getBoolean(KEY_KEEPALIVE, true)
+        set(value) = prefs.edit().putBoolean(KEY_KEEPALIVE, value).apply()
+
+    /**
      * The last few QQ notifications seen, whether or not they matched.
      *
      * Without this, "nothing happened" is indistinguishable from "the listener
@@ -92,6 +104,7 @@ class Config(context: Context) {
         private const val KEY_LAST = "last_result"
         private const val KEY_SEEN = "seen"
         private const val KEY_LISTENER_AT = "listener_at"
+        private const val KEY_KEEPALIVE = "keepalive_enabled"
 
         const val DEFAULT_KEYWORDS = "@全体成员,@所有人"
 

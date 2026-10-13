@@ -102,15 +102,17 @@
       <ol class="list-notes">
         <li>
           手机浏览器打开
-          <a href="autow-bridge-1.1.apk">autow-bridge-1.1.apk</a>（版本 <strong>1.1</strong>），
+          <a href="autow-bridge-1.2.apk">autow-bridge-1.2.apk</a>（版本 <strong>1.2</strong>），
           下载后安装（需要允许「安装未知来源的应用」）。旧版本会保留，可以随时退回
         </li>
-        <li><small>装好后 App 左上角会显示「版本 1.1」——截图给别人的时候能看出是哪一版</small></li>
+        <li><small>装好后 App 左上角会显示「版本 1.2」——截图给别人的时候能看出是哪一版</small></li>
         <li><small>想自己编译：仓库的 Actions → 构建通知桥 APK → Run workflow</small></li>
         <li>打开 App，把下面的<strong>仓库</strong>和<strong>令牌</strong>填进同样的两个框</li>
         <li>点「① 开启通知使用权」，在系统设置里勾上它</li>
         <li>点「③ 保持后台常驻」。通知栏会出现一条「AutoW 正在监听」——
-          <strong>这条通知不能划掉</strong>，它是让进程不被系统杀掉的关键</li>
+          <strong>这条通知不能划掉</strong>，它是让进程不被系统杀掉的关键。
+          <br><small>不喜欢这条通知的话，同一颗按钮再点一次就关掉它（连带前台服务一起）——
+          保活会变弱，能不能撑住要自己试；顶部状态会显示「常驻已关闭」</small></li>
         <li>点「④ 关闭电池优化」，在系统弹窗里选「允许」</li>
         <li><strong>ColorOS（一加 / OPPO / realme）还要另外设三处</strong>，否则划掉应用就会停止监听：
           <br>· 最近任务里长按本应用卡片 → 点**锁**图标

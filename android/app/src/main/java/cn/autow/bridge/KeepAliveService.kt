@@ -65,8 +65,7 @@ class KeepAliveService : Service() {
      */
     private fun scheduleWatchdog() {
         val manager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        val pending = servicePendingIntent(RESTART_REQUEST + 1)
-            ?: return
+        val pending = restartPendingIntent(this, RESTART_REQUEST + 1) ?: return
         try {
             manager.setInexactRepeating(
                 AlarmManager.ELAPSED_REALTIME_WAKEUP,
@@ -80,7 +79,7 @@ class KeepAliveService : Service() {
     }
 
     private fun restartLater(delayMs: Long) {
-        val pending = servicePendingIntent(RESTART_REQUEST) ?: return
+        val pending = restartPendingIntent(this, RESTART_REQUEST) ?: return
         val manager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val at = System.currentTimeMillis() + delayMs
         try {
@@ -96,16 +95,6 @@ class KeepAliveService : Service() {
                 manager.set(AlarmManager.RTC_WAKEUP, at, pending)
             } catch (ignored: Exception) {
             }
-        }
-    }
-
-    private fun servicePendingIntent(requestCode: Int): PendingIntent? {
-        val restart = Intent(applicationContext, KeepAliveService::class.java)
-        val flags = PendingIntent.FLAG_ONE_SHOT or PendingIntent.FLAG_IMMUTABLE
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            PendingIntent.getForegroundService(applicationContext, requestCode, restart, flags)
-        } else {
-            PendingIntent.getService(applicationContext, requestCode, restart, flags)
         }
     }
 
@@ -127,6 +116,11 @@ class KeepAliveService : Service() {
             .setContentText("关掉这条通知会停止转发群消息")
             .setSmallIcon(R.drawable.ic_autow)
             .setOngoing(true)
+            // As quiet and as out of the way as the platform allows: no
+            // timestamp and nothing on the lock screen. Silence comes from the
+            // channel being IMPORTANCE_MIN.
+            .setShowWhen(false)
+            .setVisibility(Notification.VISIBILITY_SECRET)
             .build()
 
     companion object {
@@ -140,6 +134,7 @@ class KeepAliveService : Service() {
             private set
 
         fun start(context: Context) {
+            if (!Config(context).keepAliveEnabled) return
             val intent = Intent(context, KeepAliveService::class.java)
             try {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -150,6 +145,23 @@ class KeepAliveService : Service() {
             } catch (e: Exception) {
                 // Android 12+ blocks background foreground-service starts in some
                 // situations. Nothing to do but carry on; opening the app retries.
+            }
+        }
+
+        fun stop(context: Context) {
+            val alarm = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+            restartPendingIntent(context, RESTART_REQUEST)?.let { alarm.cancel(it) }
+            restartPendingIntent(context, RESTART_REQUEST + 1)?.let { alarm.cancel(it) }
+            context.stopService(Intent(context, KeepAliveService::class.java))
+        }
+
+        fun restartPendingIntent(context: Context, requestCode: Int): PendingIntent? {
+            val restart = Intent(context, KeepAliveService::class.java)
+            val flags = PendingIntent.FLAG_ONE_SHOT or PendingIntent.FLAG_IMMUTABLE
+            return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                PendingIntent.getForegroundService(context, requestCode, restart, flags)
+            } else {
+                PendingIntent.getService(context, requestCode, restart, flags)
             }
         }
     }
