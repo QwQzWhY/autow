@@ -1,11 +1,19 @@
 {
-  "generated_at": "2026-10-13T23:04:57+08:00",
+  "generated_at": "2026-10-13T23:18:24+08:00",
   "connected": true,
-  "total_received": 22,
+  "total_received": 23,
   "total_todos": 3,
-  "today_received": 17,
+  "today_received": 18,
   "today_todos": 2,
   "recent": [
+    {
+      "at": "2026-10-13T23:18:23+08:00",
+      "verdict": "duplicate",
+      "verdict_label": "重复消息，已忽略",
+      "title": "确认装置正常",
+      "length": 23,
+      "nonce": ""
+    },
     {
       "at": "2026-10-13T23:04:56+08:00",
       "verdict": "ignored",
@@ -76,14 +84,6 @@
       "verdict_label": "重复消息，已忽略",
       "title": "确认装置正常",
       "length": 23,
-      "nonce": ""
-    },
-    {
-      "at": "2026-10-13T21:47:55+08:00",
-      "verdict": "ignored",
-      "verdict_label": "判断为无需行动",
-      "title": "",
-      "length": 10,
       "nonce": ""
     }
   ]
