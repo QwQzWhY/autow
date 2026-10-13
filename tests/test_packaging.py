@@ -7,6 +7,7 @@ tell which build was installed and no way back to an older one.
 
 import hashlib
 import re
+import subprocess
 import unittest
 from pathlib import Path
 
@@ -59,6 +60,21 @@ class TestPackaging(unittest.TestCase):
             f"autow-bridge-{version_name()}.apk",
             page,
             "qq.html 还在指向旧版本，改了版本号就要同步改下载链接",
+        )
+
+    def test_the_versioned_apk_is_actually_published_by_git(self):
+        # .gitignore has a blanket `*.apk`. The first version of this change only
+        # un-ignored the stable filename, so the versioned copy was silently left
+        # out of the commit and never reached the download page.
+        path = DOCS / f"autow-bridge-{version_name()}.apk"
+        result = subprocess.run(
+            ["git", "-c", "safe.directory=*", "check-ignore", str(path)],
+            cwd=ROOT,
+            capture_output=True,
+            text=True,
+        )
+        self.assertNotEqual(
+            result.returncode, 0, f"{path.name} 被 .gitignore 忽略了，不会随仓库发布"
         )
 
 

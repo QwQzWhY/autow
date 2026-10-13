@@ -15,6 +15,8 @@ android/build/
 android/app/build/
 android/.gradle/
 android/local.properties
-# 例外：通知桥的 APK 要放到看板站点上，方便手机直接下载安装
+# 例外：通知桥的 APK 要放到看板站点上，方便手机直接下载安装。
+# 带版本号的那份也必须放行，否则新版本根本发不出去。
 *.apk
 !docs/autow-bridge.apk
+!docs/autow-bridge-*.apk
