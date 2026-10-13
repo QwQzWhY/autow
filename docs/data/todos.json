@@ -1,19 +1,7 @@
 {
-  "generated_at": "2026-10-13T12:51:14+08:00",
-  "count": 8,
+  "generated_at": "2026-10-13T13:12:11+08:00",
+  "count": 5,
   "todos": [
-    {
-      "key": "lzu-news:1176975.htm",
-      "title": "报名参加榆中校区师生趣味运动会",
-      "detail": "以学院为单位组队报名，每人限报1项，需购买意外伤害保险。请于10月12日12:00前将可编辑word版及盖章扫描报名表发送至wxyygz@lzu.edu.cn。",
-      "due_at": "2026-10-12T12:00",
-      "priority": "high",
-      "source": "lzu-news",
-      "source_label": "学校通知",
-      "url": "https://news.lzu.edu.cn/info/1056/1176975.htm",
-      "category": "学校通知",
-      "published_at": "2026-10-06"
-    },
     {
       "key": "qq:4c2618eafb475181",
       "title": "提交人工智能导论课程报告",
@@ -27,21 +15,9 @@
       "published_at": "2026-10-13"
     },
     {
-      "key": "lzu-news:1177735.htm",
-      "title": "报名参加萃英登峰开班仪式",
-      "detail": "各学院需组织人员报名，于10月14日18:00前将参加人员名单反馈至twzzb@lzu.edu.cn。活动于10月15日14:30在榆中校区闻欣堂举行，参加人员需提前15分钟到场。",
-      "due_at": "2026-10-14T18:00",
-      "priority": "high",
-      "source": "lzu-news",
-      "source_label": "学校通知",
-      "url": "https://news.lzu.edu.cn/info/1056/1177735.htm",
-      "category": "学校通知",
-      "published_at": "2026-10-12"
-    },
-    {
       "key": "lzu-news:1177715.htm",
       "title": "收看兰大专集《长征热土上自强不息的大学》",
-      "detail": "10月15日21:20在央视科教频道（CCTV-10）播出兰州大学专集，请届时收看，并可通过主题党团日活动、主题班会等形式集中观看。",
+      "detail": "10月15日21:20在央视科教频道（CCTV-10）播出兰州大学专集，请按时收看，并留意学院是否组织主题党团日、主题班会集中观看。",
       "due_at": "2026-10-15T21:20",
       "priority": "normal",
       "source": "lzu-news",
@@ -51,23 +27,23 @@
       "published_at": "2026-10-12"
     },
     {
-      "key": "lzu-news:1177355.htm",
-      "title": "报名普通话水平测试并缴费",
-      "detail": "10月12日9:00至10月15日18:00登录国家普通话水平测试在线报名系统（bm.cltt.org）选择测试日期报名，并于10月16日24:00前扫码缴费（学生参加培训45元、不参加35元），逾期报名将被删除。",
-      "due_at": "2026-10-16T00:00",
-      "priority": "high",
+      "key": "lzu-news:1177915.htm",
+      "title": "办理学生门诊医疗费报销",
+      "detail": "在校参保的全日制学生可报销2026年1月1日后校外定点医院门诊费用。需提前下载填写打印报销申请单，并携带转诊记录、发票、病历、处方、检查报告单、身份证复印件等材料，于10月19-20日到榆中校区校医院总值班室，或10月22-23日到城关西校区校医院医务科办理。",
+      "due_at": "2026-10-23T17:30",
+      "priority": "normal",
       "source": "lzu-news",
       "source_label": "学校通知",
-      "url": "https://news.lzu.edu.cn/info/1056/1177355.htm",
+      "url": "https://news.lzu.edu.cn/info/1056/1177915.htm",
       "category": "学校通知",
-      "published_at": "2026-10-09"
+      "published_at": "2026-10-13"
     },
     {
       "key": "lzu-news:1176785.htm",
       "title": "参加2026年度本科生体质健康测试",
-      "detail": "全校本科生须于2026年10月19日至11月20日参加体质健康测试暨体测运动会，具体安排见附件，请留意学院通知并按时参加。",
+      "detail": "全体在校本科生须参加，测试时间为10月19日至11月20日，具体安排见附件，请按学院通知按时到场。",
       "due_at": "2026-11-20T23:59",
-      "priority": "normal",
+      "priority": "high",
       "source": "lzu-news",
       "source_label": "学校通知",
       "url": "https://news.lzu.edu.cn/info/1056/1176785.htm",
@@ -77,26 +53,14 @@
     {
       "key": "lzu-ai:A028BZSQ",
       "title": "申请2027年推免并提交材料",
-      "detail": "符合条件的应届本科生需向学院提交书面申请及科研成果、竞赛获奖等支撑材料，并签署科研诚信承诺书；注意综合测评排名前50%等资格要求，具体时间节点以学院后续通知为准。",
+      "detail": "符合条件的应届本科生需向学院提交书面申请及科研成果、竞赛获奖等支撑材料，并签署科研诚信承诺书。注意综合测评排名前50%（特殊学术专长可放宽至前80%）、外语四级或六级425分以上等资格要求，公示期内可提异议。",
       "due_at": null,
-      "priority": "normal",
+      "priority": "high",
       "source": "lzu-ai",
       "source_label": "学院通知",
       "url": "https://ai.lzu.edu.cn/news/A028BZSQ",
       "category": "本科生培养",
       "published_at": "2026-09-07"
-    },
-    {
-      "key": "lzu-ai:A0471XGX",
-      "title": "报名同等学力申硕并参加面试",
-      "detail": "登录兰州大学在职课程管理服务平台注册报名并提交材料，学院初审后对符合条件者进行英语测试和面试，面试通过后需在学信网同等学力平台注册并向兰州大学提出申请。",
-      "due_at": null,
-      "priority": "normal",
-      "source": "lzu-ai",
-      "source_label": "学院通知",
-      "url": "https://ai.lzu.edu.cn/news/A0471XGX",
-      "category": "通知公告",
-      "published_at": "2026-10-09"
     }
   ]
 }
