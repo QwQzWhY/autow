@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-13T18:33:58+08:00",
+  "generated_at": "2026-10-13T21:31:46+08:00",
   "extractor": {
     "configured": true,
     "mode": "live",
@@ -8,10 +8,10 @@
     "probe": {
       "ok": true
     },
-    "attempts": 0,
+    "attempts": 19,
     "failures": 0,
     "config_error": null,
-    "ok": false,
+    "ok": true,
     "last_error": ""
   }
 }
