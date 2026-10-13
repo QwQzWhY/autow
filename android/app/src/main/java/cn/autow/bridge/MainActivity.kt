@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.os.Build
 import android.provider.Settings
 import android.text.InputType
 import android.view.Gravity
@@ -106,6 +107,15 @@ class MainActivity : Activity() {
             }
         )
 
+        root.addView(
+            button("③ 保持后台常驻") {
+                KeepAliveService.start(this)
+                askForNotificationPermission()
+                toast("已开启。通知栏会出现一条「AutoW 正在监听」")
+                refreshStatus()
+            }
+        )
+
         statusView = TextView(this).apply {
             textSize = 13f
             setTextColor(Color.parseColor("#555555"))
@@ -121,6 +131,21 @@ class MainActivity : Activity() {
         root.addView(seenView)
 
         setContentView(ScrollView(this).apply { addView(root) })
+
+        // Start it without being asked. Anyone who has gone to the trouble of
+        // granting notification access wants it to keep working after the app is
+        // swiped away, and on several ROMs the listener is killed without it.
+        KeepAliveService.start(this)
+        askForNotificationPermission()
+    }
+
+    private fun askForNotificationPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU &&
+            checkSelfPermission(android.Manifest.permission.POST_NOTIFICATIONS) !=
+            android.content.pm.PackageManager.PERMISSION_GRANTED
+        ) {
+            requestPermissions(arrayOf(android.Manifest.permission.POST_NOTIFICATIONS), 1)
+        }
     }
 
     override fun onResume() {
@@ -131,6 +156,10 @@ class MainActivity : Activity() {
     private fun refreshStatus() {
         statusView.text = buildString {
             append(if (enabled()) "✅ 通知使用权已开启\n" else "⚠️ 还没开启通知使用权\n")
+            append(
+                if (KeepAliveService.running) "✅ 后台常驻已开启\n"
+                else "⚠️ 后台常驻未开启，关掉应用就会停止转发\n"
+            )
             append(if (config.isConfigured) "✅ 仓库已配置\n" else "⚠️ 仓库未配置\n")
             append("\n最近一次：\n")
             append(config.lastResult)
