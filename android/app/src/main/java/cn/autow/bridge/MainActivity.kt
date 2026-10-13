@@ -2,9 +2,11 @@ package cn.autow.bridge
 
 import android.app.Activity
 import android.content.Intent
+import android.net.Uri
 import android.graphics.Color
 import android.os.Bundle
 import android.os.Build
+import android.os.PowerManager
 import android.provider.Settings
 import android.text.InputType
 import android.view.Gravity
@@ -116,6 +118,21 @@ class MainActivity : Activity() {
             }
         )
 
+        root.addView(
+            button("④ 关闭电池优化") {
+                askToIgnoreBatteryOptimizations()
+            }
+        )
+
+        root.addView(
+            hint(
+                "ColorOS（一加 / OPPO）还需要手动设这三处，否则划掉应用就会停止监听：\n" +
+                    "· 最近任务里长按本应用卡片 → 点锁图标\n" +
+                    "· 设置 → 电池 → 应用耗电管理 → AutoW 通知桥 → 允许完全后台行为\n" +
+                    "· 设置 → 应用 → 自启动管理 → 允许 AutoW 通知桥"
+            )
+        )
+
         statusView = TextView(this).apply {
             textSize = 13f
             setTextColor(Color.parseColor("#555555"))
@@ -148,6 +165,23 @@ class MainActivity : Activity() {
         }
     }
 
+    /** One tap to the system dialog that exempts this app from Doze. */
+    private fun askToIgnoreBatteryOptimizations() {
+        val manager = getSystemService(POWER_SERVICE) as PowerManager
+        if (manager.isIgnoringBatteryOptimizations(packageName)) {
+            toast("已经是「不受限制」了")
+            return
+        }
+        try {
+            startActivity(
+                Intent(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS)
+                    .setData(Uri.parse("package:$packageName"))
+            )
+        } catch (e: Exception) {
+            startActivity(Intent(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS))
+        }
+    }
+
     override fun onResume() {
         super.onResume()
         refreshStatus()
@@ -161,6 +195,11 @@ class MainActivity : Activity() {
                 else "⚠️ 后台常驻未开启，关掉应用就会停止转发\n"
             )
             append(if (config.isConfigured) "✅ 仓库已配置\n" else "⚠️ 仓库未配置\n")
+            val connectedAt = config.listenerConnectedAt
+            append(
+                if (connectedAt.isNotEmpty()) "监听上次接入：$connectedAt\n"
+                else "⚠️ 监听从未接入过，点「① 开启通知使用权」\n"
+            )
             append("\n最近一次：\n")
             append(config.lastResult)
         }
@@ -206,6 +245,14 @@ class MainActivity : Activity() {
         textSize = 13.5f
         setTextColor(Color.parseColor("#666666"))
         setPadding(0, 0, 0, dp(20))
+    }
+
+    private fun hint(text: String) = TextView(this).apply {
+        this.text = text
+        textSize = 12.5f
+        setTextColor(Color.parseColor("#777777"))
+        setPadding(0, dp(16), 0, 0)
+        setLineSpacing(dp(4).toFloat(), 1f)
     }
 
     private fun addField(root: LinearLayout, label: String, hint: String, value: String): EditText {

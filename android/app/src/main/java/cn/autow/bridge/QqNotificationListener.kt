@@ -1,6 +1,8 @@
 package cn.autow.bridge
 
 import android.app.Notification
+import android.content.ComponentName
+import android.os.Build
 import android.service.notification.NotificationListenerService
 import android.service.notification.StatusBarNotification
 import java.text.SimpleDateFormat
@@ -20,6 +22,24 @@ import java.util.concurrent.Executors
 class QqNotificationListener : NotificationListenerService() {
 
     private val worker = Executors.newSingleThreadExecutor()
+
+    override fun onListenerConnected() {
+        super.onListenerConnected()
+        // Proves the service is actually bound, which the permission string alone
+        // does not: after an app update the binding can go stale while the
+        // setting still reads as enabled.
+        Config(applicationContext).listenerConnectedAt = Config.nowStamp()
+    }
+
+    override fun onListenerDisconnected() {
+        super.onListenerDisconnected()
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            try {
+                requestRebind(ComponentName(this, QqNotificationListener::class.java))
+            } catch (e: Exception) {
+            }
+        }
+    }
 
     override fun onNotificationPosted(sbn: StatusBarNotification?) {
         val notification = sbn?.notification ?: return

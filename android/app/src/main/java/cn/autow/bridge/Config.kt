@@ -37,6 +37,18 @@ class Config(context: Context) {
         set(value) = prefs.edit().putString(KEY_LAST, value).apply()
 
     /**
+     * When the system last actually bound the listener.
+     *
+     * Separate from the permission check on purpose: after an app update the
+     * setting still reads as enabled while the binding is dead, which is how
+     * "nothing happens" became impossible to explain.
+     */
+    var listenerConnectedAt: String
+        get() = prefs.getString(KEY_LISTENER_AT, "") ?: ""
+        set(value) =
+            prefs.edit().putString(KEY_LISTENER_AT, value).apply()
+
+    /**
      * The last few QQ notifications seen, whether or not they matched.
      *
      * Without this, "nothing happened" is indistinguishable from "the listener
@@ -79,6 +91,7 @@ class Config(context: Context) {
         private const val KEY_KEYWORDS = "keywords"
         private const val KEY_LAST = "last_result"
         private const val KEY_SEEN = "seen"
+        private const val KEY_LISTENER_AT = "listener_at"
 
         const val DEFAULT_KEYWORDS = "@全体成员,@所有人"
 
