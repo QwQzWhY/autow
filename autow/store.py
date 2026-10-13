@@ -33,6 +33,7 @@ CREATE TABLE IF NOT EXISTS todos (
     detail      TEXT,
     due_at      TEXT,
     priority    TEXT NOT NULL DEFAULT 'normal',
+    needs_recommendation INTEGER NOT NULL DEFAULT 0,
     status      TEXT NOT NULL DEFAULT 'open',
     dedupe_key  TEXT NOT NULL UNIQUE,
     created_at  TEXT NOT NULL
@@ -64,6 +65,10 @@ CREATE TABLE IF NOT EXISTS meta (
 );
 """
 
+# Columns added after the first release. `CREATE TABLE IF NOT EXISTS` does not
+# touch an existing table, so each one is applied by hand when missing.
+MIGRATIONS = (("todos", "needs_recommendation", "INTEGER NOT NULL DEFAULT 0"),)
+
 
 def now_iso() -> str:
     return clock.iso_now()
@@ -76,7 +81,16 @@ class Store:
         self.conn = sqlite3.connect(self.path)
         self.conn.row_factory = sqlite3.Row
         self.conn.executescript(SCHEMA)
+        self._migrate()
         self.conn.commit()
+
+    def _migrate(self) -> None:
+        for table, column, declaration in MIGRATIONS:
+            existing = {
+                row["name"] for row in self.conn.execute(f"PRAGMA table_info({table})")
+            }
+            if column not in existing:
+                self.conn.execute(f"ALTER TABLE {table} ADD COLUMN {column} {declaration}")
 
     def close(self) -> None:
         self.conn.close()
@@ -145,6 +159,7 @@ class Store:
         due_at: str | None,
         priority: str,
         dedupe_key: str,
+        needs_recommendation: bool = False,
     ) -> str:
         """Insert or refresh a todo. Returns 'created', 'updated' or 'unchanged'.
 
@@ -154,30 +169,42 @@ class Store:
         is deliberately left alone so a ticked-off item stays ticked off.
         """
         row = self.conn.execute(
-            "SELECT id, title, detail, due_at, priority FROM todos WHERE dedupe_key = ?",
+            """SELECT id, title, detail, due_at, priority, needs_recommendation
+               FROM todos WHERE dedupe_key = ?""",
             (dedupe_key,),
         ).fetchone()
+        flag = int(bool(needs_recommendation))
         if row is None:
             self.conn.execute(
                 """INSERT INTO todos
-                       (notice_id, title, detail, due_at, priority, dedupe_key, created_at)
-                   VALUES (?, ?, ?, ?, ?, ?, ?)""",
-                (notice_id, title, detail, due_at, priority, dedupe_key, now_iso()),
+                       (notice_id, title, detail, due_at, priority, needs_recommendation,
+                        dedupe_key, created_at)
+                   VALUES (?, ?, ?, ?, ?, ?, ?, ?)""",
+                (notice_id, title, detail, due_at, priority, flag, dedupe_key, now_iso()),
             )
             self.conn.commit()
             return "created"
 
-        if (row["title"], row["detail"], row["due_at"], row["priority"]) == (
+        if (
+            row["title"],
+            row["detail"],
+            row["due_at"],
+            row["priority"],
+            row["needs_recommendation"],
+        ) == (
             title,
             detail,
             due_at,
             priority,
+            flag,
         ):
             return "unchanged"
 
         self.conn.execute(
-            "UPDATE todos SET title = ?, detail = ?, due_at = ?, priority = ? WHERE id = ?",
-            (title, detail, due_at, priority, row["id"]),
+            """UPDATE todos
+               SET title = ?, detail = ?, due_at = ?, priority = ?, needs_recommendation = ?
+               WHERE id = ?""",
+            (title, detail, due_at, priority, flag, row["id"]),
         )
         self.conn.commit()
         return "updated"

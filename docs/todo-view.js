@@ -61,3 +61,18 @@ export function filterTodos(todos, options = {}) {
       return items.filter((t) => !t.done);
   }
 }
+
+/**
+ * Split cards into "just go and do it" and "someone has to nominate you first".
+ *
+ * The second kind is still worth seeing — it just is not something the reader
+ * can act on alone, so it is shown as its own group rather than mixed in.
+ */
+export function splitByNomination(items) {
+  const self = [];
+  const nomination = [];
+  for (const item of items) {
+    (item.needs_recommendation ? nomination : self).push(item);
+  }
+  return { self, nomination };
+}

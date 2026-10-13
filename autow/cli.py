@@ -154,6 +154,7 @@ def crawl(args: argparse.Namespace, store: Store) -> tuple[int, int, int]:
                             due_at=draft.due_at,
                             priority=draft.priority,
                             dedupe_key=key,
+                            needs_recommendation=draft.needs_recommendation,
                         )
                         outcomes[outcome] = outcomes.get(outcome, 0) + 1
                         if outcome == "created":
@@ -340,6 +341,7 @@ def cmd_ingest(args: argparse.Namespace) -> int:
         due_at=draft.due_at,
         priority=draft.priority,
         dedupe_key=f"{CHAT_SOURCE}:{digest}",
+        needs_recommendation=draft.needs_recommendation,
     )
     store.log_qq(
         "todo" if outcome == "created" else "duplicate",

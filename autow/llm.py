@@ -35,7 +35,7 @@ MAX_BODY_CHARS = 6000
 # Bump this whenever the prompts or the post-processing change, so cached
 # verdicts from an older version are not reused. It is also part of the
 # extractor signature, which is what makes a deployment re-analyse everything.
-CACHE_VERSION = 6
+CACHE_VERSION = 7
 
 DEFAULT_PROFILE = "兰州大学人工智能学院的本科生"
 DEFAULT_GRADE = "2026 级（2026 年入学，现在是本科一年级）"
@@ -111,6 +111,8 @@ NOTICE_PROMPT = """你是一个学生事务助理。用户是{profile}。
   可以慢慢看 → low。
 - title 用不超过 30 字的祈使句，说清要做什么，不要照抄原标题。
 - detail 用一到两句话说明要做什么、去哪里做、要注意什么。
+- needs_recommendation：如果学生本人不能直接报名，必须先由学院推荐、选拔或分配名额
+  才能参加，填 true；本人可以自己去报名、参加、提交的，填 false。拿不准填 false。
 - 拿不准是否与学生本人有关时，action_required 为 false —— 用户宁可漏掉，
   也不想被无关的事情打扰。
 
@@ -132,6 +134,7 @@ CHAT_PROMPT = """你是一个学生事务助理。用户是兰州大学人工智
 - title 用不超过 30 字的祈使句，说清要做什么。
 - detail 说明要做什么、什么时候交、去哪里做。不要复述群名、人名或闲聊内容，
   这些内容会被发布到公网上。
+- needs_recommendation：需要先由学院推荐或选拔才能参加的填 true，否则填 false。
 - 如果 action_required 为 false，title 和 detail 必须留空字符串，不要摘抄原文。
 
 只输出 JSON，不要任何解释。"""
@@ -155,6 +158,7 @@ JSON_SHAPE = {
     "detail": "string",
     "due_at": "YYYY-MM-DDTHH:MM 或 null",
     "priority": "high | normal | low",
+    "needs_recommendation": "boolean，需要学院推荐才能参加时为 true",
 }
 
 
@@ -389,6 +393,7 @@ def analyze(
         detail=(data.get("detail") or "")[:400],
         due_at=due_at,
         priority=priority,
+        needs_recommendation=bool(data.get("needs_recommendation")),
     )
     if extract.is_expired(draft.due_at):
         print(f"    [{engine}] 截止时间已过（{draft.due_at}），不作为待办")

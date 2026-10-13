@@ -110,6 +110,17 @@ body {
 
 .empty { color: var(--muted); text-align: center; padding: 40px 0; font-size: 14px; }
 
+/* Separates the cards the reader can act on alone from the ones that need the
+   college to nominate them first. */
+.group-title {
+  margin: 4px 0 10px;
+  padding-top: 12px;
+  border-top: 1px dashed var(--line);
+  font-size: 12.5px;
+  color: var(--muted);
+  letter-spacing: .3px;
+}
+
 .card {
   position: relative;
   display: grid;

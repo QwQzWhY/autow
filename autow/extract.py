@@ -62,6 +62,9 @@ class TodoDraft:
     detail: str
     due_at: str | None
     priority: str
+    # True when the student cannot simply sign up — the college has to nominate
+    # or select them first. Surfaced separately on the board.
+    needs_recommendation: bool = False
 
 
 def _sentences(body: str) -> list[str]:

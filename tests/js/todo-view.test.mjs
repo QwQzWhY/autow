@@ -7,7 +7,12 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 
-import { dayDiff, dueLabel, filterTodos } from '../../docs/todo-view.js';
+import {
+  dayDiff,
+  dueLabel,
+  filterTodos,
+  splitByNomination,
+} from '../../docs/todo-view.js';
 
 const TODAY = new Date('2026-10-13T09:00:00');
 
@@ -94,4 +99,30 @@ test('completed state is reported per card, not baked into the data', () => {
   const all = filterTodos(TODOS, { view: 'all', done: new Set(['a']), today: TODAY });
   assert.equal(all.find((t) => t.key === 'a').done, true);
   assert.equal(all.find((t) => t.key === 'c').done, false);
+});
+
+test('cards that need a nomination are split out', () => {
+  const items = [
+    { key: 'a', needs_recommendation: false },
+    { key: 'b', needs_recommendation: true },
+    { key: 'c' }, // older data has no flag at all
+  ];
+  const { self, nomination } = splitByNomination(items);
+  assert.deepEqual(self.map((t) => t.key), ['a', 'c']);
+  assert.deepEqual(nomination.map((t) => t.key), ['b']);
+});
+
+test('splitting keeps the order it was given', () => {
+  const items = [
+    { key: 'b', needs_recommendation: true },
+    { key: 'a', needs_recommendation: false },
+    { key: 'd', needs_recommendation: true },
+  ];
+  const { self, nomination } = splitByNomination(items);
+  assert.deepEqual(self.map((t) => t.key), ['a']);
+  assert.deepEqual(nomination.map((t) => t.key), ['b', 'd']);
+});
+
+test('nothing to split is not an error', () => {
+  assert.deepEqual(splitByNomination([]), { self: [], nomination: [] });
 });

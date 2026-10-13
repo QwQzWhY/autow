@@ -1,4 +1,4 @@
-import { dueLabel, filterTodos } from './todo-view.js';
+import { dueLabel, filterTodos, splitByNomination } from './todo-view.js';
 
 const DATA_URL = 'data/todos.json';
 const DONE_KEY = 'autow.done';
@@ -184,7 +184,15 @@ function render() {
     p.textContent = state.todos.length ? '这个分类下没有内容' : '还没有待办';
     list.appendChild(p);
   } else {
-    items.forEach((item) => list.appendChild(card(item)));
+    const { self, nomination } = splitByNomination(items);
+    self.forEach((item) => list.appendChild(card(item)));
+    if (nomination.length) {
+      const heading = document.createElement('p');
+      heading.className = 'group-title';
+      heading.textContent = '需学院推荐才能参加';
+      list.appendChild(heading);
+      nomination.forEach((item) => list.appendChild(card(item)));
+    }
   }
 
   const hidden = state.todos.filter((t) => state.deleted.has(t.key)).length;

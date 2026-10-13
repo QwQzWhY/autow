@@ -7,6 +7,7 @@ kept skipping the notices themselves.
 """
 
 import os
+import sqlite3
 import tempfile
 import unittest
 from pathlib import Path
@@ -76,6 +77,50 @@ class TestTodoRefresh(unittest.TestCase):
         self.add()
         self.assertFalse(self.store.remove_open_todo("lzu-ai:NOPE"))
         self.assertEqual(len(self.store.all_todos()), 1)
+
+    def test_the_nomination_flag_round_trips(self):
+        self.add(needs_recommendation=True)
+        self.assertEqual(self.store.all_todos()[0]["needs_recommendation"], 1)
+        self.add(needs_recommendation=False)
+        self.assertEqual(self.store.all_todos()[0]["needs_recommendation"], 0)
+
+    def test_flipping_the_nomination_flag_counts_as_a_change(self):
+        self.add()
+        self.assertEqual(self.add(needs_recommendation=True), "updated")
+        self.assertEqual(self.add(needs_recommendation=True), "unchanged")
+
+
+class TestMigration(unittest.TestCase):
+    """The deployed database predates the nomination column."""
+
+    def test_an_old_table_gains_the_new_column(self):
+        tmp = tempfile.TemporaryDirectory()
+        self.addCleanup(tmp.cleanup)
+        path = Path(tmp.name) / "old.db"
+
+        conn = sqlite3.connect(path)
+        conn.executescript(
+            """
+            CREATE TABLE todos (
+                id         INTEGER PRIMARY KEY,
+                notice_id  INTEGER NOT NULL,
+                title      TEXT NOT NULL,
+                detail     TEXT,
+                due_at     TEXT,
+                priority   TEXT NOT NULL DEFAULT 'normal',
+                status     TEXT NOT NULL DEFAULT 'open',
+                dedupe_key TEXT NOT NULL UNIQUE,
+                created_at TEXT NOT NULL
+            );
+            """
+        )
+        conn.commit()
+        conn.close()
+
+        store = Store(path)
+        self.addCleanup(store.close)
+        columns = {row["name"] for row in store.conn.execute("PRAGMA table_info(todos)")}
+        self.assertIn("needs_recommendation", columns)
 
 
 class TestMeta(unittest.TestCase):

@@ -34,6 +34,7 @@ def build(store: Store) -> dict:
                 "detail": row["detail"] or "",
                 "due_at": row["due_at"],
                 "priority": row["priority"],
+                "needs_recommendation": bool(row["needs_recommendation"]),
                 "source": source,
                 "source_label": SOURCE_LABELS.get(source, source),
                 "url": row["url"],
