@@ -64,6 +64,24 @@ class TestWorkflows(unittest.TestCase):
         groups = {name: load(name)[0]["concurrency"]["group"] for name in ("scan.yml", "qq.yml")}
         self.assertEqual(groups["scan.yml"], groups["qq.yml"])
 
+    def test_both_workflows_use_the_retrying_commit_script(self):
+        # A bare `git push` failed once when a code push and a bot commit raced.
+        # The retry lives in one script so it cannot be dropped from one of them.
+        for name in ("scan.yml", "qq.yml"):
+            with self.subTest(name):
+                data, _ = load(name)
+                steps = data["jobs"][next(iter(data["jobs"]))]["steps"]
+                commit = [s for s in steps if s.get("name") == "提交结果"][0]
+                self.assertIn("tools/ci_commit.sh", commit["run"])
+                self.assertEqual(commit.get("if"), "always()")
+
+    def test_the_commit_script_retries_and_syncs(self):
+        script = (WORKFLOWS.parent.parent / "tools" / "ci_commit.sh").read_text(
+            encoding="utf-8"
+        )
+        self.assertIn("git rebase", script, "推送被拒后必须先把远端合进来")
+        self.assertIn("for attempt in", script, "必须重试，不能一次失败就放弃")
+
 
 if __name__ == "__main__":
     unittest.main()

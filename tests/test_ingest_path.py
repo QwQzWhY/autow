@@ -42,7 +42,8 @@ class TestIngestPath(unittest.TestCase):
             [sys.executable, "-c", PROBE],
             cwd=ROOT,
             capture_output=True,
-            text=True,
+            encoding="utf-8",
+            errors="replace",
             timeout=120,
         )
         self.assertEqual(result.returncode, 0, result.stderr)
@@ -53,7 +54,12 @@ class TestIngestPath(unittest.TestCase):
         # passing just because the probe is broken.
         probe = "import autow.browser; print('browser ok')"
         result = subprocess.run(
-            [sys.executable, "-c", probe], cwd=ROOT, capture_output=True, text=True, timeout=120
+            [sys.executable, "-c", probe],
+            cwd=ROOT,
+            capture_output=True,
+            encoding="utf-8",
+            errors="replace",
+            timeout=120,
         )
         self.assertEqual(result.returncode, 0, result.stderr)
 

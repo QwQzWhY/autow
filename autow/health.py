@@ -40,7 +40,9 @@ def build() -> dict:
         attempts = int(llm.STATS["attempts"])
         failures = int(llm.STATS["failures"])
         problem = llm.validate_config(cfg)
-        probe = llm.STATS["probe"]
+        # A run that never calls the model — a QQ ingest, say — would otherwise
+        # publish `probe: null` and make a healthy system look unverified.
+        probe = llm.STATS["probe"] or _previous_probe()
         extractor = {
             "configured": True,
             "mode": cfg["mode"],
@@ -59,6 +61,18 @@ def build() -> dict:
         "generated_at": clock.iso_now(),
         "extractor": extractor,
     }
+
+
+def _previous_probe():
+    """The last self-check result, if this run did not perform one."""
+    try:
+        data = json.loads((data_dir() / "health.json").read_text(encoding="utf-8"))
+        probe = data["extractor"]["probe"]
+    except Exception:
+        return None
+    if not isinstance(probe, dict):
+        return None
+    return {**probe, "carried_over": True}
 
 
 def _safe(value: str, api_key: str = "") -> str:

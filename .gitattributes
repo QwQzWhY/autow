@@ -5,3 +5,4 @@
 *.png binary
 *.apk binary
 *.db binary
+*.sh text eol=lf

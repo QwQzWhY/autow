@@ -7,8 +7,10 @@ and the exception escaped the scan loop. Both halves of that are covered here.
 """
 
 import os
+import tempfile
 import unittest
 from datetime import date, timedelta
+from pathlib import Path
 from unittest import mock
 
 import json
@@ -341,6 +343,48 @@ class TestPrompts(unittest.TestCase):
         )
         self.assertIn("自愿参加", filled)
         self.assertIn("推免", filled)
+
+
+class TestHealthKeepsTheLastProbe(unittest.TestCase):
+    """A QQ ingest never probes, and used to blank that field on the way past."""
+
+    def setUp(self):
+        os.environ.update(
+            LLM_API_KEY="sk-x",
+            LLM_BASE_URL="https://api.deepseek.com/v1",
+            LLM_MODEL="deepseek-chat",
+        )
+        os.environ.pop("AUTOW_LLM_MODE", None)
+        self.addCleanup(os.environ.pop, "AUTOW_LLM_MODE", None)
+
+    def test_the_previous_result_survives_a_run_that_does_not_probe(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            Path(tmp, "health.json").write_text(
+                json.dumps({"extractor": {"probe": {"ok": True}}}), encoding="utf-8"
+            )
+            with mock.patch.dict(os.environ, {"AUTOW_DOCS_DIR": tmp}):
+                llm.reset_stats()  # nothing probed this run
+                probe = health.build()["extractor"]["probe"]
+            self.assertTrue(probe["ok"])
+            self.assertTrue(probe["carried_over"], "应该标明这是上一次的结果")
+
+    def test_nothing_to_carry_over_is_not_an_error(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            with mock.patch.dict(os.environ, {"AUTOW_DOCS_DIR": tmp}):
+                llm.reset_stats()
+                self.assertIsNone(health.build()["extractor"]["probe"])
+
+    def test_a_real_probe_is_not_marked_as_carried_over(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            Path(tmp, "health.json").write_text(
+                json.dumps({"extractor": {"probe": {"ok": False}}}), encoding="utf-8"
+            )
+            with mock.patch.dict(os.environ, {"AUTOW_DOCS_DIR": tmp}):
+                llm.reset_stats()
+                llm.STATS["probe"] = {"ok": True}
+                probe = health.build()["extractor"]["probe"]
+            self.assertTrue(probe["ok"])
+            self.assertNotIn("carried_over", probe)
 
 
 if __name__ == "__main__":

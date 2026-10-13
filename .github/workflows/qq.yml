@@ -37,13 +37,5 @@ jobs:
         run: python -m autow ingest
 
       - name: 提交结果
-        run: |
-          git config user.name "autow-bot"
-          git config user.email "autow-bot@users.noreply.github.com"
-          git add -A
-          if git diff --staged --quiet; then
-            echo "没有需要记录的变化"
-          else
-            git commit -m "chore: QQ 群消息 $(date -u '+%Y-%m-%d %H:%M UTC')"
-            git push
-          fi
+        if: always()
+        run: bash tools/ci_commit.sh

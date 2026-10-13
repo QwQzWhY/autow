@@ -85,17 +85,21 @@ QQ 那条能做到准实时，是因为它不需要浏览器：处理消息的 w
 | `autow/browser.py` | 反检测浏览器会话（每次全新，不复用配置） |
 | `autow/sources/lzu_ai.py` | 学院官网适配器：通知列表 + 正文 |
 | `autow/sources/lzu_news.py` | 学校新闻网适配器（`news.lzu.edu.cn/tzgg.htm`） |
+| `autow/models.py` | 共享数据结构（不含任何第三方依赖，见下） |
 | `autow/dates.py` | 中文日期解析（`10月09日` 这种没年份的） |
+| `autow/clock.py` | 全项目唯一的"今天"来源，固定按东八区算 |
 | `autow/extract.py` | 规则版抽取，也是大模型不可用时的兜底 |
 | `autow/llm.py` | 大模型抽取（任意 OpenAI 兼容接口，标准库实现，无 SDK 依赖） |
 | `autow/store.py` | SQLite 存储与去重 |
 | `autow/publish.py` | 生成看板用的 `docs/data/todos.json` |
+| `autow/qqstatus.py` | 生成接入页读的状态文件（不含任何聊天内容） |
+| `autow/health.py` | 生成健康状态文件：本次用的是什么引擎、成功没有 |
 | `autow/cli.py` | 命令行入口 |
 | `docs/` | 手机看板（PWA），GitHub Pages 从这里发布 |
 | `docs/qq.html` | QQ 接入页：接入向导 + 连接状态 + 一键测试 |
-| `autow/qqstatus.py` | 生成接入页读的状态文件（不含任何聊天内容） |
+| `tests/` | pytest 无关，`python -m unittest discover -s tests` 一把跑完 |
 | `android/` | QQ 通知桥：只读系统通知，不碰 QQ 协议 |
-| `tools/` | 开发用的侦察、预览、图标生成脚本 |
+| `tools/` | 侦察、预览、图标生成、CI 提交脚本 |
 
 ## 本地运行
 

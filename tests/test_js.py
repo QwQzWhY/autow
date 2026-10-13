@@ -27,7 +27,11 @@ class TestBrowserLogic(unittest.TestCase):
             [node, "--test", *files],
             cwd=ROOT,
             capture_output=True,
-            text=True,
+            # Explicit UTF-8: the child prints Chinese, and the default locale
+            # encoding on a Chinese Windows box (GBK) cannot decode it, which
+            # silently loses the captured output.
+            encoding="utf-8",
+            errors="replace",
             timeout=180,
         )
         self.assertEqual(result.returncode, 0, f"{result.stdout}\n{result.stderr}")

@@ -71,7 +71,8 @@ class TestPackaging(unittest.TestCase):
             ["git", "-c", "safe.directory=*", "check-ignore", str(path)],
             cwd=ROOT,
             capture_output=True,
-            text=True,
+            encoding="utf-8",
+            errors="replace",
         )
         self.assertNotEqual(
             result.returncode, 0, f"{path.name} 被 .gitignore 忽略了，不会随仓库发布"
