@@ -1,11 +1,19 @@
 {
-  "generated_at": "2026-10-13T21:31:46+08:00",
+  "generated_at": "2026-10-13T21:47:41+08:00",
   "connected": true,
-  "total_received": 11,
-  "total_todos": 1,
-  "today_received": 6,
-  "today_todos": 0,
+  "total_received": 12,
+  "total_todos": 2,
+  "today_received": 7,
+  "today_todos": 1,
   "recent": [
+    {
+      "at": "2026-10-13T21:47:40+08:00",
+      "verdict": "todo",
+      "verdict_label": "已生成待办",
+      "title": "确认装置正常",
+      "length": 23,
+      "nonce": ""
+    },
     {
       "at": "2026-10-13T18:03:17+08:00",
       "verdict": "ignored",
@@ -77,14 +85,6 @@
       "title": "",
       "length": 19,
       "nonce": ""
-    },
-    {
-      "at": "2026-10-12T23:32:28+08:00",
-      "verdict": "ignored",
-      "verdict_label": "判断为无需行动",
-      "title": "",
-      "length": 37,
-      "nonce": "2tujj3sl"
     }
   ]
 }
