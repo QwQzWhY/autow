@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-14T15:53:18+08:00",
+  "generated_at": "2026-10-14T16:40:54+08:00",
   "count": 10,
   "todos": [
     {
@@ -14,7 +14,8 @@
       "source_label": "QQ 群",
       "url": "",
       "category": "QQ 群消息",
-      "published_at": "2026-10-13"
+      "published_at": "2026-10-13",
+      "status": "open"
     },
     {
       "key": "qq:9d1914ceea6af7bc",
@@ -28,7 +29,8 @@
       "source_label": "QQ 群",
       "url": "",
       "category": "QQ 群消息",
-      "published_at": "2026-10-14"
+      "published_at": "2026-10-14",
+      "status": "open"
     },
     {
       "key": "qq:4c2618eafb475181",
@@ -42,7 +44,8 @@
       "source_label": "QQ 群",
       "url": "",
       "category": "QQ 群消息",
-      "published_at": "2026-10-14"
+      "published_at": "2026-10-14",
+      "status": "open"
     },
     {
       "key": "lzu-news:1177715.htm",
@@ -56,7 +59,8 @@
       "source_label": "学校通知",
       "url": "https://news.lzu.edu.cn/info/1056/1177715.htm",
       "category": "学校通知",
-      "published_at": "2026-10-12"
+      "published_at": "2026-10-12",
+      "status": "open"
     },
     {
       "key": "lzu-news:1177915.htm",
@@ -70,7 +74,8 @@
       "source_label": "学校通知",
       "url": "https://news.lzu.edu.cn/info/1056/1177915.htm",
       "category": "学校通知",
-      "published_at": "2026-10-13"
+      "published_at": "2026-10-13",
+      "status": "open"
     },
     {
       "key": "qq:gmv7rl4lp",
@@ -84,7 +89,8 @@
       "source_label": "QQ 群",
       "url": "",
       "category": "QQ 群消息",
-      "published_at": "2026-10-14"
+      "published_at": "2026-10-14",
+      "status": "open"
     },
     {
       "key": "lzu-news:1178345.htm",
@@ -98,7 +104,8 @@
       "source_label": "学校通知",
       "url": "https://news.lzu.edu.cn/info/1056/1178345.htm",
       "category": "学校通知",
-      "published_at": "2026-10-14"
+      "published_at": "2026-10-14",
+      "status": "open"
     },
     {
       "key": "lzu-news:1178265.htm",
@@ -112,7 +119,8 @@
       "source_label": "学校通知",
       "url": "https://news.lzu.edu.cn/info/1056/1178265.htm",
       "category": "学校通知",
-      "published_at": "2026-10-14"
+      "published_at": "2026-10-14",
+      "status": "open"
     },
     {
       "key": "lzu-news:1177735.htm",
@@ -126,7 +134,8 @@
       "source_label": "学校通知",
       "url": "https://news.lzu.edu.cn/info/1056/1177735.htm",
       "category": "学校通知",
-      "published_at": "2026-10-12"
+      "published_at": "2026-10-12",
+      "status": "open"
     },
     {
       "key": "lzu-news:1176785.htm",
@@ -140,7 +149,8 @@
       "source_label": "学校通知",
       "url": "https://news.lzu.edu.cn/info/1056/1176785.htm",
       "category": "学校通知",
-      "published_at": "2026-09-30"
+      "published_at": "2026-09-30",
+      "status": "open"
     }
   ]
 }
