@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-10-14T10:21:16+08:00",
-  "count": 8,
+  "generated_at": "2026-10-14T10:59:38+08:00",
+  "count": 9,
   "todos": [
     {
       "key": "qq:d954ba8f7071b11a",
@@ -105,6 +105,19 @@
       "url": "https://news.lzu.edu.cn/info/1056/1176785.htm",
       "category": "学校通知",
       "published_at": "2026-09-30"
+    },
+    {
+      "key": "lzu-news:1178265.htm",
+      "title": "参加逻辑学工作坊",
+      "detail": "高阶逻辑、分体论与复数逻辑工作坊于10月16日至18日在兰州大学会议中心八楼举行，正式会议为10月17日全天及18日上午，欢迎师生关注参加。",
+      "due_at": null,
+      "priority": "normal",
+      "needs_recommendation": false,
+      "source": "lzu-news",
+      "source_label": "学校通知",
+      "url": "https://news.lzu.edu.cn/info/1056/1178265.htm",
+      "category": "学校通知",
+      "published_at": "2026-10-14"
     }
   ]
 }
