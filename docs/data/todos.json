@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-10-14T22:05:48+08:00",
-  "count": 13,
+  "generated_at": "2026-10-14T22:08:55+08:00",
+  "count": 14,
   "todos": [
     {
       "key": "qq:d954ba8f7071b11a",
@@ -105,6 +105,21 @@
       "url": "https://news.lzu.edu.cn/info/1056/1177915.htm",
       "category": "学校通知",
       "published_at": "2026-10-13",
+      "status": "open"
+    },
+    {
+      "key": "qq:gmv86pth0",
+      "title": "填写查寝签到",
+      "detail": "在群里填写查寝签到。",
+      "due_at": null,
+      "priority": "normal",
+      "needs_recommendation": false,
+      "content_hash": "458bfc6444d18c92",
+      "source": "qq",
+      "source_label": "QQ 群",
+      "url": "",
+      "category": "QQ 群消息",
+      "published_at": "2026-10-14",
       "status": "open"
     },
     {
