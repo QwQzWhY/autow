@@ -80,6 +80,12 @@ class TestWebPages(unittest.TestCase):
         self.assertIn("reportStatus(item.key, nowDone ? 'done' : 'open')", script)
         self.assertIn("reportStatus(state.undo.key, 'open')", script, "撤销没报回去")
 
+    def test_the_board_groups_items_without_a_deadline(self):
+        # 活动类通知要保留（用户要求过），但不能和"明天到期"挤在同一段里。
+        script = read("app.js")
+        self.assertIn("splitByDeadline", script)
+        self.assertIn("没有截止时间", script)
+
 
 if __name__ == "__main__":
     unittest.main()

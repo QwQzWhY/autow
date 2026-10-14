@@ -86,3 +86,21 @@ export function splitByNomination(items) {
   }
   return { self, nomination };
 }
+
+/**
+ * Split cards into "has a deadline" and "just worth knowing".
+ *
+ * A notice with no deadline is usually an activity, a ceremony or a workshop.
+ * Keeping those is deliberate — the user asked for optional-but-useful things
+ * to survive filtering — but they are not the same kind of thing as something
+ * due tomorrow, and mixing them makes the board read as one long list of equal
+ * demands.
+ */
+export function splitByDeadline(items) {
+  const dated = [];
+  const undated = [];
+  for (const item of items) {
+    (item.due_at ? dated : undated).push(item);
+  }
+  return { dated, undated };
+}

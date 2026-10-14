@@ -1,6 +1,12 @@
 // The version query has to match the other assets: a fresh app.js loading a
 // cached older todo-view.js fails at runtime, not with a warning.
-import { dueLabel, filterTodos, isDone, splitByNomination } from './todo-view.js?v=9';
+import {
+  dueLabel,
+  filterTodos,
+  isDone,
+  splitByDeadline,
+  splitByNomination,
+} from './todo-view.js?v=9';
 
 const DATA_URL = 'data/todos.json';
 const DONE_KEY = 'autow.done';
@@ -165,6 +171,14 @@ async function create(item, payload) {
 
 function closeSheet() {
   $('sheet').hidden = true;
+}
+
+/** The little heading that separates one group of cards from the next. */
+function groupTitle(text) {
+  const heading = document.createElement('p');
+  heading.className = 'group-title';
+  heading.textContent = text;
+  return heading;
 }
 
 let toastTimer = null;
@@ -341,12 +355,17 @@ function render() {
     // "要先经学院推荐" is already in that group instead of sitting at the top and
     // jumping down when the server copy arrives.
     const { self, nomination } = splitByNomination([...pending, ...items]);
-    self.forEach((item) => list.appendChild(card(item)));
+
+    // What has a deadline goes first; an activity with no deadline is worth
+    // keeping but is not the same kind of thing as something due tomorrow.
+    const { dated, undated } = splitByDeadline(self);
+    dated.forEach((item) => list.appendChild(card(item)));
+    if (undated.length) {
+      list.appendChild(groupTitle('没有截止时间'));
+      undated.forEach((item) => list.appendChild(card(item)));
+    }
     if (nomination.length) {
-      const heading = document.createElement('p');
-      heading.className = 'group-title';
-      heading.textContent = '需学院推荐才能参加';
-      list.appendChild(heading);
+      list.appendChild(groupTitle('需学院推荐才能参加'));
       nomination.forEach((item) => list.appendChild(card(item)));
     }
   }

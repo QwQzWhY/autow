@@ -12,6 +12,7 @@ import {
   dueLabel,
   filterTodos,
   isDone,
+  splitByDeadline,
   splitByNomination,
 } from '../../docs/todo-view.js';
 
@@ -149,4 +150,30 @@ test('splitting keeps the order it was given', () => {
 
 test('nothing to split is not an error', () => {
   assert.deepEqual(splitByNomination([]), { self: [], nomination: [] });
+});
+
+test('cards without a deadline are split into their own group', () => {
+  const items = [
+    { key: 'due', due_at: '2026-10-20T23:59' },
+    { key: 'activity', due_at: null },
+    { key: 'missing' }, // older data has no due_at field at all
+  ];
+  const { dated, undated } = splitByDeadline(items);
+  assert.deepEqual(dated.map((t) => t.key), ['due']);
+  assert.deepEqual(undated.map((t) => t.key), ['activity', 'missing']);
+});
+
+test('splitting by deadline keeps the order it was given', () => {
+  const items = [
+    { key: 'a', due_at: null },
+    { key: 'b', due_at: '2026-10-20T23:59' },
+    { key: 'c', due_at: null },
+  ];
+  const { dated, undated } = splitByDeadline(items);
+  assert.deepEqual(dated.map((t) => t.key), ['b']);
+  assert.deepEqual(undated.map((t) => t.key), ['a', 'c']);
+});
+
+test('nothing to split by deadline is not an error', () => {
+  assert.deepEqual(splitByDeadline([]), { dated: [], undated: [] });
 });
