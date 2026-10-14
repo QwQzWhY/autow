@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-14T22:08:55+08:00",
+  "generated_at": "2026-10-14T23:09:10+08:00",
   "extractor": {
     "configured": true,
     "mode": "live",
@@ -9,27 +9,27 @@
       "ok": true,
       "carried_over": true
     },
-    "attempts": 1,
+    "attempts": 13,
     "failures": 0,
     "config_error": null,
     "ok": true,
     "last_error": "",
     "tokens": {
-      "calls": 1,
-      "prompt": 632,
-      "completion": 50
+      "calls": 13,
+      "prompt": 21551,
+      "completion": 603
     }
   },
   "sources": {
     "lzu-ai": {
       "listed": 10,
-      "ok": 10,
+      "ok": 0,
       "failed": 0,
       "error": ""
     },
     "lzu-jwc": {
       "listed": 54,
-      "ok": 12,
+      "ok": 13,
       "failed": 6,
       "error": ""
     },
@@ -41,8 +41,8 @@
     },
     "lzu-news": {
       "listed": 20,
-      "ok": 11,
-      "failed": 9,
+      "ok": 0,
+      "failed": 5,
       "error": ""
     }
   }
