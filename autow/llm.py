@@ -42,11 +42,27 @@ DEFAULT_GRADE = "2026 级（2026 年入学，现在是本科一年级）"
 
 # Filled in as calls happen so a run can report why it fell back to rules.
 # A misconfigured endpoint used to be invisible unless someone read the CI log.
-STATS: dict[str, object] = {"attempts": 0, "failures": 0, "last_error": "", "probe": None}
+STATS: dict[str, object] = {
+    "attempts": 0,
+    "failures": 0,
+    "last_error": "",
+    "probe": None,
+    "calls": 0,
+    "prompt_tokens": 0,
+    "completion_tokens": 0,
+}
 
 
 def reset_stats() -> None:
-    STATS.update(attempts=0, failures=0, last_error="", probe=None)
+    STATS.update(
+        attempts=0,
+        failures=0,
+        last_error="",
+        probe=None,
+        calls=0,
+        prompt_tokens=0,
+        completion_tokens=0,
+    )
 
 
 def probe() -> dict:
@@ -330,6 +346,14 @@ def _call(messages: list[dict[str, str]], cfg: dict[str, str], model: str) -> di
     )
     with urllib.request.urlopen(request, timeout=90) as response:
         body = json.loads(response.read().decode("utf-8"))
+
+    # Recorded so the cost of a run is visible instead of guessed at.
+    usage = body.get("usage") or {}
+    STATS["calls"] = int(STATS["calls"]) + 1
+    STATS["prompt_tokens"] = int(STATS["prompt_tokens"]) + int(usage.get("prompt_tokens") or 0)
+    STATS["completion_tokens"] = int(STATS["completion_tokens"]) + int(
+        usage.get("completion_tokens") or 0
+    )
     return json.loads(body["choices"][0]["message"]["content"])
 
 

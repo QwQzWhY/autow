@@ -15,7 +15,7 @@ import json
 import os
 import sys
 import time
-from datetime import datetime
+from datetime import datetime, timedelta
 
 from . import dates, health, llm, publish, qqstatus
 from . import clock
@@ -29,6 +29,11 @@ MANUAL_SOURCE = "manual"
 
 # Records which extractor produced the verdicts currently in the database.
 SIGNATURE_KEY = "extractor_signature"
+
+# The self-check costs a model call and its answer changes about as often as the
+# API key does, so it does not need to run on every scan.
+PROBE_KEY = "last_probe"
+PROBE_INTERVAL = timedelta(hours=6)
 
 # The site's WAF starts returning empty 412s if it is hammered, so we crawl
 # slowly on purpose. This is a "check a few times a day" job, not a scraper.
@@ -46,7 +51,7 @@ def write_dashboards(store: Store) -> None:
     health.write()
 
 
-def describe_llm() -> bool:
+def describe_llm(store: Store | None = None) -> bool:
     """Say up front which extractor this run will use, and prove it works.
 
     A misconfigured endpoint used to blow up mid-scan with a stack trace, and
@@ -64,6 +69,10 @@ def describe_llm() -> bool:
         return True
     print(f"大模型：{cfg['model']} @ {cfg['base_url']}")
 
+    if store is not None and not probe_due(store):
+        print(f"大模型自检：跳过（{PROBE_INTERVAL} 内已经验证过）")
+        return True
+
     problem = llm.validate_config(cfg)
     if problem:
         # A misconfiguration is not a transient failure. Falling back to the
@@ -74,11 +83,27 @@ def describe_llm() -> bool:
         return False
 
     result = llm.probe()
+    if store is not None:
+        store.set_meta(PROBE_KEY, clock.iso_now())
     if result.get("ok"):
         print("大模型自检：通过")
     else:
         print(f"大模型自检：失败 —— {result.get('error')}")
     return True
+
+
+def probe_due(store: Store) -> bool:
+    """Whether this run should spend a call proving the key still works."""
+    last = store.get_meta(PROBE_KEY)
+    if not last:
+        return True
+    try:
+        seen = datetime.fromisoformat(last)
+    except ValueError:
+        return True
+    if seen.tzinfo is None:
+        seen = seen.replace(tzinfo=clock.tz())
+    return (clock.now() - seen) > PROBE_INTERVAL
 
 
 # --------------------------------------------------------------------- crawl
@@ -184,7 +209,7 @@ def crawl(args: argparse.Namespace, store: Store) -> tuple[int, int, int]:
 
 def cmd_fetch(args: argparse.Namespace) -> int:
     store = _store(args)
-    if not describe_llm():
+    if not describe_llm(store):
         store.close()
         return 1
     new_notices, new_todos, analysed = crawl(args, store)
@@ -195,7 +220,7 @@ def cmd_fetch(args: argparse.Namespace) -> int:
 
 def cmd_run(args: argparse.Namespace) -> int:
     store = _store(args)
-    if not describe_llm():
+    if not describe_llm(store):
         store.close()
         return 1
     new_notices, new_todos, analysed = crawl(args, store)

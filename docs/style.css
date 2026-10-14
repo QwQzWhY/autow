@@ -266,7 +266,8 @@ body {
 .toast {
   position: fixed;
   left: 16px; right: 16px;
-  bottom: max(16px, env(safe-area-inset-bottom));
+  /* Clear of the ＋ button, which sits in the bottom-right corner. */
+  bottom: calc(84px + env(safe-area-inset-bottom));
   z-index: 22;
   padding: 12px 14px;
   border-radius: 12px;

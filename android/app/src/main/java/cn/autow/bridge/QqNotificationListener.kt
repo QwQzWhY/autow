@@ -4,6 +4,8 @@ import android.app.Notification
 import android.content.ComponentName
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.service.notification.NotificationListenerService
 import android.service.notification.StatusBarNotification
 import java.text.SimpleDateFormat
@@ -40,6 +42,16 @@ class QqNotificationListener : NotificationListenerService() {
 
     private val history = HashMap<String, MutableList<Msg>>()
     private val episodes = HashMap<String, Episode>()
+
+    private val handler = Handler(Looper.getMainLooper())
+
+    /**
+     * One pending send per group.
+     *
+     * A single shared timer meant activity in one group cancelled the waiting
+     * send of another, silently losing that group's notice.
+     */
+    private val pendingSends = HashMap<String, Runnable>()
 
     override fun onListenerConnected() {
         super.onListenerConnected()
@@ -81,12 +93,38 @@ class QqNotificationListener : NotificationListenerService() {
         val id = nextEpisode(group, now, matched) ?: return
         if (!config.isConfigured) return
 
-        // Whatever we have seen around the mention is what gets sent, so the
-        // notice is included whether it came before or after.
+        scheduleSend(group, id)
+    }
+
+    /**
+     * Wait for the run to stop growing, then send it once.
+     *
+     * Sending on every message meant a mention split into four lines cost four
+     * workflow runs and four model calls, each on a longer transcript than the
+     * last. Waiting a few seconds for the burst to finish sends one.
+     */
+    private fun scheduleSend(group: String, id: String) {
+        pendingSends.remove(group)?.let { handler.removeCallbacks(it) }
+        val task = Runnable { send(group, id) }
+        pendingSends[group] = task
+        handler.postDelayed(task, SETTLE_MS)
+    }
+
+    private fun send(group: String, id: String) {
+        pendingSends.remove(group)
+        val config = Config(applicationContext)
+        if (!config.isConfigured) return
+
         val run = history[group].orEmpty()
+        if (run.isEmpty()) return
         val text = run.joinToString("\n") { it.text }.take(MAX_CONTEXT_CHARS)
+
+        // A bare mention with nothing after it is not a notice. Sending it buys
+        // one model call that can only answer "nothing to do here".
+        if (!carriesContent(text, config.keywordList)) return
         if (Config.alreadySeen("$id|$text")) return
 
+        val who = run.last().who
         val stamp = SimpleDateFormat("yyyy-MM-dd'T'HH:mm", Locale.CHINA).format(Date())
         val clock = SimpleDateFormat("HH:mm", Locale.CHINA)
         val messages = run.map {
@@ -113,6 +151,14 @@ class QqNotificationListener : NotificationListenerService() {
                 .putString("last_result", config.lastResult)
                 .apply()
         }
+    }
+
+    /** True when the run says more than the keywords that triggered it. */
+    private fun carriesContent(text: String, keywords: List<String>): Boolean {
+        var rest = text
+        for (keyword in keywords) rest = rest.replace(keyword, "")
+        val meaningful = rest.count { it.isLetterOrDigit() || it.code > 0x2E7F }
+        return meaningful >= MIN_CONTENT_CHARS
     }
 
     /**
@@ -172,6 +218,8 @@ class QqNotificationListener : NotificationListenerService() {
     }
 
     override fun onDestroy() {
+        pendingSends.values.forEach { handler.removeCallbacks(it) }
+        pendingSends.clear()
         worker.shutdown()
         super.onDestroy()
     }
@@ -194,5 +242,11 @@ class QqNotificationListener : NotificationListenerService() {
 
         /** Stop growing the joined text; the model only reads the first few pages. */
         private const val MAX_CONTEXT_CHARS = 2000
+
+        /** How long the run has to be quiet before it is sent. */
+        private const val SETTLE_MS = 8_000L
+
+        /** A run whose only content is the keyword is not worth a model call. */
+        private const val MIN_CONTENT_CHARS = 6
     }
 }

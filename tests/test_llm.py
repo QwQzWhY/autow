@@ -324,6 +324,15 @@ class TestPrompts(unittest.TestCase):
     def test_the_chat_prompt_fills_every_placeholder(self):
         self.assertNotIn("{today}", llm.CHAT_PROMPT.format(today="2026-10-13"))
 
+    def test_the_pasted_prompt_fills_every_placeholder(self):
+        # A missing key here raises inside analyze(), which the broad except turns
+        # into a silent fall back to the rule extractor.
+        filled = llm.PASTED_PROMPT.format(
+            today="2026-10-13", profile=llm.profile(), grade=llm.grade()
+        )
+        for leftover in ("{profile}", "{grade}", "{today}"):
+            self.assertNotIn(leftover, filled)
+
     def test_the_default_profile_names_the_college(self):
         os.environ.pop("AUTOW_STUDENT_PROFILE", None)
         self.addCleanup(os.environ.pop, "AUTOW_STUDENT_PROFILE", None)

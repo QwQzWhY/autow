@@ -13,7 +13,6 @@ from __future__ import annotations
 
 import json
 import os
-from datetime import datetime
 from pathlib import Path
 from urllib.parse import urlparse
 
@@ -61,6 +60,11 @@ def build() -> dict:
             "config_error": problem,
             "ok": problem is None and failures == 0 and probe_ok,
             "last_error": _scrub(llm.STATS["last_error"], cfg["api_key"]),
+            "tokens": {
+                "calls": llm.STATS["calls"],
+                "prompt": llm.STATS["prompt_tokens"],
+                "completion": llm.STATS["completion_tokens"],
+            },
         }
     return {
         "generated_at": clock.iso_now(),
