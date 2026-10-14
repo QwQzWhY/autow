@@ -86,8 +86,21 @@ def build() -> dict:
     return {
         "generated_at": clock.iso_now(),
         "extractor": extractor,
-        "sources": SOURCE_STATS,
+        # Carried over when this run was not a scan: a QQ ingest rewrites this
+        # file too, and it never visits a website — without this the last scan's
+        # per-source counts vanish the first time a message arrives.
+        "sources": SOURCE_STATS or _previous_sources(),
     }
+
+
+def _previous_sources() -> dict:
+    """The per-source counts recorded by the last run that did crawl."""
+    try:
+        data = json.loads((data_dir() / "health.json").read_text(encoding="utf-8"))
+        previous = data.get("sources")
+    except Exception:
+        return {}
+    return previous if isinstance(previous, dict) else {}
 
 
 def _previous_probe():

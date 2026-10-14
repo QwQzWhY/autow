@@ -104,6 +104,44 @@ class TestXgb(unittest.TestCase):
             self.assertIsInstance(column_id, int)
             self.assertIn(str(column_id), lzu_xgb.feed_url(column_id))
 
+    # 正文页是服务端渲染的，所以这里按真实模板裁一段 HTML 来测——不用联网，
+    # 也不用浏览器（浏览器那条路在 CI 的 IP 上大面积被 WAF 挡掉）。
+    ARTICLE = """
+    <section class='row main_sec'><div class='col-lg-12 col-xs-12'>
+      <div class='article'>
+        <h3>兰州大学第九届感恩中国近现代科学家奖助学金笔试通知</h3>
+        <div class='infoBox'><i class='iconfont icon-shizhong3'></i> 2026-10-13 学工部 </div>
+        <div id='news'><p>各学院：<br />&nbsp;&nbsp;共33名学生进入笔试环节（名单附后）。</p>
+        <p>时间：2026年10月14日（星期三）中午12:30</p></div>
+      </div>
+    </div></section>
+    """
+
+    def test_the_article_body_is_read_without_a_browser(self):
+        title, byline, body = lzu_xgb.parse_article(self.ARTICLE)
+        self.assertEqual(title, "兰州大学第九届感恩中国近现代科学家奖助学金笔试通知")
+        self.assertIn("2026-10-13", byline)
+        self.assertIn("笔试环节", body)
+        self.assertIn("10月14日", body)
+        self.assertNotIn("<p>", body)
+
+    def test_a_paragraph_break_survives_as_a_line_break(self):
+        _title, _byline, body = lzu_xgb.parse_article(self.ARTICLE)
+        self.assertIn("名单附后）。\n时间：2026年10月14日", body)
+
+    def test_a_page_that_is_not_an_article_parses_to_nothing(self):
+        self.assertEqual(lzu_xgb.parse_article("<html><body>412</body></html>"), ("", "", ""))
+
+    def test_nested_divs_do_not_end_the_body_early(self):
+        html = (
+            "<div class='article'><h3>标题标题</h3><div class='infoBox'>2026-10-13 学工部</div>"
+            "<div id='news'><div class='wrap'><p>里面有嵌套的 div，不能被截断。</p></div></div>"
+            "</div>"
+        )
+        _title, _byline, body = lzu_xgb.parse_article(html)
+        self.assertIn("不能被截断", body)
+        self.assertNotIn("infoBox", body)
+
 
 class TestJwc(unittest.TestCase):
     """教务处首页把各栏目各列几条，但不是所有 ul.list 里的链接都是通知。"""

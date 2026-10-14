@@ -18,13 +18,15 @@ The column ids are not guessed — each column page carries its own
 from __future__ import annotations
 
 import json
+import re
 import urllib.request
+from html import unescape
 from urllib.parse import urljoin
 
 from playwright.sync_api import BrowserContext
 
 from .. import dates
-from ..browser import CHROME_UA, open_page
+from ..browser import CHROME_UA
 from ..models import RawNotice
 
 BASE = "http://xgb.lzu.edu.cn"
@@ -39,21 +41,6 @@ COLUMNS = {
 # The feed holds the entire column — 资助通知 is over 500 articles — and only
 # the head of it is recent enough to matter.
 MAX_PER_COLUMN = 15
-
-DETAIL_READY = ".article"
-
-_DETAIL_JS = """
-() => {
-  const area = document.querySelector('.article') || document.body;
-  return {
-    lines: (area.innerText || '')
-      .split('\\n')
-      .map((line) => line.trim())
-      .filter((line) => line.length > 0),
-  };
-}
-"""
-
 
 def feed_url(column_id: int) -> str:
     return f"{BASE}/xgbnew/lm/{column_id}.js"
@@ -98,6 +85,7 @@ def fetch_list(context: BrowserContext, page_no: int = 1) -> list[RawNotice]:
     if page_no > 1:
         return []
     notices: list[RawNotice] = []
+    problems: list[str] = []
     for column, column_id in COLUMNS.items():
         try:
             rows = json.loads(_get(feed_url(column_id)))
@@ -105,35 +93,105 @@ def fetch_list(context: BrowserContext, page_no: int = 1) -> list[RawNotice]:
             # One column failing must not cost the other two, and a scan that
             # silently reads nothing is the failure mode worth printing loudly.
             print(f"[{NAME}] {column} 列表读取失败：{type(exc).__name__}: {exc}")
+            problems.append(f"{column}: {type(exc).__name__}: {exc}")
             continue
         if not isinstance(rows, list):
             print(f"[{NAME}] {column} 的数据不是列表，跳过")
+            problems.append(f"{column}: 返回的不是列表")
             continue
         for row in rows[:MAX_PER_COLUMN]:
             notice = to_notice(row, column)
             if notice:
                 notices.append(notice)
+    if not notices and problems:
+        # Raise so the reason reaches docs/data/health.json. Printing it only
+        # reaches a workflow log, which needs a login to read — that is how this
+        # source went a whole day returning nothing without anyone noticing.
+        raise RuntimeError("；".join(problems))
     return notices
 
 
+def _first_container(html: str, markers: tuple[str, ...]) -> str:
+    """The <div> that carries one of these markers, including its content.
+
+    No third-party HTML parser is available, and the pages here are a single
+    uniform CMS template, so the container is found by counting div tags rather
+    than by pattern-matching to the closing tag (which nested divs break).
+    """
+    for marker in markers:
+        at = html.find(marker)
+        if at < 0:
+            continue
+        opened = html.rfind("<div", 0, at)
+        if opened < 0:
+            continue
+        depth = 0
+        index = opened
+        while index < len(html):
+            next_open = html.find("<div", index)
+            next_close = html.find("</div>", index)
+            if next_close < 0:
+                break
+            if 0 <= next_open < next_close:
+                depth += 1
+                index = next_open + 4
+            else:
+                depth -= 1
+                index = next_close + 6
+                if depth == 0:
+                    return html[opened:index]
+    return ""
+
+
+def _text(fragment: str) -> str:
+    """Visible text of a fragment, with paragraph breaks kept."""
+    fragment = re.sub(r"<br\s*/?>", "\n", fragment, flags=re.I)
+    fragment = re.sub(r"</(?:p|div|li|tr)>", "\n", fragment, flags=re.I)
+    fragment = re.sub(r"<[^>]+>", "", fragment)
+    lines = [line.strip() for line in unescape(fragment).splitlines()]
+    return "\n".join(line for line in lines if line)
+
+
+ARTICLE_MARKERS = ("class=\"article\"", "class='article'")
+BODY_MARKERS = ("id=\"news\"", "id='news'")
+
+
+def parse_article(html: str) -> tuple[str, str, str]:
+    """(title, byline, body) from one 学工部 article page. Pure and testable.
+
+    The page is server-rendered after all: the body sits in
+    `<div class='article'><h3>标题</h3><div class='infoBox'>日期 来源</div>
+    <div id='news'>正文</div></div>`. Reading it over plain HTTP means no
+    browser and no WAF challenge in front of every notice — which is what was
+    failing for most of them from the CI runner.
+    """
+    article = _first_container(html, ARTICLE_MARKERS)
+    if not article:
+        return "", "", ""
+    heading = re.search(r"<h3[^>]*>(.*?)</h3>", article, re.S)
+    title = _text(heading.group(1)) if heading else ""
+    byline = _text(_first_container(article, ("infoBox",)))
+    body = _text(_first_container(article, BODY_MARKERS))
+    return title, byline, body
+
+
 def fetch_detail(context: BrowserContext, notice: RawNotice) -> RawNotice:
-    page = open_page(context, notice.url, DETAIL_READY)
-    try:
-        lines = [ln.strip() for ln in page.evaluate(_DETAIL_JS)["lines"] if ln.strip()]
-    finally:
-        page.close()
+    """Read one article over plain HTTP. `context` is unused: no browser needed."""
+    title, byline, body = parse_article(_get(notice.url))
+    if not body:
+        # The notice is not stored, so the next scan tries it again — and the
+        # failure count in the health file says it is happening.
+        raise ValueError(f"页面里找不到正文（模板变了？）：{notice.url}")
 
-    # The article area starts with the headline; the date and the source are the
-    # two lines under it, then the body.
-    if lines and len(lines[0]) >= 6:
-        notice.title_full = lines[0]
-        lines = lines[1:]
-    if lines and dates.published_iso(lines[0]):
-        notice.published_text = lines[0]
-        notice.published_at = dates.published_iso(lines[0]) or notice.published_at
-        lines = lines[1:]
-
-    notice.body = "\n".join(lines).strip()
+    notice.title_full = title or notice.title
+    notice.body = body
+    if byline:
+        notice.published_text = byline
+        notice.published_at = dates.published_iso(byline) or notice.published_at
+        # "2026-10-13 学工部" — the tail after the date is the issuing office.
+        tail = byline.split()[-1]
+        if tail and not dates.published_iso(tail) and not notice.category:
+            notice.category = tail
     if not notice.published_at:
         notice.published_at = dates.tail_full_date(notice.body)
     return notice

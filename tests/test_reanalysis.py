@@ -320,6 +320,29 @@ class TestNothingFetchedIsNotAReanalysis(unittest.TestCase):
         self.assertEqual(counts["listed"], 0)
         self.assertIn("412 challenge", counts["error"])
 
+    def test_a_qq_ingest_does_not_wipe_the_last_scans_source_counts(self):
+        """QQ 消息会把同一份 health.json 重写一遍，而它不抓网站。
+
+        不带过来的话，上一条群消息一到，上一轮扫描的每个源抓了多少条就没了。
+        """
+        self.scan([])
+        self.assertIn("lzu-ai", self.published_health()["sources"])
+        # 同一天里又来了一条群消息
+        cli.main(
+            [
+                "--db",
+                str(self.db),
+                "ingest",
+                "--json",
+                json.dumps({"kind": "qq-message", "group": "G", "text": "有人吗"}),
+            ]
+        )
+        self.assertIn(
+            "lzu-ai",
+            self.published_health()["sources"],
+            "群消息把上一轮扫描的诊断信息冲掉了",
+        )
+
 
 if __name__ == "__main__":
     unittest.main()
