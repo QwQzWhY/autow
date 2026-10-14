@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-10-14T19:47:29+08:00",
-  "count": 12,
+  "generated_at": "2026-10-14T20:06:14+08:00",
+  "count": 14,
   "todos": [
     {
       "key": "qq:d954ba8f7071b11a",
@@ -33,6 +33,21 @@
       "status": "open"
     },
     {
+      "key": "lzu-news:1177355.htm",
+      "title": "报名2026下半年普通话水平测试",
+      "detail": "10月12日9:00至10月15日18:00登录国家普通话水平测试在线报名系统（bm.cltt.org）选择兰州大学测试站报名，学生测试费35元（含培训45元），须于10月16日24:00前完成缴费，10月20日后自行打印准考证。",
+      "due_at": "2026-10-15T18:00",
+      "priority": "high",
+      "needs_recommendation": false,
+      "content_hash": "",
+      "source": "lzu-news",
+      "source_label": "学校通知",
+      "url": "https://news.lzu.edu.cn/info/1056/1177355.htm",
+      "category": "学校通知",
+      "published_at": "2026-10-09",
+      "status": "open"
+    },
+    {
       "key": "qq:4c2618eafb475181",
       "title": "提交《人工智能导论》课程报告",
       "detail": "请于明天（2026-10-15）下午 6 点前将《人工智能导论》课程报告提交到课程平台。",
@@ -49,8 +64,8 @@
     },
     {
       "key": "lzu-news:1177715.htm",
-      "title": "收看兰大专题节目《长征热土上自强不息的大学》",
-      "detail": "10月15日21:20在央视科教频道（CCTV-10）播出兰州大学专集，请届时收看，也可通过主题党团日、主题班会等形式集中观看。",
+      "title": "收看兰大专集电视专题节目",
+      "detail": "10月15日21:20在央视科教频道（CCTV-10）播出兰州大学专集《长征热土上自强不息的大学》，请届时收看，也可参加班级组织的集中观看。",
       "due_at": "2026-10-15T21:20",
       "priority": "normal",
       "needs_recommendation": false,
@@ -63,24 +78,9 @@
       "status": "open"
     },
     {
-      "key": "lzu-news:1178605.htm",
-      "title": "参加中核集团精神宣讲活动",
-      "detail": "10月16日19:30城关校区大学生活动中心礼堂，或10月17日19:00榆中校区闻欣堂，提前15分钟入场，手机静音。",
-      "due_at": "2026-10-17T19:00",
-      "priority": "normal",
-      "needs_recommendation": false,
-      "content_hash": "",
-      "source": "lzu-news",
-      "source_label": "学校通知",
-      "url": "https://news.lzu.edu.cn/info/1056/1178605.htm",
-      "category": "学校通知",
-      "published_at": "2026-10-14",
-      "status": "open"
-    },
-    {
       "key": "lzu-news:1177915.htm",
-      "title": "办理10月学生门诊医疗费报销",
-      "detail": "10月19-20日在榆中校区校医院总值班室、10月22-23日在城关西校区校医院医务科集中办理校外门诊费报销。需提前下载填写打印《兰州大学学生门诊费报销申请单》，并携带转诊记录、发票、病历、处方、检查报告单、身份证复印件等材料。",
+      "title": "办理学生门诊医疗费报销",
+      "detail": "在校参保的全日制学生可于10月19日、20日到榆中校区校医院总值班室，或10月22日、23日到城关西校区校医院医务科报销2026年1月1日后的校外门诊费用。需提前下载填写打印报销申请单，并携带转诊记录、发票、病历、处方、检查报告单和身份证复印件。",
       "due_at": "2026-10-23T17:30",
       "priority": "normal",
       "needs_recommendation": false,
@@ -90,6 +90,36 @@
       "url": "https://news.lzu.edu.cn/info/1056/1177915.htm",
       "category": "学校通知",
       "published_at": "2026-10-13",
+      "status": "open"
+    },
+    {
+      "key": "lzu-news:1178295.htm",
+      "title": "关于举办兰州大学纪念中国工农红军长征胜利90周年主题教育活动的通知",
+      "detail": "",
+      "due_at": null,
+      "priority": "normal",
+      "needs_recommendation": false,
+      "content_hash": "",
+      "source": "lzu-news",
+      "source_label": "学校通知",
+      "url": "https://news.lzu.edu.cn/info/1056/1178295.htm",
+      "category": "学校通知",
+      "published_at": "2026-10-14",
+      "status": "open"
+    },
+    {
+      "key": "lzu-jwc:337878.html",
+      "title": "查看本人学业预警情况",
+      "detail": "登录兰州大学APP-学生服务-学业预警，或访问学业预警大数据平台查看本人是否有预警情况；如收到《学业预警通知书》需签字确认并按要求做好帮扶。",
+      "due_at": null,
+      "priority": "normal",
+      "needs_recommendation": false,
+      "content_hash": "",
+      "source": "lzu-jwc",
+      "source_label": "教务处",
+      "url": "https://jwc.lzu.edu.cn/tongzhigonggao/jxyxygl/2026/0928/337878.html",
+      "category": "教学运行与管理",
+      "published_at": "2026-09-28",
       "status": "open"
     },
     {
@@ -165,36 +195,6 @@
       "url": "https://news.lzu.edu.cn/info/1056/1178345.htm",
       "category": "学校通知",
       "published_at": "2026-10-14",
-      "status": "open"
-    },
-    {
-      "key": "lzu-news:1178265.htm",
-      "title": "高阶逻辑、分体论与复数逻辑工作坊通知",
-      "detail": "",
-      "due_at": null,
-      "priority": "normal",
-      "needs_recommendation": false,
-      "content_hash": "",
-      "source": "lzu-news",
-      "source_label": "学校通知",
-      "url": "https://news.lzu.edu.cn/info/1056/1178265.htm",
-      "category": "学校通知",
-      "published_at": "2026-10-14",
-      "status": "open"
-    },
-    {
-      "key": "lzu-news:1177735.htm",
-      "title": "关于举办兰州大学2026—2027学年“萃英登峰”大学生骨干培养计划开班仪式和“开班第一课”的通知",
-      "detail": "",
-      "due_at": null,
-      "priority": "normal",
-      "needs_recommendation": false,
-      "content_hash": "",
-      "source": "lzu-news",
-      "source_label": "学校通知",
-      "url": "https://news.lzu.edu.cn/info/1056/1177735.htm",
-      "category": "学校通知",
-      "published_at": "2026-10-12",
       "status": "open"
     },
     {
