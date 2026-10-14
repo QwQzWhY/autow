@@ -502,8 +502,8 @@ def analyze(
 
     engine = "mock" if cfg["mode"] == "mock" else "llm"
     draft = TodoDraft(
-        title=(data.get("title") or title)[:60],
-        detail=(data.get("detail") or "")[:400],
+        title=extract.clip_text(data.get("title") or title, extract.TITLE_LIMIT),
+        detail=extract.clip_text(data.get("detail") or "", extract.DETAIL_LIMIT),
         due_at=due_at,
         priority=priority,
         needs_recommendation=bool(data.get("needs_recommendation")),

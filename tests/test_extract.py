@@ -114,5 +114,60 @@ class TestExtraction(unittest.TestCase):
         self.assertEqual(notice.external_id, "deadbeef")
 
 
+class TestClipText(unittest.TestCase):
+    """标题和详情超长时要说出来，不能从句子中间无声地断掉。
+
+    这五处原来都是裸的 `[:60]` / `[:400]`。看板是把详情原样显示的，所以一条被
+    切掉后半截的说明，看上去就是它本来就写到那里为止。
+    """
+
+    def test_short_text_is_untouched(self):
+        self.assertEqual(extract.clip_text("去图书馆还书", extract.TITLE_LIMIT), "去图书馆还书")
+
+    def test_text_exactly_at_the_limit_is_untouched(self):
+        text = "字" * extract.TITLE_LIMIT
+        self.assertEqual(extract.clip_text(text, extract.TITLE_LIMIT), text)
+
+    def test_over_long_text_is_marked(self):
+        text = "字" * (extract.DETAIL_LIMIT + 50)
+        clipped = extract.clip_text(text, extract.DETAIL_LIMIT)
+        self.assertTrue(clipped.endswith(extract.TAIL_MARK), clipped[-12:])
+        self.assertLessEqual(len(clipped), extract.DETAIL_LIMIT + len(extract.TAIL_MARK))
+
+    def test_it_stops_at_a_sentence_end_when_there_is_one(self):
+        # 400 字以内最后一处句号在 380，就从那里断开，不要多带半句。
+        first = "甲" * 378 + "。"
+        text = first + "乙" * 100
+        clipped = extract.clip_text(text, extract.DETAIL_LIMIT)
+        self.assertEqual(clipped, first + extract.TAIL_MARK)
+
+    def test_a_mark_at_the_very_start_is_ignored(self):
+        # 第一句太短就分段没意义，宁可切在硬上限上。
+        text = "。短。" + "丙" * extract.DETAIL_LIMIT
+        clipped = extract.clip_text(text, extract.DETAIL_LIMIT)
+        self.assertEqual(clipped, text[: extract.DETAIL_LIMIT] + extract.TAIL_MARK)
+
+    def test_it_never_marks_twice(self):
+        once = extract.clip_text("字" * 1000, extract.DETAIL_LIMIT)
+        self.assertEqual(extract.clip_text(once, extract.DETAIL_LIMIT), once)
+
+    def test_empty_and_blank_input_is_fine(self):
+        self.assertEqual(extract.clip_text("", extract.DETAIL_LIMIT), "")
+        self.assertEqual(extract.clip_text("   ", extract.DETAIL_LIMIT), "")
+        self.assertEqual(extract.clip_text(None, extract.DETAIL_LIMIT), "")
+
+    def test_the_rule_extractor_uses_it(self):
+        # 规则抽取的 detail 取自原文那一句，长句同样要带标记。
+        notice = RawNotice(
+            url="https://ai.lzu.edu.cn/news/TESTCLIP",
+            title="关于提交材料的通知",
+            title_full="关于提交材料的通知",
+            body="请于10月25日前提交材料。" + "补充说明" * 200,
+        )
+        draft = extract.extract_todo(notice)
+        self.assertIsNotNone(draft)
+        self.assertLessEqual(len(draft.detail), extract.DETAIL_LIMIT + len(extract.TAIL_MARK))
+
+
 if __name__ == "__main__":
     unittest.main()

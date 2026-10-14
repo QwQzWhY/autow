@@ -67,6 +67,38 @@ class TodoDraft:
     needs_recommendation: bool = False
 
 
+# What the board shows. A title is meant to be a short imperative and a detail
+# one or two sentences, so these only bite on something unexpected.
+TITLE_LIMIT = 60
+DETAIL_LIMIT = 400
+
+# Appended where a title or a detail was cut. Not the same sentence as the phone
+# bridge's Transcript.CLIPPED — that one means "the notification never had the
+# rest", this one means "the board only shows this much".
+TAIL_MARK = "…（后文略）"
+
+
+def clip_text(text: str, limit: int) -> str:
+    """Trim to `limit`, ending on a sentence and saying that it was cut.
+
+    These were bare `[:60]` and `[:400]` slices in five places. A Chinese
+    sentence stopped mid-word with nothing to mark it, so the board showed a
+    detail that read like it simply ended there — the same silent half-a-message
+    problem as the body limit, just smaller.
+    """
+    value = (text or "").strip()
+    if len(value) <= limit or value.endswith(TAIL_MARK):
+        return value
+    head = value[:limit]
+    # Prefer a sentence end: a whole sentence plus a mark reads better than one
+    # extra clause and a dangling connector.
+    for sentence_end in ("。", "！", "？", "；", "\n"):
+        at = head.rfind(sentence_end)
+        if at >= limit // 2:
+            return head[: at + 1] + TAIL_MARK
+    return head.rstrip() + TAIL_MARK
+
+
 def _sentences(body: str) -> list[str]:
     return [s.strip() for s in SENTENCE_SPLIT.split(body or "") if s.strip()]
 
@@ -151,7 +183,7 @@ def extract_todo(notice: RawNotice) -> TodoDraft | None:
     detail = evidence or notice.title_full
     return TodoDraft(
         title=_clean_title(notice.title_full),
-        detail=detail[:400],
+        detail=clip_text(detail, DETAIL_LIMIT),
         due_at=due_at,
         priority=priority,
     )

@@ -19,6 +19,7 @@ from datetime import datetime, timedelta
 
 from . import dates, health, llm, publish, qqstatus
 from . import clock
+from . import extract
 from .extract import TodoDraft
 from .models import RawNotice
 from .store import Store
@@ -447,7 +448,7 @@ def _ingest_note(data: dict, store: Store) -> int:
     when = normalise_time(data.get("time"))
     digest = (data.get("id") or hashlib.sha1(text.encode("utf-8")).hexdigest()[:16]).strip()
     draft, engine = llm.analyze(
-        title=text.splitlines()[0][:60],
+        title=extract.clip_text(text.splitlines()[0], extract.TITLE_LIMIT),
         body=text,
         published=when,
         kind="note",
@@ -461,8 +462,13 @@ def _ingest_note(data: dict, store: Store) -> int:
         # The user pasted this on purpose. If the model found nothing — or there
         # is no model configured at all — still create the todo from the first
         # line rather than silently dropping what he asked for. He can delete it.
-        headline = text.splitlines()[0].strip()[:60] or "粘贴的待办"
-        draft = TodoDraft(title=headline, detail=text[:200], due_at=None, priority="normal")
+        headline = extract.clip_text(text.splitlines()[0], extract.TITLE_LIMIT) or "粘贴的待办"
+        draft = TodoDraft(
+            title=headline,
+            detail=extract.clip_text(text, 200),
+            due_at=None,
+            priority="normal",
+        )
         engine = f"{engine}/按原文"
 
     notice_id, _ = store.upsert_notice(
@@ -504,8 +510,8 @@ def _ingest_manual(data: dict, store: Store) -> int:
     )
     outcome = store.add_todo(
         notice_id=notice_id,
-        title=title[:60],
-        detail=(data.get("detail") or "").strip()[:400],
+        title=extract.clip_text(title, extract.TITLE_LIMIT),
+        detail=extract.clip_text(data.get("detail") or "", extract.DETAIL_LIMIT),
         due_at=due_at,
         priority=priority,
         dedupe_key=f"{MANUAL_SOURCE}:{digest}",

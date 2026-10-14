@@ -9,6 +9,7 @@ from pathlib import Path
 from unittest import mock
 
 from autow import cli
+from autow import extract
 from autow import llm
 from autow.store import Store
 
@@ -431,6 +432,32 @@ class TestLongMessages(ComposeTest):
         self.assertIn(llm.TRUNCATION_MARK, sent, "被云端截断了却没说")
         self.assertIn("甲" * llm.MAX_BODY_CHARS, sent)
         self.assertLess(len(sent), llm.MAX_BODY_CHARS + 500, "没有真的截断？")
+
+    def test_a_model_answer_with_a_long_detail_is_marked_not_sliced(self):
+        # 看板把详情原样显示，所以模型写了 600 字时不能无声地砍到 400——那样
+        # 卡片上就是一句断在半路的中文。
+        long_detail = "第一件事要说清楚。" + "细节" * 400 + "。最后一句。"
+        answer = json.dumps(
+            {
+                "action_required": True,
+                "title": "提交实验报告",
+                "detail": long_detail,
+                "due_at": "2026-10-25T23:59",
+                "priority": "normal",
+            },
+            ensure_ascii=False,
+        )
+        patcher = mock.patch.object(llm.urllib.request, "urlopen", side_effect=lambda *a, **k: a_verdict(answer))
+        patcher.start()
+        self.addCleanup(patcher.stop)
+        draft, _ = llm.analyze(
+            title="QQ 群消息", body="请于10月25日前提交实验报告。", kind="chat", use_cache=False
+        )
+        self.assertIsNotNone(draft)
+        self.assertTrue(draft.detail.endswith(extract.TAIL_MARK), draft.detail[-12:])
+        self.assertLessEqual(
+            len(draft.detail), extract.DETAIL_LIMIT + len(extract.TAIL_MARK)
+        )
 
     def test_a_long_notice_body_is_not_cut_at_the_old_limit(self):
         # 官网通知走的是同一条 `body[:...]`, 旧上限 6000 已经砍到过真实通知
