@@ -83,7 +83,7 @@ QQ 那条能做到准实时，是因为它不需要浏览器：处理消息的 w
 
 | 环境变量 | 默认值 | 作用 |
 |---|---|---|
-| `AUTOW_STUDENT_PROFILE` | 兰州大学人工智能学院的本科生 | 你是谁 |
+| `AUTOW_STUDENT_PROFILE` | 兰州大学人工智能学院的本科生，没有担任任何学生职务 | 你是谁 |
 | `AUTOW_STUDENT_GRADE` | 2026 级（2026 年入学，现在是本科一年级） | 年级，决定推免、毕业设计这类事项该不该出现 |
 
 在线部署时用仓库的 **Settings → Secrets and variables → Actions → Variables** 设置；

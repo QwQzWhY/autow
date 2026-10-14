@@ -338,6 +338,27 @@ class TestPrompts(unittest.TestCase):
         self.addCleanup(os.environ.pop, "AUTOW_STUDENT_PROFILE", None)
         self.assertIn("人工智能学院", llm.profile())
 
+    def test_the_default_profile_says_the_user_holds_no_student_post(self):
+        """不加这句，模型没法知道"学习委员培训"不是发给他的。
+
+        教务处刚接进来时就有一条学习委员培训上了板——文字没错，读者错了。
+        """
+        os.environ.pop("AUTOW_STUDENT_PROFILE", None)
+        self.addCleanup(os.environ.pop, "AUTOW_STUDENT_PROFILE", None)
+        self.assertIn("没有担任", llm.profile())
+        self.assertIn("学习委员", llm.profile())
+
+    def test_the_notice_prompt_drops_notices_aimed_at_a_role(self):
+        filled = llm.NOTICE_PROMPT.format(
+            today="2026-10-13", profile=llm.profile(), grade=llm.grade()
+        )
+        self.assertIn("特定角色", filled)
+        self.assertIn("全体学生", filled)
+
+    def test_the_chat_prompt_knows_the_user_holds_no_post(self):
+        filled = llm.CHAT_PROMPT.format(today="2026-10-13")
+        self.assertIn("没有担任", filled)
+
     def test_the_grade_is_configurable_and_defaults_to_2026(self):
         os.environ.pop("AUTOW_STUDENT_GRADE", None)
         self.assertIn("2026", llm.grade())

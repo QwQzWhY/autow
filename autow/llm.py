@@ -58,9 +58,19 @@ TRUNCATION_MARK = "……（通知里只带了这么多，剩下的被系统截�
 # the end of the crawl regardless (fixed in `signature_worth_recording`). So the
 # database says v9 while holding v8's verdicts, and the re-analysis has to be
 # asked for once more.
-CACHE_VERSION = 10
+#
+# 11: notices aimed at a role the user does not hold are now dropped. Widening
+# the sources to 教务处 brought a 学习委员培训 notice onto the board — correct
+# text, wrong reader — so both the profile and the notice prompt say it.
+CACHE_VERSION = 11
 
-DEFAULT_PROFILE = "兰州大学人工智能学院的本科生"
+# Who the advice is for. The "no post" half is not decoration: 教务处 and 学工部
+# both publish things addressed to 学习委员, 班委, 团支书 and so on, and without
+# this the model has no way to know the reader is not one of them.
+DEFAULT_PROFILE = (
+    "兰州大学人工智能学院的本科生，没有担任班委、学习委员、团支部书记、心理委员、"
+    "学生会或社团干部等任何学生职务"
+)
 DEFAULT_GRADE = "2026 级（2026 年入学，现在是本科一年级）"
 
 # Filled in as calls happen so a run can report why it fell back to rules.
@@ -144,6 +154,10 @@ NOTICE_PROMPT = """你是一个学生事务助理。用户是{profile}。
 - 学生本人无事可做的纯行政流程：实验室信息统计、资产盘点、数据报送、会场安排 ——
   判断标准是"学生本人有没有事情可做"，而不是"通知的收件人是不是学院"
 - 新闻、喜报、会议纪要、领导讲话、活动报道
+- 面向**特定角色或小群体**的通知：学习委员、班委、团支书、心理委员、学生会或社团干部、
+  党员、退伍学生、少数民族骨干等。用户是普通学生，没有这些身份，所以"学习委员培训"
+  "班团骨干座谈会""××负责人会议"这类要丢掉 —— 先看对象是**全体学生**还是**某个角色**，
+  是角色才丢。只有当用户确实持有那个身份时才保留（用户没有）。
 
 规则：
 - due_at 是这条事项的截止时间，格式 YYYY-MM-DDTHH:MM。没有明确截止时间就填 null，
@@ -180,6 +194,9 @@ CHAT_PROMPT = """你是一个学生事务助理。用户是兰州大学人工智
 
 如果只是闲聊、通知已过期、或与用户无关，action_required 为 false。
 不确定时倾向于 false，用户不希望被无关消息打扰。
+
+用户是普通学生，没有担任班委、学习委员、团支书、心理委员、学生会或社团干部这类职务，
+所以针对这些角色的消息（学委培训、班团骨干会议之类）同样与他无关。
 
 规则：
 - due_at 是截止时间，格式 YYYY-MM-DDTHH:MM，没有明确时间就填 null，不要编造。
