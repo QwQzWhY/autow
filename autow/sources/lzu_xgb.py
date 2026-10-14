@@ -19,8 +19,10 @@ from __future__ import annotations
 
 import json
 import re
+import socket
 import urllib.request
 from html import unescape
+from contextlib import contextmanager
 from urllib.parse import urljoin
 
 from playwright.sync_api import BrowserContext
@@ -29,7 +31,10 @@ from .. import dates
 from ..browser import CHROME_UA
 from ..models import RawNotice
 
-BASE = "http://xgb.lzu.edu.cn"
+# https, not http. The site answers both from a home connection, but the CI
+# runner got "Network is unreachable" on port 80 — and this host (202.201.0.99)
+# is not the same machine the college and the news site sit on either.
+BASE = "https://xgb.lzu.edu.cn"
 NAME = "lzu-xgb"
 
 COLUMNS = {
@@ -64,7 +69,28 @@ def to_notice(row: dict, category: str = "") -> RawNotice | None:
     )
 
 
-def _get(url: str) -> str:
+@contextmanager
+def _ipv4_only():
+    """Resolve to IPv4 addresses only, for the duration of one request.
+
+    This domain has both an A and an AAAA record, and the CI runner answered the
+    AAAA with "Network is unreachable" instead of falling through to the IPv4
+    address that does work. Trying again with the AAAA results removed is one
+    line of resolution rather than another day of guessing.
+    """
+    original = socket.getaddrinfo
+
+    def ipv4(host, port, family=0, type=0, proto=0, flags=0):
+        return original(host, port, socket.AF_INET, type, proto, flags)
+
+    socket.getaddrinfo = ipv4
+    try:
+        yield
+    finally:
+        socket.getaddrinfo = original
+
+
+def _fetch(url: str) -> str:
     # Same site family as the college WAF, and it answers non-browser clients
     # with an empty 412 — from the CI runner that is what "this source returned
     # nothing" looked like. Cheap to ask properly rather than to find out.
@@ -78,6 +104,18 @@ def _get(url: str) -> str:
     )
     with urllib.request.urlopen(request, timeout=30) as response:
         return response.read().decode("utf-8", "replace")
+
+
+def _get(url: str) -> str:
+    """Fetch one URL, retrying over IPv4 if the first attempt cannot connect."""
+    try:
+        return _fetch(url)
+    except OSError as first_error:
+        try:
+            with _ipv4_only():
+                return _fetch(url)
+        except Exception:
+            raise first_error
 
 
 def fetch_list(context: BrowserContext, page_no: int = 1) -> list[RawNotice]:

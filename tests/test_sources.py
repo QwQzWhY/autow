@@ -1,6 +1,9 @@
 """Tests for the per-site adapters that do not need a browser."""
 
+import socket
 import unittest
+from unittest import mock
+from urllib.error import URLError
 
 from autow import publish
 from autow.sources import SOURCES, lzu_jwc, lzu_news, lzu_xgb
@@ -75,7 +78,7 @@ class TestXgb(unittest.TestCase):
         notice = lzu_xgb.to_notice(self.ROW, "资助通知")
         self.assertEqual(notice.title, self.ROW["articleTitle"])
         self.assertEqual(
-            notice.url, "http://xgb.lzu.edu.cn/tongzhigonggao/zizhufuwu/2026/1013/338466.html"
+            notice.url, "https://xgb.lzu.edu.cn/tongzhigonggao/zizhufuwu/2026/1013/338466.html"
         )
         self.assertEqual(notice.published_at, "2026-10-13")
         self.assertEqual(notice.category, "资助通知")
@@ -141,6 +144,41 @@ class TestXgb(unittest.TestCase):
         _title, _byline, body = lzu_xgb.parse_article(html)
         self.assertIn("不能被截断", body)
         self.assertNotIn("infoBox", body)
+
+
+class TestXgbTransport(unittest.TestCase):
+    """线上第一次跑学工部时，三个栏目全是 Network is unreachable。"""
+
+    def test_the_site_is_reached_over_https(self):
+        # 80 端口在 CI 上不通；这个站在 https 上一样能用。
+        self.assertTrue(lzu_xgb.BASE.startswith("https://"), lzu_xgb.BASE)
+
+    def test_the_resolver_is_put_back_afterwards(self):
+        original = socket.getaddrinfo
+        with lzu_xgb._ipv4_only():
+            self.assertIsNot(socket.getaddrinfo, original, "没换成只用 IPv4 的解析")
+        self.assertIs(socket.getaddrinfo, original, "解析函数没还原，会影响整个进程")
+
+    def test_a_connection_failure_is_retried_over_ipv4(self):
+        calls = []
+
+        def fake_fetch(url):
+            calls.append(url)
+            if len(calls) == 1:
+                raise URLError(OSError(101, "Network is unreachable"))
+            return "ok"
+
+        with mock.patch.object(lzu_xgb, "_fetch", fake_fetch):
+            self.assertEqual(lzu_xgb._get("https://x/y"), "ok")
+        self.assertEqual(len(calls), 2, "第一次连不上就该用 IPv4 再试一次")
+
+    def test_a_second_failure_reports_the_first_reason(self):
+        with mock.patch.object(
+            lzu_xgb, "_fetch", side_effect=URLError(OSError(101, "Network is unreachable"))
+        ):
+            with self.assertRaises(URLError) as caught:
+                lzu_xgb._get("https://x/y")
+        self.assertIn("unreachable", str(caught.exception))
 
 
 class TestJwc(unittest.TestCase):
