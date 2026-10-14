@@ -1,22 +1,23 @@
 {
-  "generated_at": "2026-10-15T03:29:11+08:00",
+  "generated_at": "2026-10-15T07:13:00+08:00",
   "extractor": {
     "configured": true,
     "mode": "live",
     "model": "deepseek-chat",
     "base_url_host": "api.deepseek.com",
     "probe": {
-      "ok": true
+      "ok": true,
+      "carried_over": true
     },
-    "attempts": 19,
+    "attempts": 49,
     "failures": 0,
     "config_error": null,
     "ok": true,
     "last_error": "",
     "tokens": {
-      "calls": 20,
-      "prompt": 27480,
-      "completion": 1424
+      "calls": 49,
+      "prompt": 73615,
+      "completion": 2951
     }
   },
   "sources": {
@@ -28,15 +29,15 @@
     },
     "lzu-jwc": {
       "listed": 54,
-      "ok": 21,
-      "failed": 7,
+      "ok": 5,
+      "failed": 3,
       "error": ""
     },
     "lzu-xgb": {
-      "listed": 0,
-      "ok": 0,
-      "failed": 0,
-      "error": "RuntimeError: 资助通知: URLError: <urlopen error [Errno 101] Network is unreachable>；国防教育: URLError: <urlopen error [Errno 101] Network is unreachable>；思政通知: URLErr"
+      "listed": 45,
+      "ok": 44,
+      "failed": 1,
+      "error": ""
     },
     "lzu-news": {
       "listed": 20,
