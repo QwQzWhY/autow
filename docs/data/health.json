@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-14T19:37:01+08:00",
+  "generated_at": "2026-10-14T19:47:29+08:00",
   "extractor": {
     "configured": true,
     "mode": "live",
@@ -9,15 +9,15 @@
       "ok": true,
       "carried_over": true
     },
-    "attempts": 12,
+    "attempts": 0,
     "failures": 0,
     "config_error": null,
     "ok": true,
     "last_error": "",
     "tokens": {
-      "calls": 12,
-      "prompt": 18526,
-      "completion": 529
+      "calls": 0,
+      "prompt": 0,
+      "completion": 0
     }
   },
   "sources": {
@@ -29,8 +29,8 @@
     },
     "lzu-jwc": {
       "listed": 54,
-      "ok": 12,
-      "failed": 30,
+      "ok": 0,
+      "failed": 5,
       "error": ""
     },
     "lzu-xgb": {
@@ -42,7 +42,7 @@
     "lzu-news": {
       "listed": 20,
       "ok": 0,
-      "failed": 9,
+      "failed": 5,
       "error": ""
     }
   }
