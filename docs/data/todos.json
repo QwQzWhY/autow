@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-10-14T18:56:57+08:00",
-  "count": 12,
+  "generated_at": "2026-10-14T19:37:01+08:00",
+  "count": 14,
   "todos": [
     {
       "key": "qq:d954ba8f7071b11a",
@@ -90,6 +90,36 @@
       "url": "https://news.lzu.edu.cn/info/1056/1177915.htm",
       "category": "学校通知",
       "published_at": "2026-10-13",
+      "status": "open"
+    },
+    {
+      "key": "lzu-jwc:333905.html",
+      "title": "关于开展2025-2026学年第二学期期末学生评教的工作通知",
+      "detail": "",
+      "due_at": null,
+      "priority": "normal",
+      "needs_recommendation": false,
+      "content_hash": "",
+      "source": "lzu-jwc",
+      "source_label": "教务处",
+      "url": "https://jwc.lzu.edu.cn/tongzhigonggao/jiaoxuezhiliangguanli/2026/0629/333905.html",
+      "category": "教学质量管理",
+      "published_at": "2026-06-29",
+      "status": "open"
+    },
+    {
+      "key": "lzu-jwc:337985.html",
+      "title": "申报第三批跨学科创新班",
+      "detail": "学校开展第三批跨学科创新班申报，需填写《兰州大学跨学科创新班申请表》提交申请，具体申报条件与截止时间请查看学院通知原文。",
+      "due_at": null,
+      "priority": "normal",
+      "needs_recommendation": false,
+      "content_hash": "",
+      "source": "lzu-jwc",
+      "source_label": "教务处",
+      "url": "https://jwc.lzu.edu.cn/wenjianhuibian/xnwjpdf/2026/0930/337985.html",
+      "category": "教学建设",
+      "published_at": "2026-09-30",
       "status": "open"
     },
     {
