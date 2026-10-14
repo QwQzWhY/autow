@@ -282,6 +282,25 @@ def _ingest_chat(data: dict, store: Store) -> int:
     group = (data.get("group") or "").strip()
     sender = (data.get("sender") or "").strip()
     text = (data.get("text") or "").strip()
+
+    # The bridge now sends the run around a mention as separate messages. A
+    # transcript keeps the speakers and the order, which is what lets the model
+    # tell "these two lines are one notice" from "these are two".
+    messages = data.get("messages")
+    if isinstance(messages, list) and messages:
+        lines = []
+        for item in messages:
+            if not isinstance(item, dict):
+                continue
+            said = (item.get("text") or "").strip()
+            if not said:
+                continue
+            who = (item.get("who") or "").strip()
+            at = (item.get("at") or "").strip()
+            head = " ".join(part for part in (who, at) if part)
+            lines.append(f"{head}：{said}" if head else said)
+        if lines:
+            text = "\n".join(lines)
     when = normalise_time(data.get("time"))
     nonce = (data.get("nonce") or "").strip()
     received_at = clock.iso_now()

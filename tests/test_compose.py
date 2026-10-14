@@ -187,6 +187,69 @@ class TestMentionContext(ComposeTest):
         )
         self.assertEqual(len(self.store().all_todos()), 1)
 
+    def test_the_structured_messages_are_what_gets_read(self):
+        # `text` here carries no action at all; only the transcript does. If the
+        # cloud looked at `text` alone this would produce nothing.
+        self.ingest(
+            {
+                "kind": "qq-message",
+                "group": "G",
+                "id": "g1",
+                "text": "@全体成员",
+                "messages": [
+                    {"who": "王老师", "text": "@全体成员", "at": "13:00"},
+                    {"who": "王老师", "text": "请于10月25日前提交实验报告到实验中心。", "at": "13:01"},
+                ],
+            }
+        )
+        self.assertEqual(len(self.store().all_todos()), 1)
+
+    def test_the_notice_may_come_before_the_mention(self):
+        # The bridge sends the whole run either way round, so the order inside
+        # the transcript is all the cloud has to go on.
+        self.ingest(
+            {
+                "kind": "qq-message",
+                "group": "G",
+                "id": "g2",
+                "text": "@全体成员",
+                "messages": [
+                    {"who": "王老师", "text": "请于10月25日前提交实验报告到实验中心。", "at": "13:00"},
+                    {"who": "王老师", "text": "@全体成员", "at": "13:01"},
+                ],
+            }
+        )
+        self.assertEqual(len(self.store().all_todos()), 1)
+
+    def test_chatter_around_a_mention_creates_nothing(self):
+        self.ingest(
+            {
+                "kind": "qq-message",
+                "group": "G",
+                "id": "g3",
+                "text": "@全体成员",
+                "messages": [
+                    {"who": "A", "text": "@全体成员", "at": "13:00"},
+                    {"who": "B", "text": "哈哈哈哈", "at": "13:01"},
+                ],
+            }
+        )
+        self.assertEqual(self.store().all_todos(), [])
+
+    def test_a_malformed_message_list_is_ignored_not_fatal(self):
+        self.assertEqual(
+            self.ingest(
+                {
+                    "kind": "qq-message",
+                    "group": "G",
+                    "text": "请于10月25日前提交实验报告到实验中心。",
+                    "messages": ["不是对象", {"who": "S"}, None],
+                }
+            ),
+            0,
+        )
+        self.assertEqual(len(self.store().all_todos()), 1, "应该退回用 text 字段")
+
 
 if __name__ == "__main__":
     unittest.main()

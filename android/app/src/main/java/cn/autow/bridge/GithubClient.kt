@@ -22,6 +22,7 @@ object GithubClient {
         text: String,
         time: String,
         id: String = "",
+        messages: List<Map<String, String>> = emptyList(),
     ): Result<Unit> = runCatching {
         val payload = JSONObject().apply {
             put("event_type", "qq-message")
@@ -35,6 +36,11 @@ object GithubClient {
                     // Stable across the mention and its follow-up, so the cloud
                     // refreshes one todo instead of creating two.
                     if (id.isNotEmpty()) put("id", id)
+                    // The same run split into its individual messages, so the
+                    // cloud can tell them apart instead of guessing from a blob.
+                    if (messages.isNotEmpty()) {
+                        put("messages", org.json.JSONArray(messages))
+                    }
                     put("device", android.os.Build.MODEL)
                 }
             )

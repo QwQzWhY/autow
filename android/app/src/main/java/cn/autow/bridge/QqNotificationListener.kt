@@ -3,6 +3,7 @@ package cn.autow.bridge
 import android.app.Notification
 import android.content.ComponentName
 import android.os.Build
+import android.os.Bundle
 import android.service.notification.NotificationListenerService
 import android.service.notification.StatusBarNotification
 import java.text.SimpleDateFormat
@@ -17,26 +18,28 @@ import java.util.concurrent.Executors
  * notifications the official QQ app already shows. Nothing is logged in on the
  * user's behalf, so there is no account risk.
  *
- * The awkward part is that a mention is often sent on its own — "@全体成员" as one
- * message and the actual notice as the next one. Forwarding only the first gives
- * the model nothing to read. So a match *arms* the group for a few minutes, and
- * anything that follows is sent under the same id with the text joined up. The
- * cloud keys on that id, so the two messages end up as one todo.
+ * Two things make QQ notifications awkward, and both are handled by keeping a
+ * short rolling history per group instead of looking at one notification:
+ *
+ *  - A mention is often its own message, and the notice can come either before
+ *    it or after it. Watching only forwards would miss the first order, only
+ *    backwards the second, so a match sends the whole recent run.
+ *  - One notification can carry several messages at once (EXTRA_TEXT_LINES),
+ *    and taking only the first field threw the rest away.
+ *
+ * The history lives in memory only; nothing is written to disk.
  */
 class QqNotificationListener : NotificationListenerService() {
 
     private val worker = Executors.newSingleThreadExecutor()
 
-    /** Groups that a recent mention has armed, keyed by the group title. */
-    private val armed = HashMap<String, Armed>()
+    private data class Msg(val who: String, val text: String, val at: Long)
 
-    private data class Armed(
-        val id: String,
-        val text: String,
-        /** Fixed at the moment of the mention; never extended. */
-        val until: Long,
-        val sent: Int,
-    )
+    /** A mention, and how long its surrounding run stays interesting. */
+    private data class Episode(val id: String, val until: Long, val sent: Int)
+
+    private val history = HashMap<String, MutableList<Msg>>()
+    private val episodes = HashMap<String, Episode>()
 
     override fun onListenerConnected() {
         super.onListenerConnected()
@@ -60,77 +63,111 @@ class QqNotificationListener : NotificationListenerService() {
         val notification = sbn?.notification ?: return
         if (sbn.packageName !in QQ_PACKAGES) return
 
-        val config = Config(applicationContext)
-
         val extras = notification.extras ?: return
         val group = extras.getCharSequence(Notification.EXTRA_TITLE)?.toString().orEmpty()
         val sub = extras.getCharSequence(Notification.EXTRA_SUB_TEXT)?.toString().orEmpty()
-        val body = listOfNotNull(
-            extras.getCharSequence(Notification.EXTRA_TEXT)?.toString(),
-            extras.getCharSequence(Notification.EXTRA_BIG_TEXT)?.toString(),
-            extras.getCharSequenceArray(Notification.EXTRA_TEXT_LINES)?.joinToString("\n"),
-        ).firstOrNull { !it.isNullOrBlank() }.orEmpty()
-
+        val body = richestText(extras)
         if (body.isBlank()) return
 
-        // QQ puts the group in the title and "sender: text" in the body; on some
-        // versions the sender becomes the title instead. Search all of it.
+        val config = Config(applicationContext)
         val haystack = listOf(group, sub, body).joinToString(" ")
         val matched = config.keywordList.any { haystack.contains(it) }
 
         val now = System.currentTimeMillis()
-        armed.entries.removeAll { it.value.until < now }
-        val pending = armed[group]
-
+        val who = body.substringBefore(':', "").substringBefore('：', "").trim().ifBlank { group }
+        remember(group, Msg(who, body, now), now)
         config.recordSeen(sbn.packageName, group, body, matched)
-        if (!matched && pending == null) return
+
+        val id = nextEpisode(group, now, matched) ?: return
         if (!config.isConfigured) return
 
-        val id: String
-        val text: String
-        if (matched) {
-            // Send the mention straight away so nothing is lost if no follow-up
-            // ever arrives; the follow-up will re-send under the same id.
-            id = "g" + now.toString(36)
-            text = body
-            armed[group] = Armed(id, body, now + CONTEXT_WINDOW_MS, 1)
-        } else {
-            val trigger = pending ?: return
-            if (trigger.sent >= MAX_FOLLOW_UPS) {
-                armed.remove(group)
-                return
-            }
-            id = trigger.id
-            text = (trigger.text + "\n" + body).take(MAX_CONTEXT_CHARS)
-            // The window stays anchored to the mention. Extending it on every
-            // follow-up kept a chatty group armed all evening, turning every
-            // message into another workflow run.
-            armed[group] = Armed(id, text, trigger.until, trigger.sent + 1)
-        }
-
-        val sender = body.substringBefore(':', "").substringBefore('：', "").trim().ifBlank { group }
+        // Whatever we have seen around the mention is what gets sent, so the
+        // notice is included whether it came before or after.
+        val run = history[group].orEmpty()
+        val text = run.joinToString("\n") { it.text }.take(MAX_CONTEXT_CHARS)
         if (Config.alreadySeen("$id|$text")) return
 
         val stamp = SimpleDateFormat("yyyy-MM-dd'T'HH:mm", Locale.CHINA).format(Date())
-        val appContext = applicationContext
+        val clock = SimpleDateFormat("HH:mm", Locale.CHINA)
+        val messages = run.map {
+            mapOf("who" to it.who, "text" to it.text, "at" to clock.format(Date(it.at)))
+        }
 
+        val appContext = applicationContext
         worker.execute {
             val result = GithubClient.dispatch(
                 repo = config.repo,
                 token = config.token,
                 group = group,
-                sender = sender,
+                sender = who,
                 text = text,
                 time = stamp,
                 id = id,
+                messages = messages,
             )
             result
-                .onSuccess { config.remember(group, sender, text) }
+                .onSuccess { config.remember(group, who, text) }
                 .onFailure { config.lastResult = "转发失败：${it.message}\n${Config.nowStamp()}" }
             appContext.getSharedPreferences("autow", MODE_PRIVATE)
                 .edit()
                 .putString("last_result", config.lastResult)
                 .apply()
+        }
+    }
+
+    /**
+     * Which run this notification belongs to, or null if it is not interesting.
+     *
+     * A match opens one; anything else from the same group while it is open joins
+     * it, under the same id, so the cloud refreshes one todo rather than stacking
+     * several. The window is anchored to the mention and never extended — an
+     * extended one kept a chatty group armed all evening.
+     */
+    private fun nextEpisode(group: String, now: Long, matched: Boolean): String? {
+        if (matched) {
+            val id = "g" + now.toString(36)
+            episodes[group] = Episode(id, now + EPISODE_WINDOW_MS, 0)
+            return id
+        }
+        val open = episodes[group] ?: return null
+        if (open.until < now || open.sent >= MAX_FOLLOW_UPS) {
+            episodes.remove(group)
+            return null
+        }
+        episodes[group] = open.copy(sent = open.sent + 1)
+        return open.id
+    }
+
+    /**
+     * The text of a notification, preferring the field that carries the most.
+     *
+     * A merged notification lists every message in EXTRA_TEXT_LINES while
+     * EXTRA_TEXT holds only the newest, so reading EXTRA_TEXT first silently
+     * drops messages.
+     */
+    private fun richestText(extras: Bundle): String {
+        val lines = extras.getCharSequenceArray(Notification.EXTRA_TEXT_LINES)
+            ?.map { it.toString().trim() }
+            ?.filter { it.isNotEmpty() }
+            .orEmpty()
+        if (lines.isNotEmpty()) return lines.joinToString("\n")
+
+        val big = extras.getCharSequence(Notification.EXTRA_BIG_TEXT)?.toString()?.trim().orEmpty()
+        if (big.isNotEmpty()) return big
+
+        return extras.getCharSequence(Notification.EXTRA_TEXT)?.toString()?.trim().orEmpty()
+    }
+
+    private fun remember(group: String, msg: Msg, now: Long) {
+        val list = history.getOrPut(group) { mutableListOf() }
+        list.add(msg)
+        // Bound both ends: by age, because older messages are a different notice,
+        // and by count, so a busy group cannot grow this without limit.
+        list.removeAll { now - it.at > HISTORY_WINDOW_MS }
+        while (list.size > HISTORY_MAX) list.removeAt(0)
+
+        history.entries.removeAll { (key, value) ->
+            key != group && now - (value.lastOrNull()?.at ?: 0L) > HISTORY_WINDOW_MS
         }
     }
 
@@ -147,13 +184,15 @@ class QqNotificationListener : NotificationListenerService() {
             "com.tencent.mobileqqi",
         )
 
-        /** How long after a mention the next messages still count as its context. */
-        private const val CONTEXT_WINDOW_MS = 3 * 60 * 1000L
+        /** How much of the run around a mention is worth sending. */
+        private const val HISTORY_WINDOW_MS = 5 * 60 * 1000L
+        private const val HISTORY_MAX = 6
+
+        /** How long a mention keeps its run open. Anchored, never extended. */
+        private const val EPISODE_WINDOW_MS = 3 * 60 * 1000L
+        private const val MAX_FOLLOW_UPS = 5
 
         /** Stop growing the joined text; the model only reads the first few pages. */
         private const val MAX_CONTEXT_CHARS = 2000
-
-        /** How many messages after the mention are worth joining on. */
-        private const val MAX_FOLLOW_UPS = 5
     }
 }
