@@ -425,11 +425,25 @@ class TestLongMessages(ComposeTest):
         self.assertNotIn(llm.TRUNCATION_MARK, sent)
 
     def test_a_body_past_the_cloud_limit_says_it_was_cut(self):
-        text = "甲" * (llm.MAX_CHAT_CHARS + 500)
+        text = "甲" * (llm.MAX_BODY_CHARS + 500)
         sent = self.body_sent_for(text)
         self.assertIn(llm.TRUNCATION_MARK, sent, "被云端截断了却没说")
-        self.assertIn("甲" * llm.MAX_CHAT_CHARS, sent)
-        self.assertLess(len(sent), llm.MAX_CHAT_CHARS + 500, "没有真的截断？")
+        self.assertIn("甲" * llm.MAX_BODY_CHARS, sent)
+        self.assertLess(len(sent), llm.MAX_BODY_CHARS + 500, "没有真的截断？")
+
+    def test_a_long_notice_body_is_not_cut_at_the_old_limit(self):
+        # 官网通知走的是同一条 `body[:...]`, 旧上限 6000 已经砍到过真实通知
+        # （库里最长的一条 6627 字），砍掉的部分同样是无声的。
+        body = "关于提交材料的通知。" + "正文" * 4000 + "末句：请本人签字确认。"
+        self.assertGreater(len(body), 6000)
+        draft, engine = llm.analyze(
+            title="关于提交材料的通知", body=body, kind="notice", use_cache=False
+        )
+        sent = self.sent[-1]
+        self.assertIn(body, sent, "长通知的正文被云端截断了")
+        self.assertNotIn(llm.TRUNCATION_MARK, sent)
+        self.assertIsNone(draft, "这份假请求返回的是空判断")
+        self.assertEqual(engine, "llm")
 
     def test_the_mark_is_the_same_string_the_phone_writes(self):
         # The prompt tells the model to look for this exact sentence, and the

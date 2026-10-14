@@ -30,13 +30,12 @@ from .models import RawNotice
 
 DEFAULT_BASE_URL = "https://api.deepseek.com/v1"
 DEFAULT_MODEL = "deepseek-chat"
-MAX_BODY_CHARS = 6000
-
-# A chat submission is a whole run of messages rather than one notice, and the
-# user asked for long messages to arrive whole. The phone holds its side to
-# Transcript.RUN_LIMIT (20000); this is the cloud's matching backstop, high
-# enough that a real run never reaches it.
-MAX_CHAT_CHARS = 20000
+# Raised from 6000 when the user asked for long messages to arrive whole. Two
+# notices already in the database are longer than 6000 characters, so the old
+# value was cutting real text — silently, which made the tail look like text
+# that had never existed. The phone holds its side to Transcript.RUN_LIMIT,
+# which is the same number.
+MAX_BODY_CHARS = 20000
 
 # Said wherever text was dropped, by the phone and by the cloud alike, and what
 # CHAT_PROMPT tells the model to look for. The phone's copy lives in
@@ -47,7 +46,10 @@ TRUNCATION_MARK = "……（通知里只带了这么多，剩下的被系统截�
 # Bump this whenever the prompts or the post-processing change, so cached
 # verdicts from an older version are not reused. It is also part of the
 # extractor signature, which is what makes a deployment re-analyse everything.
-CACHE_VERSION = 8
+# 9: the body sent to the model is no longer cut at 6000 characters, and all
+# three prompts now recognise the truncation marker. Verdicts stored under v8
+# were produced from a body that may have been missing its tail.
+CACHE_VERSION = 9
 
 DEFAULT_PROFILE = "兰州大学人工智能学院的本科生"
 DEFAULT_GRADE = "2026 级（2026 年入学，现在是本科一年级）"
@@ -147,6 +149,8 @@ NOTICE_PROMPT = """你是一个学生事务助理。用户是{profile}。
   必须先经学院选拔、推荐或分配名额才能参加的（骨干培养计划、需要学院推荐的评比、
   由学院组队报名的比赛等），填 **true**。这类**不是丢掉**，而是标出来单独展示，
   让用户自己判断要不要争取。拿不准填 false。
+- 正文末尾如果出现「……（通知里只带了这么多，剩下的被系统截断了）」，说明这条通知的
+  正文不完整：就按现有的内容判断，不要凭空补出被截掉的过程或时间。
 - 拿不准是否与学生本人有关时，action_required 为 false —— 用户宁可漏掉，
   也不想被无关的事情打扰。
 
@@ -203,6 +207,8 @@ PASTED_PROMPT = """你是一个学生事务助理。用户是{profile}，年级�
   今天是 {today}，年份缺失时按最近一次发生的时间推断。原文末尾的落款日期不是截止时间。
 - priority：措辞紧急、涉及全体、或 3 天内到期 → high；一般 → normal；不急 → low。
 - needs_recommendation：需要先由学院推荐或选拔才能参加的填 true，否则填 false。
+- 如果正文末尾出现「……（通知里只带了这么多，剩下的被系统截断了）」，说明内容不完整，
+  按现有内容抽取即可，不要凭空补全。
 
 只输出 JSON，不要任何解释。"""
 
@@ -319,16 +325,16 @@ def profile() -> str:
     return os.environ.get("AUTOW_STUDENT_PROFILE", "").strip() or DEFAULT_PROFILE
 
 
-def clip_chat_body(body: str) -> str:
-    """A chat run as the model will see it, with any cut said out loud.
+def clip_body(body: str) -> str:
+    """The body as the model will see it, with any cut said out loud.
 
-    This used to be `body[:MAX_BODY_CHARS]` like a notice, at half the length of
-    what the phone is now allowed to send, and the cut was invisible: a notice
-    whose second half was missing reads exactly like a notice that ended there.
+    This used to be `body[:6000]` on three separate lines, with no sign that
+    anything was missing: a notice whose second half had been dropped reads
+    exactly like a notice that ended there.
     """
-    if len(body) <= MAX_CHAT_CHARS:
+    if len(body) <= MAX_BODY_CHARS:
         return body
-    return body[:MAX_CHAT_CHARS] + "\n" + TRUNCATION_MARK
+    return body[:MAX_BODY_CHARS] + "\n" + TRUNCATION_MARK
 
 
 def grade() -> str:
@@ -431,7 +437,7 @@ def analyze(
                         group=group or "未知",
                         sender=sender or "未知",
                         published=published or "未知",
-                        body=clip_chat_body(body),
+                        body=clip_body(body),
                     )
                 elif kind == "note":
                     # Pasted by the user, so relevance filtering is off: he
@@ -439,7 +445,7 @@ def analyze(
                     system = PASTED_PROMPT.format(
                         today=today.isoformat(), profile=profile(), grade=grade()
                     )
-                    user = PASTED_USER_TEMPLATE.format(body=body[:MAX_BODY_CHARS])
+                    user = PASTED_USER_TEMPLATE.format(body=clip_body(body))
                 else:
                     system = NOTICE_PROMPT.format(
                         today=today.isoformat(), profile=profile(), grade=grade()
@@ -447,7 +453,7 @@ def analyze(
                     user = NOTICE_USER_TEMPLATE.format(
                         title=title,
                         published=published or "未知",
-                        body=body[:MAX_BODY_CHARS],
+                        body=clip_body(body),
                     )
                 data = _call(
                     [{"role": "system", "content": system}, {"role": "user", "content": user}],
