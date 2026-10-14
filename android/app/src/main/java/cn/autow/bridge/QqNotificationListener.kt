@@ -8,6 +8,7 @@ import android.os.Handler
 import android.os.Looper
 import android.service.notification.NotificationListenerService
 import android.service.notification.StatusBarNotification
+import java.security.MessageDigest
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -141,6 +142,7 @@ class QqNotificationListener : NotificationListenerService() {
                 text = text,
                 time = stamp,
                 id = id,
+                content = contentHash(run),
                 messages = messages,
             )
             result
@@ -159,6 +161,19 @@ class QqNotificationListener : NotificationListenerService() {
         for (keyword in keywords) rest = rest.replace(keyword, "")
         val meaningful = rest.count { it.isLetterOrDigit() || it.code > 0x2E7F }
         return meaningful >= MIN_CONTENT_CHARS
+    }
+
+    /**
+     * A digest of just the message texts.
+     *
+     * The same announcement posted into two class groups arrives as two runs
+     * with different ids; hashing the text is what lets the cloud recognise them
+     * as one thing to do. Senders and times are left out so the copies match.
+     */
+    private fun contentHash(run: List<Msg>): String {
+        val payload = run.joinToString("\n") { it.text.trim() }
+        val bytes = MessageDigest.getInstance("SHA-1").digest(payload.toByteArray())
+        return bytes.joinToString("") { "%02x".format(it) }.take(16)
     }
 
     /**

@@ -58,7 +58,7 @@ class MainActivity : Activity() {
         keywordField = addField(
             root,
             "转发关键词（逗号分隔）",
-            "默认 @全体成员,@所有人；管理员的名字也加进来",
+            "默认已含 @全体成员 和「有人@我」；管理员的名字、你自己的群昵称也加进来",
             config.keywords,
         )
 

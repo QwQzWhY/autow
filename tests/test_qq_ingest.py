@@ -52,9 +52,11 @@ class QqIngestTest(unittest.TestCase):
         )
 
     def store(self) -> Store:
-        store = Store(self.db)
-        self.addCleanup(store.close)
-        return store
+        # One connection per test; several onto the same file lock each other out.
+        if getattr(self, "_store", None) is None:
+            self._store = Store(self.db)
+            self.addCleanup(self._store.close)
+        return self._store
 
     # ------------------------------------------------------------- behaviour
 

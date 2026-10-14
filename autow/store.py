@@ -33,6 +33,7 @@ CREATE TABLE IF NOT EXISTS todos (
     due_at      TEXT,
     priority    TEXT NOT NULL DEFAULT 'normal',
     needs_recommendation INTEGER NOT NULL DEFAULT 0,
+    content_hash TEXT,
     status      TEXT NOT NULL DEFAULT 'open',
     dedupe_key  TEXT NOT NULL UNIQUE,
     created_at  TEXT NOT NULL
@@ -66,7 +67,10 @@ CREATE TABLE IF NOT EXISTS meta (
 
 # Columns added after the first release. `CREATE TABLE IF NOT EXISTS` does not
 # touch an existing table, so each one is applied by hand when missing.
-MIGRATIONS = (("todos", "needs_recommendation", "INTEGER NOT NULL DEFAULT 0"),)
+MIGRATIONS = (
+    ("todos", "needs_recommendation", "INTEGER NOT NULL DEFAULT 0"),
+    ("todos", "content_hash", "TEXT"),
+)
 
 
 def now_iso() -> str:
@@ -159,6 +163,7 @@ class Store:
         priority: str,
         dedupe_key: str,
         needs_recommendation: bool = False,
+        content_hash: str = "",
     ) -> str:
         """Insert or refresh a todo. Returns 'created', 'updated' or 'unchanged'.
 
@@ -168,18 +173,29 @@ class Store:
         is deliberately left alone so a ticked-off item stays ticked off.
         """
         row = self.conn.execute(
-            """SELECT id, title, detail, due_at, priority, needs_recommendation
+            """SELECT id, title, detail, due_at, priority, needs_recommendation, content_hash
                FROM todos WHERE dedupe_key = ?""",
             (dedupe_key,),
         ).fetchone()
         flag = int(bool(needs_recommendation))
+        content_hash = content_hash or None
         if row is None:
             self.conn.execute(
                 """INSERT INTO todos
                        (notice_id, title, detail, due_at, priority, needs_recommendation,
-                        dedupe_key, created_at)
-                   VALUES (?, ?, ?, ?, ?, ?, ?, ?)""",
-                (notice_id, title, detail, due_at, priority, flag, dedupe_key, now_iso()),
+                        content_hash, dedupe_key, created_at)
+                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+                (
+                    notice_id,
+                    title,
+                    detail,
+                    due_at,
+                    priority,
+                    flag,
+                    content_hash,
+                    dedupe_key,
+                    now_iso(),
+                ),
             )
             self.conn.commit()
             return "created"
@@ -190,23 +206,42 @@ class Store:
             row["due_at"],
             row["priority"],
             row["needs_recommendation"],
+            row["content_hash"],
         ) == (
             title,
             detail,
             due_at,
             priority,
             flag,
+            content_hash,
         ):
             return "unchanged"
 
         self.conn.execute(
             """UPDATE todos
-               SET title = ?, detail = ?, due_at = ?, priority = ?, needs_recommendation = ?
+               SET title = ?, detail = ?, due_at = ?, priority = ?,
+                   needs_recommendation = ?, content_hash = ?
                WHERE id = ?""",
-            (title, detail, due_at, priority, flag, row["id"]),
+            (title, detail, due_at, priority, flag, content_hash, row["id"]),
         )
         self.conn.commit()
         return "updated"
+
+    def find_open_todo_by_content(self, content_hash: str) -> sqlite3.Row | None:
+        """An open todo that came from the same notice text.
+
+        The same announcement is routinely posted into several class groups, and
+        each arrives as its own message. Without this it becomes one todo per
+        group; with it they all refresh a single entry.
+        """
+        if not content_hash:
+            return None
+        return self.conn.execute(
+            """SELECT id, notice_id, dedupe_key FROM todos
+               WHERE content_hash = ? AND status = 'open'
+               ORDER BY id LIMIT 1""",
+            (content_hash,),
+        ).fetchone()
 
     def remove_open_todo(self, dedupe_key: str) -> bool:
         """Drop a todo that a fresh analysis no longer considers actionable.

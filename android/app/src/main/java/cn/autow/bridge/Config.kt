@@ -24,7 +24,13 @@ class Config(context: Context) {
         set(value) = prefs.edit().putString(KEY_TOKEN, value.trim()).apply()
 
     var keywords: String
-        get() = prefs.getString(KEY_KEYWORDS, DEFAULT_KEYWORDS) ?: DEFAULT_KEYWORDS
+        get() {
+            val stored = prefs.getString(KEY_KEYWORDS, DEFAULT_KEYWORDS) ?: DEFAULT_KEYWORDS
+            // An install from before the extra markers existed has the old
+            // default saved verbatim. Treat that as "never edited" and bring it
+            // up to date, so widening the defaults actually reaches the phone.
+            return if (stored == LEGACY_DEFAULT_KEYWORDS) DEFAULT_KEYWORDS else stored
+        }
         set(value) = prefs.edit().putString(KEY_KEYWORDS, value.trim()).apply()
 
     val keywordList: List<String>
@@ -106,7 +112,16 @@ class Config(context: Context) {
         private const val KEY_LISTENER_AT = "listener_at"
         private const val KEY_KEEPALIVE = "keepalive_enabled"
 
-        const val DEFAULT_KEYWORDS = "@全体成员,@所有人"
+        /**
+         * QQ prefixes its own markers to the notification text — one capture read
+         * "[有全体消息]王熙竣: @全体成员 …". Matching those as well means a
+         * wording change in the mention itself does not silently stop everything,
+         * and "有人@我" is how a direct mention to the user shows up.
+         */
+        const val DEFAULT_KEYWORDS = "@全体成员,@所有人,有全体消息,有人@我"
+
+        /** What earlier builds shipped, recognised so it can be upgraded in place. */
+        private const val LEGACY_DEFAULT_KEYWORDS = "@全体成员,@所有人"
 
         fun nowStamp(): String =
             java.text.SimpleDateFormat("MM-dd HH:mm", java.util.Locale.CHINA)

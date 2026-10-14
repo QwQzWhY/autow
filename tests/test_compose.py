@@ -28,9 +28,12 @@ class ComposeTest(unittest.TestCase):
         )
 
     def store(self) -> Store:
-        store = Store(self.db)
-        self.addCleanup(store.close)
-        return store
+        # One connection per test. Opening several onto the same file makes
+        # SQLite take locks against itself.
+        if getattr(self, "_store", None) is None:
+            self._store = Store(self.db)
+            self.addCleanup(self._store.close)
+        return self._store
 
     # ------------------------------------------------------------ 手动填写
 
@@ -249,6 +252,61 @@ class TestMentionContext(ComposeTest):
             0,
         )
         self.assertEqual(len(self.store().all_todos()), 1, "应该退回用 text 字段")
+
+    # ------------------------------------------------- 同一条通知被转发到多个群
+
+    def test_the_same_notice_in_two_groups_is_one_todo(self):
+        for group in ("26级一班", "26级二班"):
+            self.ingest(
+                {
+                    "kind": "qq-message",
+                    "group": group,
+                    "id": f"episode-{group}",
+                    "content": "same-notice",
+                    "text": "请于10月25日前提交实验报告到实验中心。",
+                }
+            )
+        self.assertEqual(
+            len(self.store().all_todos()), 1, "同一条通知被转到两个群不该变成两条待办"
+        )
+
+    def test_two_different_notices_stay_two_todos(self):
+        # Without a fingerprint to tell them apart this would wrongly merge.
+        for name in ("a", "b"):
+            self.ingest(
+                {
+                    "kind": "qq-message",
+                    "group": "G",
+                    "id": f"episode-{name}",
+                    "content": f"notice-{name}",
+                    "text": "请于10月25日前提交实验报告到实验中心。",
+                }
+            )
+        self.assertEqual(len(self.store().all_todos()), 2)
+
+    def test_a_finished_todo_does_not_swallow_a_later_one(self):
+        payload = {
+            "kind": "qq-message",
+            "group": "G",
+            "id": "episode-1",
+            "content": "same-notice",
+            "text": "请于10月25日前提交实验报告到实验中心。",
+        }
+        self.ingest(payload)
+        store = Store(self.db)
+        store.conn.execute("UPDATE todos SET status = 'done'")
+        store.conn.commit()
+        store.close()
+        # The same notice comes round again next term.
+        self.ingest({**payload, "id": "episode-2"})
+        self.assertEqual(len(self.store().all_todos()), 2)
+
+    def test_messages_without_a_fingerprint_still_work(self):
+        # Older builds send no `content`; dedupe must not depend on it.
+        self.ingest(
+            {"kind": "qq-message", "group": "G", "id": "x", "text": "请于10月25日前提交实验报告。"}
+        )
+        self.assertEqual(len(self.store().all_todos()), 1)
 
 
 if __name__ == "__main__":

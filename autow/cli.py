@@ -375,17 +375,33 @@ def _ingest_chat(data: dict, store: Store) -> int:
         print(f"[{engine}] 这条消息不需要行动")
         return 0
 
-    notice_id, _ = store.upsert_notice(
-        CHAT_SOURCE, _stored_notice(digest, when, draft.title, category)
-    )
+    # The same announcement is routinely posted into several class groups, so it
+    # arrives here more than once with a different id each time. The content
+    # fingerprint collapses those onto one todo.
+    content = (data.get("content") or "").strip()
+    own_key = f"{CHAT_SOURCE}:{digest}"
+    neighbour = store.find_open_todo_by_content(content)
+    if neighbour is not None and neighbour["dedupe_key"] == own_key:
+        neighbour = None
+
+    if neighbour is not None:
+        notice_id = neighbour["notice_id"]
+        key = neighbour["dedupe_key"]
+    else:
+        notice_id, _ = store.upsert_notice(
+            CHAT_SOURCE, _stored_notice(digest, when, draft.title, category)
+        )
+        key = own_key
+
     outcome = store.add_todo(
         notice_id=notice_id,
         title=draft.title,
         detail=draft.detail,
         due_at=draft.due_at,
         priority=draft.priority,
-        dedupe_key=f"{CHAT_SOURCE}:{digest}",
+        dedupe_key=key,
         needs_recommendation=draft.needs_recommendation,
+        content_hash=content,
     )
     store.log_qq(
         "todo" if outcome == "created" else "duplicate",

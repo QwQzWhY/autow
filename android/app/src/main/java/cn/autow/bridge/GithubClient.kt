@@ -22,6 +22,7 @@ object GithubClient {
         text: String,
         time: String,
         id: String = "",
+        content: String = "",
         messages: List<Map<String, String>> = emptyList(),
     ): Result<Unit> = runCatching {
         val payload = JSONObject().apply {
@@ -36,6 +37,9 @@ object GithubClient {
                     // Stable across the mention and its follow-up, so the cloud
                     // refreshes one todo instead of creating two.
                     if (id.isNotEmpty()) put("id", id)
+                    // Lets the cloud tell "the same notice in another group" from
+                    // "another notice".
+                    if (content.isNotEmpty()) put("content", content)
                     // The same run split into its individual messages, so the
                     // cloud can tell them apart instead of guessing from a blob.
                     if (messages.isNotEmpty()) {
