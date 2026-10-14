@@ -1,11 +1,19 @@
 {
-  "generated_at": "2026-10-14T20:24:38+08:00",
+  "generated_at": "2026-10-14T20:31:50+08:00",
   "connected": true,
-  "total_received": 43,
-  "total_todos": 4,
-  "today_received": 9,
-  "today_todos": 1,
+  "total_received": 44,
+  "total_todos": 5,
+  "today_received": 10,
+  "today_todos": 2,
   "recent": [
+    {
+      "at": "2026-10-14T20:31:49+08:00",
+      "verdict": "todo",
+      "verdict_label": "已生成待办",
+      "title": "蓝桥杯报名院系填标准名称",
+      "length": 64,
+      "nonce": ""
+    },
     {
       "at": "2026-10-14T18:56:55+08:00",
       "verdict": "ignored",
@@ -76,14 +84,6 @@
       "verdict_label": "判断为无需行动",
       "title": "",
       "length": 94,
-      "nonce": ""
-    },
-    {
-      "at": "2026-10-13T23:54:34+08:00",
-      "verdict": "ignored",
-      "verdict_label": "判断为无需行动",
-      "title": "",
-      "length": 18,
       "nonce": ""
     }
   ]

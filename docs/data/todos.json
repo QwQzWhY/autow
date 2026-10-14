@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-10-14T20:24:38+08:00",
-  "count": 12,
+  "generated_at": "2026-10-14T20:31:50+08:00",
+  "count": 13,
   "todos": [
     {
       "key": "qq:d954ba8f7071b11a",
@@ -30,21 +30,6 @@
       "url": "",
       "category": "QQ 群消息",
       "published_at": "2026-10-14",
-      "status": "open"
-    },
-    {
-      "key": "lzu-news:1177355.htm",
-      "title": "报名2026下半年普通话水平测试",
-      "detail": "10月12日9:00至10月15日18:00登录国家普通话水平测试在线报名系统（bm.cltt.org）选择兰州大学测试站报名，学生测试费35元（含培训45元），须于10月16日24:00前完成缴费，10月20日后自行打印准考证。",
-      "due_at": "2026-10-15T18:00",
-      "priority": "high",
-      "needs_recommendation": false,
-      "content_hash": "",
-      "source": "lzu-news",
-      "source_label": "学校通知",
-      "url": "https://news.lzu.edu.cn/info/1056/1177355.htm",
-      "category": "学校通知",
-      "published_at": "2026-10-09",
       "status": "open"
     },
     {
@@ -120,6 +105,21 @@
       "url": "https://news.lzu.edu.cn/info/1056/1177915.htm",
       "category": "学校通知",
       "published_at": "2026-10-13",
+      "status": "open"
+    },
+    {
+      "key": "qq:gmv839rph",
+      "title": "蓝桥杯报名院系填标准名称",
+      "detail": "蓝桥杯报名时院系须填写标准名称，不能随意填写，以免影响获奖。",
+      "due_at": null,
+      "priority": "normal",
+      "needs_recommendation": false,
+      "content_hash": "9d7e8e94469b6de5",
+      "source": "qq",
+      "source_label": "QQ 群",
+      "url": "",
+      "category": "QQ 群消息",
+      "published_at": "2026-10-14",
       "status": "open"
     },
     {
