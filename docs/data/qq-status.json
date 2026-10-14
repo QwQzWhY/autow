@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-14T13:24:13+08:00",
+  "generated_at": "2026-10-14T13:24:25+08:00",
   "connected": true,
   "total_received": 38,
   "total_todos": 3,
@@ -7,7 +7,7 @@
   "today_todos": 0,
   "recent": [
     {
-      "at": "2026-10-14T13:24:11+08:00",
+      "at": "2026-10-14T13:24:23+08:00",
       "verdict": "duplicate",
       "verdict_label": "重复消息，已忽略",
       "title": "确认装置正常",
