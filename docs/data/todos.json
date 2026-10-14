@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-14T12:13:53+08:00",
+  "generated_at": "2026-10-14T12:31:37+08:00",
   "count": 9,
   "todos": [
     {
@@ -71,34 +71,6 @@
       "url": "https://news.lzu.edu.cn/info/1056/1177915.htm",
       "category": "学校通知",
       "published_at": "2026-10-13"
-    },
-    {
-      "key": "lzu-news:1178345.htm",
-      "title": "关于举办“如意·丝路”首届甘肃省国际青年文化节暨兰州大学2026年国际文化节的通知",
-      "detail": "",
-      "due_at": null,
-      "priority": "normal",
-      "needs_recommendation": false,
-      "content_hash": "",
-      "source": "lzu-news",
-      "source_label": "学校通知",
-      "url": "https://news.lzu.edu.cn/info/1056/1178345.htm",
-      "category": "学校通知",
-      "published_at": "2026-10-14"
-    },
-    {
-      "key": "lzu-news:1178295.htm",
-      "title": "关于举办兰州大学纪念中国工农红军长征胜利90周年主题教育活动的通知",
-      "detail": "",
-      "due_at": null,
-      "priority": "normal",
-      "needs_recommendation": false,
-      "content_hash": "",
-      "source": "lzu-news",
-      "source_label": "学校通知",
-      "url": "https://news.lzu.edu.cn/info/1056/1178295.htm",
-      "category": "学校通知",
-      "published_at": "2026-10-14"
     },
     {
       "key": "lzu-news:1178345.htm",
