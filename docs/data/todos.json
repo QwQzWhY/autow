@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-10-14T12:04:03+08:00",
-  "count": 11,
+  "generated_at": "2026-10-14T12:13:53+08:00",
+  "count": 9,
   "todos": [
     {
       "key": "qq:d954ba8f7071b11a",
@@ -45,9 +45,23 @@
       "published_at": "2026-10-13"
     },
     {
+      "key": "lzu-news:1177715.htm",
+      "title": "收看兰大专题节目《长征热土上自强不息的大学》",
+      "detail": "10月15日21:20在央视科教频道（CCTV-10）播出兰州大学专集，请届时收看，也可通过主题党团日、主题班会等形式集中观看。",
+      "due_at": "2026-10-15T21:20",
+      "priority": "normal",
+      "needs_recommendation": false,
+      "content_hash": "",
+      "source": "lzu-news",
+      "source_label": "学校通知",
+      "url": "https://news.lzu.edu.cn/info/1056/1177715.htm",
+      "category": "学校通知",
+      "published_at": "2026-10-12"
+    },
+    {
       "key": "lzu-news:1177915.htm",
       "title": "办理10月学生门诊医疗费报销",
-      "detail": "10月19-20日在榆中校区校医院总值班室、10月22-23日在城关西校区校医院医务科集中报销校外门诊费。需提前下载填写打印《兰州大学学生门诊费报销申请单》，并带齐转诊记录、发票、病历、处方、检查报告单、身份证复印件等材料。",
+      "detail": "10月19-20日在榆中校区校医院总值班室、10月22-23日在城关西校区校医院医务科集中办理校外门诊费报销。需提前下载填写打印《兰州大学学生门诊费报销申请单》，并携带转诊记录、发票、病历、处方、检查报告单、身份证复印件等材料。",
       "due_at": "2026-10-23T17:30",
       "priority": "normal",
       "needs_recommendation": false,
@@ -59,18 +73,18 @@
       "published_at": "2026-10-13"
     },
     {
-      "key": "lzu-news:1176785.htm",
-      "title": "参加2026年度本科生体质健康测试",
-      "detail": "学校定于10月19日至11月20日举办本科生体质健康测试暨体测运动会，具体安排见附件，请按学院通知按时参加。",
-      "due_at": "2026-11-20T23:59",
+      "key": "lzu-news:1178345.htm",
+      "title": "关于举办“如意·丝路”首届甘肃省国际青年文化节暨兰州大学2026年国际文化节的通知",
+      "detail": "",
+      "due_at": null,
       "priority": "normal",
       "needs_recommendation": false,
       "content_hash": "",
       "source": "lzu-news",
       "source_label": "学校通知",
-      "url": "https://news.lzu.edu.cn/info/1056/1176785.htm",
+      "url": "https://news.lzu.edu.cn/info/1056/1178345.htm",
       "category": "学校通知",
-      "published_at": "2026-09-30"
+      "published_at": "2026-10-14"
     },
     {
       "key": "lzu-news:1178295.htm",
@@ -102,8 +116,8 @@
     },
     {
       "key": "lzu-news:1178265.htm",
-      "title": "参加逻辑学工作坊（10月17-18日）",
-      "detail": "高阶逻辑、分体论与复数逻辑工作坊于10月17日全天、18日上午在兰州大学会议中心（萃英大酒店）八楼会议室举行，欢迎师生关注参加。",
+      "title": "高阶逻辑、分体论与复数逻辑工作坊通知",
+      "detail": "",
       "due_at": null,
       "priority": "normal",
       "needs_recommendation": false,
@@ -129,8 +143,8 @@
       "published_at": "2026-10-12"
     },
     {
-      "key": "lzu-news:1177355.htm",
-      "title": "兰州大学关于开展2026年下半年普通话水平测试报名的通知",
+      "key": "lzu-news:1176785.htm",
+      "title": "关于举办兰州大学2026年度本科生体质健康测试暨体测运动会的通知",
       "detail": "",
       "due_at": null,
       "priority": "normal",
@@ -138,23 +152,9 @@
       "content_hash": "",
       "source": "lzu-news",
       "source_label": "学校通知",
-      "url": "https://news.lzu.edu.cn/info/1056/1177355.htm",
+      "url": "https://news.lzu.edu.cn/info/1056/1176785.htm",
       "category": "学校通知",
-      "published_at": "2026-10-09"
-    },
-    {
-      "key": "lzu-news:1177715.htm",
-      "title": "关于组织收看《大道同行 从长征走来的大学》电视专题节目的通知",
-      "detail": "",
-      "due_at": null,
-      "priority": "normal",
-      "needs_recommendation": false,
-      "content_hash": "",
-      "source": "lzu-news",
-      "source_label": "学校通知",
-      "url": "https://news.lzu.edu.cn/info/1056/1177715.htm",
-      "category": "学校通知",
-      "published_at": "2026-10-12"
+      "published_at": "2026-09-30"
     }
   ]
 }
