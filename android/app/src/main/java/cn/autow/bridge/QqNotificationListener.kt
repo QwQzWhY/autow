@@ -1,6 +1,7 @@
 package cn.autow.bridge
 
 import android.app.Notification
+import android.app.Person
 import android.content.ComponentName
 import android.os.Build
 import android.os.Bundle
@@ -118,7 +119,7 @@ class QqNotificationListener : NotificationListenerService() {
 
         val run = history[group].orEmpty()
         if (run.isEmpty()) return
-        val text = run.joinToString("\n") { it.text }.take(MAX_CONTEXT_CHARS)
+        val text = Transcript.render(run.map { it.text })
 
         // A bare mention with nothing after it is not a notice. Sending it buys
         // one model call that can only answer "nothing to do here".
@@ -200,23 +201,74 @@ class QqNotificationListener : NotificationListenerService() {
     }
 
     /**
-     * The text of a notification, preferring the field that carries the most.
+     * The text of a notification, taking whichever field carries the most.
      *
-     * A merged notification lists every message in EXTRA_TEXT_LINES while
-     * EXTRA_TEXT holds only the newest, so reading EXTRA_TEXT first silently
-     * drops messages.
+     * No single field is always the richest, which is why this no longer reads
+     * them in a fixed order:
+     *
+     *  - a merged notification lists every message in EXTRA_TEXT_LINES while
+     *    EXTRA_TEXT holds only the newest;
+     *  - a long single message is expanded in EXTRA_BIG_TEXT while EXTRA_TEXT is
+     *    the one-line preview;
+     *  - a messaging-style notification keeps the messages themselves, each
+     *    with its sender, in EXTRA_MESSAGES.
+     *
+     * None of these can recover text QQ never posted: if the app trimmed a long
+     * message before handing it to the system, the rest is in no field at all.
+     * That gap is what Transcript.CLIPPED is for.
      */
     private fun richestText(extras: Bundle): String {
-        val lines = extras.getCharSequenceArray(Notification.EXTRA_TEXT_LINES)
-            ?.map { it.toString().trim() }
-            ?.filter { it.isNotEmpty() }
-            .orEmpty()
-        if (lines.isNotEmpty()) return lines.joinToString("\n")
+        val candidates = mutableListOf<String>()
+        messagingStyleText(extras)?.let { candidates.add(it) }
+        extras.getCharSequenceArray(Notification.EXTRA_TEXT_LINES)
+            ?.joinToString("\n") { it.toString() }
+            ?.let { candidates.add(it) }
+        for (key in listOf(Notification.EXTRA_BIG_TEXT, Notification.EXTRA_TEXT)) {
+            extras.getCharSequence(key)?.toString()?.let { candidates.add(it) }
+        }
+        return Transcript.richest(candidates)
+    }
 
-        val big = extras.getCharSequence(Notification.EXTRA_BIG_TEXT)?.toString()?.trim().orEmpty()
-        if (big.isNotEmpty()) return big
+    /**
+     * The individual messages of a messaging-style notification, if it is one.
+     *
+     * QQ's own group notification is not messaging-style as a rule, but TIM and
+     * other builds are, and this is the only view that is never trimmed to fit a
+     * single line. The bundle layout is read directly: the framework's
+     * `extractMessagingStyleFromNotification` wants the posting app's own
+     * Notification object, which a listener does not have.
+     */
+    @Suppress("DEPRECATION")
+    private fun messagingStyleText(extras: Bundle): String? {
+        val raw = extras.getParcelableArray(Notification.EXTRA_MESSAGES) ?: return null
+        val lines = raw.mapNotNull { item ->
+            val bundle = item as? Bundle ?: return@mapNotNull null
+            val said = bundle.getCharSequence("text")?.toString()?.trim().orEmpty()
+            if (said.isEmpty()) return@mapNotNull null
+            val who = senderName(bundle)
+            if (who.isEmpty()) said else "$who: $said"
+        }
+        return lines.joinToString("\n").ifEmpty { null }
+    }
 
-        return extras.getCharSequence(Notification.EXTRA_TEXT)?.toString()?.trim().orEmpty()
+    /**
+     * The sender of one message bundle.
+     *
+     * A Person from API 28 and a CharSequence before that. The typed getters
+     * return null instead of throwing when the value is the other type, so both
+     * are tried rather than guessing from the API level alone.
+     */
+    @Suppress("DEPRECATION")
+    private fun senderName(bundle: Bundle): String {
+        bundle.getCharSequence("sender")?.toString()?.trim()?.let {
+            if (it.isNotEmpty()) return it
+        }
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.P) return ""
+        return try {
+            (bundle.getParcelable("sender") as? Person)?.name?.toString()?.trim().orEmpty()
+        } catch (e: Throwable) {
+            ""
+        }
     }
 
     private fun remember(group: String, msg: Msg, now: Long) {
@@ -254,9 +306,6 @@ class QqNotificationListener : NotificationListenerService() {
         /** How long a mention keeps its run open. Anchored, never extended. */
         private const val EPISODE_WINDOW_MS = 3 * 60 * 1000L
         private const val MAX_FOLLOW_UPS = 5
-
-        /** Stop growing the joined text; the model only reads the first few pages. */
-        private const val MAX_CONTEXT_CHARS = 2000
 
         /** How long the run has to be quiet before it is sent. */
         private const val SETTLE_MS = 8_000L

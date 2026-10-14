@@ -5,8 +5,10 @@ import os
 import tempfile
 import unittest
 from pathlib import Path
+from unittest import mock
 
 from autow import cli
+from autow import llm
 from autow.store import Store
 
 
@@ -307,6 +309,145 @@ class TestMentionContext(ComposeTest):
             {"kind": "qq-message", "group": "G", "id": "x", "text": "请于10月25日前提交实验报告。"}
         )
         self.assertEqual(len(self.store().all_todos()), 1)
+
+
+class TestGroupAnnouncement(ComposeTest):
+    """群公告走的是同一套抽取，只是它不一定带 @全体成员。
+
+    用户专门要求过要收公告。QQ 把一条群公告当成普通群消息推进群里，通知上的
+    措辞里常见「群公告」，但不会可靠地出现 @全体成员，所以关键词表里单列了
+    `公告`（见 android .../Keywords.kt）。这里校验云端这一半。
+    """
+
+    def ingest_announcement(self, text: str) -> None:
+        self.assertEqual(
+            self.ingest(
+                {
+                    "kind": "qq-message",
+                    "group": "26级人工智能1班",
+                    "sender": "班主任",
+                    "id": "ann-1",
+                    "text": text,
+                }
+            ),
+            0,
+        )
+
+    def test_a_group_announcement_becomes_a_todo(self):
+        self.ingest_announcement(
+            "【群公告】关于困难认定的通知：请于10月25日前在学工系统提交所需材料。"
+        )
+        rows = self.store().all_todos()
+        self.assertEqual(len(rows), 1, "群公告里的待办没有被建出来")
+
+    def test_an_announcement_split_from_its_mention_is_one_todo(self):
+        self.ingest(
+            {
+                "kind": "qq-message",
+                "group": "26级人工智能1班",
+                "id": "ann-2",
+                "text": "@全体成员",
+                "messages": [
+                    {"who": "班主任", "text": "@全体成员", "at": "13:00"},
+                    {"who": "班主任", "text": "群公告：请于10月25日前提交困难认定材料。", "at": "13:00"},
+                ],
+            }
+        )
+        self.assertEqual(len(self.store().all_todos()), 1)
+
+    def test_an_announcement_with_nothing_to_do_creates_nothing(self):
+        self.ingest_announcement("群公告：本群禁止发广告，谢谢配合。")
+        self.assertEqual(self.store().all_todos(), [])
+
+
+class FakeResponse:
+    def __init__(self, payload: dict):
+        self._payload = payload
+
+    def read(self) -> bytes:
+        return json.dumps(self._payload).encode("utf-8")
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, *args) -> bool:
+        return False
+
+
+def a_verdict(content: str = "{}") -> FakeResponse:
+    return FakeResponse({"choices": [{"message": {"content": content}}]})
+
+
+class TestLongMessages(ComposeTest):
+    """超长消息：手机那头已经尽量收全，云端不能再悄悄砍一刀。
+
+    原来这一段是 `body[:6000]`，和普通通知共用，而且砍了没有任何标记——
+    缺了后半段的通知读起来和一条就这么长的通知一模一样。
+    """
+
+    def setUp(self):
+        super().setUp()
+        # A real key, so the chat path goes through the HTTP client, and the
+        # request that would have gone to the model can be read back.
+        os.environ["LLM_API_KEY"] = "test-key"
+        os.environ["LLM_BASE_URL"] = "https://api.example.com/v1"
+        os.environ["LLM_MODEL"] = "test-model"
+        os.environ.pop("AUTOW_LLM_MODE", None)
+        self.addCleanup(self._forget_llm_env)
+        self.sent: list[str] = []
+
+        def capture(request, timeout=None):
+            payload = json.loads(request.data.decode("utf-8"))
+            self.sent.append(payload["messages"][-1]["content"])
+            return a_verdict()
+
+        patcher = mock.patch.object(llm.urllib.request, "urlopen", side_effect=capture)
+        patcher.start()
+        self.addCleanup(patcher.stop)
+
+    def _forget_llm_env(self) -> None:
+        for key in ("LLM_API_KEY", "LLM_BASE_URL", "LLM_MODEL"):
+            os.environ.pop(key, None)
+
+    def body_sent_for(self, text: str) -> str:
+        self.ingest({"kind": "qq-message", "group": "G", "id": "long-1", "text": text})
+        self.assertEqual(len(self.sent), 1, "应该正好调用一次模型")
+        return self.sent[0]
+
+    def test_a_long_notice_reaches_the_model_whole(self):
+        # 3000 characters: longer than the phone used to send, and long enough
+        # that the old 6000-character cloud cut plus a couple of messages would
+        # have taken the tail off.
+        notice = "请于10月25日前提交实验报告到实验中心，" + "正文" * 1000 + "末句：请本人签名。"
+        self.assertGreater(len(notice), 2000)
+        sent = self.body_sent_for(notice)
+        self.assertIn(notice, sent, "长正文被云端截断了")
+        self.assertNotIn(llm.TRUNCATION_MARK, sent)
+
+    def test_a_body_past_the_cloud_limit_says_it_was_cut(self):
+        text = "甲" * (llm.MAX_CHAT_CHARS + 500)
+        sent = self.body_sent_for(text)
+        self.assertIn(llm.TRUNCATION_MARK, sent, "被云端截断了却没说")
+        self.assertIn("甲" * llm.MAX_CHAT_CHARS, sent)
+        self.assertLess(len(sent), llm.MAX_CHAT_CHARS + 500, "没有真的截断？")
+
+    def test_the_mark_is_the_same_string_the_phone_writes(self):
+        # The prompt tells the model to look for this exact sentence, and the
+        # phone is what writes it. Two spellings would silently disable that.
+        bridge = (
+            Path(__file__).resolve().parent.parent
+            / "android"
+            / "app"
+            / "src"
+            / "main"
+            / "java"
+            / "cn"
+            / "autow"
+            / "bridge"
+            / "Transcript.kt"
+        ).read_text(encoding="utf-8")
+        self.assertIn(llm.TRUNCATION_MARK, bridge, "手机和云端对「被截断」的说法不一致")
+        self.assertIn(llm.TRUNCATION_MARK, llm.CHAT_PROMPT, "提示词没有告诉模型去看这个标记")
 
 
 if __name__ == "__main__":

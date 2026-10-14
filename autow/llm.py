@@ -32,6 +32,18 @@ DEFAULT_BASE_URL = "https://api.deepseek.com/v1"
 DEFAULT_MODEL = "deepseek-chat"
 MAX_BODY_CHARS = 6000
 
+# A chat submission is a whole run of messages rather than one notice, and the
+# user asked for long messages to arrive whole. The phone holds its side to
+# Transcript.RUN_LIMIT (20000); this is the cloud's matching backstop, high
+# enough that a real run never reaches it.
+MAX_CHAT_CHARS = 20000
+
+# Said wherever text was dropped, by the phone and by the cloud alike, and what
+# CHAT_PROMPT tells the model to look for. The phone's copy lives in
+# Transcript.kt; tests/test_compose.py fails if the two ever drift apart, since a
+# differently spelled marker would quietly stop matching the instruction.
+TRUNCATION_MARK = "……（通知里只带了这么多，剩下的被系统截断了）"
+
 # Bump this whenever the prompts or the post-processing change, so cached
 # verdicts from an older version are not reused. It is also part of the
 # extractor signature, which is what makes a deployment re-analyse everything.
@@ -147,6 +159,9 @@ CHAT_PROMPT = """你是一个学生事务助理。用户是兰州大学人工智
 **先把属于同一件事的几行归到一起**：典型情况是"@全体成员"单独一行，正文在它
 前面或后面另一行；也可能一条通知被拆成好几行发出来。归好之后按那一件事来判断和抽取。
 
+群里**发的公告**（形如「群公告」「【群公告】」或直接写着"公告"的那条）往往就是要交材料、
+有截止时间的事情，按上面同样的标准判断，不要因为它是公告就当成背景信息略过。
+
 判断这段内容是否包含学生本人需要采取行动的事（比如某科作业/实验报告的截止时间、
 调课或补课、考试安排、报名、交材料、群里要求回复统计等）。
 
@@ -161,9 +176,17 @@ CHAT_PROMPT = """你是一个学生事务助理。用户是兰州大学人工智
 - detail 说明要做什么、什么时候交、去哪里做。不要复述群名、人名或闲聊内容，
   这些内容会被发布到公网上。
 - needs_recommendation：需要先由学院推荐或选拔才能参加的填 true，否则填 false。
+- 如果消息末尾出现「……（通知里只带了这么多，剩下的被系统截断了）」，说明手机拿到的
+  通知本身就不全：就按现有的内容抽取，并在 detail 里写明"通知被截断，全文要回群里看"。
 - 如果 action_required 为 false，title 和 detail 必须留空字符串，不要摘抄原文。
 
 只输出 JSON，不要任何解释。"""
+
+# Note for whoever changes a prompt: CHAT_PROMPT is deliberately excluded from
+# CACHE_VERSION. Chat verdicts are never cached (see `analyze`), and the version
+# is what decides whether stored *notice* verdicts get re-judged — bumping it
+# over a chat-only wording change would make every notice in the database be
+# analysed again for no reason.
 
 PASTED_PROMPT = """你是一个学生事务助理。用户是{profile}，年级是{grade}。
 下面这段文字是**用户自己主动粘贴进来的**，他希望能变成一条待办。
@@ -296,6 +319,18 @@ def profile() -> str:
     return os.environ.get("AUTOW_STUDENT_PROFILE", "").strip() or DEFAULT_PROFILE
 
 
+def clip_chat_body(body: str) -> str:
+    """A chat run as the model will see it, with any cut said out loud.
+
+    This used to be `body[:MAX_BODY_CHARS]` like a notice, at half the length of
+    what the phone is now allowed to send, and the cut was invisible: a notice
+    whose second half was missing reads exactly like a notice that ended there.
+    """
+    if len(body) <= MAX_CHAT_CHARS:
+        return body
+    return body[:MAX_CHAT_CHARS] + "\n" + TRUNCATION_MARK
+
+
 def grade() -> str:
     """The user's year. Drives the "not for you yet" rules (推免, 毕业设计…)."""
     return os.environ.get("AUTOW_STUDENT_GRADE", "").strip() or DEFAULT_GRADE
@@ -396,7 +431,7 @@ def analyze(
                         group=group or "未知",
                         sender=sender or "未知",
                         published=published or "未知",
-                        body=body[:MAX_BODY_CHARS],
+                        body=clip_chat_body(body),
                     )
                 elif kind == "note":
                     # Pasted by the user, so relevance filtering is off: he
