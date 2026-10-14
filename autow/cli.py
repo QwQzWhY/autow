@@ -19,10 +19,13 @@ from datetime import datetime
 
 from . import dates, health, llm, publish, qqstatus
 from . import clock
+from .extract import TodoDraft
 from .models import RawNotice
 from .store import Store
 
 CHAT_SOURCE = "qq"
+NOTE_SOURCE = "note"
+MANUAL_SOURCE = "manual"
 
 # Records which extractor produced the verdicts currently in the database.
 SIGNATURE_KEY = "extractor_signature"
@@ -255,8 +258,8 @@ def normalise_time(value: str | None) -> str:
     return clock.iso_now()
 
 
-def _qq_notice(digest: str, when: str | None, title: str) -> RawNotice:
-    """A QQ message as it is *stored*.
+def _stored_notice(digest: str, when: str | None, title: str, category: str) -> RawNotice:
+    """An incoming item as it is *stored*.
 
     The body is intentionally empty and the title carries no group or sender:
     `data/autow.db` is committed to the repository, and the dashboard repo is
@@ -268,39 +271,27 @@ def _qq_notice(digest: str, when: str | None, title: str) -> RawNotice:
         title_full=title,
         published_text=when or "",
         published_at=(when or "")[:10] or None,
-        category="QQ 群消息",
+        category=category,
         body="",
         external_id=digest,
     )
 
 
-def cmd_ingest(args: argparse.Namespace) -> int:
-    """Take one forwarded QQ message and decide whether it is a todo.
-
-    Input is a JSON object, either via --json or on stdin:
-        {"group": "…", "sender": "…", "text": "…", "time": "2026-10-12T10:00", "nonce": "…"}
-    """
-    raw = args.json or os.environ.get("AUTOW_INGEST_JSON", "") or sys.stdin.read()
-    if not raw.strip():
-        print("空输入", file=sys.stderr)
-        return 1
-
-    data = json.loads(raw)
+def _ingest_chat(data: dict, store: Store) -> int:
+    """A message forwarded by the phone's notification bridge."""
     group = (data.get("group") or "").strip()
     sender = (data.get("sender") or "").strip()
     text = (data.get("text") or "").strip()
     when = normalise_time(data.get("time"))
     nonce = (data.get("nonce") or "").strip()
-
-    store = _store(args)
     received_at = clock.iso_now()
     digest = hashlib.sha1(f"{group}|{sender}|{text}".encode("utf-8")).hexdigest()[:16]
+    category = "QQ 群消息"
 
     if not text:
         store.log_qq("empty", "", 0, nonce, received_at)
         write_dashboards(store)
         print("消息内容为空", file=sys.stderr)
-        store.close()
         return 1
 
     # Chat messages have no structure to fall back on, so the rule extractor is
@@ -308,11 +299,12 @@ def cmd_ingest(args: argparse.Namespace) -> int:
     # so record the fact that a message arrived (the setup page shows it) and
     # leave the board alone rather than filling it with guesses.
     if not llm.config():
-        store.upsert_notice(CHAT_SOURCE, _qq_notice(digest, when, "QQ 群消息（未处理）"))
+        store.upsert_notice(
+            CHAT_SOURCE, _stored_notice(digest, when, "QQ 群消息（未处理）", category)
+        )
         store.log_qq("no-model", "", len(text), nonce, received_at)
         write_dashboards(store)
         print("未配置大模型（LLM_API_KEY），消息已记录但未处理。", file=sys.stderr)
-        store.close()
         return 0
 
     draft, engine = llm.analyze(
@@ -326,14 +318,17 @@ def cmd_ingest(args: argparse.Namespace) -> int:
         use_cache=False,
     )
     if not draft:
-        store.upsert_notice(CHAT_SOURCE, _qq_notice(digest, when, "QQ 群消息（无需行动）"))
+        store.upsert_notice(
+            CHAT_SOURCE, _stored_notice(digest, when, "QQ 群消息（无需行动）", category)
+        )
         store.log_qq("ignored", "", len(text), nonce, received_at)
         write_dashboards(store)
         print(f"[{engine}] 这条消息不需要行动")
-        store.close()
         return 0
 
-    notice_id, _ = store.upsert_notice(CHAT_SOURCE, _qq_notice(digest, when, draft.title))
+    notice_id, _ = store.upsert_notice(
+        CHAT_SOURCE, _stored_notice(digest, when, draft.title, category)
+    )
     outcome = store.add_todo(
         notice_id=notice_id,
         title=draft.title,
@@ -355,8 +350,116 @@ def cmd_ingest(args: argparse.Namespace) -> int:
         f"[{engine}] {'新增' if outcome == 'created' else '已存在'}待办："
         f"{draft.title} / {dates.human(draft.due_at)}"
     )
-    store.close()
     return 0
+
+
+def _ingest_note(data: dict, store: Store) -> int:
+    """Text the user pasted into the board, for the model to read."""
+    text = (data.get("text") or "").strip()
+    if not text:
+        print("粘贴的内容为空", file=sys.stderr)
+        return 1
+
+    when = normalise_time(data.get("time"))
+    digest = (data.get("id") or hashlib.sha1(text.encode("utf-8")).hexdigest()[:16]).strip()
+    draft, engine = llm.analyze(
+        title=text.splitlines()[0][:60],
+        body=text,
+        published=when,
+        kind="note",
+        cache=store,
+        # Not cached, for the same reason as chat: the pasted text may be
+        # something private, and the cached JSON would put a paraphrase of it
+        # into a public repository. Re-pasting the same thing is rare.
+        use_cache=False,
+    )
+    if not draft:
+        # The user pasted this on purpose. If the model found nothing — or there
+        # is no model configured at all — still create the todo from the first
+        # line rather than silently dropping what he asked for. He can delete it.
+        headline = text.splitlines()[0].strip()[:60] or "粘贴的待办"
+        draft = TodoDraft(title=headline, detail=text[:200], due_at=None, priority="normal")
+        engine = f"{engine}/按原文"
+
+    notice_id, _ = store.upsert_notice(
+        NOTE_SOURCE, _stored_notice(digest, when, draft.title, "手动录入")
+    )
+    outcome = store.add_todo(
+        notice_id=notice_id,
+        title=draft.title,
+        detail=draft.detail,
+        due_at=draft.due_at,
+        priority=draft.priority,
+        dedupe_key=f"{NOTE_SOURCE}:{digest}",
+        needs_recommendation=draft.needs_recommendation,
+    )
+    write_dashboards(store)
+    print(
+        f"[{engine}] {'新增' if outcome == 'created' else '已存在'}待办："
+        f"{draft.title} / {dates.human(draft.due_at)}"
+    )
+    return 0
+
+
+def _ingest_manual(data: dict, store: Store) -> int:
+    """Fields the user typed himself. No model involved."""
+    title = (data.get("title") or "").strip()
+    if not title:
+        print("标题不能为空", file=sys.stderr)
+        return 1
+
+    when = normalise_time(data.get("time"))
+    due_at = (data.get("due_at") or "").strip() or None
+    priority = (data.get("priority") or "normal").strip().lower()
+    if priority not in {"high", "normal", "low"}:
+        priority = "normal"
+    digest = (data.get("id") or hashlib.sha1(title.encode("utf-8")).hexdigest()[:16]).strip()
+
+    notice_id, _ = store.upsert_notice(
+        MANUAL_SOURCE, _stored_notice(digest, when, title, "手动录入")
+    )
+    outcome = store.add_todo(
+        notice_id=notice_id,
+        title=title[:60],
+        detail=(data.get("detail") or "").strip()[:400],
+        due_at=due_at,
+        priority=priority,
+        dedupe_key=f"{MANUAL_SOURCE}:{digest}",
+        needs_recommendation=bool(data.get("needs_recommendation")),
+    )
+    write_dashboards(store)
+    print(
+        f"[手动] {'新增' if outcome == 'created' else '已存在'}待办："
+        f"{title} / {dates.human(due_at)}"
+    )
+    return 0
+
+
+def cmd_ingest(args: argparse.Namespace) -> int:
+    """Take one incoming item and decide whether it becomes a todo.
+
+    Three shapes arrive as a JSON object, via --json, stdin or AUTOW_INGEST_JSON:
+
+        {"kind": "qq-message", "group": …, "text": …}   from the phone bridge
+        {"kind": "note", "text": …}                     pasted into the board
+        {"kind": "manual", "title": …, "due_at": …}     typed into the board
+    """
+    raw = args.json or os.environ.get("AUTOW_INGEST_JSON", "") or sys.stdin.read()
+    if not raw.strip():
+        print("空输入", file=sys.stderr)
+        return 1
+
+    data = json.loads(raw)
+    kind = (data.get("kind") or "qq-message").strip()
+    store = _store(args)
+    try:
+        if kind == "manual":
+            return _ingest_manual(data, store)
+        if kind == "note":
+            return _ingest_note(data, store)
+        return _ingest_chat(data, store)
+    finally:
+        store.close()
 
 
 # ---------------------------------------------------------------------- main

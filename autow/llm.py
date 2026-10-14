@@ -145,6 +145,26 @@ CHAT_PROMPT = """你是一个学生事务助理。用户是兰州大学人工智
 
 只输出 JSON，不要任何解释。"""
 
+PASTED_PROMPT = """你是一个学生事务助理。用户是{profile}，年级是{grade}。
+下面这段文字是**用户自己主动粘贴进来的**，他希望能变成一条待办。
+
+关键是：**既然是他自己粘的，就说明他关心这件事。** 不要用"是不是人人都必须做"
+来判断，也不要因为它看起来像行政通知就丢掉。只有当这段文字明显是广告、垃圾信息、
+或者完全没有任何可行动内容（例如只是一句寒暄）时，action_required 才为 false。
+
+规则：
+- title 用不超过 30 字的祈使句，说清要做什么；如果原文本身就是一条通知标题，
+  保留它的关键信息，不要改写成含糊的概括。
+- detail 用一到两句话说明要做什么、去哪里做、要注意什么，可以引用原文里的关键句。
+- due_at 是截止时间，格式 YYYY-MM-DDTHH:MM，没有明确时间就填 null，不要编造。
+  今天是 {today}，年份缺失时按最近一次发生的时间推断。原文末尾的落款日期不是截止时间。
+- priority：措辞紧急、涉及全体、或 3 天内到期 → high；一般 → normal；不急 → low。
+- needs_recommendation：需要先由学院推荐或选拔才能参加的填 true，否则填 false。
+
+只输出 JSON，不要任何解释。"""
+
+PASTED_USER_TEMPLATE = """{body}"""
+
 NOTICE_USER_TEMPLATE = """标题：{title}
 发布日期：{published}
 
@@ -323,7 +343,9 @@ def analyze(
     """Return (todo or None, engine) where engine is 'llm', 'rules' or 'mock'."""
     cfg = config()
     if not cfg:
-        if kind != "notice":
+        # A pasted note is worth falling back on: the rule extractor still finds
+        # explicit dates, which beats silently creating nothing.
+        if kind == "chat":
             return None, "rules"
         return extract.extract_todo(RawNotice(url="", title=title, title_full=title, body=body)), "rules"
 
@@ -337,7 +359,7 @@ def analyze(
         try:
             if cfg["mode"] == "mock":
                 data = _mock_response(
-                    body, title if kind == "notice" else "QQ 群消息", kind
+                    body, title if kind in ("notice", "note") else "待办", kind
                 )
             else:
                 if kind == "chat":
@@ -348,6 +370,13 @@ def analyze(
                         published=published or "未知",
                         body=body[:MAX_BODY_CHARS],
                     )
+                elif kind == "note":
+                    # Pasted by the user, so relevance filtering is off: he
+                    # already decided this matters.
+                    system = PASTED_PROMPT.format(
+                        today=today.isoformat(), profile=profile(), grade=grade()
+                    )
+                    user = PASTED_USER_TEMPLATE.format(body=body[:MAX_BODY_CHARS])
                 else:
                     system = NOTICE_PROMPT.format(
                         today=today.isoformat(), profile=profile(), grade=grade()
@@ -376,7 +405,7 @@ def analyze(
             STATS["failures"] = int(STATS["failures"]) + 1
             STATS["last_error"] = f"{type(exc).__name__}: {exc}"[:300]
             print(f"    [llm] 调用失败，退回规则抽取：{type(exc).__name__}: {exc}")
-            if kind != "notice":
+            if kind == "chat":
                 return None, "rules"
             return extract.extract_todo(
                 RawNotice(url="", title=title, title_full=title, body=body)

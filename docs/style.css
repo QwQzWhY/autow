@@ -205,6 +205,9 @@ body {
 
 .card__link { display: inline-block; margin-top: 6px; font-size: 12.5px; }
 
+/* A pending card is not on the server yet, so there is nothing to tick off. */
+.card[data-pending="true"] .check { visibility: hidden; }
+
 .card__delete {
   position: absolute;
   top: 6px; right: 6px;
@@ -257,6 +260,107 @@ body {
   cursor: pointer;
   padding: 4px 6px;
 }
+
+/* A short-lived message that is not an undo — kept separate so the two cannot
+   overwrite each other's button. */
+.toast {
+  position: fixed;
+  left: 16px; right: 16px;
+  bottom: max(16px, env(safe-area-inset-bottom));
+  z-index: 22;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: #16181d;
+  color: #f2f3f5;
+  font-size: 13px;
+  text-align: center;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, .28);
+  animation: undo-in .18s ease;
+}
+
+.toast[hidden] { display: none; }
+
+/* ------------------------------------------------------------------ 新建待办 */
+
+.fab {
+  position: fixed;
+  right: 18px;
+  bottom: max(18px, env(safe-area-inset-bottom));
+  z-index: 15;
+  width: 54px; height: 54px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #fff;
+  font-size: 26px;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(37, 99, 235, .35);
+}
+
+.fab:active { transform: scale(.94); }
+
+.sheet {
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  display: flex;
+  align-items: flex-end;
+  background: rgba(8, 10, 14, .45);
+}
+
+.sheet[hidden] { display: none; }
+
+.sheet__card {
+  width: 100%;
+  max-height: 88vh;
+  overflow-y: auto;
+  padding: 16px 16px calc(20px + env(safe-area-inset-bottom));
+  background: var(--card);
+  border-radius: 18px 18px 0 0;
+  animation: sheet-in .2s ease;
+}
+
+@keyframes sheet-in {
+  from { transform: translateY(16px); opacity: .6; }
+  to { transform: none; opacity: 1; }
+}
+
+.sheet__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  font-size: 16px;
+}
+
+textarea {
+  width: 100%;
+  padding: 10px 12px;
+  font: inherit;
+  font-size: 14px;
+  color: var(--text);
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  resize: vertical;
+}
+
+textarea:focus, select:focus { outline: 2px solid var(--accent); outline-offset: -1px; }
+
+select {
+  width: 100%;
+  padding: 10px 12px;
+  font-size: 14px;
+  color: var(--text);
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+}
+
+/* 还没同步到云端的那条 */
+.chip--pending { background: rgba(217, 119, 6, .16); color: #b45309; }
+.chip--stuck { background: rgba(220, 38, 38, .14); color: var(--high); }
 
 /* Clearance for the delete button, which sits in the top-right corner: a title
    long enough to wrap would otherwise run underneath it. */

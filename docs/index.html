@@ -9,7 +9,7 @@
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="icon-192.png">
-<link rel="stylesheet" href="style.css?v=6">
+<link rel="stylesheet" href="style.css?v=7">
 </head>
 <body>
 
@@ -39,11 +39,53 @@
   <span id="footer-note"></span>
 </footer>
 
+<button class="fab" id="fab" type="button" aria-label="新建待办">＋</button>
+
+<div class="sheet" id="sheet" hidden>
+  <div class="sheet__card">
+    <div class="sheet__head">
+      <strong>新建待办</strong>
+      <button class="icon-btn" id="sheet-close" type="button" aria-label="关闭">×</button>
+    </div>
+
+    <div class="seg" id="compose-mode">
+      <button class="seg__item is-active" type="button" data-mode="note">粘贴通知</button>
+      <button class="seg__item" type="button" data-mode="manual">手动填写</button>
+    </div>
+
+    <div id="note-form">
+      <p class="hint">把通知原文整段粘进来，大模型自己读截止时间、地点和要做什么。</p>
+      <textarea id="note-text" rows="6" placeholder="例如：@全体成员 申请困难认证的同学请于明天中午十二点前在学工系统提交材料…"></textarea>
+      <button class="btn btn--primary" id="note-submit" type="button">交给大模型识别</button>
+    </div>
+
+    <div id="manual-form" hidden>
+      <label class="field"><span>要做什么</span>
+        <input id="manual-title" type="text" placeholder="例如：去图书馆还书"></label>
+      <label class="field"><span>截止时间（可留空）</span>
+        <input id="manual-due" type="datetime-local"></label>
+      <label class="field"><span>优先级</span>
+        <select id="manual-priority">
+          <option value="normal">普通</option>
+          <option value="high">重要</option>
+          <option value="low">不急</option>
+        </select></label>
+      <label class="field"><span>备注（可留空）</span>
+        <input id="manual-detail" type="text" placeholder="补充说明"></label>
+      <button class="btn btn--primary" id="manual-submit" type="button">创建</button>
+    </div>
+
+    <p class="result" id="compose-result"></p>
+  </div>
+</div>
+
 <div class="undo" id="undo" hidden>
   <span id="undo-text"></span>
   <button type="button" id="undo-btn">撤销</button>
 </div>
 
-<script type="module" src="app.js?v=6"></script>
+<div class="toast" id="toast" hidden></div>
+
+<script type="module" src="app.js?v=7"></script>
 </body>
 </html>
