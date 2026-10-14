@@ -189,14 +189,27 @@ def crawl(args: argparse.Namespace, store: Store) -> tuple[int, int, int]:
                     # Check the cheap way first: a list URL already tells us
                     # whether we have seen this notice, so skipping costs no
                     # browser request.
-                    if (
-                        args.skip_analyzed
-                        and not reanalyze
-                        and store.has_notice(source.NAME, stub.external_id)
-                    ):
+                    known = store.has_notice(source.NAME, stub.external_id)
+                    if args.skip_analyzed and not reanalyze and known:
                         continue
+                    notice = None
+                    if reanalyze and known:
+                        # Re-judging is about the prompt, not about the page we
+                        # already read once. Going back to the site only adds a
+                        # way to fail — and a failed fetch left the old verdict
+                        # standing, so a rule change could silently never apply
+                        # and the item it was meant to drop stayed on the board.
+                        notice = store.stored_notice(source.NAME, stub.external_id)
+                        if notice is not None and not notice.body.strip():
+                            # An empty body would be judged as "nothing to do"
+                            # and delete the todo it belongs to. No text is the
+                            # same as no stored text: go and fetch it.
+                            notice = None
+                        if notice is not None:
+                            print(f"  用库里存的正文重判：{stub.title[:36]}")
                     try:
-                        notice = source.fetch_detail(context, stub)
+                        if notice is None:
+                            notice = source.fetch_detail(context, stub)
                     except Exception as exc:
                         print(f"  FAIL {stub.title[:40]} ({type(exc).__name__})")
                         failed += 1

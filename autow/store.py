@@ -152,6 +152,33 @@ class Store:
             is not None
         )
 
+    def stored_notice(self, source: str, external_id: str) -> RawNotice | None:
+        """One notice as it was stored, so it can be re-judged without the site.
+
+        A prompt change has to reach the notices already on the board. Fetching
+        their pages again to do that adds only a way to fail: the runner is
+        throttled by the school's WAF, and a failed fetch used to leave the old
+        verdict standing — which is how a rule change silently never applied and
+        an item that should have been dropped stayed on the board.
+        """
+        row = self.conn.execute(
+            """SELECT external_id, url, title, published_at, published_raw, category, body
+               FROM notices WHERE source = ? AND external_id = ?""",
+            (source, external_id),
+        ).fetchone()
+        if row is None:
+            return None
+        return RawNotice(
+            url=row["url"],
+            title=row["title"],
+            title_full=row["title"],
+            published_at=row["published_at"],
+            published_text=row["published_raw"] or "",
+            category=row["category"] or "",
+            body=row["body"] or "",
+            external_id=row["external_id"],
+        )
+
     # ------------------------------------------------------------------ todos
 
     def add_todo(

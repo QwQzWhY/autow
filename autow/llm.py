@@ -62,7 +62,12 @@ TRUNCATION_MARK = "……（通知里只带了这么多，剩下的被系统截�
 # 11: notices aimed at a role the user does not hold are now dropped. Widening
 # the sources to 教务处 brought a 学习委员培训 notice onto the board — correct
 # text, wrong reader — so both the profile and the notice prompt say it.
-CACHE_VERSION = 11
+#
+# 12: v11's re-analysis could not actually reach most of the notices — the pages
+# are unreadable from the runner, and a failed fetch left the old verdict
+# standing, so the rule never applied to the item it was written for. Re-issued
+# together with the change that re-judges stored text instead of re-fetching it.
+CACHE_VERSION = 12
 
 # Who the advice is for. The "no post" half is not decoration: 教务处 and 学工部
 # both publish things addressed to 学习委员, 班委, 团支书 and so on, and without

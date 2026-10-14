@@ -389,6 +389,95 @@ class TestNothingFetchedIsNotAReanalysis(unittest.TestCase):
         self.assertEqual(counts["failed"], cli.MAX_CONSECUTIVE_FAILURES - 1)
         self.assertGreater(counts["ok"], 0, "成功一次以后剩下的应该继续抓")
 
+    def test_a_pending_reanalysis_reads_the_stored_text_instead_of_the_site(self):
+        """提示词改了要真的落到板上。
+
+        实测到过：加了「面向特定角色的通知丢掉」这条规则之后，那条学习委员培训还在板上
+        —— 因为重判要重新打开页面，而教务处的正文在跑者上一条都打不开，抓失败就保留原判。
+        正文库里本来就有，重判该用的是它。
+        """
+        stub = mock.Mock(title="关于举办学习委员培训的通知", external_id="J1")
+        notice = RawNotice(
+            url="https://jwc.lzu.edu.cn/tongzhigonggao/2026/1010/1.html",
+            title="关于举办学习委员培训的通知",
+            title_full="关于举办学习委员培训的通知",
+            body="请于10月25日前提交材料到学院办公室。",
+            published_at="2026-10-10",
+            # Real fetches return the same object the list handed over, so the
+            # detail keeps the list row's id.
+            external_id="J1",
+        )
+        source = mock.Mock()
+        source.NAME = "lzu-jwc"
+        source.fetch_list.return_value = [stub]
+        # 第一次抓得到，之后站点一律拒绝。
+        source.fetch_detail.side_effect = [notice] + [RuntimeError("412")] * 8
+
+        @contextmanager
+        def fake_context(*_args, **_kwargs):
+            yield None
+
+        with mock.patch.object(sources, "SOURCES", [source]), mock.patch.object(
+            browser, "stealth_context", fake_context
+        ), mock.patch.object(cli, "DELAY_BETWEEN_PAGES", 0):
+            cli.main(["--db", str(self.db), "run", "--skip-analyzed", "--pages", "1"])
+            self.assertEqual(source.fetch_detail.call_count, 1)
+
+            # 抽取器变了 → 下一次扫描应当重判
+            store = Store(self.db)
+            store.set_meta(cli.SIGNATURE_KEY, "someone@else#v0")
+            store.close()
+            cli.main(["--db", str(self.db), "run", "--skip-analyzed", "--pages", "1"])
+
+        self.assertEqual(
+            source.fetch_detail.call_count,
+            1,
+            "重判又去抓了一遍页面——站点打不开的时候，那条规则就永远落不到板上",
+        )
+        counts = self.published_health()["sources"]["lzu-jwc"]
+        self.assertGreaterEqual(counts["ok"], 1, "用库里的正文重判，应该算判过")
+
+    def test_a_stored_notice_with_no_text_is_still_fetched(self):
+        """空正文不能拿去重判——那会被判成「无事可做」，把待办删掉。"""
+        stub = mock.Mock(title="关于提交材料的通知", external_id="E1")
+        empty = RawNotice(
+            url="https://jwc.lzu.edu.cn/tongzhigonggao/2026/1010/2.html",
+            title="关于提交材料的通知",
+            title_full="关于提交材料的通知",
+            body="",
+            published_at="2026-10-10",
+            external_id="E1",
+        )
+        full = RawNotice(
+            url=empty.url,
+            title=empty.title,
+            title_full=empty.title,
+            body="请于10月25日前提交材料到学院办公室。",
+            published_at="2026-10-10",
+            external_id="E1",
+        )
+        source = mock.Mock()
+        source.NAME = "lzu-jwc"
+        source.fetch_list.return_value = [stub]
+        source.fetch_detail.side_effect = [empty, full]
+
+        @contextmanager
+        def fake_context(*_args, **_kwargs):
+            yield None
+
+        with mock.patch.object(sources, "SOURCES", [source]), mock.patch.object(
+            browser, "stealth_context", fake_context
+        ), mock.patch.object(cli, "DELAY_BETWEEN_PAGES", 0):
+            cli.main(["--db", str(self.db), "run", "--skip-analyzed", "--pages", "1"])
+            store = Store(self.db)
+            store.set_meta(cli.SIGNATURE_KEY, "someone@else#v0")
+            store.close()
+            cli.main(["--db", str(self.db), "run", "--skip-analyzed", "--pages", "1"])
+
+        self.assertEqual(
+            source.fetch_detail.call_count, 2, "库里那份是空的，就该再去抓一次"
+        )
+
 
 if __name__ == "__main__":
     unittest.main()
