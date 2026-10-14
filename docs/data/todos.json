@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-10-14T23:41:37+08:00",
-  "count": 16,
+  "generated_at": "2026-10-15T03:29:11+08:00",
+  "count": 19,
   "todos": [
     {
       "key": "qq:d954ba8f7071b11a",
@@ -105,6 +105,51 @@
       "url": "https://news.lzu.edu.cn/info/1056/1177915.htm",
       "category": "学校通知",
       "published_at": "2026-10-13",
+      "status": "open"
+    },
+    {
+      "key": "lzu-jwc:336256.html",
+      "title": "关于领取186-187回J.TEST成绩证书的通知",
+      "detail": "",
+      "due_at": null,
+      "priority": "normal",
+      "needs_recommendation": false,
+      "content_hash": "",
+      "source": "lzu-jwc",
+      "source_label": "教务处",
+      "url": "https://jwc.lzu.edu.cn/tongzhigonggao/kaoshizhongxin/2026/0831/336256.html",
+      "category": "考试中心",
+      "published_at": "2026-08-31",
+      "status": "open"
+    },
+    {
+      "key": "lzu-jwc:327863.html",
+      "title": "关于2026年春季学期学生注册工作安排的通知",
+      "detail": "",
+      "due_at": null,
+      "priority": "normal",
+      "needs_recommendation": false,
+      "content_hash": "",
+      "source": "lzu-jwc",
+      "source_label": "教务处",
+      "url": "https://jwc.lzu.edu.cn/tongzhigonggao/xueshengzhucezhongxin/2026/0123/327863.html",
+      "category": "学生注册中心",
+      "published_at": "2026-01-23",
+      "status": "open"
+    },
+    {
+      "key": "lzu-jwc:330897.html",
+      "title": "关于开展2025-2026学年第二学期期中学生评教工作的通知",
+      "detail": "",
+      "due_at": null,
+      "priority": "normal",
+      "needs_recommendation": false,
+      "content_hash": "",
+      "source": "lzu-jwc",
+      "source_label": "教务处",
+      "url": "https://jwc.lzu.edu.cn/tongzhigonggao/jiaoxuezhiliangguanli/2026/0428/330897.html",
+      "category": "教学质量管理",
+      "published_at": "2026-04-28",
       "status": "open"
     },
     {
