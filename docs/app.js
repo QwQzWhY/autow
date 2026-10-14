@@ -1,6 +1,6 @@
 // The version query has to match the other assets: a fresh app.js loading a
 // cached older todo-view.js fails at runtime, not with a warning.
-import { dueLabel, filterTodos, splitByNomination } from './todo-view.js?v=7';
+import { dueLabel, filterTodos, splitByNomination } from './todo-view.js?v=8';
 
 const DATA_URL = 'data/todos.json';
 const DONE_KEY = 'autow.done';
@@ -132,7 +132,9 @@ async function create(item, payload) {
     source_label: item.label || '待识别',
     url: '',
     published_at: '',
-    needs_recommendation: false,
+    // Carried through so the split below puts a hand-added "要先经学院推荐"
+    // item in its own group right away.
+    needs_recommendation: Boolean(item.needs_recommendation),
     pending: true,
     at: Date.now(),
   });
@@ -314,8 +316,10 @@ function render() {
     p.textContent = state.todos.length ? '这个分类下没有内容' : '还没有待办';
     list.appendChild(p);
   } else {
-    pending.forEach((item) => list.appendChild(card(item)));
-    const { self, nomination } = splitByNomination(items);
+    // Pending cards go through the same split, so one the user just marked as
+    // "要先经学院推荐" is already in that group instead of sitting at the top and
+    // jumping down when the server copy arrives.
+    const { self, nomination } = splitByNomination([...pending, ...items]);
     self.forEach((item) => list.appendChild(card(item)));
     if (nomination.length) {
       const heading = document.createElement('p');
@@ -452,6 +456,7 @@ $('manual-submit').addEventListener('click', async () => {
   const due = $('manual-due').value;
   const priority = $('manual-priority').value;
   const detail = $('manual-detail').value.trim();
+  const nomination = $('manual-nomination').checked;
   const id = Math.random().toString(36).slice(2, 10);
   const ok = await create(
     {
@@ -460,15 +465,17 @@ $('manual-submit').addEventListener('click', async () => {
       detail,
       due_at: due || null,
       priority,
+      needs_recommendation: nomination,
       label: '手动',
     },
-    { kind: 'manual', id, title, due_at: due, priority, detail }
+    { kind: 'manual', id, title, due_at: due, priority, detail, needs_recommendation: nomination }
   );
   if (ok) {
     $('manual-title').value = '';
     $('manual-due').value = '';
     $('manual-detail').value = '';
     $('manual-priority').value = 'normal';
+    $('manual-nomination').checked = false;
   }
 });
 

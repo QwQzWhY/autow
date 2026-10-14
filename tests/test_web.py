@@ -52,6 +52,22 @@ class TestWebPages(unittest.TestCase):
             len(versions), 1, f"资源版本号不一致：{sorted(versions)}（改了要一起改）"
         )
 
+    def test_the_manual_form_can_flag_a_college_nomination(self):
+        """自己加待办的时候也要能勾「需学院推荐」。
+
+        这个分组只在真有这种条目时才显示，所以没有这个勾选框的话，用户既没法自己
+        加一条来验证，也没法把不用模型判断的事手动归进去。
+        """
+        self.assertIn('id="manual-nomination"', read("index.html"))
+        script = read("app.js")
+        self.assertIn("$('manual-nomination').checked", script, "表单里有勾选框，脚本没读它")
+        self.assertIn("needs_recommendation: nomination", script, "勾了却没发给云端")
+
+    def test_pending_cards_go_through_the_same_split(self):
+        # 否则刚勾完的那一条会先出现在顶部，等云端回话才跳到下面那一组。
+        script = read("app.js")
+        self.assertIn("splitByNomination([...pending, ...items])", script)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -9,7 +9,7 @@
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="icon-192.png">
-<link rel="stylesheet" href="style.css?v=7">
+<link rel="stylesheet" href="style.css?v=8">
 </head>
 <body>
 
@@ -72,6 +72,9 @@
         </select></label>
       <label class="field"><span>备注（可留空）</span>
         <input id="manual-detail" type="text" placeholder="补充说明"></label>
+      <label class="field"><span>参加方式</span>
+        <span class="checkline"><input id="manual-nomination" type="checkbox">
+          要先经学院推荐或选拔才能参加（会单独排在底部）</span></label>
       <button class="btn btn--primary" id="manual-submit" type="button">创建</button>
     </div>
 
@@ -86,6 +89,6 @@
 
 <div class="toast" id="toast" hidden></div>
 
-<script type="module" src="app.js?v=7"></script>
+<script type="module" src="app.js?v=8"></script>
 </body>
 </html>

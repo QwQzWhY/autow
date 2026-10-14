@@ -555,6 +555,25 @@ code {
 
 .field input:focus { outline: 2px solid var(--accent); outline-offset: -1px; }
 
+/* 一个勾选框，不是输入框：.field input 那套宽度和内边距会把方框撑成一整行。 */
+.field .checkline {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--muted);
+  margin-bottom: 0;
+}
+
+.field .checkline input {
+  width: auto;
+  flex: 0 0 auto;
+  margin: 2px 0 0;
+  padding: 0;
+  accent-color: var(--accent);
+}
+
 .btn {
   width: 100%;
   padding: 12px;

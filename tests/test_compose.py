@@ -76,6 +76,23 @@ class ComposeTest(unittest.TestCase):
         self.ingest({"kind": "manual", "title": "X", "due_at": ""})
         self.assertIsNone(self.store().all_todos()[0]["due_at"])
 
+    def test_manual_can_be_marked_as_needing_a_college_nomination(self):
+        self.ingest(
+            {"kind": "manual", "title": "报名骨干培养计划", "needs_recommendation": True}
+        )
+        self.assertEqual(self.store().all_todos()[0]["needs_recommendation"], 1)
+
+    def test_the_nomination_flag_reaches_the_board_file(self):
+        # 看板是按这个字段分组的，它必须一路走到 todos.json 里。
+        self.ingest(
+            {"kind": "manual", "title": "报名骨干培养计划", "needs_recommendation": True}
+        )
+        # AUTOW_DOCS_DIR 指到的是数据目录本身（云端把它设成 docs/data）。
+        published = json.loads(
+            (Path(os.environ["AUTOW_DOCS_DIR"]) / "todos.json").read_text(encoding="utf-8")
+        )
+        self.assertTrue(published["todos"][0]["needs_recommendation"])
+
     # ------------------------------------------------------------ 粘贴通知
 
     def test_note_runs_the_model_and_creates_a_todo(self):
