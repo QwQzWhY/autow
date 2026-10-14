@@ -21,6 +21,23 @@ from . import clock
 
 DOCS_DATA = Path(__file__).resolve().parent.parent / "docs" / "data"
 
+# What each source did this run. The workflow log says this too, but reading it
+# needs authentication — and when a site starts refusing the runner's IP, "which
+# source returned nothing" is the first question. A source that silently stops
+# producing anything is the one failure this project keeps running into.
+SOURCE_STATS: dict[str, dict] = {}
+
+
+def record_source(
+    name: str, listed: int, ok: int, failed: int, error: str = ""
+) -> None:
+    SOURCE_STATS[name] = {
+        "listed": listed,
+        "ok": ok,
+        "failed": failed,
+        "error": error[:160],
+    }
+
 
 def data_dir() -> Path:
     override = os.environ.get("AUTOW_DOCS_DIR")
@@ -69,6 +86,7 @@ def build() -> dict:
     return {
         "generated_at": clock.iso_now(),
         "extractor": extractor,
+        "sources": SOURCE_STATS,
     }
 
 

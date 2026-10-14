@@ -2,6 +2,7 @@
 
 import unittest
 
+from autow import publish
 from autow.sources import SOURCES, lzu_jwc, lzu_news, lzu_xgb
 
 
@@ -52,6 +53,12 @@ class TestSourceRegistry(unittest.TestCase):
     def test_every_source_has_a_unique_name(self):
         names = [source.NAME for source in SOURCES]
         self.assertEqual(len(names), len(set(names)))
+
+    def test_every_source_has_a_name_the_board_can_show(self):
+        # 没登记的话，卡片上会直接露出 lzu-xgb 这种英文 id。
+        for source in SOURCES:
+            with self.subTest(source.NAME):
+                self.assertIn(source.NAME, publish.SOURCE_LABELS)
 
 
 class TestXgb(unittest.TestCase):
@@ -133,6 +140,44 @@ class TestJwc(unittest.TestCase):
         notice = lzu_jwc.to_notice({**self.ROW, "date": ""})
         self.assertIsNotNone(notice)
         self.assertIsNone(notice.published_at)
+
+
+class FakePage:
+    """Just enough page for `_settled_rows`: it hands back row counts in order."""
+
+    def __init__(self, counts: list[int]):
+        self.counts = counts
+        self.reads = 0
+        self.waits = 0
+
+    def evaluate(self, _js):
+        count = self.counts[min(self.reads, len(self.counts) - 1)]
+        self.reads += 1
+        return [{"title": f"t{i}"} for i in range(count)]
+
+    def wait_for_timeout(self, _ms):
+        self.waits += 1
+
+
+class TestJwcSettling(unittest.TestCase):
+    """列表是一列一列画出来的，读太快就只拿到一列。"""
+
+    def test_a_partly_rendered_page_is_not_accepted(self):
+        # 3 条是「只画出一列」的样子，线上那次就是这么存下来的。
+        page = FakePage([3, 3, 54, 54])
+        rows = lzu_jwc._settled_rows(page)
+        self.assertEqual(len(rows), 54)
+
+    def test_a_settled_full_page_is_taken_immediately(self):
+        page = FakePage([54, 54])
+        self.assertEqual(len(lzu_jwc._settled_rows(page)), 54)
+        self.assertEqual(page.reads, 2, "两次读数一致就该收手，不要白等")
+
+    def test_it_gives_up_instead_of_hanging(self):
+        page = FakePage([2])  # 一直只有 2 条
+        rows = lzu_jwc._settled_rows(page, attempts=4)
+        self.assertEqual(len(rows), 2)
+        self.assertLessEqual(page.reads, 4)
 
     def test_source_names_are_unique(self):
         names = [s.NAME for s in SOURCES]

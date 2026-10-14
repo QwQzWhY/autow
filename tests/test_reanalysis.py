@@ -6,6 +6,7 @@ because a duplicate dedupe_key simply failed to insert. `--skip-analyzed` also
 kept skipping the notices themselves.
 """
 
+import json
 import os
 import sqlite3
 import tempfile
@@ -274,6 +275,50 @@ class TestNothingFetchedIsNotAReanalysis(unittest.TestCase):
         store.close()
         self.scan([])
         self.assertEqual(self.stored_signature(), llm.signature())
+
+    def published_health(self) -> dict:
+        path = Path(os.environ["AUTOW_DOCS_DIR"]) / "health.json"
+        return json.loads(path.read_text(encoding="utf-8"))
+
+    def test_each_source_reports_what_it_did(self):
+        """一个源悄悄不再产出东西，要能在公开文件里看出来。
+
+        CI 日志要登录才能下载，而"哪个源这轮什么都没抓到"正是最先要问的问题。
+        """
+        stub = mock.Mock(title="通知", external_id="X1")
+        notice = RawNotice(
+            url="https://ai.lzu.edu.cn/news/X1",
+            title="通知",
+            title_full="通知",
+            body="请于10月25日前提交实验报告到实验中心。",
+        )
+        self.scan([stub], [notice])
+        counts = self.published_health()["sources"]["lzu-ai"]
+        self.assertEqual(counts["listed"], 1)
+        self.assertEqual(counts["ok"], 1)
+        self.assertEqual(counts["failed"], 0)
+
+    def test_a_source_that_listed_nothing_says_so(self):
+        self.scan([])
+        counts = self.published_health()["sources"]["lzu-ai"]
+        self.assertEqual(counts["listed"], 0)
+
+    def test_a_failed_list_fetch_carries_its_error(self):
+        source = mock.Mock()
+        source.NAME = "lzu-ai"
+        source.fetch_list.side_effect = RuntimeError("412 challenge")
+
+        @contextmanager
+        def fake_context(*_args, **_kwargs):
+            yield None
+
+        with mock.patch.object(sources, "SOURCES", [source]), mock.patch.object(
+            browser, "stealth_context", fake_context
+        ):
+            cli.main(["--db", str(self.db), "run", "--skip-analyzed", "--pages", "1"])
+        counts = self.published_health()["sources"]["lzu-ai"]
+        self.assertEqual(counts["listed"], 0)
+        self.assertIn("412 challenge", counts["error"])
 
 
 if __name__ == "__main__":

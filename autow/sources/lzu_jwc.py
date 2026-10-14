@@ -97,11 +97,41 @@ def fetch_list(context: BrowserContext, page_no: int = 1) -> list[RawNotice]:
         return []
     page = open_page(context, LIST_URL, LIST_READY)
     try:
-        rows = page.evaluate(_LIST_JS)
+        rows = _settled_rows(page)
     finally:
         page.close()
     notices = [n for n in (to_notice(row) for row in rows[:MAX_ROWS]) if n]
     return notices
+
+
+# One column's worth. The hub page always carries more than this when it has
+# rendered; three rows means one column made it and eight did not.
+MIN_EXPECTED_ROWS = 9
+
+
+def _settled_rows(
+    page,
+    attempts: int = 10,
+    pause_ms: int = 800,
+    floor: int = MIN_EXPECTED_ROWS,
+) -> list[dict]:
+    """Read the rows once they stop growing, and long enough to be real.
+
+    The hub page lays out its nine columns after the document loads. The first
+    deployed scan stored three rows — one partial column, stable for a moment,
+    which is exactly what a single read catches. So two agreeing reads are
+    required, and a count below one column keeps waiting instead of being
+    accepted.
+    """
+    previous = -1
+    rows: list[dict] = []
+    for index in range(attempts):
+        rows = page.evaluate(_LIST_JS)
+        if len(rows) == previous and (len(rows) >= floor or index == attempts - 1):
+            return rows
+        previous = len(rows)
+        page.wait_for_timeout(pause_ms)
+    return rows
 
 
 def fetch_detail(context: BrowserContext, notice: RawNotice) -> RawNotice:

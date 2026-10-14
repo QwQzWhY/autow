@@ -155,14 +155,21 @@ def crawl(args: argparse.Namespace, store: Store) -> tuple[int, int, int]:
 
     with stealth_context(headless=not args.headful) as context:
         for source in SOURCES:
+            # Counted per source so a site that quietly stops producing anything
+            # is visible in the published health file instead of only in a log
+            # that needs a login to read.
+            listed = ok = failed = 0
+            list_error = ""
             for page_no in range(1, args.pages + 1):
                 try:
                     listing = source.fetch_list(context, page_no=page_no)
                 except Exception as exc:
                     print(f"[{source.NAME}] 列表抓取失败：{type(exc).__name__}: {exc}")
+                    list_error = f"{type(exc).__name__}: {exc}"
                     break
                 if not listing:
                     break
+                listed += len(listing)
                 print(f"[{source.NAME} p{page_no}] {len(listing)} 条", flush=True)
 
                 for stub in listing:
@@ -181,9 +188,11 @@ def crawl(args: argparse.Namespace, store: Store) -> tuple[int, int, int]:
                         notice = source.fetch_detail(context, stub)
                     except Exception as exc:
                         print(f"  FAIL {stub.title[:40]} ({type(exc).__name__})")
+                        failed += 1
                         continue
 
                     notice_id, is_new = store.upsert_notice(source.NAME, notice)
+                    ok += 1
                     new_notices += int(is_new)
                     print(
                         f"  {'NEW ' if is_new else '    '}{notice.published_at or '??'}  "
@@ -217,6 +226,8 @@ def crawl(args: argparse.Namespace, store: Store) -> tuple[int, int, int]:
                         outcomes["removed"] = outcomes.get("removed", 0) + 1
                         print(f"        -> [{engine}/removed] 重新判断为无需行动")
                     time.sleep(DELAY_BETWEEN_PAGES)
+
+            health.record_source(source.NAME, listed, ok, failed, list_error)
 
     # Only record the signature once the crawl actually judged something. A run
     # that died halfway, or whose listing came back empty, re-analyses again next

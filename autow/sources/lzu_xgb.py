@@ -24,7 +24,7 @@ from urllib.parse import urljoin
 from playwright.sync_api import BrowserContext
 
 from .. import dates
-from ..browser import open_page
+from ..browser import CHROME_UA, open_page
 from ..models import RawNotice
 
 BASE = "http://xgb.lzu.edu.cn"
@@ -78,7 +78,17 @@ def to_notice(row: dict, category: str = "") -> RawNotice | None:
 
 
 def _get(url: str) -> str:
-    request = urllib.request.Request(url, headers={"User-Agent": "AutoW/1.0"})
+    # Same site family as the college WAF, and it answers non-browser clients
+    # with an empty 412 — from the CI runner that is what "this source returned
+    # nothing" looked like. Cheap to ask properly rather than to find out.
+    request = urllib.request.Request(
+        url,
+        headers={
+            "User-Agent": CHROME_UA,
+            "Accept": "application/json, text/javascript, */*; q=0.01",
+            "Referer": f"{BASE}/tongzhigonggao/zizhufuwu/index.html",
+        },
+    )
     with urllib.request.urlopen(request, timeout=30) as response:
         return response.read().decode("utf-8", "replace")
 
