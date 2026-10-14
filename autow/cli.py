@@ -92,6 +92,21 @@ def describe_llm(store: Store | None = None) -> bool:
     return True
 
 
+def signature_worth_recording(analysed: int, stored: str | None, signature: str) -> bool:
+    """Whether this run may claim the extractor version it just used.
+
+    Finding nothing to do is not the same as having looked. A run whose listing
+    came back empty — the site answers a hammered crawler with empty 412s — used
+    to record the new signature anyway, so the re-analysis a version bump asks
+    for was skipped and never came back: the one run that was supposed to judge
+    the old notices again was the run that had nothing to judge.
+
+    Claiming the version is honest once this run has judged something, or once
+    the version is already the one on record.
+    """
+    return analysed > 0 or stored == signature
+
+
 def probe_due(store: Store) -> bool:
     """Whether this run should spend a call proving the key still works."""
     last = store.get_meta(PROBE_KEY)
@@ -198,9 +213,13 @@ def crawl(args: argparse.Namespace, store: Store) -> tuple[int, int, int]:
                         print(f"        -> [{engine}/removed] 重新判断为无需行动")
                     time.sleep(DELAY_BETWEEN_PAGES)
 
-    # Only record the signature once the whole crawl finished, so a run that
-    # died halfway re-analyses again next time instead of skipping the rest.
-    store.set_meta(SIGNATURE_KEY, signature)
+    # Only record the signature once the crawl actually judged something. A run
+    # that died halfway, or whose listing came back empty, re-analyses again next
+    # time instead of skipping the rest forever.
+    if signature_worth_recording(analysed, stored_signature, signature):
+        store.set_meta(SIGNATURE_KEY, signature)
+    else:
+        print("本次一条通知都没判，抽取器版本暂不记录，下次扫描继续重判")
     print(f"\n引擎使用：{engines}")
     if outcomes:
         print(f"待办变化：{outcomes}")

@@ -10,11 +10,20 @@ import os
 import sqlite3
 import tempfile
 import unittest
+from contextlib import contextmanager
 from pathlib import Path
+from unittest import mock
 
+from autow import cli
 from autow import llm
 from autow.models import RawNotice
 from autow.store import Store
+
+try:
+    from autow import browser, sources
+except ImportError:  # 没装 Playwright 的机器上仍然能跑其余测试
+    browser = None
+    sources = None
 
 
 class TestTodoRefresh(unittest.TestCase):
@@ -176,6 +185,95 @@ class TestSignature(unittest.TestCase):
         first = llm.signature()
         os.environ["LLM_MODEL"] = "deepseek-reasoner"
         self.assertNotEqual(first, llm.signature())
+
+
+class TestNothingFetchedIsNotAReanalysis(unittest.TestCase):
+    """一次什么都没抓到的扫描，不能声称自己已经把抽取器换过了。
+
+    实测发生过：CACHE_VERSION 从 8 升到 9 的那次扫描，学校的 WAF 给了空列表
+    （对反复访问的爬虫就是回空 412），一条通知都没有判，可它照样把 v9 写进了 meta。
+    于是这次升级本来要做的重判被永久跳过——而且从外面完全看不出来：健康文件里
+    一切正常，只是所有通知都停留在旧版本的判断上。
+    """
+
+    def setUp(self):
+        if browser is None or sources is None:
+            self.skipTest("没有装 Playwright，跑不了抓取")
+        tmp = tempfile.TemporaryDirectory()
+        self.addCleanup(tmp.cleanup)
+        self.db = Path(tmp.name) / "autow.db"
+        os.environ["AUTOW_DOCS_DIR"] = str(Path(tmp.name) / "docs")
+        self.addCleanup(os.environ.pop, "AUTOW_DOCS_DIR", None)
+        os.environ["AUTOW_LLM_MODE"] = "mock"
+        self.addCleanup(os.environ.pop, "AUTOW_LLM_MODE", None)
+        os.environ.pop("LLM_API_KEY", None)
+        self.addCleanup(os.environ.pop, "LLM_API_KEY", None)
+
+    def scan(self, listing: list, details: list | None = None) -> None:
+        """跑一次 `run`，列表和详情都由这里喂进去。"""
+        source = mock.Mock()
+        source.NAME = "lzu-ai"
+        source.fetch_list.return_value = listing
+        source.fetch_detail.side_effect = details or []
+
+        @contextmanager
+        def fake_context(*_args, **_kwargs):
+            yield None
+
+        with mock.patch.object(sources, "SOURCES", [source]), mock.patch.object(
+            browser, "stealth_context", fake_context
+        ), mock.patch.object(cli, "DELAY_BETWEEN_PAGES", 0):
+            # 目标行为：一个模拟的"什么都没抓到"的扫描
+            rc = cli.main(["--db", str(self.db), "run", "--skip-analyzed", "--pages", "1"])
+
+        self.assertEqual(rc, 0)
+
+    def stored_signature(self) -> str | None:
+        # Closed explicitly: an open connection keeps the file locked, and
+        # Windows then refuses to delete the temporary directory.
+        conn = sqlite3.connect(self.db)
+        try:
+            row = conn.execute(
+                "SELECT value FROM meta WHERE key = ?", (cli.SIGNATURE_KEY,)
+            ).fetchone()
+        finally:
+            conn.close()
+        return row[0] if row else None
+
+    def seed_an_older_version(self) -> None:
+        store = Store(self.db)
+        store.set_meta(cli.SIGNATURE_KEY, "old-model@example.com#v8")
+        store.close()
+
+    def test_an_empty_listing_does_not_claim_the_new_version(self):
+        self.seed_an_older_version()
+        self.scan([])
+        self.assertEqual(
+            self.stored_signature(),
+            "old-model@example.com#v8",
+            "什么都没抓到却把新版本记下了，这次重判就永远不会发生了",
+        )
+
+    def test_a_scan_that_judged_something_records_the_version(self):
+        self.seed_an_older_version()
+        stub = mock.Mock(title="通知", external_id="X1")
+        notice = RawNotice(
+            url="https://ai.lzu.edu.cn/news/X1",
+            title="通知",
+            title_full="通知",
+            body="请于10月25日前提交实验报告到实验中心。",
+            published_at="2026-10-14",
+        )
+        self.scan([stub], [notice])
+        self.assertEqual(self.stored_signature(), llm.signature())
+
+    def test_an_unchanged_version_is_left_as_it_is(self):
+        # 没有新通知可判、版本也没变，是正常情况，不该每次都重新抓一遍详情。
+        store = Store(self.db)
+        store.set_meta(cli.SIGNATURE_KEY, llm.signature())
+        store.close()
+        self.scan([])
+        self.assertEqual(self.stored_signature(), llm.signature())
 
 
 if __name__ == "__main__":
