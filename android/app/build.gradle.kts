@@ -13,8 +13,8 @@ android {
         targetSdk = 34
         // 发新版必须同时加这两个，并用带版本号的文件名发布（见 AGENTS.md）。
         // 同版本号覆盖安装会让用户分不清自己装的是哪一版。
-        versionCode = 4
-        versionName = "1.3"
+        versionCode = 5
+        versionName = "1.4"
     }
 
     buildTypes {

@@ -30,7 +30,13 @@ class QqNotificationListener : NotificationListenerService() {
     /** Groups that a recent mention has armed, keyed by the group title. */
     private val armed = HashMap<String, Armed>()
 
-    private data class Armed(val id: String, val text: String, val until: Long)
+    private data class Armed(
+        val id: String,
+        val text: String,
+        /** Fixed at the moment of the mention; never extended. */
+        val until: Long,
+        val sent: Int,
+    )
 
     override fun onListenerConnected() {
         super.onListenerConnected()
@@ -87,11 +93,19 @@ class QqNotificationListener : NotificationListenerService() {
             // ever arrives; the follow-up will re-send under the same id.
             id = "g" + now.toString(36)
             text = body
-            armed[group] = Armed(id, body, now + CONTEXT_WINDOW_MS)
+            armed[group] = Armed(id, body, now + CONTEXT_WINDOW_MS, 1)
         } else {
-            id = pending!!.id
-            text = (pending.text + "\n" + body).take(MAX_CONTEXT_CHARS)
-            armed[group] = Armed(id, text, now + CONTEXT_WINDOW_MS)
+            val trigger = pending ?: return
+            if (trigger.sent >= MAX_FOLLOW_UPS) {
+                armed.remove(group)
+                return
+            }
+            id = trigger.id
+            text = (trigger.text + "\n" + body).take(MAX_CONTEXT_CHARS)
+            // The window stays anchored to the mention. Extending it on every
+            // follow-up kept a chatty group armed all evening, turning every
+            // message into another workflow run.
+            armed[group] = Armed(id, text, trigger.until, trigger.sent + 1)
         }
 
         val sender = body.substringBefore(':', "").substringBefore('：', "").trim().ifBlank { group }
@@ -138,5 +152,8 @@ class QqNotificationListener : NotificationListenerService() {
 
         /** Stop growing the joined text; the model only reads the first few pages. */
         private const val MAX_CONTEXT_CHARS = 2000
+
+        /** How many messages after the mention are worth joining on. */
+        private const val MAX_FOLLOW_UPS = 5
     }
 }
