@@ -243,6 +243,41 @@ class Store:
             (content_hash,),
         ).fetchone()
 
+    def content_was_dismissed(self, content_hash: str) -> bool:
+        """Whether the user already threw away a todo with exactly this text.
+
+        The same announcement goes into several class groups, so deleting one
+        copy used to leave the other copies free to arrive later and put it back
+        on the board. Deleting is the user's decision, not a gap to be filled in.
+        """
+        if not content_hash:
+            return False
+        return (
+            self.conn.execute(
+                """SELECT 1 FROM todos
+                   WHERE content_hash = ? AND status = 'deleted' LIMIT 1""",
+                (content_hash,),
+            ).fetchone()
+            is not None
+        )
+
+    def set_todo_status(self, dedupe_key: str, status: str) -> bool:
+        """Record what the user did with one todo on the board.
+
+        Ticking and deleting used to live only in the phone's localStorage, which
+        made them invisible everywhere else: a second device showed the item as
+        open again, clearing site data brought deleted items back, and the
+        published file kept listing things that were already done.
+
+        `status` is the one field `add_todo` deliberately never touches, so
+        re-analysing a notice or the same message arriving twice cannot undo it.
+        """
+        cursor = self.conn.execute(
+            "UPDATE todos SET status = ? WHERE dedupe_key = ?", (status, dedupe_key)
+        )
+        self.conn.commit()
+        return cursor.rowcount > 0
+
     def remove_open_todo(self, dedupe_key: str) -> bool:
         """Drop a todo that a fresh analysis no longer considers actionable.
 

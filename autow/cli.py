@@ -28,6 +28,10 @@ CHAT_SOURCE = "qq"
 NOTE_SOURCE = "note"
 MANUAL_SOURCE = "manual"
 
+# What the board may report about a todo. "deleted" keeps the row (so re-ingest
+# does not put the item back) but drops it from the published file.
+VALID_STATUSES = {"open", "done", "deleted"}
+
 # Records which extractor produced the verdicts currently in the database.
 SIGNATURE_KEY = "extractor_signature"
 
@@ -363,6 +367,17 @@ def _ingest_chat(data: dict, store: Store) -> int:
         print("消息内容为空", file=sys.stderr)
         return 1
 
+    # The same announcement is posted into several class groups. If the user
+    # already deleted this text from the board, the copies still on their way
+    # must not put it back — checked before the model call, so it also costs
+    # nothing.
+    content = (data.get("content") or "").strip()
+    if store.content_was_dismissed(content):
+        store.log_qq("dismissed", "", len(text), nonce, received_at)
+        write_dashboards(store)
+        print("这段内容你在看板上删过，跳过")
+        return 0
+
     # Chat messages have no structure to fall back on, so the rule extractor is
     # useless here. Without a model we cannot tell "作业截止" from "大家在吗",
     # so record the fact that a message arrived (the setup page shows it) and
@@ -398,7 +413,6 @@ def _ingest_chat(data: dict, store: Store) -> int:
     # The same announcement is routinely posted into several class groups, so it
     # arrives here more than once with a different id each time. The content
     # fingerprint collapses those onto one todo.
-    content = (data.get("content") or "").strip()
     own_key = f"{CHAT_SOURCE}:{digest}"
     neighbour = store.find_open_todo_by_content(content)
     if neighbour is not None and neighbour["dedupe_key"] == own_key:
@@ -491,6 +505,27 @@ def _ingest_note(data: dict, store: Store) -> int:
     return 0
 
 
+def _ingest_status(data: dict, store: Store) -> int:
+    """The board saying what the user did with one todo.
+
+    Ticking and deleting used to be written into the phone's localStorage and
+    nowhere else, so they did not survive a cleared browser, did not travel to a
+    second device, and left done items in the published file.
+    """
+    key = (data.get("key") or "").strip()
+    status = (data.get("status") or "").strip().lower()
+    if status not in VALID_STATUSES:
+        print(f"未知状态：{status!r}", file=sys.stderr)
+        return 1
+    if not key:
+        print("缺少 key", file=sys.stderr)
+        return 1
+    changed = store.set_todo_status(key, status)
+    write_dashboards(store)
+    print(f"{'已记录' if changed else '没有这条待办'}：{key} -> {status}")
+    return 0
+
+
 def _ingest_manual(data: dict, store: Store) -> int:
     """Fields the user typed himself. No model involved."""
     title = (data.get("title") or "").strip()
@@ -533,6 +568,7 @@ def cmd_ingest(args: argparse.Namespace) -> int:
         {"kind": "qq-message", "group": …, "text": …}   from the phone bridge
         {"kind": "note", "text": …}                     pasted into the board
         {"kind": "manual", "title": …, "due_at": …}     typed into the board
+        {"kind": "status", "key": …, "status": …}       ticked or deleted on the board
     """
     raw = args.json or os.environ.get("AUTOW_INGEST_JSON", "") or sys.stdin.read()
     if not raw.strip():
@@ -547,6 +583,8 @@ def cmd_ingest(args: argparse.Namespace) -> int:
             return _ingest_manual(data, store)
         if kind == "note":
             return _ingest_note(data, store)
+        if kind == "status":
+            return _ingest_status(data, store)
         return _ingest_chat(data, store)
     finally:
         store.close()

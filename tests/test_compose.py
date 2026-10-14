@@ -379,6 +379,94 @@ class TestGroupAnnouncement(ComposeTest):
         self.assertEqual(self.store().all_todos(), [])
 
 
+class TestBoardStatus(ComposeTest):
+    """看板上勾掉和删掉要告诉云端。
+
+    这两件事原来只写进那台手机的 localStorage：换台设备看又变成未完成，
+    清一次浏览器数据删掉的会回来，公开的 todos.json 里也一直是未完成。
+    """
+
+    def published(self) -> list[dict]:
+        path = Path(os.environ["AUTOW_DOCS_DIR"]) / "todos.json"
+        return json.loads(path.read_text(encoding="utf-8"))["todos"]
+
+    def add_a_todo(self) -> str:
+        self.ingest({"kind": "manual", "id": "abc", "title": "交电费"})
+        return "manual:abc"
+
+    def test_ticking_an_item_is_recorded_on_the_server(self):
+        key = self.add_a_todo()
+        self.assertEqual(self.ingest({"kind": "status", "key": key, "status": "done"}), 0)
+        self.assertEqual(self.store().open_todos(), [])
+
+    def test_a_done_item_stays_in_the_file_with_its_status(self):
+        # 已完成的那一栏要有东西可显示，清掉浏览器数据也不该丢掉这份记录。
+        key = self.add_a_todo()
+        self.ingest({"kind": "status", "key": key, "status": "done"})
+        row = self.published()[0]
+        self.assertEqual(row["key"], key)
+        self.assertEqual(row["status"], "done")
+
+    def test_a_deleted_item_leaves_the_published_file(self):
+        key = self.add_a_todo()
+        self.ingest({"kind": "status", "key": key, "status": "deleted"})
+        self.assertEqual(self.published(), [], "删掉的待办还在发布文件里")
+
+    def test_unticking_puts_it_back(self):
+        key = self.add_a_todo()
+        self.ingest({"kind": "status", "key": key, "status": "done"})
+        self.ingest({"kind": "status", "key": key, "status": "open"})
+        self.assertEqual(self.published()[0]["status"], "open")
+        self.assertEqual(len(self.store().open_todos()), 1)
+
+    def test_an_unknown_key_is_answered_not_crashed(self):
+        self.assertEqual(self.ingest({"kind": "status", "key": "manual:nope", "status": "done"}), 0)
+
+    def test_a_status_without_a_key_is_an_error(self):
+        self.assertEqual(self.ingest({"kind": "status", "status": "done"}), 1)
+
+    def test_an_unknown_status_is_an_error(self):
+        key = self.add_a_todo()
+        self.assertEqual(self.ingest({"kind": "status", "key": key, "status": "垃圾"}), 1)
+        self.assertEqual(self.published()[0]["status"], "open")
+
+    def test_the_same_notice_from_another_group_does_not_come_back(self):
+        # 同一条通知会被转到好几个班群。删掉一次，后面那几份不该再把它放回板上。
+        notice = {
+            "kind": "qq-message",
+            "id": "episode-a",
+            "content": "same-notice",
+            "text": "请于10月25日前提交实验报告到实验中心。",
+        }
+        self.ingest({**notice, "group": "26级一班"})
+        self.ingest({"kind": "status", "key": "qq:episode-a", "status": "deleted"})
+        self.ingest({**notice, "group": "26级二班", "id": "episode-b"})
+        self.assertEqual(
+            len(self.store().all_todos()), 1, "删过的通知从别的群又长出一条新待办"
+        )
+        self.assertEqual(self.published(), [])
+
+    def test_another_notice_still_gets_through_after_a_delete(self):
+        notice = {
+            "kind": "qq-message",
+            "id": "episode-a",
+            "content": "notice-one",
+            "text": "请于10月25日前提交实验报告到实验中心。",
+        }
+        self.ingest({**notice, "group": "26级一班"})
+        self.ingest({"kind": "status", "key": "qq:episode-a", "status": "deleted"})
+        self.ingest(
+            {
+                "kind": "qq-message",
+                "group": "26级二班",
+                "id": "episode-c",
+                "content": "notice-two",
+                "text": "请于11月2日前提交课程论文。",
+            }
+        )
+        self.assertEqual(len(self.published()), 1)
+
+
 class FakeResponse:
     def __init__(self, payload: dict):
         self._payload = payload

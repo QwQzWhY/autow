@@ -68,6 +68,18 @@ class TestWebPages(unittest.TestCase):
         script = read("app.js")
         self.assertIn("splitByNomination([...pending, ...items])", script)
 
+    def test_the_board_reports_ticks_and_deletes_to_the_cloud(self):
+        """勾选和删除不能只写进这台手机的 localStorage。
+
+        不报上去的后果：换台设备看又成了未完成，清一次浏览器数据删掉的会回来，
+        公开的 todos.json 里也一直是未完成。
+        """
+        script = read("app.js")
+        self.assertIn("kind: 'status'", script, "看板没有把状态报给云端")
+        self.assertIn("reportStatus(item.key, 'deleted')", script)
+        self.assertIn("reportStatus(item.key, nowDone ? 'done' : 'open')", script)
+        self.assertIn("reportStatus(state.undo.key, 'open')", script, "撤销没报回去")
+
 
 if __name__ == "__main__":
     unittest.main()

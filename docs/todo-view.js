@@ -33,10 +33,20 @@ export function dueLabel(iso, today = new Date()) {
 }
 
 /**
+ * Whether one card is already handled.
+ *
+ * Two sources on purpose. `status` comes back from the cloud once the board has
+ * reported a tick, so it is what a second device sees; `done` is this device's
+ * own set, which covers the minute or two before the cloud has run.
+ */
+export function isDone(item, done = new Set()) {
+  return item.status === 'done' || done.has(item.key);
+}
+
+/**
  * The cards to show, given what the user has already handled.
  *
- * `done` and `deleted` are sets of keys kept in localStorage — the board is
- * read-only on the server, so both are per-device.
+ * `done` and `deleted` are sets of keys kept in localStorage.
  */
 export function filterTodos(todos, options = {}) {
   const {
@@ -48,7 +58,7 @@ export function filterTodos(todos, options = {}) {
 
   const items = todos
     .filter((t) => !deleted.has(t.key))
-    .map((t) => ({ ...t, done: done.has(t.key) }));
+    .map((t) => ({ ...t, done: isDone(t, done) }));
 
   switch (view) {
     case 'done':

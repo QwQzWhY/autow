@@ -11,6 +11,7 @@ import {
   dayDiff,
   dueLabel,
   filterTodos,
+  isDone,
   splitByNomination,
 } from '../../docs/todo-view.js';
 
@@ -99,6 +100,29 @@ test('completed state is reported per card, not baked into the data', () => {
   const all = filterTodos(TODOS, { view: 'all', done: new Set(['a']), today: TODAY });
   assert.equal(all.find((t) => t.key === 'a').done, true);
   assert.equal(all.find((t) => t.key === 'c').done, false);
+});
+
+test('a tick the cloud knows about counts as done on this device too', () => {
+  // 换台手机、或者清了浏览器数据之后，勾选状态只能从云端带回来。
+  assert.equal(isDone({ key: 'a', status: 'done' }, new Set()), true);
+  assert.equal(isDone({ key: 'a', status: 'open' }, new Set(['a'])), true);
+  assert.equal(isDone({ key: 'a', status: 'open' }, new Set()), false);
+  assert.equal(isDone({ key: 'a' }, new Set()), false); // 老数据没有 status 字段
+});
+
+test('a card the cloud says is done is hidden without a local tick', () => {
+  const todos = [
+    { key: 'a', status: 'done', due_at: null },
+    { key: 'b', status: 'open', due_at: null },
+  ];
+  assert.deepEqual(
+    filterTodos(todos, { today: TODAY }).map((t) => t.key),
+    ['b']
+  );
+  assert.deepEqual(
+    filterTodos(todos, { view: 'done', today: TODAY }).map((t) => t.key),
+    ['a']
+  );
 });
 
 test('cards that need a nomination are split out', () => {

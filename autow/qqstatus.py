@@ -23,6 +23,9 @@ VERDICTS = {
     "todo": "已生成待办",
     "ignored": "判断为无需行动",
     "duplicate": "重复消息，已忽略",
+    # The board told us the user had already thrown this one away, so no model
+    # call was spent on it and no todo was created.
+    "dismissed": "你在看板上删过这条，已跳过",
     "no-model": "收到消息，但没配置大模型",
     "empty": "空消息",
 }

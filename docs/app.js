@@ -1,6 +1,6 @@
 // The version query has to match the other assets: a fresh app.js loading a
 // cached older todo-view.js fails at runtime, not with a warning.
-import { dueLabel, filterTodos, splitByNomination } from './todo-view.js?v=8';
+import { dueLabel, filterTodos, isDone, splitByNomination } from './todo-view.js?v=9';
 
 const DATA_URL = 'data/todos.json';
 const DONE_KEY = 'autow.done';
@@ -105,6 +105,24 @@ async function dispatch(payload) {
 }
 
 /**
+ * Tell the cloud what the user did with a card.
+ *
+ * Ticking and deleting used to be written into this browser's localStorage and
+ * nowhere else: a second device showed the item as open again, clearing site
+ * data brought deleted items back, and the published file kept listing things
+ * that were already done. Failures are swallowed on purpose — the local state
+ * already shows what the user did, and there is no useful place to report a
+ * background sync error.
+ */
+async function reportStatus(key, status) {
+  try {
+    await dispatch({ kind: 'status', key, status });
+  } catch (err) {
+    // Nothing to do: the tick stays on screen either way.
+  }
+}
+
+/**
  * Show it immediately, then let the cloud take over.
  *
  * The cloud has to run the model and GitHub Pages has to republish before the
@@ -180,6 +198,7 @@ function restoreUndo() {
   if (!state.undo) return;
   state.deleted.delete(state.undo.key);
   saveDeleted();
+  reportStatus(state.undo.key, 'open');
   clearUndo();
   render();
 }
@@ -262,6 +281,7 @@ function card(item) {
       else state.done.delete(item.key);
       saveDone();
       collapse(el);
+      reportStatus(item.key, nowDone ? 'done' : 'open');
     }, nowDone ? TICK_MS : 0);
   });
 
@@ -270,6 +290,7 @@ function card(item) {
     saveDeleted();
     offerUndo(item);
     collapse(el);
+    reportStatus(item.key, 'deleted');
   });
 
   return el;
@@ -330,9 +351,12 @@ function render() {
     }
   }
 
+  // Counted the same way the cards are filtered: a tick the cloud already knows
+  // about sits in `status`, not in this device's set.
+  const handled = state.todos.filter((t) => isDone(t, state.done)).length;
   const hidden = state.todos.filter((t) => state.deleted.has(t.key)).length;
   $('meta').textContent =
-    `${state.todos.length - state.done.size - hidden + pending.length} 项待办 · ` +
+    `${state.todos.length - handled - hidden + pending.length} 项待办 · ` +
     `共 ${state.todos.length} 条`;
 
   const when = state.generatedAt

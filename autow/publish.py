@@ -25,6 +25,13 @@ SOURCE_LABELS = {
 def build(store: Store) -> dict:
     todos = []
     for row in store.all_todos():
+        # Deleted means the user threw it away on the board, so it must not come
+        # back on the next device. Done items stay in the file on purpose: that
+        # is what lets the "已完成" tab and the record of what was handled
+        # survive a cleared browser, and it is what the file did before the
+        # board could report anything.
+        if row["status"] == "deleted":
+            continue
         source = row["dedupe_key"].split(":", 1)[0]
         todos.append(
             {
@@ -40,6 +47,9 @@ def build(store: Store) -> dict:
                 "url": row["url"],
                 "category": row["category"] or "",
                 "published_at": row["published_at"] or "",
+                # What the board reported back. The published file is the only
+                # place a second device can learn that an item was handled.
+                "status": row["status"],
             }
         )
     todos.sort(key=lambda t: (t["due_at"] is None, t["due_at"] or "", t["priority"] != "high"))
