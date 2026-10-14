@@ -52,7 +52,13 @@ TRUNCATION_MARK = "……（通知里只带了这么多，剩下的被系统截�
 # 9: the body sent to the model is no longer cut at 6000 characters, and all
 # three prompts now recognise the truncation marker. Verdicts stored under v8
 # were produced from a body that may have been missing its tail.
-CACHE_VERSION = 9
+#
+# 10: v9 was recorded by two runs that judged nothing at all — the school's WAF
+# answered the runner with an empty listing, and the signature was written at
+# the end of the crawl regardless (fixed in `signature_worth_recording`). So the
+# database says v9 while holding v8's verdicts, and the re-analysis has to be
+# asked for once more.
+CACHE_VERSION = 10
 
 DEFAULT_PROFILE = "兰州大学人工智能学院的本科生"
 DEFAULT_GRADE = "2026 级（2026 年入学，现在是本科一年级）"
