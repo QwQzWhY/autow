@@ -285,7 +285,12 @@ def _ingest_chat(data: dict, store: Store) -> int:
     when = normalise_time(data.get("time"))
     nonce = (data.get("nonce") or "").strip()
     received_at = clock.iso_now()
-    digest = hashlib.sha1(f"{group}|{sender}|{text}".encode("utf-8")).hexdigest()[:16]
+    # The phone sends a stable id when it has more than one message to join up
+    # (a bare "@全体成员" followed by the actual notice). Falling back to the text
+    # keeps older builds — which send no id — working unchanged.
+    digest = (
+        data.get("id") or hashlib.sha1(f"{group}|{sender}|{text}".encode("utf-8")).hexdigest()[:16]
+    ).strip()
     category = "QQ 群消息"
 
     if not text:

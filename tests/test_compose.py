@@ -124,5 +124,69 @@ class ComposeTest(unittest.TestCase):
         self.assertEqual(len(self.store().qq_recent()), 1)
 
 
+class TestMentionContext(ComposeTest):
+    """A bare "@全体成员" is often its own message, with the notice right after.
+
+    The bridge arms the group on a match and re-sends what follows under the same
+    id, so the two arrive here joined up. These check the cloud half of that: the
+    id — not the text — decides which todo is being written to.
+    """
+
+    def setUp(self):
+        super().setUp()
+        self.base = {"kind": "qq-message", "group": "26级测试群", "sender": "王老师", "id": "g123"}
+
+    def test_a_mention_alone_creates_nothing(self):
+        self.assertEqual(self.ingest({**self.base, "text": "@全体成员"}), 0)
+        self.assertEqual(self.store().all_todos(), [])
+
+    def test_the_follow_up_turns_the_mention_into_one_todo(self):
+        self.ingest({**self.base, "text": "@全体成员"})
+        self.ingest(
+            {
+                **self.base,
+                "text": "@全体成员\n请于10月25日前提交实验报告到实验中心。",
+            }
+        )
+        rows = self.store().all_todos()
+        self.assertEqual(len(rows), 1, "触发消息和后续内容应该合成一条待办")
+        # Only the count is asserted: with the mock the title is fixed and chat
+        # details are blanked on purpose, so the text cannot be checked here.
+        self.assertEqual(rows[0]["dedupe_key"], "qq:g123")
+
+    def test_a_second_follow_up_refreshes_rather_than_duplicates(self):
+        self.ingest(
+            {**self.base, "text": "@全体成员\n请于10月25日前提交实验报告到实验中心。"}
+        )
+        self.ingest(
+            {
+                **self.base,
+                "text": "@全体成员\n请于10月25日前提交实验报告到实验中心。\n补充：封面要写学号。",
+            }
+        )
+        rows = self.store().all_todos()
+        self.assertEqual(len(rows), 1, "同一条通知的补充不该变成第二条待办")
+
+    def test_a_different_id_is_a_different_todo(self):
+        self.ingest(
+            {**self.base, "text": "@全体成员\n请于10月25日前提交实验报告到实验中心。"}
+        )
+        self.ingest(
+            {
+                **self.base,
+                "id": "g124",
+                "text": "@全体成员\n请于11月2日前提交课程论文。",
+            }
+        )
+        self.assertEqual(len(self.store().all_todos()), 2)
+
+    def test_a_message_without_an_id_still_works(self):
+        # Older builds of the bridge send no id at all; they must not break.
+        self.ingest(
+            {"kind": "qq-message", "group": "G", "sender": "S", "text": "@全体成员 请于10月25日前提交实验报告。"}
+        )
+        self.assertEqual(len(self.store().all_todos()), 1)
+
+
 if __name__ == "__main__":
     unittest.main()

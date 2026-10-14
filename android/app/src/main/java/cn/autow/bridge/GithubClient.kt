@@ -21,6 +21,7 @@ object GithubClient {
         sender: String,
         text: String,
         time: String,
+        id: String = "",
     ): Result<Unit> = runCatching {
         val payload = JSONObject().apply {
             put("event_type", "qq-message")
@@ -31,6 +32,9 @@ object GithubClient {
                     put("sender", sender)
                     put("text", text)
                     put("time", time)
+                    // Stable across the mention and its follow-up, so the cloud
+                    // refreshes one todo instead of creating two.
+                    if (id.isNotEmpty()) put("id", id)
                     put("device", android.os.Build.MODEL)
                 }
             )
