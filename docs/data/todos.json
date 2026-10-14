@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-14T10:59:38+08:00",
+  "generated_at": "2026-10-14T10:59:49+08:00",
   "count": 9,
   "todos": [
     {
@@ -107,16 +107,16 @@
       "published_at": "2026-09-30"
     },
     {
-      "key": "lzu-news:1178265.htm",
-      "title": "参加逻辑学工作坊",
-      "detail": "高阶逻辑、分体论与复数逻辑工作坊于10月16日至18日在兰州大学会议中心八楼举行，正式会议为10月17日全天及18日上午，欢迎师生关注参加。",
+      "key": "note:xtxl8pn2",
+      "title": "@全体成员 申请困难认证的同学请于明天中午十二点前在学工系统提交所需材料，并将纸质材料交给评议小组成员，过时后果自负",
+      "detail": "@全体成员 申请困难认证的同学请于明天中午十二点前在学工系统提交所需材料，并将纸质材料交给评议小组成员，过时后果自负",
       "due_at": null,
       "priority": "normal",
       "needs_recommendation": false,
-      "source": "lzu-news",
-      "source_label": "学校通知",
-      "url": "https://news.lzu.edu.cn/info/1056/1178265.htm",
-      "category": "学校通知",
+      "source": "note",
+      "source_label": "note",
+      "url": "",
+      "category": "手动录入",
       "published_at": "2026-10-14"
     }
   ]
