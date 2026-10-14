@@ -33,9 +33,12 @@ DEFAULT_MODEL = "deepseek-chat"
 # Raised from 6000 when the user asked for long messages to arrive whole. Two
 # notices already in the database are longer than 6000 characters, so the old
 # value was cutting real text — silently, which made the tail look like text
-# that had never existed. The phone holds its side to Transcript.RUN_LIMIT,
-# which is the same number.
-MAX_BODY_CHARS = 20000
+# that had never existed.
+#
+# Deliberately above the phone's Transcript.RUN_LIMIT (20000): the phone marks
+# where it cut, and that mark is part of the body, so an equal cap here would
+# cut the marked body again and leave two marks and a gap between them.
+MAX_BODY_CHARS = 24000
 
 # Said wherever text was dropped, by the phone and by the cloud alike, and what
 # CHAT_PROMPT tells the model to look for. The phone's copy lives in

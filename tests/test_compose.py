@@ -2,6 +2,7 @@
 
 import json
 import os
+import re
 import tempfile
 import unittest
 from pathlib import Path
@@ -448,7 +449,20 @@ class TestLongMessages(ComposeTest):
     def test_the_mark_is_the_same_string_the_phone_writes(self):
         # The prompt tells the model to look for this exact sentence, and the
         # phone is what writes it. Two spellings would silently disable that.
-        bridge = (
+        self.assertIn(llm.TRUNCATION_MARK, self.transcript_source(), "手机和云端对「被截断」的说法不一致")
+        self.assertIn(llm.TRUNCATION_MARK, llm.CHAT_PROMPT, "提示词没有告诉模型去看这个标记")
+
+    def test_the_cloud_limit_leaves_room_for_the_phone_mark(self):
+        # The phone cuts a run at RUN_LIMIT and appends the mark, so the body it
+        # sends is a little longer than that. A cloud limit equal to the phone's
+        # would cut the marked body again and leave two marks with a gap between
+        # them, which reads like three separate losses.
+        found = re.search(r"RUN_LIMIT\s*=\s*(\d+)", self.transcript_source())
+        self.assertIsNotNone(found, "Transcript.kt 里没有 RUN_LIMIT")
+        self.assertGreater(llm.MAX_BODY_CHARS, int(found.group(1)))
+
+    def transcript_source(self) -> str:
+        return (
             Path(__file__).resolve().parent.parent
             / "android"
             / "app"
@@ -460,8 +474,6 @@ class TestLongMessages(ComposeTest):
             / "bridge"
             / "Transcript.kt"
         ).read_text(encoding="utf-8")
-        self.assertIn(llm.TRUNCATION_MARK, bridge, "手机和云端对「被截断」的说法不一致")
-        self.assertIn(llm.TRUNCATION_MARK, llm.CHAT_PROMPT, "提示词没有告诉模型去看这个标记")
 
 
 if __name__ == "__main__":
