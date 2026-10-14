@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-14T13:25:19+08:00",
+  "generated_at": "2026-10-14T13:26:41+08:00",
   "count": 9,
   "todos": [
     {
@@ -17,10 +17,10 @@
       "published_at": "2026-10-13"
     },
     {
-      "key": "qq:4c2618eafb475181",
-      "title": "提交人工智能导论课程报告",
-      "detail": "《人工智能导论》课程报告需于明天（2026-10-14）下午 6 点前提交到课程平台。",
-      "due_at": "2026-10-14T18:00",
+      "key": "qq:9d1914ceea6af7bc",
+      "title": "确认装置正常",
+      "detail": "请于明天中午前确认装置正常。",
+      "due_at": "2026-10-15T12:00",
       "priority": "high",
       "needs_recommendation": false,
       "content_hash": "",
@@ -28,13 +28,13 @@
       "source_label": "QQ 群",
       "url": "",
       "category": "QQ 群消息",
-      "published_at": "2026-10-13"
+      "published_at": "2026-10-14"
     },
     {
-      "key": "qq:9d1914ceea6af7bc",
-      "title": "确认装置正常",
-      "detail": "请于明天中午前确认装置正常。",
-      "due_at": "2026-10-15T12:00",
+      "key": "qq:4c2618eafb475181",
+      "title": "提交《人工智能导论》课程报告",
+      "detail": "请于明天（2026-10-15）下午 6 点前将《人工智能导论》课程报告提交到课程平台。",
+      "due_at": "2026-10-15T18:00",
       "priority": "high",
       "needs_recommendation": false,
       "content_hash": "",
