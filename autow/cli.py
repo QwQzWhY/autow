@@ -44,6 +44,16 @@ PROBE_INTERVAL = timedelta(hours=6)
 # slowly on purpose. This is a "check a few times a day" job, not a scraper.
 DELAY_BETWEEN_PAGES = 3.0
 
+# How many detail fetches in a row may fail before the source is given up on for
+# this run.
+#
+# A page that never loads costs about a minute and a half: the browser waits 20
+# seconds, reloads, then waits 25 more. One scan spent 76 minutes doing that 51
+# times, and it was not paying for anything — those notices are not stored when
+# their body fails, so the next scan tries them again anyway. Five in a row is
+# enough to know the site is refusing us right now.
+MAX_CONSECUTIVE_FAILURES = 5
+
 
 def _store(args: argparse.Namespace) -> Store:
     return Store(args.db) if args.db else Store()
@@ -160,6 +170,7 @@ def crawl(args: argparse.Namespace, store: Store) -> tuple[int, int, int]:
             # that needs a login to read.
             listed = ok = failed = 0
             list_error = ""
+            consecutive_failures = 0
             for page_no in range(1, args.pages + 1):
                 try:
                     listing = source.fetch_list(context, page_no=page_no)
@@ -189,7 +200,15 @@ def crawl(args: argparse.Namespace, store: Store) -> tuple[int, int, int]:
                     except Exception as exc:
                         print(f"  FAIL {stub.title[:40]} ({type(exc).__name__})")
                         failed += 1
+                        consecutive_failures += 1
+                        if consecutive_failures >= MAX_CONSECUTIVE_FAILURES:
+                            print(
+                                f"[{source.NAME}] 连续 {consecutive_failures} 条正文都打不开，"
+                                "本轮放弃这个源，剩下的下次再试"
+                            )
+                            break
                         continue
+                    consecutive_failures = 0
 
                     notice_id, is_new = store.upsert_notice(source.NAME, notice)
                     ok += 1

@@ -343,6 +343,52 @@ class TestNothingFetchedIsNotAReanalysis(unittest.TestCase):
             "群消息把上一轮扫描的诊断信息冲掉了",
         )
 
+    def scan_with_details(self, count: int, failures: int) -> mock.Mock:
+        """Run a scan whose first `failures` detail fetches raise."""
+        stubs = [mock.Mock(title=f"通知{i}", external_id=f"X{i}") for i in range(count)]
+        notice = RawNotice(
+            url="https://ai.lzu.edu.cn/news/OK",
+            title="通知",
+            title_full="通知",
+            body="请于10月25日前提交实验报告到实验中心。",
+        )
+        source = mock.Mock()
+        source.NAME = "lzu-ai"
+        source.fetch_list.return_value = stubs
+        source.fetch_detail.side_effect = [RuntimeError("412")] * failures + [notice] * count
+
+        @contextmanager
+        def fake_context(*_args, **_kwargs):
+            yield None
+
+        with mock.patch.object(sources, "SOURCES", [source]), mock.patch.object(
+            browser, "stealth_context", fake_context
+        ), mock.patch.object(cli, "DELAY_BETWEEN_PAGES", 0):
+            cli.main(["--db", str(self.db), "run", "--skip-analyzed", "--pages", "1"])
+        return source
+
+    def test_a_site_that_keeps_failing_is_given_up_on(self):
+        """打不开的页面每条要花一分半，不能把整个扫描拖成两小时。
+
+        实测一次扫描因为 51 次翻页失败跑了 76 分钟。失败的正文不会入库，
+        下次扫描本来就会重试，所以连续失败就停手，剩下的留给下一轮。
+        """
+        source = self.scan_with_details(count=20, failures=20)
+        counts = self.published_health()["sources"]["lzu-ai"]
+        self.assertEqual(counts["failed"], cli.MAX_CONSECUTIVE_FAILURES)
+        self.assertEqual(
+            source.fetch_detail.call_count,
+            cli.MAX_CONSECUTIVE_FAILURES,
+            "连续失败之后还在继续抓——那正是把一次扫描拖到 76 分钟的原因",
+        )
+
+    def test_a_success_resets_the_failure_run(self):
+        # 中间成功过一次，就不该再算连续失败。
+        self.scan_with_details(count=11, failures=cli.MAX_CONSECUTIVE_FAILURES - 1)
+        counts = self.published_health()["sources"]["lzu-ai"]
+        self.assertEqual(counts["failed"], cli.MAX_CONSECUTIVE_FAILURES - 1)
+        self.assertGreater(counts["ok"], 0, "成功一次以后剩下的应该继续抓")
+
 
 if __name__ == "__main__":
     unittest.main()
