@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-10-15T20:45:47+08:00",
-  "count": 15,
+  "generated_at": "2026-10-15T21:08:54+08:00",
+  "count": 16,
   "todos": [
     {
       "key": "qq:d954ba8f7071b11a",
@@ -60,6 +60,21 @@
       "url": "https://xgb.lzu.edu.cn/tongzhigonggao/zizhufuwu/2026/1009/338264.html",
       "category": "资助通知",
       "published_at": "2026-10-09",
+      "status": "open"
+    },
+    {
+      "key": "qq:gmv9k1bjq",
+      "title": "参加明天下午4:30的班会",
+      "detail": "明天（2026-10-16）下午4:30在秦岭堂开班会，具体地点另行通知，请留意后续消息。",
+      "due_at": "2026-10-16T16:30",
+      "priority": "high",
+      "needs_recommendation": false,
+      "content_hash": "79a74f3410e15300",
+      "source": "qq",
+      "source_label": "QQ 群",
+      "url": "",
+      "category": "QQ 群消息",
+      "published_at": "2026-10-15",
       "status": "open"
     },
     {
