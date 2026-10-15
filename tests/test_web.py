@@ -86,6 +86,29 @@ class TestWebPages(unittest.TestCase):
         self.assertIn("splitByDeadline", script)
         self.assertIn("没有截止时间", script)
 
+    def test_the_header_cannot_disagree_with_the_cards(self):
+        """页头数字和屏幕上的卡片必须永远一致。
+
+        用户截过一次图：上面写"2 项待办"，下面画着 4 张卡——旧的缓存 JS 用旧算法
+        算数字、却按新数据画了卡片。现在数字先算先写，而且画到一半出错会直接显示错误。
+        """
+        script = read("app.js")
+        self.assertIn("function drawBoard()", script)
+        self.assertIn("页面出错：", script, "画到一半出错会静默留下半新的页面")
+        meta = script.index("项待办") if "项待办" in script else -1
+        self.assertGreater(meta, -1)
+        self.assertLess(
+            script.index("$('meta').textContent"),
+            script.index("list.textContent = ''"),
+            "数字要写在画卡片之前，否则中途出错时数字会停在上一轮",
+        )
+
+    def test_the_footer_says_which_build_is_running(self):
+        # 旧缓存页面和新页面长得一模一样，只能靠这个区分。
+        script = read("app.js")
+        self.assertIn("import.meta.url.match", script)
+        self.assertIn("前端 v${ASSET_VERSION}", script)
+
 
 if __name__ == "__main__":
     unittest.main()

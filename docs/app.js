@@ -6,7 +6,7 @@ import {
   isDone,
   splitByDeadline,
   splitByNomination,
-} from './todo-view.js?v=9';
+} from './todo-view.js?v=10';
 
 const DATA_URL = 'data/todos.json';
 const DONE_KEY = 'autow.done';
@@ -24,6 +24,12 @@ const DISPATCH_URL = 'https://api.github.com/repos';
 // as if it were still on its way. It is not deleted: silently losing something
 // the user typed is worse than showing it in a warning colour.
 const PENDING_GIVE_UP_MS = 5 * 60 * 1000;
+
+// Which build of the front end this page is actually running, read off its own
+// URL. A stale page (an old cached app.js, or a service worker serving the
+// previous shell) otherwise looks exactly like a broken one — it has happened,
+// and "2 项待办" above four cards was the symptom.
+const ASSET_VERSION = (import.meta.url.match(/[?&]v=(\d+)/) || [])[1] || '?';
 
 // QQ 群消息是事件驱动的，云端处理完就写进 todos.json。页面开着的时候定期
 // 拉一次，不用手动点刷新也能看到新待办；切回前台时立刻拉一次。
@@ -330,6 +336,15 @@ function collapse(el) {
 // -------------------------------------------------------------------- render
 
 function render() {
+  try {
+    drawBoard();
+  } catch (err) {
+    // 画到一半炸掉，页面会停在半新半旧的样子，比报错还难看懂。
+    $('meta').textContent = `页面出错：${(err && err.message) || err}`;
+  }
+}
+
+function drawBoard() {
   const items = filterTodos(state.todos, {
     view: state.view,
     done: state.done,
@@ -342,6 +357,14 @@ function render() {
     state.view === 'done'
       ? []
       : state.pending.filter((p) => !state.deleted.has(p.key));
+
+  // 数字先算、先写，再画卡片。写在后面的话，中间任何一步出错都会让屏幕上的
+  // 数字停在上一轮的值——"2 项待办"配着 4 张卡就是这么来的。
+  const open = state.todos.filter(
+    (t) => !isDone(t, state.done) && !state.deleted.has(t.key)
+  ).length;
+  $('meta').textContent =
+    `${open + pending.length} 项待办 · 共 ${state.todos.length} 条`;
 
   const list = $('list');
   list.textContent = '';
@@ -370,18 +393,10 @@ function render() {
     }
   }
 
-  // Counted the same way the cards are filtered: a tick the cloud already knows
-  // about sits in `status`, not in this device's set.
-  const handled = state.todos.filter((t) => isDone(t, state.done)).length;
-  const hidden = state.todos.filter((t) => state.deleted.has(t.key)).length;
-  $('meta').textContent =
-    `${state.todos.length - handled - hidden + pending.length} 项待办 · ` +
-    `共 ${state.todos.length} 条`;
-
   const when = state.generatedAt
     ? new Date(state.generatedAt).toLocaleString('zh-CN')
     : '未知';
-  $('footer-note').textContent = `数据更新于 ${when}`;
+  $('footer-note').textContent = `数据更新于 ${when} · 前端 v${ASSET_VERSION}`;
 }
 
 // ---------------------------------------------------------------------- load
