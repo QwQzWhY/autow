@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-15T12:17:30+08:00",
+  "generated_at": "2026-10-15T12:22:29+08:00",
   "extractor": {
     "configured": true,
     "mode": "live",
@@ -7,12 +7,13 @@
     "base_url_host": "api.deepseek.com",
     "probe": {
       "ok": false,
-      "error": "KeyError: 'choices'"
+      "error": "KeyError: 'choices'",
+      "carried_over": true
     },
     "attempts": 0,
     "failures": 0,
     "config_error": null,
-    "ok": true,
+    "ok": false,
     "last_error": "",
     "tokens": {
       "calls": 0,
