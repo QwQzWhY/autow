@@ -1,11 +1,19 @@
 {
-  "generated_at": "2026-10-15T07:13:00+08:00",
+  "generated_at": "2026-10-15T09:38:12+08:00",
   "connected": true,
-  "total_received": 48,
+  "total_received": 49,
   "total_todos": 6,
-  "today_received": 0,
+  "today_received": 1,
   "today_todos": 0,
   "recent": [
+    {
+      "at": "2026-10-15T09:23:11+08:00",
+      "verdict": "ignored",
+      "verdict_label": "判断为无需行动",
+      "title": "",
+      "length": 69,
+      "nonce": ""
+    },
     {
       "at": "2026-10-14T23:41:36+08:00",
       "verdict": "ignored",
@@ -77,14 +85,6 @@
       "title": "提交《人工智能导论》课程报告",
       "length": 41,
       "nonce": "p63pskde"
-    },
-    {
-      "at": "2026-10-14T13:25:17+08:00",
-      "verdict": "ignored",
-      "verdict_label": "判断为无需行动",
-      "title": "",
-      "length": 37,
-      "nonce": "uhhfnwna"
     }
   ]
 }
