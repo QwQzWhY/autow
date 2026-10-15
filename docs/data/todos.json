@@ -1,22 +1,7 @@
 {
-  "generated_at": "2026-10-15T23:29:22+08:00",
-  "count": 15,
+  "generated_at": "2026-10-15T23:29:33+08:00",
+  "count": 14,
   "todos": [
-    {
-      "key": "qq:d954ba8f7071b11a",
-      "title": "提交困难认证材料",
-      "detail": "明天中午12点前在学工系统提交所需材料，并将纸质材料交给评议小组成员，过时后果自负。",
-      "due_at": "2026-10-14T12:00",
-      "priority": "high",
-      "needs_recommendation": false,
-      "content_hash": "",
-      "source": "qq",
-      "source_label": "QQ 群",
-      "url": "",
-      "category": "QQ 群消息",
-      "published_at": "2026-10-13",
-      "status": "open"
-    },
     {
       "key": "qq:9d1914ceea6af7bc",
       "title": "确认装置正常",
