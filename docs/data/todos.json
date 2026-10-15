@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-15T12:22:29+08:00",
+  "generated_at": "2026-10-15T12:22:39+08:00",
   "count": 24,
   "todos": [
     {
@@ -265,21 +265,6 @@
       "priority": "normal",
       "needs_recommendation": false,
       "content_hash": "458bfc6444d18c92",
-      "source": "qq",
-      "source_label": "QQ 群",
-      "url": "",
-      "category": "QQ 群消息",
-      "published_at": "2026-10-14",
-      "status": "open"
-    },
-    {
-      "key": "qq:gmv839rph",
-      "title": "蓝桥杯报名院系填标准名称",
-      "detail": "蓝桥杯报名时院系须填写标准名称，不能随意填写，以免影响获奖。",
-      "due_at": null,
-      "priority": "normal",
-      "needs_recommendation": false,
-      "content_hash": "9d7e8e94469b6de5",
       "source": "qq",
       "source_label": "QQ 群",
       "url": "",
