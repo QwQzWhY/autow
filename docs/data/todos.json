@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-10-15T12:22:39+08:00",
-  "count": 24,
+  "generated_at": "2026-10-15T12:22:54+08:00",
+  "count": 23,
   "todos": [
     {
       "key": "qq:d954ba8f7071b11a",
@@ -330,21 +330,6 @@
       "url": "",
       "category": "QQ 群消息",
       "published_at": "2026-10-14",
-      "status": "open"
-    },
-    {
-      "key": "lzu-news:1176785.htm",
-      "title": "关于举办兰州大学2026年度本科生体质健康测试暨体测运动会的通知",
-      "detail": "",
-      "due_at": null,
-      "priority": "normal",
-      "needs_recommendation": false,
-      "content_hash": "",
-      "source": "lzu-news",
-      "source_label": "学校通知",
-      "url": "https://news.lzu.edu.cn/info/1056/1176785.htm",
-      "category": "学校通知",
-      "published_at": "2026-09-30",
       "status": "open"
     }
   ]
