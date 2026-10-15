@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-10-15T12:24:11+08:00",
-  "count": 20,
+  "generated_at": "2026-10-15T14:47:59+08:00",
+  "count": 15,
   "todos": [
     {
       "key": "qq:d954ba8f7071b11a",
@@ -48,21 +48,6 @@
       "status": "open"
     },
     {
-      "key": "lzu-news:1177715.htm",
-      "title": "收看兰大专集《长征热土上自强不息的大学》",
-      "detail": "10月15日21:20在央视科教频道（CCTV-10）播出兰州大学专集，请届时收看，也可通过主题党团日、主题班会等形式集中观看。",
-      "due_at": "2026-10-15T21:20",
-      "priority": "normal",
-      "needs_recommendation": false,
-      "content_hash": "",
-      "source": "lzu-news",
-      "source_label": "学校通知",
-      "url": "https://news.lzu.edu.cn/info/1056/1177715.htm",
-      "category": "学校通知",
-      "published_at": "2026-10-12",
-      "status": "open"
-    },
-    {
       "key": "lzu-xgb:338264.html",
       "title": "查看燕宝奖学金拟获奖名单并提异议",
       "detail": "2026年燕宝奖学金第一批拟获奖名单已公示，公示期至2026年10月15日。如对名单有异议，可在公示期内联系孙老师（0931-5292745，zzzx@lzu.edu.cn）反映。",
@@ -78,39 +63,9 @@
       "status": "open"
     },
     {
-      "key": "lzu-news:1178605.htm",
-      "title": "参加中核集团精神宣讲活动",
-      "detail": "10月16日19:30城关校区大学生活动中心礼堂，或10月17日19:00榆中校区闻欣堂，提前15分钟入场，手机静音。",
-      "due_at": "2026-10-17T19:00",
-      "priority": "normal",
-      "needs_recommendation": false,
-      "content_hash": "",
-      "source": "lzu-news",
-      "source_label": "学校通知",
-      "url": "https://news.lzu.edu.cn/info/1056/1178605.htm",
-      "category": "学校通知",
-      "published_at": "2026-10-14",
-      "status": "open"
-    },
-    {
-      "key": "lzu-news:1178345.htm",
-      "title": "参加兰州大学2026年国际文化节",
-      "detail": "10月18日14:00—16:30在榆中校区昆仑堂前广场举行，设33个国别文化展位，有美食、服饰、手工艺品展示及语言教学、传统游戏等互动体验，欢迎师生参加。",
-      "due_at": "2026-10-18T14:00",
-      "priority": "normal",
-      "needs_recommendation": false,
-      "content_hash": "",
-      "source": "lzu-news",
-      "source_label": "学校通知",
-      "url": "https://news.lzu.edu.cn/info/1056/1178345.htm",
-      "category": "学校通知",
-      "published_at": "2026-10-14",
-      "status": "open"
-    },
-    {
       "key": "lzu-news:1177915.htm",
       "title": "办理学生门诊医疗费报销",
-      "detail": "在校参保的全日制学生可于10月19日、20日在榆中校区校医院总值班室，或10月22日、23日在城关西校区校医院医务科报销2026年1月1日后的校外门诊费用。需提前下载填写打印《兰州大学学生门诊费报销申请单》，并携带转诊记录、发票、病历、处方、检查报告单和身份证复印件等材料。",
+      "detail": "在校参保的全日制学生可于10月19-20日（榆中校区校医院总值班室）或10月22-23日（城关西校区校医院医务科）报销2026年1月1日后校外定点医院门诊费。需提前下载填写打印《兰州大学学生门诊费报销申请单》，并携带转诊记录、发票、病历、处方、检查报告单、身份证复印件等材料。",
       "due_at": "2026-10-23T17:30",
       "priority": "normal",
       "needs_recommendation": false,
@@ -135,6 +90,36 @@
       "url": "https://xgb.lzu.edu.cn/tongzhigonggao/zizhufuwu/2026/0930/338046.html",
       "category": "资助通知",
       "published_at": "2026-09-30",
+      "status": "open"
+    },
+    {
+      "key": "lzu-news:1178655.htm",
+      "title": "报名普通话水平测试并缴费",
+      "detail": "普通话水平测试报名通道已开通，需在“国家普通话水平测试在线报名系统”确认报名成功后，按“兰州大学国家语言文字推广基地”公众号通知的缴费码扫码缴费，缴费成功方可参加测试。已报名考生请于10月17日（榆中天山堂C301）或10月18日（城关杏林楼A区十一教）上午8:30参加培训，入场需出示缴费截图。",
+      "due_at": null,
+      "priority": "normal",
+      "needs_recommendation": false,
+      "content_hash": "",
+      "source": "lzu-news",
+      "source_label": "学校通知",
+      "url": "https://news.lzu.edu.cn/info/1056/1178655.htm",
+      "category": "学校通知",
+      "published_at": "2026-10-14",
+      "status": "open"
+    },
+    {
+      "key": "lzu-xgb:338292.html",
+      "title": "关于2026年秋季学期“军事理论”课程学习安排的通知",
+      "detail": "",
+      "due_at": null,
+      "priority": "normal",
+      "needs_recommendation": false,
+      "content_hash": "",
+      "source": "lzu-xgb",
+      "source_label": "学工部",
+      "url": "https://xgb.lzu.edu.cn/tongzhigonggao/guofangjiaoyu/2026/1010/338292.html",
+      "category": "国防教育",
+      "published_at": "2026-10-10",
       "status": "open"
     },
     {
@@ -168,39 +153,9 @@
       "status": "open"
     },
     {
-      "key": "lzu-jwc:327863.html",
-      "title": "关于2026年春季学期学生注册工作安排的通知",
-      "detail": "",
-      "due_at": null,
-      "priority": "normal",
-      "needs_recommendation": false,
-      "content_hash": "",
-      "source": "lzu-jwc",
-      "source_label": "教务处",
-      "url": "https://jwc.lzu.edu.cn/tongzhigonggao/xueshengzhucezhongxin/2026/0123/327863.html",
-      "category": "学生注册中心",
-      "published_at": "2026-01-23",
-      "status": "open"
-    },
-    {
-      "key": "lzu-jwc:330897.html",
-      "title": "关于开展2025-2026学年第二学期期中学生评教工作的通知",
-      "detail": "",
-      "due_at": null,
-      "priority": "normal",
-      "needs_recommendation": false,
-      "content_hash": "",
-      "source": "lzu-jwc",
-      "source_label": "教务处",
-      "url": "https://jwc.lzu.edu.cn/tongzhigonggao/jiaoxuezhiliangguanli/2026/0428/330897.html",
-      "category": "教学质量管理",
-      "published_at": "2026-04-28",
-      "status": "open"
-    },
-    {
       "key": "lzu-jwc:337985.html",
       "title": "申报第三批跨学科创新班",
-      "detail": "填写兰州大学跨学科创新班申请表，按要求提交申报材料，具体条件与流程见学院通知。",
+      "detail": "填写兰州大学跨学科创新班申请表，按通知要求提交申报材料。",
       "due_at": null,
       "priority": "normal",
       "needs_recommendation": false,
@@ -255,36 +210,6 @@
       "url": "https://news.lzu.edu.cn/info/1056/1177355.htm",
       "category": "学校通知",
       "published_at": "2026-10-09",
-      "status": "open"
-    },
-    {
-      "key": "lzu-news:1178295.htm",
-      "title": "参加长征胜利90周年主题教育活动",
-      "detail": "10月16日19:00榆中校区闻欣堂、10月18日15:00城关校区西区新体育馆有《长征组歌》交响合唱音乐会，10月17日在会宁有主题教育活动，欢迎广大师生前往参加。",
-      "due_at": null,
-      "priority": "normal",
-      "needs_recommendation": false,
-      "content_hash": "",
-      "source": "lzu-news",
-      "source_label": "学校通知",
-      "url": "https://news.lzu.edu.cn/info/1056/1178295.htm",
-      "category": "学校通知",
-      "published_at": "2026-10-14",
-      "status": "open"
-    },
-    {
-      "key": "lzu-jwc:337878.html",
-      "title": "查看本人学业预警情况",
-      "detail": "登录兰州大学APP-学生服务-学业预警，或访问学业预警大数据平台查看本人是否有预警情况；如收到《学业预警通知书》需签字确认并按要求做好帮扶。",
-      "due_at": null,
-      "priority": "normal",
-      "needs_recommendation": false,
-      "content_hash": "",
-      "source": "lzu-jwc",
-      "source_label": "教务处",
-      "url": "https://jwc.lzu.edu.cn/tongzhigonggao/jxyxygl/2026/0928/337878.html",
-      "category": "教学运行与管理",
-      "published_at": "2026-09-28",
       "status": "open"
     },
     {
