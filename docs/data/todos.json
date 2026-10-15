@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-10-15T12:22:54+08:00",
-  "count": 23,
+  "generated_at": "2026-10-15T12:23:12+08:00",
+  "count": 22,
   "todos": [
     {
       "key": "qq:d954ba8f7071b11a",
@@ -273,6 +273,21 @@
       "status": "open"
     },
     {
+      "key": "qq:gmv839rph",
+      "title": "蓝桥杯报名院系填标准名称",
+      "detail": "蓝桥杯报名时院系须填写标准名称，不能随意填写，以免影响获奖。",
+      "due_at": null,
+      "priority": "normal",
+      "needs_recommendation": false,
+      "content_hash": "9d7e8e94469b6de5",
+      "source": "qq",
+      "source_label": "QQ 群",
+      "url": "",
+      "category": "QQ 群消息",
+      "published_at": "2026-10-14",
+      "status": "open"
+    },
+    {
       "key": "lzu-news:1177355.htm",
       "title": "兰州大学关于开展2026年下半年普通话水平测试报名的通知",
       "detail": "",
@@ -300,21 +315,6 @@
       "url": "https://news.lzu.edu.cn/info/1056/1178295.htm",
       "category": "学校通知",
       "published_at": "2026-10-14",
-      "status": "open"
-    },
-    {
-      "key": "lzu-jwc:337878.html",
-      "title": "查看本人学业预警情况",
-      "detail": "登录兰州大学APP-学生服务-学业预警，或访问学业预警大数据平台查看本人是否有预警情况；如收到《学业预警通知书》需签字确认并按要求做好帮扶。",
-      "due_at": null,
-      "priority": "normal",
-      "needs_recommendation": false,
-      "content_hash": "",
-      "source": "lzu-jwc",
-      "source_label": "教务处",
-      "url": "https://jwc.lzu.edu.cn/tongzhigonggao/jxyxygl/2026/0928/337878.html",
-      "category": "教学运行与管理",
-      "published_at": "2026-09-28",
       "status": "open"
     },
     {
