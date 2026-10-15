@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-15T23:01:37+08:00",
+  "generated_at": "2026-10-15T23:19:11+08:00",
   "extractor": {
     "configured": true,
     "mode": "live",
@@ -23,7 +23,7 @@
   "sources": {
     "lzu-ai": {
       "listed": 10,
-      "ok": 1,
+      "ok": 0,
       "failed": 0,
       "error": ""
     },
@@ -34,15 +34,15 @@
       "error": ""
     },
     "lzu-xgb": {
-      "listed": 0,
+      "listed": 45,
       "ok": 0,
-      "failed": 0,
-      "error": "RuntimeError: 资助通知: URLError: <urlopen error [Errno 101] Network is unreachable>；国防教育: URLError: <urlopen error [Errno 101] Network is unreachable>；思政通知: URLErr"
+      "failed": 2,
+      "error": ""
     },
     "lzu-news": {
       "listed": 20,
-      "ok": 1,
-      "failed": 6,
+      "ok": 0,
+      "failed": 5,
       "error": ""
     }
   }
