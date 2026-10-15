@@ -1,11 +1,19 @@
 {
-  "generated_at": "2026-10-15T14:47:59+08:00",
+  "generated_at": "2026-10-15T14:55:23+08:00",
   "connected": true,
-  "total_received": 50,
+  "total_received": 51,
   "total_todos": 6,
-  "today_received": 2,
+  "today_received": 3,
   "today_todos": 0,
   "recent": [
+    {
+      "at": "2026-10-15T14:55:22+08:00",
+      "verdict": "ignored",
+      "verdict_label": "判断为无需行动",
+      "title": "",
+      "length": 168,
+      "nonce": ""
+    },
     {
       "at": "2026-10-15T10:17:34+08:00",
       "verdict": "ignored",
@@ -76,14 +84,6 @@
       "verdict_label": "已生成待办",
       "title": "报名大学生算法设计与编程挑战赛",
       "length": 162,
-      "nonce": ""
-    },
-    {
-      "at": "2026-10-14T13:38:53+08:00",
-      "verdict": "ignored",
-      "verdict_label": "判断为无需行动",
-      "title": "",
-      "length": 27,
       "nonce": ""
     }
   ]
