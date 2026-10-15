@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-10-15T10:32:34+08:00",
-  "count": 26,
+  "generated_at": "2026-10-15T12:17:19+08:00",
+  "count": 27,
   "todos": [
     {
       "key": "qq:d954ba8f7071b11a",
@@ -150,6 +150,21 @@
       "url": "https://xgb.lzu.edu.cn/tongzhigonggao/zizhufuwu/2026/0930/338046.html",
       "category": "资助通知",
       "published_at": "2026-09-30",
+      "status": "open"
+    },
+    {
+      "key": "lzu-news:1178655.htm",
+      "title": "关于举办普通话水平测试培训的通知",
+      "detail": "",
+      "due_at": null,
+      "priority": "normal",
+      "needs_recommendation": false,
+      "content_hash": "",
+      "source": "lzu-news",
+      "source_label": "学校通知",
+      "url": "https://news.lzu.edu.cn/info/1056/1178655.htm",
+      "category": "学校通知",
+      "published_at": "2026-10-14",
       "status": "open"
     },
     {
