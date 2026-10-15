@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-15T12:23:40+08:00",
+  "generated_at": "2026-10-15T12:23:55+08:00",
   "count": 21,
   "todos": [
     {
@@ -138,21 +138,6 @@
       "status": "open"
     },
     {
-      "key": "lzu-xgb:338292.html",
-      "title": "关于2026年秋季学期“军事理论”课程学习安排的通知",
-      "detail": "",
-      "due_at": null,
-      "priority": "normal",
-      "needs_recommendation": false,
-      "content_hash": "",
-      "source": "lzu-xgb",
-      "source_label": "学工部",
-      "url": "https://xgb.lzu.edu.cn/tongzhigonggao/guofangjiaoyu/2026/1010/338292.html",
-      "category": "国防教育",
-      "published_at": "2026-10-10",
-      "status": "open"
-    },
-    {
       "key": "lzu-xgb:338043.html",
       "title": "关于开展2026-2027学年家庭经济困难学生认定和国家助学金评定工作的通知",
       "detail": "",
@@ -285,6 +270,21 @@
       "url": "https://news.lzu.edu.cn/info/1056/1178295.htm",
       "category": "学校通知",
       "published_at": "2026-10-14",
+      "status": "open"
+    },
+    {
+      "key": "lzu-jwc:337878.html",
+      "title": "查看本人学业预警情况",
+      "detail": "登录兰州大学APP-学生服务-学业预警，或访问学业预警大数据平台查看本人是否有预警情况；如收到《学业预警通知书》需签字确认并按要求做好帮扶。",
+      "due_at": null,
+      "priority": "normal",
+      "needs_recommendation": false,
+      "content_hash": "",
+      "source": "lzu-jwc",
+      "source_label": "教务处",
+      "url": "https://jwc.lzu.edu.cn/tongzhigonggao/jxyxygl/2026/0928/337878.html",
+      "category": "教学运行与管理",
+      "published_at": "2026-09-28",
       "status": "open"
     },
     {
