@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-10-15T12:23:25+08:00",
-  "count": 22,
+  "generated_at": "2026-10-15T12:23:40+08:00",
+  "count": 21,
   "todos": [
     {
       "key": "qq:d954ba8f7071b11a",
@@ -225,21 +225,6 @@
       "url": "https://jwc.lzu.edu.cn/tongzhigonggao/jiaoxuezhiliangguanli/2026/0428/330897.html",
       "category": "教学质量管理",
       "published_at": "2026-04-28",
-      "status": "open"
-    },
-    {
-      "key": "lzu-jwc:333905.html",
-      "title": "关于开展2025-2026学年第二学期期末学生评教的工作通知",
-      "detail": "",
-      "due_at": null,
-      "priority": "normal",
-      "needs_recommendation": false,
-      "content_hash": "",
-      "source": "lzu-jwc",
-      "source_label": "教务处",
-      "url": "https://jwc.lzu.edu.cn/tongzhigonggao/jiaoxuezhiliangguanli/2026/0629/333905.html",
-      "category": "教学质量管理",
-      "published_at": "2026-06-29",
       "status": "open"
     },
     {
