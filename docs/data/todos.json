@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-10-15T22:19:04+08:00",
-  "count": 16,
+  "generated_at": "2026-10-15T23:01:37+08:00",
+  "count": 15,
   "todos": [
     {
       "key": "qq:d954ba8f7071b11a",
@@ -70,21 +70,6 @@
       "priority": "high",
       "needs_recommendation": false,
       "content_hash": "79a74f3410e15300",
-      "source": "qq",
-      "source_label": "QQ 群",
-      "url": "",
-      "category": "QQ 群消息",
-      "published_at": "2026-10-15",
-      "status": "open"
-    },
-    {
-      "key": "qq:gmv9e5k5m",
-      "title": "参加班会和团建活动",
-      "detail": "明天（10月16日）下午16:30—18:10时段参加班会和团建活动，请确认是否有时间。",
-      "due_at": "2026-10-16T16:30",
-      "priority": "high",
-      "needs_recommendation": false,
-      "content_hash": "f1787161ce77f916",
       "source": "qq",
       "source_label": "QQ 群",
       "url": "",
