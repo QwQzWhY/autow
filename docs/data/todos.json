@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-10-15T12:17:19+08:00",
-  "count": 27,
+  "generated_at": "2026-10-15T12:17:30+08:00",
+  "count": 25,
   "todos": [
     {
       "key": "qq:d954ba8f7071b11a",
@@ -75,21 +75,6 @@
       "url": "https://xgb.lzu.edu.cn/tongzhigonggao/zizhufuwu/2026/1009/338264.html",
       "category": "资助通知",
       "published_at": "2026-10-09",
-      "status": "open"
-    },
-    {
-      "key": "lzu-xgb:338307.html",
-      "title": "查看燕宝奖学金拟获奖名单并提异议",
-      "detail": "2026年燕宝奖学金第二批拟获奖名单已公示，公示期为10月12日至10月16日。如对名单有异议，可在公示期内联系孙老师（0931-5292745，zzzx@lzu.edu.cn）反映。",
-      "due_at": "2026-10-16T23:59",
-      "priority": "normal",
-      "needs_recommendation": false,
-      "content_hash": "",
-      "source": "lzu-xgb",
-      "source_label": "学工部",
-      "url": "https://xgb.lzu.edu.cn/tongzhigonggao/zizhufuwu/2026/1010/338307.html",
-      "category": "资助通知",
-      "published_at": "2026-10-10",
       "status": "open"
     },
     {
