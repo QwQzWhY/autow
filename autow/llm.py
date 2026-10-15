@@ -23,6 +23,7 @@ import urllib.request
 from datetime import date, datetime
 from urllib.parse import urlparse
 
+from . import dates
 from . import extract
 from . import clock
 from .extract import TodoDraft
@@ -67,7 +68,11 @@ TRUNCATION_MARK = "……（通知里只带了这么多，剩下的被系统截�
 # are unreadable from the runner, and a failed fetch left the old verdict
 # standing, so the rule never applied to the item it was written for. Re-issued
 # together with the change that re-judges stored text instead of re-fetching it.
-CACHE_VERSION = 12
+#
+# 13: activities you only have to show up for are dropped, notices addressed to
+# 各学院 rather than to students are dropped, past-semester notices are dropped,
+# and a deadline written as "11月2日" is no longer thrown away.
+CACHE_VERSION = 13
 
 # Who the advice is for. The "no post" half is not decoration: 教务处 and 学工部
 # both publish things addressed to 学习委员, 班委, 团支书 and so on, and without
@@ -134,7 +139,7 @@ NOTICE_PROMPT = """你是一个学生事务助理。用户是{profile}。
 
 保留（学生本人能参加、受益或主动提交的，包括自愿性质的）：
 - 考试报名：普通话水平测试、四六级、计算机等级考试、各类资格考试
-- 活动报名与参与：竞赛、讲座报告会、志愿服务、文体活动、社团活动、培训计划
+- 需要**报名或提交**才能参加的活动：竞赛、志愿服务、培训计划、文体比赛、社团招新
 - 面向学生的评选与选拔：奖学金评定、荣誉称号、骨干培养计划、实习与交流项目
 - 学籍与培养：选课退课、成绩复核、转专业、评奖评优、助学金、助学贷款
 - 需要本人提交材料、缴费、确认、回复的事项
@@ -163,6 +168,14 @@ NOTICE_PROMPT = """你是一个学生事务助理。用户是{profile}。
   党员、退伍学生、少数民族骨干等。用户是普通学生，没有这些身份，所以"学习委员培训"
   "班团骨干座谈会""××负责人会议"这类要丢掉 —— 先看对象是**全体学生**还是**某个角色**，
   是角色才丢。只有当用户确实持有那个身份时才保留（用户没有）。
+- 只要**到场或收看**就行的开放活动：宣讲、报告会、演出、晚会、展览、文化节、主题教育
+  活动、电视节目。它们不用报名、不用提交，错过也没有任何代价 —— 用户要的是待办，不是
+  活动日历。判断标准是**有没有"报名/申请/提交/缴费/确认"这个动作**：有就保留，只是
+  "欢迎广大师生参加"就丢掉。
+- 面向单位的行政工作通知：开头是"各学院：""各教学（培养）单位："，后面是报送名单、
+  组织观看、做好帮扶、统计上报这一类 —— 那是学院要干的活，不是学生本人要干的活。
+- 时间窗口已经过去的通知：例如 10 月看到"春季学期学生注册""第二学期期中学生评教"
+  这类上一学期的事，即使正文看起来像学生要做的手续，也要丢掉。
 
 规则：
 - due_at 是这条事项的截止时间，格式 YYYY-MM-DDTHH:MM。没有明确截止时间就填 null，
@@ -518,9 +531,7 @@ def analyze(
     priority = str(data.get("priority") or "normal").lower()
     if priority not in {"high", "normal", "low"}:
         priority = "normal"
-    due_at = data.get("due_at") or None
-    if due_at and not _looks_like_datetime(due_at):
-        due_at = None
+    due_at = _normalise_due(data.get("due_at"), published)
 
     engine = "mock" if cfg["mode"] == "mock" else "llm"
     draft = TodoDraft(
@@ -537,13 +548,23 @@ def analyze(
 
 
 def analyze_notice(notice: RawNotice, cache=None) -> tuple[TodoDraft | None, str]:
-    return analyze(
+    draft, engine = analyze(
         title=notice.title_full or notice.title,
         body=notice.body,
         published=notice.published_at or notice.published_text,
         kind="notice",
         cache=cache,
     )
+    # A notice from months ago with no deadline is not a todo, whatever the model
+    # read into it: "2026年春季学期学生注册"(1月) and "第二学期期中评教"(4月) both
+    # sat on the board in October, because nothing about them *looks* wrong once
+    # the date has been read out of them.
+    if draft and extract.is_stale_notice(notice.published_at, draft.due_at):
+        print(
+            f"    [{engine}] 发布 {notice.published_at}、也没有还在进行的时间窗口，不作为待办"
+        )
+        return None, engine
+    return draft, engine
 
 
 def _looks_like_datetime(value: str) -> bool:
@@ -552,3 +573,32 @@ def _looks_like_datetime(value: str) -> bool:
         return True
     except ValueError:
         return False
+
+
+def _normalise_due(value, published: str | None) -> str | None:
+    """A deadline in whatever shape the model wrote it, as ISO or not at all.
+
+    Dropping a deadline that is not exactly "YYYY-MM-DDTHH:MM" lost it silently —
+    the todo kept its text and lost its date, which is how the 优秀学生奖学金
+    notice sat on the board with no deadline while its own body said 11月2日.
+    """
+    text = str(value or "").strip()
+    if not text:
+        return None
+    if _looks_like_datetime(text):
+        return text
+
+    reference = None
+    if published:
+        try:
+            reference = date.fromisoformat(str(published)[:10])
+        except ValueError:
+            reference = None
+    day = dates.parse_full(text) or dates.parse_month_day(text, reference)
+    if day is None:
+        return None
+    hhmm = dates.parse_time(text)
+    hour, minute = hhmm if hhmm else (23, 59)
+    return datetime(day.year, day.month, day.day, hour, minute).isoformat(
+        timespec="minutes"
+    )

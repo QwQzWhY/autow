@@ -374,6 +374,39 @@ class TestPrompts(unittest.TestCase):
         self.assertIn("自愿参加", filled)
         self.assertIn("推免", filled)
 
+    def test_the_prompt_drops_activities_you_only_attend(self):
+        """用户的原话：还是有很多没用的待办，尤其是官网。
+
+        国际文化节、宣讲活动、电视专题节目这类"欢迎参加/届时收看"，不用报名、
+        错过也没代价，占着板子只会让人不再看板子。
+        """
+        filled = llm.NOTICE_PROMPT.format(
+            today="2026-10-13", profile=llm.profile(), grade=llm.grade()
+        )
+        self.assertIn("只要**到场或收看**", filled)
+        self.assertIn("报名/申请/提交/缴费/确认", filled)
+        self.assertIn("各学院", filled)
+        self.assertIn("时间窗口已经过去", filled)
+
+    def test_a_deadline_written_in_chinese_is_kept(self):
+        # 优秀学生奖学金那条正文写着"9月30日－11月2日…提交申请"，
+        # 模型回了个非 ISO 的日期，之前会被静默丢掉，待办就没有截止时间。
+        self.assertEqual(
+            llm._normalise_due("11月2日", "2026-09-30"), "2026-11-02T23:59"
+        )
+        self.assertEqual(
+            llm._normalise_due("2026年11月2日 18:00", "2026-09-30"),
+            "2026-11-02T18:00",
+        )
+        self.assertEqual(
+            llm._normalise_due("2026-11-02T23:59", "2026-09-30"), "2026-11-02T23:59"
+        )
+
+    def test_a_deadline_that_cannot_be_read_is_dropped(self):
+        self.assertIsNone(llm._normalise_due("尽快", "2026-09-30"))
+        self.assertIsNone(llm._normalise_due("", "2026-09-30"))
+        self.assertIsNone(llm._normalise_due(None, None))
+
 
 class TestHealthKeepsTheLastProbe(unittest.TestCase):
     """A QQ ingest never probes, and used to blank that field on the way past."""

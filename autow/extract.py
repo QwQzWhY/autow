@@ -40,6 +40,14 @@ SENTENCE_SPLIT = re.compile(r"[。\n；;]")
 # notice whose deadline was this morning does not vanish the moment it passes.
 EXPIRED_GRACE_DAYS = 1
 
+# How old a notice may be before "no deadline" means "old news".
+#
+# The official sites list their newest few items per column, and some of those
+# columns run slowly: 教务处's front page in October still carried January's
+# spring-semester registration notice. Notices that are still live carry a
+# deadline, so age plus no deadline is the signal.
+STALE_AFTER_DAYS = 30
+
 
 def is_expired(due_at: str | None, grace_days: int = EXPIRED_GRACE_DAYS) -> bool:
     """True when a deadline is far enough in the past to stop being a todo.
@@ -54,6 +62,28 @@ def is_expired(due_at: str | None, grace_days: int = EXPIRED_GRACE_DAYS) -> bool
     except ValueError:
         return False
     return days < -grace_days
+
+
+def is_stale_notice(
+    published_at: str | None,
+    due_at: str | None,
+    today: date | None = None,
+    days: int = STALE_AFTER_DAYS,
+) -> bool:
+    """Whether a notice is too old to still be a todo.
+
+    Only when it has no deadline either: a notice published in September and due
+    in November is perfectly live, and the deadline is what says so.
+    """
+    if due_at:
+        return False
+    if not published_at:
+        return False
+    try:
+        published = date.fromisoformat(str(published_at)[:10])
+    except ValueError:
+        return False
+    return ((today or clock.today()) - published).days > days
 
 
 @dataclass

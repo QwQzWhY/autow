@@ -114,6 +114,28 @@ class TestExtraction(unittest.TestCase):
         self.assertEqual(notice.external_id, "deadbeef")
 
 
+class TestStaleNotices(unittest.TestCase):
+    """教务处首页在 10 月还挂着 1 月的春季注册通知。"""
+
+    def test_an_old_notice_with_no_deadline_is_stale(self):
+        self.assertTrue(extract.is_stale_notice("2026-01-23", None, date(2026, 10, 15)))
+
+    def test_a_notice_from_this_month_is_not_stale(self):
+        self.assertFalse(extract.is_stale_notice("2026-09-30", None, date(2026, 10, 15)))
+
+    def test_a_deadline_keeps_an_old_notice_alive(self):
+        # 9 月发布、11 月截止的奖学金通知是活的，截止时间就是它活着的原因。
+        self.assertFalse(
+            extract.is_stale_notice("2026-09-30", "2026-11-02T23:59", date(2026, 10, 15))
+        )
+
+    def test_no_publish_date_means_no_judgement(self):
+        self.assertFalse(extract.is_stale_notice(None, None, date(2026, 10, 15)))
+
+    def test_a_broken_publish_date_does_not_drop_anything(self):
+        self.assertFalse(extract.is_stale_notice("不知道", None, date(2026, 10, 15)))
+
+
 class TestClipText(unittest.TestCase):
     """标题和详情超长时要说出来，不能从句子中间无声地断掉。
 
