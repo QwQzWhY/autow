@@ -1,11 +1,19 @@
 {
-  "generated_at": "2026-10-15T17:07:18+08:00",
+  "generated_at": "2026-10-15T18:24:13+08:00",
   "connected": true,
-  "total_received": 51,
-  "total_todos": 6,
-  "today_received": 3,
-  "today_todos": 0,
+  "total_received": 52,
+  "total_todos": 7,
+  "today_received": 4,
+  "today_todos": 1,
   "recent": [
+    {
+      "at": "2026-10-15T18:24:11+08:00",
+      "verdict": "todo",
+      "verdict_label": "已生成待办",
+      "title": "参加班会和团建活动",
+      "length": 77,
+      "nonce": ""
+    },
     {
       "at": "2026-10-15T14:55:22+08:00",
       "verdict": "ignored",
@@ -76,14 +84,6 @@
       "verdict_label": "判断为无需行动",
       "title": "",
       "length": 61,
-      "nonce": ""
-    },
-    {
-      "at": "2026-10-14T15:04:38+08:00",
-      "verdict": "todo",
-      "verdict_label": "已生成待办",
-      "title": "报名大学生算法设计与编程挑战赛",
-      "length": 162,
       "nonce": ""
     }
   ]
