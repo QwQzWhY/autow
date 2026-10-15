@@ -6,7 +6,7 @@ import {
   isDone,
   splitByDeadline,
   splitByNomination,
-} from './todo-view.js?v=10';
+} from './todo-view.js?v=11';
 
 const DATA_URL = 'data/todos.json';
 const DONE_KEY = 'autow.done';
@@ -24,6 +24,16 @@ const DISPATCH_URL = 'https://api.github.com/repos';
 // as if it were still on its way. It is not deleted: silently losing something
 // the user typed is worse than showing it in a warning colour.
 const PENDING_GIVE_UP_MS = 5 * 60 * 1000;
+
+// How many local ticks/deletes to re-report per page load when the cloud has not
+// heard about them yet.
+const CATCH_UP_PER_LOAD = 3;
+
+// GitHub cancels a *queued* workflow run when another one enters the same
+// concurrency group, so firing three deletes at once loses the middle one. One
+// at a time, spaced out, is the only shape that reliably lands.
+const STATUS_SPACING_MS = 20_000;
+let catchUpDone = false;
 
 // Which build of the front end this page is actually running, read off its own
 // URL. A stale page (an old cached app.js, or a service worker serving the
@@ -129,8 +139,36 @@ async function dispatch(payload) {
 async function reportStatus(key, status) {
   try {
     await dispatch({ kind: 'status', key, status });
+    return true;
   } catch (err) {
-    // Nothing to do: the tick stays on screen either way.
+    // Say it out loud. Swallowing this is how one device ended up hiding 11
+    // cards the other device still showed, with nothing on screen to explain it:
+    // the board writes to GitHub with the repo and token typed on the QQ setup
+    // page, and this browser had never been given them.
+    toast(`没同步到云端：${err.message}——改的只是这台设备`);
+    return false;
+  }
+}
+
+// One status report in flight at a time, the next one a beat later.
+const statusQueue = [];
+let statusBusy = false;
+
+function queueStatus(key, status) {
+  statusQueue.push([key, status]);
+  if (!statusBusy) drainStatus();
+}
+
+async function drainStatus() {
+  statusBusy = true;
+  try {
+    while (statusQueue.length) {
+      const [key, status] = statusQueue.shift();
+      await reportStatus(key, status);
+      if (statusQueue.length) await new Promise((r) => setTimeout(r, STATUS_SPACING_MS));
+    }
+  } finally {
+    statusBusy = false;
   }
 }
 
@@ -218,7 +256,7 @@ function restoreUndo() {
   if (!state.undo) return;
   state.deleted.delete(state.undo.key);
   saveDeleted();
-  reportStatus(state.undo.key, 'open');
+  queueStatus(state.undo.key, 'open');
   clearUndo();
   render();
 }
@@ -301,7 +339,7 @@ function card(item) {
       else state.done.delete(item.key);
       saveDone();
       collapse(el);
-      reportStatus(item.key, nowDone ? 'done' : 'open');
+      queueStatus(item.key, nowDone ? 'done' : 'open');
     }, nowDone ? TICK_MS : 0);
   });
 
@@ -310,7 +348,7 @@ function card(item) {
     saveDeleted();
     offerUndo(item);
     collapse(el);
-    reportStatus(item.key, 'deleted');
+    queueStatus(item.key, 'deleted');
   });
 
   return el;
@@ -427,6 +465,19 @@ async function load() {
   if (stillPending.length !== state.pending.length) {
     state.pending = stillPending;
     savePending();
+  }
+
+  // Catch the cloud up on anything this device did while it could not write:
+  // without this, one browser keeps hiding cards the other one still shows, and
+  // the only fix is to tap them all again. Three per load, once per page, so a
+  // backlog drains over a few loads instead of firing a dozen workflows at once.
+  const behind = [
+    ...[...state.deleted].filter((k) => known.has(k)).map((k) => [k, 'deleted']),
+    ...[...state.done].filter((k) => known.has(k)).map((k) => [k, 'done']),
+  ].slice(0, CATCH_UP_PER_LOAD);
+  if (!catchUpDone && behind.length && credentials().token) {
+    catchUpDone = true;
+    behind.forEach(([key, status]) => queueStatus(key, status));
   }
 
   if (unchanged) return;

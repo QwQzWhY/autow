@@ -76,9 +76,9 @@ class TestWebPages(unittest.TestCase):
         """
         script = read("app.js")
         self.assertIn("kind: 'status'", script, "看板没有把状态报给云端")
-        self.assertIn("reportStatus(item.key, 'deleted')", script)
-        self.assertIn("reportStatus(item.key, nowDone ? 'done' : 'open')", script)
-        self.assertIn("reportStatus(state.undo.key, 'open')", script, "撤销没报回去")
+        self.assertIn("queueStatus(item.key, 'deleted')", script)
+        self.assertIn("queueStatus(item.key, nowDone ? 'done' : 'open')", script)
+        self.assertIn("queueStatus(state.undo.key, 'open')", script, "撤销没报回去")
 
     def test_the_board_groups_items_without_a_deadline(self):
         # 活动类通知要保留（用户要求过），但不能和"明天到期"挤在同一段里。
@@ -108,6 +108,27 @@ class TestWebPages(unittest.TestCase):
         script = read("app.js")
         self.assertIn("import.meta.url.match", script)
         self.assertIn("前端 v${ASSET_VERSION}", script)
+
+    def test_a_report_that_cannot_be_sent_says_so(self):
+        """一台设备没填令牌时，删除只在本地生效——这件事必须说出来。
+
+        用户就是这么撞上的：电脑上删了 11 条，云端一条都不知道，手机上照样显示，
+        而屏幕上没有任何提示。
+        """
+        script = read("app.js")
+        self.assertIn("没同步到云端", script)
+
+    def test_status_reports_are_sent_one_at_a_time(self):
+        # 同时发多条时，GitHub 的并发组会把排队的那条取消掉，中间的删除就丢了。
+        script = read("app.js")
+        self.assertIn("STATUS_SPACING_MS", script)
+        self.assertIn("await reportStatus(key, status)", script)
+        self.assertIn("while (statusQueue.length)", script, "没有排队，就是并行发")
+
+    def test_local_state_the_cloud_missed_is_reported_on_load(self):
+        script = read("app.js")
+        self.assertIn("CATCH_UP_PER_LOAD", script)
+        self.assertIn("catchUpDone", script)
 
 
 if __name__ == "__main__":
