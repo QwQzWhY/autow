@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-10-15T12:23:55+08:00",
-  "count": 21,
+  "generated_at": "2026-10-15T12:24:11+08:00",
+  "count": 20,
   "todos": [
     {
       "key": "qq:d954ba8f7071b11a",
@@ -168,21 +168,6 @@
       "status": "open"
     },
     {
-      "key": "lzu-xgb:338392.html",
-      "title": "关于2026年燕宝奖学金第二批拟获奖学生的补充公示",
-      "detail": "",
-      "due_at": null,
-      "priority": "normal",
-      "needs_recommendation": false,
-      "content_hash": "",
-      "source": "lzu-xgb",
-      "source_label": "学工部",
-      "url": "https://xgb.lzu.edu.cn/tongzhigonggao/zizhufuwu/2026/1012/338392.html",
-      "category": "资助通知",
-      "published_at": "2026-10-12",
-      "status": "open"
-    },
-    {
       "key": "lzu-jwc:327863.html",
       "title": "关于2026年春季学期学生注册工作安排的通知",
       "detail": "",
@@ -255,6 +240,21 @@
       "url": "",
       "category": "QQ 群消息",
       "published_at": "2026-10-14",
+      "status": "open"
+    },
+    {
+      "key": "lzu-news:1177355.htm",
+      "title": "兰州大学关于开展2026年下半年普通话水平测试报名的通知",
+      "detail": "",
+      "due_at": null,
+      "priority": "normal",
+      "needs_recommendation": false,
+      "content_hash": "",
+      "source": "lzu-news",
+      "source_label": "学校通知",
+      "url": "https://news.lzu.edu.cn/info/1056/1177355.htm",
+      "category": "学校通知",
+      "published_at": "2026-10-09",
       "status": "open"
     },
     {
