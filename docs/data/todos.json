@@ -1,22 +1,7 @@
 {
-  "generated_at": "2026-10-16T12:21:57+08:00",
-  "count": 15,
+  "generated_at": "2026-10-16T12:24:47+08:00",
+  "count": 14,
   "todos": [
-    {
-      "key": "qq:9d1914ceea6af7bc",
-      "title": "确认装置正常",
-      "detail": "请于明天中午前确认装置正常。",
-      "due_at": "2026-10-15T12:00",
-      "priority": "high",
-      "needs_recommendation": false,
-      "content_hash": "",
-      "source": "qq",
-      "source_label": "QQ 群",
-      "url": "",
-      "category": "QQ 群消息",
-      "published_at": "2026-10-14",
-      "status": "open"
-    },
     {
       "key": "lzu-xgb:338264.html",
       "title": "查看燕宝奖学金拟获奖名单并提异议",
