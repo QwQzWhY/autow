@@ -6,9 +6,16 @@ const LS_TOKEN = 'autow.qq.token';
 const $ = (id) => document.getElementById(id);
 
 const settings = {
-  repo: localStorage.getItem(LS_REPO) || '',
+  // 这一页就部署在这个仓库的 Pages 上，仓库名不用用户自己敲。
+  repo: localStorage.getItem(LS_REPO) || repoFromLocation(),
   token: localStorage.getItem(LS_TOKEN) || '',
 };
+
+function repoFromLocation() {
+  const owner = location.hostname.split('.')[0];
+  const name = location.pathname.split('/').filter(Boolean)[0];
+  return owner && name ? `${owner}/${name}` : '';
+}
 
 // ------------------------------------------------------------------ helpers
 

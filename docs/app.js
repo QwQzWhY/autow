@@ -6,7 +6,7 @@ import {
   isDone,
   splitByDeadline,
   splitByNomination,
-} from './todo-view.js?v=15';
+} from './todo-view.js?v=16';
 
 const DATA_URL = 'data/todos.json';
 const DONE_KEY = 'autow.done';
@@ -93,10 +93,22 @@ function savePending() {
 
 // ------------------------------------------------------- creating a new todo
 
-/** Repo + token, as typed on the QQ setup page. */
+/**
+ * Repo + token for writing to GitHub.
+ *
+ * The repo does not have to be typed: this page is published from that very
+ * repo's Pages site, so the address carries the answer. Only the token has to
+ * come from localStorage — and that one really is a secret.
+ */
+function repoFromLocation() {
+  const owner = location.hostname.split('.')[0];
+  const name = location.pathname.split('/').filter(Boolean)[0];
+  return owner && name ? `${owner}/${name}` : '';
+}
+
 function credentials() {
   return {
-    repo: localStorage.getItem(LS_REPO) || '',
+    repo: localStorage.getItem(LS_REPO) || repoFromLocation(),
     token: localStorage.getItem(LS_TOKEN) || '',
   };
 }
@@ -104,7 +116,7 @@ function credentials() {
 async function dispatch(payload) {
   const { repo, token } = credentials();
   if (!repo.includes('/') || !token) {
-    throw new Error('还没配置仓库和令牌，先去 QQ 接入页填一次');
+    throw new Error('还没填访问令牌（仓库名会自动认出来）');
   }
   const res = await fetch(`${DISPATCH_URL}/${repo}/dispatches`, {
     method: 'POST',
@@ -178,7 +190,7 @@ function renderSyncNote() {
   }
   note.hidden = false;
   note.textContent = syncProblem
-    ? `⚠️ 本机有 ${count} 条改动没能同步到云端：${syncProblem} —— 点这里填一次仓库和令牌`
+    ? `⚠️ 本机有 ${count} 条改动没能同步到云端：${syncProblem} —— 点这里贴一次访问令牌`
     : `⚠️ 本机有 ${count} 条改动还没同步到云端（大约一分钟）`;
 }
 

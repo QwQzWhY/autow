@@ -160,6 +160,14 @@ class TestWebPages(unittest.TestCase):
         self.assertIn("还没同步到云端", script)
         self.assertIn("renderSyncNote()", script.split("function drawBoard()")[1])
 
+    def test_the_repo_does_not_have_to_be_typed(self):
+        """仓库名就在网址里，别再让用户手敲一遍。"""
+        for name in ("app.js", "qq.js"):
+            with self.subTest(name):
+                script = read(name)
+                self.assertIn("function repoFromLocation()", script)
+                self.assertIn("|| repoFromLocation()", script, "没拿网址里的仓库名兜底")
+
 
 if __name__ == "__main__":
     unittest.main()
