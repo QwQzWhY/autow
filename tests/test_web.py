@@ -148,6 +148,18 @@ class TestWebPages(unittest.TestCase):
         script = read("app.js")
         self.assertIn("条改动没同步", script)
 
+    def test_unsynced_changes_stay_on_screen(self):
+        """失败的提示不能只弹 4 秒——用户就是这样白等了一整天。
+
+        现在页面上常驻一条：本机有多少条改动没同步、为什么、点哪里修。
+        """
+        page = read("index.html")
+        self.assertIn('id="sync-note"', page)
+        script = read("app.js")
+        self.assertIn("function renderSyncNote()", script)
+        self.assertIn("还没同步到云端", script)
+        self.assertIn("renderSyncNote()", script.split("function drawBoard()")[1])
+
 
 if __name__ == "__main__":
     unittest.main()

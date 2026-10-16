@@ -6,7 +6,7 @@ import {
   isDone,
   splitByDeadline,
   splitByNomination,
-} from './todo-view.js?v=14';
+} from './todo-view.js?v=15';
 
 const DATA_URL = 'data/todos.json';
 const DONE_KEY = 'autow.done';
@@ -30,6 +30,10 @@ const PENDING_GIVE_UP_MS = 5 * 60 * 1000;
 // at a time, spaced out, is the only shape that reliably lands.
 const STATUS_SPACING_MS = 20_000;
 let catchUpDone = false;
+
+// Why the last report failed, if it did. Shown as a standing note: a four-second
+// toast is how "your deletes never left this device" stayed invisible for a day.
+let syncProblem = '';
 
 // Which build of the front end this page is actually running, read off its own
 // URL. A stale page (an old cached app.js, or a service worker serving the
@@ -139,6 +143,8 @@ async function reportStatus(key, status) {
 async function sendStatus(payload) {
   try {
     await dispatch(payload);
+    syncProblem = '';
+    renderSyncNote();
     return true;
   } catch (err) {
     // Say it out loud. Swallowing this is how one device ended up hiding 11
@@ -146,8 +152,34 @@ async function sendStatus(payload) {
     // the board writes to GitHub with the repo and token typed on the QQ setup
     // page, and this browser had never been given them.
     toast(`没同步到云端：${err.message}——改的只是这台设备`);
+    syncProblem = err.message;
+    renderSyncNote();
     return false;
   }
+}
+
+/** 本机有多少条勾选/删除，云端还不知道。 */
+function unsyncedCount() {
+  // 云端已经标成 done 的不算：那条已经知道了。
+  const known = new Set(state.todos.filter((t) => t.status !== 'done').map((t) => t.key));
+  const inData = (k) => (known.has(k) ? 1 : 0);
+  return (
+    [...state.deleted].reduce((n, k) => n + inData(k), 0) +
+    [...state.done].reduce((n, k) => n + inData(k), 0)
+  );
+}
+
+function renderSyncNote() {
+  const note = $('sync-note');
+  const count = unsyncedCount();
+  if (!count) {
+    note.hidden = true;
+    return;
+  }
+  note.hidden = false;
+  note.textContent = syncProblem
+    ? `⚠️ 本机有 ${count} 条改动没能同步到云端：${syncProblem} —— 点这里填一次仓库和令牌`
+    : `⚠️ 本机有 ${count} 条改动还没同步到云端（大约一分钟）`;
 }
 
 // One status report in flight at a time, the next one a beat later.
@@ -435,6 +467,7 @@ function drawBoard() {
     ? new Date(state.generatedAt).toLocaleString('zh-CN')
     : '未知';
   $('footer-note').textContent = `数据更新于 ${when} · 前端 v${ASSET_VERSION}`;
+  renderSyncNote();
 }
 
 // ---------------------------------------------------------------------- load
@@ -481,7 +514,9 @@ async function load() {
       sendStatus({ kind: 'status', items: behind });
     } else {
       // 静悄悄跳过就是这次"只删了一半"的同款毛病：这台设备没有令牌，写不了云端。
+      syncProblem = '这台设备没填仓库和令牌';
       toast(`这台设备有 ${behind.length} 条改动没同步：点右上角「QQ」填一次仓库和令牌`);
+      renderSyncNote();
     }
   }
 

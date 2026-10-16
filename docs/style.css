@@ -666,6 +666,22 @@ code {
 .result--good { color: var(--done); font-weight: 600; }
 .result--bad { color: var(--high); }
 
+/* 本机改动没同步上去时常驻显示：一闪而过的提示等于没有提示。 */
+.sync-note {
+  display: block;
+  margin: 0 16px 8px;
+  padding: 10px 12px;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--high);
+  background: color-mix(in srgb, var(--high) 8%, transparent);
+  border: 1px solid color-mix(in srgb, var(--high) 30%, transparent);
+  border-radius: 10px;
+  text-decoration: none;
+}
+
+.sync-note[hidden] { display: none; }
+
 .disclaimer {
   margin: 4px 2px 0;
   font-size: 11.5px;
