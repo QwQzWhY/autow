@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-16T12:20:05+08:00",
+  "generated_at": "2026-10-16T12:21:57+08:00",
   "count": 15,
   "todos": [
     {
@@ -95,11 +95,11 @@
     {
       "key": "qq:gmvagkuof",
       "title": "参加班会",
-      "detail": "前往秦岭堂A211参加班会。",
+      "detail": "班会地点为秦岭堂A211，请按时参加。",
       "due_at": null,
       "priority": "normal",
       "needs_recommendation": false,
-      "content_hash": "c335a68bbb617207",
+      "content_hash": "6440f26ee8d6c5f8",
       "source": "qq",
       "source_label": "QQ 群",
       "url": "",
