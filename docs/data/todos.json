@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-10-16T12:24:47+08:00",
-  "count": 14,
+  "generated_at": "2026-10-16T12:25:08+08:00",
+  "count": 13,
   "todos": [
     {
       "key": "lzu-xgb:338264.html",
@@ -25,21 +25,6 @@
       "priority": "high",
       "needs_recommendation": false,
       "content_hash": "79a74f3410e15300",
-      "source": "qq",
-      "source_label": "QQ 群",
-      "url": "",
-      "category": "QQ 群消息",
-      "published_at": "2026-10-15",
-      "status": "open"
-    },
-    {
-      "key": "qq:4c2618eafb475181",
-      "title": "提交《人工智能导论》课程报告",
-      "detail": "请于明天（2026-10-16）下午 6 点前将《人工智能导论》课程报告提交到课程平台。",
-      "due_at": "2026-10-16T18:00",
-      "priority": "high",
-      "needs_recommendation": false,
-      "content_hash": "",
       "source": "qq",
       "source_label": "QQ 群",
       "url": "",
