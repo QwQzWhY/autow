@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-10-16T14:05:39+08:00",
-  "count": 5,
+  "generated_at": "2026-10-16T14:11:54+08:00",
+  "count": 6,
   "todos": [
     {
       "key": "qq:gmv9k1bjq",
@@ -45,6 +45,21 @@
       "url": "https://xgb.lzu.edu.cn/tongzhigonggao/zizhufuwu/2026/0930/338046.html",
       "category": "资助通知",
       "published_at": "2026-09-30",
+      "status": "open"
+    },
+    {
+      "key": "qq:gmvakkwf4",
+      "title": "线代课后前往秦岭堂A211开会",
+      "detail": "上完线性代数课后前往秦岭堂A211开会。",
+      "due_at": null,
+      "priority": "normal",
+      "needs_recommendation": false,
+      "content_hash": "fffe96b66327884c",
+      "source": "qq",
+      "source_label": "QQ 群",
+      "url": "",
+      "category": "QQ 群消息",
+      "published_at": "2026-10-16",
       "status": "open"
     },
     {

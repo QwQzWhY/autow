@@ -1,18 +1,18 @@
 {
-  "generated_at": "2026-10-16T14:05:39+08:00",
+  "generated_at": "2026-10-16T14:11:54+08:00",
   "connected": true,
   "total_received": 61,
-  "total_todos": 9,
+  "total_todos": 10,
   "today_received": 3,
-  "today_todos": 1,
+  "today_todos": 2,
   "recent": [
     {
-      "at": "2026-10-16T13:55:16+08:00",
-      "verdict": "ignored",
-      "verdict_label": "判断为无需行动",
-      "title": "",
-      "length": 37,
-      "nonce": "9goujfab"
+      "at": "2026-10-16T14:11:53+08:00",
+      "verdict": "todo",
+      "verdict_label": "已生成待办",
+      "title": "线代课后前往秦岭堂A211开会",
+      "length": 69,
+      "nonce": ""
     },
     {
       "at": "2026-10-16T12:21:55+08:00",
