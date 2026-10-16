@@ -1,11 +1,19 @@
 {
-  "generated_at": "2026-10-16T19:03:12+08:00",
+  "generated_at": "2026-10-16T22:04:10+08:00",
   "connected": true,
-  "total_received": 61,
+  "total_received": 62,
   "total_todos": 10,
-  "today_received": 3,
+  "today_received": 4,
   "today_todos": 2,
   "recent": [
+    {
+      "at": "2026-10-16T22:04:10+08:00",
+      "verdict": "dismissed",
+      "verdict_label": "你在看板上删过这条，已跳过",
+      "title": "",
+      "length": 40,
+      "nonce": ""
+    },
     {
       "at": "2026-10-16T14:11:53+08:00",
       "verdict": "todo",
@@ -76,14 +84,6 @@
       "verdict_label": "判断为无需行动",
       "title": "",
       "length": 36,
-      "nonce": ""
-    },
-    {
-      "at": "2026-10-15T18:24:11+08:00",
-      "verdict": "todo",
-      "verdict_label": "已生成待办",
-      "title": "参加班会和团建活动",
-      "length": 77,
       "nonce": ""
     }
   ]
