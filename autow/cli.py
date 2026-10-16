@@ -554,19 +554,33 @@ def _ingest_status(data: dict, store: Store) -> int:
     Ticking and deleting used to be written into the phone's localStorage and
     nowhere else, so they did not survive a cleared browser, did not travel to a
     second device, and left done items in the published file.
+
+    A device that could not write for a while sends everything it is behind on
+    as one list: one dispatch, one workflow run. A dozen separate dispatches
+    mostly get cancelled by GitHub's concurrency group, and the ones that
+    survive take minutes.
     """
-    key = (data.get("key") or "").strip()
-    status = (data.get("status") or "").strip().lower()
-    if status not in VALID_STATUSES:
-        print(f"未知状态：{status!r}", file=sys.stderr)
-        return 1
-    if not key:
-        print("缺少 key", file=sys.stderr)
-        return 1
-    changed = store.set_todo_status(key, status)
+    updates = data.get("items")
+    if not isinstance(updates, list) or not updates:
+        updates = [{"key": data.get("key"), "status": data.get("status")}]
+
+    applied = skipped = 0
+    for update in updates:
+        if not isinstance(update, dict):
+            skipped += 1
+            continue
+        key = str(update.get("key") or "").strip()
+        status = str(update.get("status") or "").strip().lower()
+        if not key or status not in VALID_STATUSES:
+            print(f"这条状态不合法，跳过：{update!r}", file=sys.stderr)
+            skipped += 1
+            continue
+        applied += int(store.set_todo_status(key, status))
+
     write_dashboards(store)
-    print(f"{'已记录' if changed else '没有这条待办'}：{key} -> {status}")
-    return 0
+    print(f"状态更新：已记录 {applied} 条，跳过 {skipped} 条（共 {len(updates)} 条）")
+    # A single update that is not valid is still an error, the way it was before.
+    return 1 if skipped and len(updates) == 1 else 0
 
 
 def _ingest_manual(data: dict, store: Store) -> int:

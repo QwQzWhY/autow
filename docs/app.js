@@ -6,7 +6,7 @@ import {
   isDone,
   splitByDeadline,
   splitByNomination,
-} from './todo-view.js?v=11';
+} from './todo-view.js?v=12';
 
 const DATA_URL = 'data/todos.json';
 const DONE_KEY = 'autow.done';
@@ -24,10 +24,6 @@ const DISPATCH_URL = 'https://api.github.com/repos';
 // as if it were still on its way. It is not deleted: silently losing something
 // the user typed is worse than showing it in a warning colour.
 const PENDING_GIVE_UP_MS = 5 * 60 * 1000;
-
-// How many local ticks/deletes to re-report per page load when the cloud has not
-// heard about them yet.
-const CATCH_UP_PER_LOAD = 3;
 
 // GitHub cancels a *queued* workflow run when another one enters the same
 // concurrency group, so firing three deletes at once loses the middle one. One
@@ -137,8 +133,12 @@ async function dispatch(payload) {
  * background sync error.
  */
 async function reportStatus(key, status) {
+  return sendStatus({ kind: 'status', key, status });
+}
+
+async function sendStatus(payload) {
   try {
-    await dispatch({ kind: 'status', key, status });
+    await dispatch(payload);
     return true;
   } catch (err) {
     // Say it out loud. Swallowing this is how one device ended up hiding 11
@@ -469,15 +469,15 @@ async function load() {
 
   // Catch the cloud up on anything this device did while it could not write:
   // without this, one browser keeps hiding cards the other one still shows, and
-  // the only fix is to tap them all again. Three per load, once per page, so a
-  // backlog drains over a few loads instead of firing a dozen workflows at once.
+  // the only fix is to tap them all again. One list, one dispatch: sending them
+  // separately would take minutes and lose most of them to the concurrency group.
   const behind = [
-    ...[...state.deleted].filter((k) => known.has(k)).map((k) => [k, 'deleted']),
-    ...[...state.done].filter((k) => known.has(k)).map((k) => [k, 'done']),
-  ].slice(0, CATCH_UP_PER_LOAD);
+    ...[...state.deleted].filter((k) => known.has(k)).map((k) => ({ key: k, status: 'deleted' })),
+    ...[...state.done].filter((k) => known.has(k)).map((k) => ({ key: k, status: 'done' })),
+  ];
   if (!catchUpDone && behind.length && credentials().token) {
     catchUpDone = true;
-    behind.forEach(([key, status]) => queueStatus(key, status));
+    sendStatus({ kind: 'status', items: behind });
   }
 
   if (unchanged) return;

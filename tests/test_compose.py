@@ -430,6 +430,51 @@ class TestBoardStatus(ComposeTest):
         self.assertEqual(self.ingest({"kind": "status", "key": key, "status": "垃圾"}), 1)
         self.assertEqual(self.published()[0]["status"], "open")
 
+    def test_one_dispatch_can_carry_a_whole_backlog(self):
+        """设备离线一阵子之后再打开，要把积压的改动一次报完。
+
+        一条一条发的话，GitHub 的并发组会把排队里的取消掉，而用户要的是刷新一次
+        两边就一致。
+        """
+        first = self.add_a_todo()
+        self.ingest({"kind": "manual", "id": "def", "title": "去图书馆还书"})
+        self.assertEqual(
+            self.ingest(
+                {
+                    "kind": "status",
+                    "items": [
+                        {"key": first, "status": "deleted"},
+                        {"key": "manual:def", "status": "done"},
+                    ],
+                }
+            ),
+            0,
+        )
+        rows = {row["key"]: row["status"] for row in self.published()}
+        self.assertNotIn(first, rows)
+        self.assertEqual(rows["manual:def"], "done")
+
+    def test_a_bad_entry_in_a_batch_does_not_stop_the_rest(self):
+        first = self.add_a_todo()
+        self.ingest({"kind": "manual", "id": "def", "title": "去图书馆还书"})
+        self.assertEqual(
+            self.ingest(
+                {
+                    "kind": "status",
+                    "items": [
+                        {"key": first, "status": "删掉它"},
+                        {"key": "manual:def", "status": "done"},
+                        "不是对象",
+                    ],
+                }
+            ),
+            0,
+            "批量里有一条坏的，不该整批失败",
+        )
+        rows = {row["key"]: row["status"] for row in self.published()}
+        self.assertEqual(rows["manual:def"], "done")
+        self.assertEqual(rows[first], "open")
+
     def test_the_same_notice_from_another_group_does_not_come_back(self):
         # 同一条通知会被转到好几个班群。删掉一次，后面那几份不该再把它放回板上。
         notice = {

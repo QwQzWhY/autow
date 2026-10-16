@@ -127,7 +127,7 @@ class TestWebPages(unittest.TestCase):
 
     def test_local_state_the_cloud_missed_is_reported_on_load(self):
         script = read("app.js")
-        self.assertIn("CATCH_UP_PER_LOAD", script)
+        self.assertIn("kind: 'status', items: behind", script, "积压的改动要一次全报")
         self.assertIn("catchUpDone", script)
 
 
