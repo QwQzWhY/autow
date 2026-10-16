@@ -109,6 +109,19 @@ class TestWebPages(unittest.TestCase):
         self.assertIn("import.meta.url.match", script)
         self.assertIn("前端 v${ASSET_VERSION}", script)
 
+    def test_the_shell_never_pins_an_old_page(self):
+        """壳缓存里的 index.html 指着上一版 app.js，用户就永远停在旧版本。
+
+        实际发生过：线上已经是 v13，用户刷新多少次页脚都还是 v12。
+        """
+        sw = read("sw.js")
+        self.assertIn("e.request.mode === 'navigate'", sw)
+        self.assertIn(
+            "e.respondWith(fetch(e.request).catch(() => caches.match('index.html')))",
+            sw,
+            "页面没有走网络优先，旧 service worker 会把旧首页钉住",
+        )
+
     def test_a_report_that_cannot_be_sent_says_so(self):
         """一台设备没填令牌时，删除只在本地生效——这件事必须说出来。
 

@@ -6,7 +6,7 @@ import {
   isDone,
   splitByDeadline,
   splitByNomination,
-} from './todo-view.js?v=13';
+} from './todo-view.js?v=14';
 
 const DATA_URL = 'data/todos.json';
 const DONE_KEY = 'autow.done';
