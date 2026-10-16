@@ -6,7 +6,7 @@ import {
   isDone,
   splitByDeadline,
   splitByNomination,
-} from './todo-view.js?v=12';
+} from './todo-view.js?v=13';
 
 const DATA_URL = 'data/todos.json';
 const DONE_KEY = 'autow.done';
@@ -475,9 +475,14 @@ async function load() {
     ...[...state.deleted].filter((k) => known.has(k)).map((k) => ({ key: k, status: 'deleted' })),
     ...[...state.done].filter((k) => known.has(k)).map((k) => ({ key: k, status: 'done' })),
   ];
-  if (!catchUpDone && behind.length && credentials().token) {
+  if (!catchUpDone && behind.length) {
     catchUpDone = true;
-    sendStatus({ kind: 'status', items: behind });
+    if (credentials().token) {
+      sendStatus({ kind: 'status', items: behind });
+    } else {
+      // 静悄悄跳过就是这次"只删了一半"的同款毛病：这台设备没有令牌，写不了云端。
+      toast(`这台设备有 ${behind.length} 条改动没同步：点右上角「QQ」填一次仓库和令牌`);
+    }
   }
 
   if (unchanged) return;

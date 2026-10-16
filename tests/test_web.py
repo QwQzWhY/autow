@@ -130,6 +130,11 @@ class TestWebPages(unittest.TestCase):
         self.assertIn("kind: 'status', items: behind", script, "积压的改动要一次全报")
         self.assertIn("catchUpDone", script)
 
+    def test_a_backlog_that_cannot_be_reported_also_says_so(self):
+        # 没有令牌时静悄悄跳过，正是"只删了一半"没人知道的原因。
+        script = read("app.js")
+        self.assertIn("条改动没同步", script)
+
 
 if __name__ == "__main__":
     unittest.main()
