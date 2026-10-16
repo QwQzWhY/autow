@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-16T13:46:29+08:00",
+  "generated_at": "2026-10-16T13:55:05+08:00",
   "extractor": {
     "configured": true,
     "mode": "live",
@@ -41,7 +41,7 @@
     },
     "lzu-news": {
       "listed": 20,
-      "ok": 1,
+      "ok": 0,
       "failed": 5,
       "error": ""
     }
