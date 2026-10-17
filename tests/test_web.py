@@ -168,6 +168,23 @@ class TestWebPages(unittest.TestCase):
                 self.assertIn("function repoFromLocation()", script)
                 self.assertIn("|| repoFromLocation()", script, "没拿网址里的仓库名兜底")
 
+    def test_the_board_does_not_wait_for_the_pages_rebuild(self):
+        """Pages 要重新构建（45~150 秒），同一份文件在 API 上是提交后立即可读的。
+
+        有令牌就先走 API，没令牌或失败再落回 Pages。
+        """
+        script = read("app.js")
+        self.assertIn("async function fetchBoard()", script)
+        self.assertIn("contents/docs/data/todos.json", script)
+        self.assertIn("new TextDecoder().decode(bytes)", script, "base64 要按 UTF-8 解")
+        self.assertIn("await fetchBoard()", script)
+
+    def test_polling_speeds_up_while_a_change_is_in_flight(self):
+        script = read("app.js")
+        self.assertIn("FAST_REFRESH_MS", script)
+        self.assertIn("unsyncedCount() ? FAST_REFRESH_MS", script)
+        self.assertIn("setTimeout(async () =>", script, "固定间隔没法按需加速")
+
 
 if __name__ == "__main__":
     unittest.main()

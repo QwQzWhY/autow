@@ -6,7 +6,7 @@ import {
   isDone,
   splitByDeadline,
   splitByNomination,
-} from './todo-view.js?v=16';
+} from './todo-view.js?v=17';
 
 const DATA_URL = 'data/todos.json';
 const DONE_KEY = 'autow.done';
@@ -44,6 +44,9 @@ const ASSET_VERSION = (import.meta.url.match(/[?&]v=(\d+)/) || [])[1] || '?';
 // QQ 群消息是事件驱动的，云端处理完就写进 todos.json。页面开着的时候定期
 // 拉一次，不用手动点刷新也能看到新待办；切回前台时立刻拉一次。
 const REFRESH_MS = 60_000;
+
+// 本机还有改动没在云端落地时，等 8 秒就再问一次；平时没必要这么勤。
+const FAST_REFRESH_MS = 8_000;
 
 // Tick first, then collapse. Long enough to read as an acknowledgement rather
 // than the card just vanishing under the finger.
@@ -484,12 +487,45 @@ function drawBoard() {
 
 // ---------------------------------------------------------------------- load
 
+/**
+ * The board file.
+ *
+ * Pages serves it only after rebuilding the site — 45~150 seconds, measured —
+ * while the same file is readable from the API the moment the commit lands.
+ * With a token the API is used first and Pages is the fallback (and the only
+ * option for a device without one).
+ */
+async function fetchBoard() {
+  const { repo, token } = credentials();
+  if (repo.includes('/') && token) {
+    try {
+      const res = await fetch(
+        `https://api.github.com/repos/${repo}/contents/docs/data/todos.json?t=${Date.now()}`,
+        {
+          headers: {
+            Accept: 'application/vnd.github+json',
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      if (res.ok) {
+        const body = await res.json();
+        const bytes = Uint8Array.from(atob(body.content.replace(/\s/g, '')), (c) => c.charCodeAt(0));
+        return JSON.parse(new TextDecoder().decode(bytes));
+      }
+    } catch (err) {
+      // 落到 Pages，下面的分支会给出真正的错误。
+    }
+  }
+  const res = await fetch(`${DATA_URL}?t=${Date.now()}`, { cache: 'no-store' });
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  return res.json();
+}
+
 async function load() {
   let data;
   try {
-    const res = await fetch(`${DATA_URL}?t=${Date.now()}`, { cache: 'no-store' });
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    data = await res.json();
+    data = await fetchBoard();
   } catch (err) {
     $('meta').textContent = '数据加载失败';
     $('list').innerHTML =
@@ -539,10 +575,14 @@ async function load() {
 let pollTimer = null;
 
 function schedulePoll() {
-  clearInterval(pollTimer);
-  if (document.visibilityState === 'visible') {
-    pollTimer = setInterval(load, REFRESH_MS);
-  }
+  clearTimeout(pollTimer);
+  if (document.visibilityState !== 'visible') return;
+  // 有改动还没落地时快一点——那时候用户正盯着屏幕等它出现。
+  const delay = unsyncedCount() ? FAST_REFRESH_MS : REFRESH_MS;
+  pollTimer = setTimeout(async () => {
+    await load();
+    schedulePoll();
+  }, delay);
 }
 
 document.addEventListener('visibilitychange', () => {
