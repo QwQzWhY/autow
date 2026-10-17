@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-10-17T17:51:00+08:00",
-  "count": 10,
+  "generated_at": "2026-10-17T18:41:12+08:00",
+  "count": 11,
   "todos": [
     {
       "key": "qq:gmv9k1bjq",
@@ -46,6 +46,21 @@
       "category": "QQ 群消息",
       "published_at": "2026-10-17",
       "status": "done"
+    },
+    {
+      "key": "qq:gmvc9n6m5",
+      "title": "参加社团晚上场宣讲会",
+      "detail": "已报名活动的同学请于今天19:00到天山堂B404参加社团晚上场宣讲会。",
+      "due_at": "2026-10-17T19:00",
+      "priority": "high",
+      "needs_recommendation": false,
+      "content_hash": "c68bd22c12246682",
+      "source": "qq",
+      "source_label": "QQ 群",
+      "url": "",
+      "category": "QQ 群消息",
+      "published_at": "2026-10-17",
+      "status": "open"
     },
     {
       "key": "lzu-news:1177915.htm",

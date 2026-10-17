@@ -1,11 +1,19 @@
 {
-  "generated_at": "2026-10-17T17:51:00+08:00",
+  "generated_at": "2026-10-17T18:41:12+08:00",
   "connected": true,
-  "total_received": 69,
-  "total_todos": 14,
-  "today_received": 7,
-  "today_todos": 4,
+  "total_received": 70,
+  "total_todos": 15,
+  "today_received": 8,
+  "today_todos": 5,
   "recent": [
+    {
+      "at": "2026-10-17T18:41:11+08:00",
+      "verdict": "todo",
+      "verdict_label": "已生成待办",
+      "title": "参加社团晚上场宣讲会",
+      "length": 87,
+      "nonce": ""
+    },
     {
       "at": "2026-10-17T17:50:59+08:00",
       "verdict": "ignored",
@@ -76,14 +84,6 @@
       "verdict_label": "已生成待办",
       "title": "线代课后前往秦岭堂A211开会",
       "length": 69,
-      "nonce": ""
-    },
-    {
-      "at": "2026-10-16T12:21:55+08:00",
-      "verdict": "duplicate",
-      "verdict_label": "重复消息，已忽略",
-      "title": "参加班会",
-      "length": 109,
       "nonce": ""
     }
   ]
