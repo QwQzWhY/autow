@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-17T16:01:22+08:00",
+  "generated_at": "2026-10-17T16:01:32+08:00",
   "count": 9,
   "todos": [
     {
@@ -60,7 +60,7 @@
       "url": "https://news.lzu.edu.cn/info/1056/1177915.htm",
       "category": "学校通知",
       "published_at": "2026-10-13",
-      "status": "open"
+      "status": "done"
     },
     {
       "key": "lzu-xgb:338046.html",
