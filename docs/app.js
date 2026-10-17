@@ -7,7 +7,7 @@ import {
   isDone,
   splitByDeadline,
   splitByNomination,
-} from './todo-view.js?v=22';
+} from './todo-view.js?v=23';
 
 const DATA_URL = 'data/todos.json';
 // 勾选和删除写在这里（页面直接写文件，不经过云端任务），读的时候和 todos.json 合并。
@@ -355,6 +355,8 @@ async function create(item, payload) {
     needs_recommendation: Boolean(item.needs_recommendation),
     pending: true,
     at: Date.now(),
+    // 原始请求存下来：一直没到云端时还能重投（同一个 id 不会重复建）。
+    payload,
   });
   savePending();
   closeSheet();
@@ -706,6 +708,16 @@ async function load() {
     state.pending = stillPending;
     savePending();
   }
+
+  // 提交过、候选 90 秒了云端还没有的，重投一次就放弃（卡片上会写"未同步"）。
+  let retriedAny = false;
+  for (const item of state.pending) {
+    if (item.retried || !item.payload || Date.now() - (item.at || 0) < 90_000) continue;
+    item.retried = true;
+    retriedAny = true;
+    enqueue(item.payload);
+  }
+  if (retriedAny) savePending();
 
   // Catch the cloud up on anything this device did while it could not write:
   // without this, one browser keeps hiding cards the other one still shows, and

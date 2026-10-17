@@ -163,6 +163,13 @@ class TestWebPages(unittest.TestCase):
         self.assertIn("function confirmCreated(item, payload, attempt = 0)", script)
         self.assertIn("some((t) => t.key === item.key)", script, "没有回云端确认就不知道丢没丢")
 
+    def test_a_stuck_new_todo_is_sent_once_more(self):
+        # 一直没到云端的那条，不能永远停在"未同步"。
+        script = read("app.js")
+        self.assertIn("payload,", script)
+        self.assertIn("item.retried", script)
+        self.assertIn("enqueue(item.payload)", script)
+
     def test_local_state_the_cloud_missed_is_reported_on_load(self):
         script = read("app.js")
         self.assertIn("kind: 'status', items: behind", script, "积压的改动要一次全报")

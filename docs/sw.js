@@ -1,13 +1,13 @@
 // Bump the version here and the ?v= on the script/style tags whenever an asset
 // changes. GitHub Pages caches assets for ten minutes, so without this a phone
 // keeps running the previous version of a file.
-const SHELL = 'autow-shell-v22';
+const SHELL = 'autow-shell-v23';
 const SHELL_FILES = [
   './',
   'index.html',
-  'style.css?v=22',
-  'app.js?v=22',
-  'todo-view.js?v=22',
+  'style.css?v=23',
+  'app.js?v=23',
+  'todo-view.js?v=23',
   'manifest.webmanifest',
 ];
 
