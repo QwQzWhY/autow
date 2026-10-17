@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-10-17T21:34:32+08:00",
-  "count": 11,
+  "generated_at": "2026-10-17T21:34:48+08:00",
+  "count": 12,
   "todos": [
     {
       "key": "qq:gmv9k1bjq",
@@ -61,6 +61,21 @@
       "category": "QQ 群消息",
       "published_at": "2026-10-17",
       "status": "done"
+    },
+    {
+      "key": "note:2ocj30ft",
+      "title": "预留下周四下午两点半参加例会",
+      "detail": "群通知要求全体成员提前预留时间，下周四（2026-10-22）下午两点半召开例会，请按时参加。",
+      "due_at": "2026-10-22T14:30",
+      "priority": "normal",
+      "needs_recommendation": false,
+      "content_hash": "",
+      "source": "note",
+      "source_label": "note",
+      "url": "",
+      "category": "手动录入",
+      "published_at": "2026-10-17",
+      "status": "open"
     },
     {
       "key": "lzu-news:1177915.htm",
