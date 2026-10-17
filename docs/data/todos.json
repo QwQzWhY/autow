@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-10-17T06:46:26+08:00",
-  "count": 6,
+  "generated_at": "2026-10-17T08:43:32+08:00",
+  "count": 7,
   "todos": [
     {
       "key": "qq:gmv9k1bjq",
@@ -15,6 +15,21 @@
       "url": "",
       "category": "QQ 群消息",
       "published_at": "2026-10-15",
+      "status": "open"
+    },
+    {
+      "key": "qq:gmvboa68l",
+      "title": "参加社团宣讲会",
+      "detail": "社团第一场宣讲会于今天9:00在天山堂B40举行，请准时参加。",
+      "due_at": "2026-10-17T09:00",
+      "priority": "high",
+      "needs_recommendation": false,
+      "content_hash": "0aae2bbdd54408c7",
+      "source": "qq",
+      "source_label": "QQ 群",
+      "url": "",
+      "category": "QQ 群消息",
+      "published_at": "2026-10-17",
       "status": "open"
     },
     {
