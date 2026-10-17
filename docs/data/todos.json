@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-17T20:59:31+08:00",
+  "generated_at": "2026-10-17T20:59:42+08:00",
   "count": 11,
   "todos": [
     {
@@ -105,7 +105,7 @@
       "url": "",
       "category": "QQ 群消息",
       "published_at": "2026-10-17",
-      "status": "open"
+      "status": "done"
     },
     {
       "key": "qq:gmvc1ayd3",
