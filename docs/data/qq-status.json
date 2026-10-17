@@ -1,17 +1,17 @@
 {
-  "generated_at": "2026-10-17T16:11:06+08:00",
+  "generated_at": "2026-10-17T17:46:43+08:00",
   "connected": true,
   "total_received": 68,
-  "total_todos": 13,
+  "total_todos": 14,
   "today_received": 6,
-  "today_todos": 3,
+  "today_todos": 4,
   "recent": [
     {
-      "at": "2026-10-17T16:10:54+08:00",
-      "verdict": "ignored",
-      "verdict_label": "判断为无需行动",
-      "title": "",
-      "length": 71,
+      "at": "2026-10-17T17:46:42+08:00",
+      "verdict": "todo",
+      "verdict_label": "已生成待办",
+      "title": "确认是否为智慧团建管理员并联系负责人",
+      "length": 87,
       "nonce": ""
     },
     {
