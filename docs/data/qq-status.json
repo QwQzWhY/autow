@@ -1,11 +1,19 @@
 {
-  "generated_at": "2026-10-17T14:49:46+08:00",
+  "generated_at": "2026-10-17T14:50:05+08:00",
   "connected": true,
-  "total_received": 66,
-  "total_todos": 12,
-  "today_received": 4,
-  "today_todos": 2,
+  "total_received": 67,
+  "total_todos": 13,
+  "today_received": 5,
+  "today_todos": 3,
   "recent": [
+    {
+      "at": "2026-10-17T14:50:04+08:00",
+      "verdict": "todo",
+      "verdict_label": "已生成待办",
+      "title": "参加社团宣传部面试",
+      "length": 71,
+      "nonce": ""
+    },
     {
       "at": "2026-10-17T14:41:55+08:00",
       "verdict": "todo",
@@ -77,14 +85,6 @@
       "title": "提交《人工智能导论》课程报告",
       "length": 41,
       "nonce": "5fkj8trm"
-    },
-    {
-      "at": "2026-10-15T23:31:51+08:00",
-      "verdict": "ignored",
-      "verdict_label": "判断为无需行动",
-      "title": "",
-      "length": 37,
-      "nonce": "9wchaodv"
     }
   ]
 }

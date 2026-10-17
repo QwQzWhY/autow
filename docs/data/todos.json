@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-10-17T14:49:46+08:00",
-  "count": 7,
+  "generated_at": "2026-10-17T14:50:05+08:00",
+  "count": 9,
   "todos": [
     {
       "key": "qq:gmv9k1bjq",
@@ -75,6 +75,21 @@
       "url": "https://xgb.lzu.edu.cn/tongzhigonggao/zizhufuwu/2026/0930/338046.html",
       "category": "资助通知",
       "published_at": "2026-09-30",
+      "status": "open"
+    },
+    {
+      "key": "qq:gmvc1ayd3",
+      "title": "参加社团宣传部面试",
+      "detail": "社团宣传部面试在宣讲会结束后进行，想加入宣传部的同学请留意并按时参加。通知被截断，全文要回群里看。",
+      "due_at": null,
+      "priority": "normal",
+      "needs_recommendation": false,
+      "content_hash": "7861797fecf6738c",
+      "source": "qq",
+      "source_label": "QQ 群",
+      "url": "",
+      "category": "QQ 群消息",
+      "published_at": "2026-10-17",
       "status": "open"
     },
     {
