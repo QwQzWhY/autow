@@ -155,6 +155,14 @@ class TestWebPages(unittest.TestCase):
         # 两台设备同时写时 sha 会过期，必须能重读重试。
         self.assertIn("res.status !== 409 && res.status !== 422", script)
 
+    def test_a_new_todo_is_queued_and_confirmed(self):
+        """新建走 Actions，但同一并发组会把排队的那次取消掉——实测丢过。"""
+        script = read("app.js")
+        self.assertIn("function enqueue(payload)", script)
+        self.assertIn("await enqueue(payload)", script)
+        self.assertIn("function confirmCreated(item, payload, attempt = 0)", script)
+        self.assertIn("some((t) => t.key === item.key)", script, "没有回云端确认就不知道丢没丢")
+
     def test_local_state_the_cloud_missed_is_reported_on_load(self):
         script = read("app.js")
         self.assertIn("kind: 'status', items: behind", script, "积压的改动要一次全报")

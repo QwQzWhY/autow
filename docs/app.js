@@ -7,7 +7,7 @@ import {
   isDone,
   splitByDeadline,
   splitByNomination,
-} from './todo-view.js?v=21';
+} from './todo-view.js?v=22';
 
 const DATA_URL = 'data/todos.json';
 // 勾选和删除写在这里（页面直接写文件，不经过云端任务），读的时候和 todos.json 合并。
@@ -34,6 +34,38 @@ const PENDING_GIVE_UP_MS = 5 * 60 * 1000;
 // at a time, spaced out, is the only shape that reliably lands.
 const STATUS_SPACING_MS = 20_000;
 let catchUpDone = false;
+
+// 新建待办仍然要走 GitHub Actions（粘贴的那段要过模型）。同样一条一条发：
+// 同一并发组里新任务进来会把排队中的那个取消掉，实测丢过用户新建的待办。
+const SEND_SPACING_MS = 3_000;
+const sendQueue = [];
+let sendBusy = false;
+
+function enqueue(payload) {
+  return new Promise((resolve, reject) => {
+    sendQueue.push({ payload, resolve, reject });
+    drainSend();
+  });
+}
+
+async function drainSend() {
+  if (sendBusy) return;
+  sendBusy = true;
+  try {
+    while (sendQueue.length) {
+      const job = sendQueue.shift();
+      try {
+        await dispatch(job.payload);
+        job.resolve();
+      } catch (err) {
+        job.reject(err);
+      }
+      if (sendQueue.length) await new Promise((r) => setTimeout(r, SEND_SPACING_MS));
+    }
+  } finally {
+    sendBusy = false;
+  }
+}
 
 // Why the last report failed, if it did. Shown as a standing note: a four-second
 // toast is how "your deletes never left this device" stayed invisible for a day.
@@ -302,7 +334,7 @@ async function create(item, payload) {
   out.className = 'result';
   out.textContent = '提交中…';
   try {
-    await dispatch(payload);
+    await enqueue(payload);
   } catch (err) {
     out.textContent = `提交失败：${err.message}`;
     out.className = 'result result--bad';
@@ -328,7 +360,30 @@ async function create(item, payload) {
   closeSheet();
   render();
   toast('已提交，识别完会自动出现在列表里');
+  confirmCreated(item, payload);
   return true;
+}
+
+/**
+ * 确认这次投递真的落地了。
+ *
+ * GitHub 在同一并发组里会把排队中的任务取消掉——实测丢过用户新建的待办。
+ * 20 秒后去云端看一眼，没有就重投；同一个 id 重投不会重复建。
+ */
+async function confirmCreated(item, payload, attempt = 0) {
+  await new Promise((r) => setTimeout(r, 20_000));
+  try {
+    const board = await fetchBoard();
+    if ((board.todos || []).some((t) => t.key === item.key)) return;
+    if (attempt >= 2) {
+      toast('这条还没到云端，可能被队列取消，稍后自动重试');
+      return;
+    }
+    await enqueue(payload);
+  } catch (err) {
+    // 连不上就交给下次确认；pending 卡片本身就写着"未同步"。
+  }
+  return confirmCreated(item, payload, attempt + 1);
 }
 
 function closeSheet() {
