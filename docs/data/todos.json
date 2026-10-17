@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-10-17T23:17:34+08:00",
-  "count": 12,
+  "generated_at": "2026-10-18T00:11:00+08:00",
+  "count": 13,
   "todos": [
     {
       "key": "qq:gmv9k1bjq",
@@ -61,6 +61,21 @@
       "category": "QQ 群消息",
       "published_at": "2026-10-17",
       "status": "done"
+    },
+    {
+      "key": "qq:gmvcle4m7",
+      "title": "参加机器人协会项目化立项活动",
+      "detail": "10月22日（周四）下午13:10举行社团项目化立项活动，请按时参加。通知被截断，全文要回群里看。",
+      "due_at": "2026-10-22T13:10",
+      "priority": "high",
+      "needs_recommendation": false,
+      "content_hash": "3a54a1cf46d89423",
+      "source": "qq",
+      "source_label": "QQ 群",
+      "url": "",
+      "category": "QQ 群消息",
+      "published_at": "2026-10-18",
+      "status": "open"
     },
     {
       "key": "note:blfgt6ml",

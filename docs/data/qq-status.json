@@ -1,11 +1,19 @@
 {
-  "generated_at": "2026-10-17T23:17:34+08:00",
+  "generated_at": "2026-10-18T00:11:00+08:00",
   "connected": true,
-  "total_received": 72,
-  "total_todos": 15,
-  "today_received": 10,
-  "today_todos": 5,
+  "total_received": 73,
+  "total_todos": 16,
+  "today_received": 1,
+  "today_todos": 1,
   "recent": [
+    {
+      "at": "2026-10-18T00:10:59+08:00",
+      "verdict": "todo",
+      "verdict_label": "已生成待办",
+      "title": "参加机器人协会项目化立项活动",
+      "length": 61,
+      "nonce": ""
+    },
     {
       "at": "2026-10-17T22:00:59+08:00",
       "verdict": "dismissed",
@@ -76,14 +84,6 @@
       "verdict_label": "判断为无需行动",
       "title": "",
       "length": 63,
-      "nonce": ""
-    },
-    {
-      "at": "2026-10-17T08:43:31+08:00",
-      "verdict": "todo",
-      "verdict_label": "已生成待办",
-      "title": "参加社团宣讲会",
-      "length": 71,
       "nonce": ""
     }
   ]
