@@ -104,3 +104,13 @@ export function splitByDeadline(items) {
   }
   return { dated, undated };
 }
+
+/**
+ * Apply the standing status map (key -> "open"|"done"|"deleted") to the cards.
+ *
+ * Statuses live in their own small file so marking a card does not wait for a
+ * GitHub Actions run. A key with no entry keeps whatever the record says.
+ */
+export function applyStatus(todos, map = {}) {
+  return todos.map((t) => (map[t.key] ? { ...t, status: map[t.key] } : t));
+}

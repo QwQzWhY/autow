@@ -144,6 +144,17 @@ class TestWebPages(unittest.TestCase):
         self.assertIn("STATUS_RETRY_MS", script)
         self.assertIn("return sendStatus(payload, attempt + 1)", script)
 
+    def test_marking_a_card_writes_the_status_file_directly(self):
+        """勾选/删除不再走一次 GitHub Actions——排队加跑一趟要几十秒到十几分钟。"""
+        script = read("app.js")
+        self.assertIn("async function writeStatus(updates)", script)
+        self.assertIn("contents/${STATUS_PATH}", script)
+        self.assertIn("method: 'PUT'", script)
+        self.assertIn("async function fetchStatusMap()", script)
+        self.assertIn("applyStatus(data.todos || [], map)", script)
+        # 两台设备同时写时 sha 会过期，必须能重读重试。
+        self.assertIn("res.status !== 409 && res.status !== 422", script)
+
     def test_local_state_the_cloud_missed_is_reported_on_load(self):
         script = read("app.js")
         self.assertIn("kind: 'status', items: behind", script, "积压的改动要一次全报")
@@ -190,6 +201,12 @@ class TestWebPages(unittest.TestCase):
         self.assertIn("FAST_REFRESH_MS", script)
         self.assertIn("unsyncedCount() ? FAST_REFRESH_MS", script)
         self.assertIn("setTimeout(async () =>", script, "固定间隔没法按需加速")
+
+    def test_the_other_device_sees_a_tick_in_about_ten_seconds(self):
+        """整块板每 10 秒拉一次太重（手机上跑流量），只看那个小状态文件。"""
+        script = read("app.js")
+        self.assertIn("STATUS_POLL_MS", script)
+        self.assertIn("JSON.stringify(map) !== JSON.stringify(state.statusMap)", script)
 
 
 if __name__ == "__main__":

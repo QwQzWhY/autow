@@ -8,6 +8,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 
 import {
+  applyStatus,
   dayDiff,
   dueLabel,
   filterTodos,
@@ -176,4 +177,19 @@ test('splitting by deadline keeps the order it was given', () => {
 
 test('nothing to split by deadline is not an error', () => {
   assert.deepEqual(splitByDeadline([]), { dated: [], undated: [] });
+});
+
+test('the status file overrides the record', () => {
+  const todos = [
+    { key: 'a', status: 'open' },
+    { key: 'b', status: 'open' },
+  ];
+  const out = applyStatus(todos, { a: 'done' });
+  assert.equal(out[0].status, 'done');
+  assert.equal(out[1].status, 'open', '没有记录的条目不该被动');
+});
+
+test('an empty status map leaves the record alone', () => {
+  const todos = [{ key: 'a', status: 'open' }];
+  assert.deepEqual(applyStatus(todos, {}), todos);
 });

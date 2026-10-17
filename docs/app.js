@@ -1,14 +1,18 @@
 // The version query has to match the other assets: a fresh app.js loading a
 // cached older todo-view.js fails at runtime, not with a warning.
 import {
+  applyStatus,
   dueLabel,
   filterTodos,
   isDone,
   splitByDeadline,
   splitByNomination,
-} from './todo-view.js?v=18';
+} from './todo-view.js?v=20';
 
 const DATA_URL = 'data/todos.json';
+// 勾选和删除写在这里（页面直接写文件，不经过云端任务），读的时候和 todos.json 合并。
+const STATUS_URL = 'data/status.json';
+const STATUS_PATH = 'docs/data/status.json';
 const DONE_KEY = 'autow.done';
 const DELETED_KEY = 'autow.deleted';
 const VIEW_KEY = 'autow.view';
@@ -48,6 +52,9 @@ const REFRESH_MS = 60_000;
 // 本机还有改动没在云端落地时，等 8 秒就再问一次；平时没必要这么勤。
 const FAST_REFRESH_MS = 8_000;
 
+// 另一台设备怎么尽快看到这里的勾选：只看 status.json（几百字节），变了才重拉整块板。
+const STATUS_POLL_MS = 10_000;
+
 // Tick first, then collapse. Long enough to read as an acknowledgement rather
 // than the card just vanishing under the finger.
 const TICK_MS = 320;
@@ -73,6 +80,7 @@ const readJson = (key, fallback) => {
 const state = {
   todos: [],
   generatedAt: null,
+  statusMap: {}, // key -> open|done|deleted，来自 status.json
   done: readSet(DONE_KEY),
   deleted: readSet(DELETED_KEY),
   view: localStorage.getItem(VIEW_KEY) || 'open',
@@ -156,11 +164,65 @@ async function reportStatus(key, status) {
 }
 
 // 网络抖一下不该让改动卡到下次打开页面：失败后等一会儿自己再试两次。
-const STATUS_RETRY_MS = [5_000, 20_000];
+const STATUS_RETRY_MS = [3_000, 10_000];
+
+/**
+ * 勾选/删除写进 docs/data/status.json —— 一次请求就落地。
+ *
+ * 以前走 repository_dispatch：排队、跑一次 Actions、提交、发布，碰上官网扫描在跑
+ * 还得排在后面十几分钟。写文件只有一次 GitHub API 调用，读文件同理。
+ */
+async function writeStatus(updates) {
+  const { repo, token } = credentials();
+  if (!repo.includes('/') || !token) {
+    throw new Error('还没填访问令牌（仓库名会自动认出来）');
+  }
+  const url = `https://api.github.com/repos/${repo}/contents/${STATUS_PATH}`;
+  const headers = {
+    Accept: 'application/vnd.github+json',
+    Authorization: `Bearer ${token}`,
+  };
+
+  for (let attempt = 0; attempt < 2; attempt++) {
+    const head = await fetch(url, { headers });
+    let sha;
+    let items = {};
+    if (head.ok) {
+      const body = await head.json();
+      sha = body.sha;
+      const bytes = Uint8Array.from(atob(body.content.replace(/\s/g, '')), (c) => c.charCodeAt(0));
+      // 文件是公开的，写坏了也只当它是空的（跟 Python 侧的 status.load 一致）。
+      const parsed = JSON.parse(new TextDecoder().decode(bytes));
+      items = parsed && typeof parsed.items === 'object' && parsed.items ? parsed.items : {};
+    } else if (head.status !== 404) {
+      throw new Error(`读 status.json 失败（HTTP ${head.status}）`);
+    }
+    for (const [key, status] of updates) items[key] = status;
+
+    const res = await fetch(url, {
+      method: 'PUT',
+      headers: { ...headers, 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        message: 'chore: 看板状态更新',
+        content: btoa(JSON.stringify({ updated_at: new Date().toISOString(), items })),
+        ...(sha ? { sha } : {}),
+      }),
+    });
+    if (res.ok) return;
+    // 两台设备同时改时 sha 会过期，重读一次再写；其余错误直接报出来。
+    if (res.status !== 409 && res.status !== 422) {
+      throw new Error(`写 status.json 失败（HTTP ${res.status}）`);
+    }
+  }
+  throw new Error('status.json 同时被别的设备改，稍后再试');
+}
 
 async function sendStatus(payload, attempt = 0) {
+  const updates = payload.items
+    ? payload.items.map((item) => [item.key, item.status])
+    : [[payload.key, payload.status]];
   try {
-    await dispatch(payload);
+    await writeStatus(updates);
     syncProblem = '';
     renderSyncNote();
     return true;
@@ -180,15 +242,17 @@ async function sendStatus(payload, attempt = 0) {
   }
 }
 
-/** 本机有多少条勾选/删除，云端还不知道。 */
+/** 本机有多少条勾选/删除，云端那份 status.json 里还没有。 */
 function unsyncedCount() {
-  // 云端已经标成 done 的不算：那条已经知道了。
-  const known = new Set(state.todos.filter((t) => t.status !== 'done').map((t) => t.key));
-  const inData = (k) => (known.has(k) ? 1 : 0);
-  return (
-    [...state.deleted].reduce((n, k) => n + inData(k), 0) +
-    [...state.done].reduce((n, k) => n + inData(k), 0)
-  );
+  const known = new Set(state.todos.map((t) => t.key));
+  let count = 0;
+  for (const key of state.deleted) {
+    if (known.has(key) && state.statusMap[key] !== 'deleted') count += 1;
+  }
+  for (const key of state.done) {
+    if (!state.deleted.has(key) && known.has(key) && state.statusMap[key] !== 'done') count += 1;
+  }
+  return count;
 }
 
 function renderSyncNote() {
@@ -529,6 +593,35 @@ async function fetchBoard() {
   return res.json();
 }
 
+/** key -> 状态。读不到就当没有（不阻塞看板本身）。 */
+async function fetchStatusMap() {
+  const { repo, token } = credentials();
+  try {
+    if (repo.includes('/') && token) {
+      const res = await fetch(
+        `https://api.github.com/repos/${repo}/contents/${STATUS_PATH}?t=${Date.now()}`,
+        {
+          headers: {
+            Accept: 'application/vnd.github+json',
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      if (res.ok) {
+        const body = await res.json();
+        const bytes = Uint8Array.from(atob(body.content.replace(/\s/g, '')), (c) => c.charCodeAt(0));
+        return JSON.parse(new TextDecoder().decode(bytes)).items || {};
+      }
+      if (res.status !== 404) return {};
+    }
+    const res = await fetch(`${STATUS_URL}?t=${Date.now()}`, { cache: 'no-store' });
+    if (!res.ok) return {};
+    return (await res.json()).items || {};
+  } catch (err) {
+    return {};
+  }
+}
+
 async function load() {
   let data;
   try {
@@ -543,8 +636,12 @@ async function load() {
   // Skip the re-render when nothing changed, so an expanded card does not
   // collapse under the user every 60 seconds.
   const unchanged = data.generated_at && data.generated_at === state.generatedAt;
-  state.todos = data.todos || [];
+  // 勾选/删除不在 todos.json 里：它们由页面直接写 status.json，这里合并进来。
+  const map = await fetchStatusMap();
+  state.statusMap = map;
+  state.todos = applyStatus(data.todos || [], map).filter((t) => t.status !== 'deleted');
   state.generatedAt = data.generated_at;
+  lastLoadAt = Date.now();
 
   // Anything the cloud now knows about is no longer "pending"; the real card
   // replaces the optimistic one.
@@ -560,8 +657,12 @@ async function load() {
   // the only fix is to tap them all again. One list, one dispatch: sending them
   // separately would take minutes and lose most of them to the concurrency group.
   const behind = [
-    ...[...state.deleted].filter((k) => known.has(k)).map((k) => ({ key: k, status: 'deleted' })),
-    ...[...state.done].filter((k) => known.has(k)).map((k) => ({ key: k, status: 'done' })),
+    ...[...state.deleted]
+      .filter((k) => known.has(k) && state.statusMap[k] !== 'deleted')
+      .map((k) => ({ key: k, status: 'deleted' })),
+    ...[...state.done]
+      .filter((k) => !state.deleted.has(k) && known.has(k) && state.statusMap[k] !== 'done')
+      .map((k) => ({ key: k, status: 'done' })),
   ];
   if (!catchUpDone && behind.length) {
     catchUpDone = true;
@@ -580,16 +681,19 @@ async function load() {
 }
 
 let pollTimer = null;
+let lastLoadAt = 0;
 
 function schedulePoll() {
   clearTimeout(pollTimer);
   if (document.visibilityState !== 'visible') return;
-  // 有改动还没落地时快一点——那时候用户正盯着屏幕等它出现。
-  const delay = unsyncedCount() ? FAST_REFRESH_MS : REFRESH_MS;
   pollTimer = setTimeout(async () => {
-    await load();
+    // 10 秒看一次那个小文件：变了就重拉整块板，没变就看是不是该整轮刷新了。
+    const map = await fetchStatusMap();
+    const changed = JSON.stringify(map) !== JSON.stringify(state.statusMap);
+    const due = Date.now() - lastLoadAt > (unsyncedCount() ? FAST_REFRESH_MS : REFRESH_MS);
+    if (changed || due) await load();
     schedulePoll();
-  }, delay);
+  }, STATUS_POLL_MS);
 }
 
 document.addEventListener('visibilitychange', () => {

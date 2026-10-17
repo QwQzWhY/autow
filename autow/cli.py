@@ -17,7 +17,7 @@ import sys
 import time
 from datetime import datetime, timedelta
 
-from . import dates, health, llm, publish, qqstatus
+from . import dates, health, llm, publish, qqstatus, status
 from . import clock
 from . import extract
 from .extract import TodoDraft
@@ -149,6 +149,12 @@ def crawl(args: argparse.Namespace, store: Store) -> tuple[int, int, int]:
 
     new_notices = new_todos = analysed = 0
     engines: dict[str, int] = {}
+
+    # 页面上的勾选/删除是直接写 docs/data/status.json 的，不经过任何任务队列。
+    # 扫描是唯一写数据库的进程，所以在这里合并一次，发布出去的数据才会跟着变。
+    merged = status.apply_to(store)
+    if merged:
+        print(f"合并了 {merged} 条看板状态")
 
     # `--skip-analyzed` normally means "only look at notices we have never
     # seen". That is wrong when the extractor itself changed: the verdicts
