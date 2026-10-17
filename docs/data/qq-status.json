@@ -1,11 +1,19 @@
 {
-  "generated_at": "2026-10-17T16:01:32+08:00",
+  "generated_at": "2026-10-17T16:10:55+08:00",
   "connected": true,
-  "total_received": 67,
+  "total_received": 68,
   "total_todos": 13,
-  "today_received": 5,
+  "today_received": 6,
   "today_todos": 3,
   "recent": [
+    {
+      "at": "2026-10-17T16:10:54+08:00",
+      "verdict": "ignored",
+      "verdict_label": "判断为无需行动",
+      "title": "",
+      "length": 71,
+      "nonce": ""
+    },
     {
       "at": "2026-10-17T14:50:04+08:00",
       "verdict": "todo",
@@ -77,14 +85,6 @@
       "title": "参加班会",
       "length": 61,
       "nonce": ""
-    },
-    {
-      "at": "2026-10-15T23:33:47+08:00",
-      "verdict": "duplicate",
-      "verdict_label": "重复消息，已忽略",
-      "title": "提交《人工智能导论》课程报告",
-      "length": 41,
-      "nonce": "5fkj8trm"
     }
   ]
 }
