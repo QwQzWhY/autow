@@ -7,7 +7,7 @@ import {
   isDone,
   splitByDeadline,
   splitByNomination,
-} from './todo-view.js?v=20';
+} from './todo-view.js?v=21';
 
 const DATA_URL = 'data/todos.json';
 // 勾选和删除写在这里（页面直接写文件，不经过云端任务），读的时候和 todos.json 合并。
@@ -612,7 +612,7 @@ async function fetchStatusMap() {
         const bytes = Uint8Array.from(atob(body.content.replace(/\s/g, '')), (c) => c.charCodeAt(0));
         return JSON.parse(new TextDecoder().decode(bytes)).items || {};
       }
-      if (res.status !== 404) return {};
+      // 401/403/404 都落回 Pages：令牌过期时如果直接返回空表，删除就永远不显示了。
     }
     const res = await fetch(`${STATUS_URL}?t=${Date.now()}`, { cache: 'no-store' });
     if (!res.ok) return {};
