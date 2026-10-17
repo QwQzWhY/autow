@@ -6,7 +6,7 @@ import {
   isDone,
   splitByDeadline,
   splitByNomination,
-} from './todo-view.js?v=17';
+} from './todo-view.js?v=18';
 
 const DATA_URL = 'data/todos.json';
 const DONE_KEY = 'autow.done';
@@ -155,13 +155,20 @@ async function reportStatus(key, status) {
   return sendStatus({ kind: 'status', key, status });
 }
 
-async function sendStatus(payload) {
+// 网络抖一下不该让改动卡到下次打开页面：失败后等一会儿自己再试两次。
+const STATUS_RETRY_MS = [5_000, 20_000];
+
+async function sendStatus(payload, attempt = 0) {
   try {
     await dispatch(payload);
     syncProblem = '';
     renderSyncNote();
     return true;
   } catch (err) {
+    if (attempt < STATUS_RETRY_MS.length && !/令牌|仓库/.test(err.message)) {
+      await new Promise((r) => setTimeout(r, STATUS_RETRY_MS[attempt]));
+      return sendStatus(payload, attempt + 1);
+    }
     // Say it out loud. Swallowing this is how one device ended up hiding 11
     // cards the other device still showed, with nothing on screen to explain it:
     // the board writes to GitHub with the repo and token typed on the QQ setup

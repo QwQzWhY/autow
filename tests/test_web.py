@@ -138,6 +138,12 @@ class TestWebPages(unittest.TestCase):
         self.assertIn("await reportStatus(key, status)", script)
         self.assertIn("while (statusQueue.length)", script, "没有排队，就是并行发")
 
+    def test_a_failed_report_is_retried_before_giving_up(self):
+        # 网络抖一下，不该等到下次打开页面才补报。
+        script = read("app.js")
+        self.assertIn("STATUS_RETRY_MS", script)
+        self.assertIn("return sendStatus(payload, attempt + 1)", script)
+
     def test_local_state_the_cloud_missed_is_reported_on_load(self):
         script = read("app.js")
         self.assertIn("kind: 'status', items: behind", script, "积压的改动要一次全报")
