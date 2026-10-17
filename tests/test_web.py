@@ -168,7 +168,14 @@ class TestWebPages(unittest.TestCase):
         script = read("app.js")
         self.assertIn("payload,", script)
         self.assertIn("item.retried", script)
-        self.assertIn("enqueue(item.payload)", script)
+        self.assertIn("enqueue(payload)", script)
+
+    def test_a_stuck_item_from_an_older_build_is_reconstructed(self):
+        """老条目没存原始请求，卡片字段够拼回来一次。"""
+        script = read("app.js")
+        self.assertIn("function migratePending(item)", script)
+        self.assertIn("kind === 'note'", script)
+        self.assertIn("item.payload || migratePending(item)", script)
 
     def test_local_state_the_cloud_missed_is_reported_on_load(self):
         script = read("app.js")

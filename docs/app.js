@@ -7,7 +7,7 @@ import {
   isDone,
   splitByDeadline,
   splitByNomination,
-} from './todo-view.js?v=23';
+} from './todo-view.js?v=24';
 
 const DATA_URL = 'data/todos.json';
 // 勾选和删除写在这里（页面直接写文件，不经过云端任务），读的时候和 todos.json 合并。
@@ -367,6 +367,30 @@ async function create(item, payload) {
 }
 
 /**
+ * 老版本只存了显示字段，没存原始请求。
+ *
+ * 粘贴的那条，标题就是原文第一行（够一次重投）；手动填的字段都在。认不出来的
+ * 返回 null，卡片继续显示"未同步"，不会瞎发。
+ */
+function migratePending(item) {
+  const [kind, id] = String(item.key || '').split(':');
+  if (!id) return null;
+  if (kind === 'note') return { kind: 'note', id, text: item.title || '' };
+  if (kind === 'manual') {
+    return {
+      kind: 'manual',
+      id,
+      title: item.title || '',
+      due_at: item.due_at || '',
+      priority: item.priority || 'normal',
+      detail: item.detail || '',
+      needs_recommendation: Boolean(item.needs_recommendation),
+    };
+  }
+  return null;
+}
+
+/**
  * 确认这次投递真的落地了。
  *
  * GitHub 在同一并发组里会把排队中的任务取消掉——实测丢过用户新建的待办。
@@ -709,13 +733,16 @@ async function load() {
     savePending();
   }
 
-  // 提交过、候选 90 秒了云端还没有的，重投一次就放弃（卡片上会写"未同步"）。
+  // 提交过、90 秒了云端还没有的，重投一次就放弃（卡片上会写"未同步"）。
   let retriedAny = false;
   for (const item of state.pending) {
-    if (item.retried || !item.payload || Date.now() - (item.at || 0) < 90_000) continue;
+    if (item.retried || Date.now() - (item.at || 0) < 90_000) continue;
+    const payload = item.payload || migratePending(item);
+    if (!payload) continue;
+    item.payload = payload;
     item.retried = true;
     retriedAny = true;
-    enqueue(item.payload);
+    enqueue(payload);
   }
   if (retriedAny) savePending();
 
