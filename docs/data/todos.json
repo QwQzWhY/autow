@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-10-17T22:00:59+08:00",
-  "count": 13,
+  "generated_at": "2026-10-17T23:17:34+08:00",
+  "count": 12,
   "todos": [
     {
       "key": "qq:gmv9k1bjq",
@@ -66,21 +66,6 @@
       "key": "note:blfgt6ml",
       "title": "预留下周四下午两点半的例会时间",
       "detail": "群里通知下周四下午两点半开例会，需提前预留好时间，准时参加。",
-      "due_at": "2026-10-22T14:30",
-      "priority": "normal",
-      "needs_recommendation": false,
-      "content_hash": "",
-      "source": "note",
-      "source_label": "note",
-      "url": "",
-      "category": "手动录入",
-      "published_at": "2026-10-17",
-      "status": "open"
-    },
-    {
-      "key": "note:2ocj30ft",
-      "title": "预留下周四下午两点半参加例会",
-      "detail": "群通知要求全体成员提前预留时间，下周四（2026-10-22）下午两点半召开例会，请按时参加。",
       "due_at": "2026-10-22T14:30",
       "priority": "normal",
       "needs_recommendation": false,
