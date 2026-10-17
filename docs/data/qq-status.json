@@ -1,11 +1,19 @@
 {
-  "generated_at": "2026-10-17T17:46:43+08:00",
+  "generated_at": "2026-10-17T17:51:00+08:00",
   "connected": true,
-  "total_received": 68,
+  "total_received": 69,
   "total_todos": 14,
-  "today_received": 6,
+  "today_received": 7,
   "today_todos": 4,
   "recent": [
+    {
+      "at": "2026-10-17T17:50:59+08:00",
+      "verdict": "ignored",
+      "verdict_label": "判断为无需行动",
+      "title": "",
+      "length": 91,
+      "nonce": ""
+    },
     {
       "at": "2026-10-17T17:46:42+08:00",
       "verdict": "todo",
@@ -76,14 +84,6 @@
       "verdict_label": "重复消息，已忽略",
       "title": "参加班会",
       "length": 109,
-      "nonce": ""
-    },
-    {
-      "at": "2026-10-16T12:20:04+08:00",
-      "verdict": "todo",
-      "verdict_label": "已生成待办",
-      "title": "参加班会",
-      "length": 61,
       "nonce": ""
     }
   ]
