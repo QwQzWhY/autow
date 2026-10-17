@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-10-17T13:24:46+08:00",
-  "count": 7,
+  "generated_at": "2026-10-17T14:41:56+08:00",
+  "count": 8,
   "todos": [
     {
       "key": "qq:gmv9k1bjq",
@@ -25,6 +25,21 @@
       "priority": "high",
       "needs_recommendation": false,
       "content_hash": "0aae2bbdd54408c7",
+      "source": "qq",
+      "source_label": "QQ 群",
+      "url": "",
+      "category": "QQ 群消息",
+      "published_at": "2026-10-17",
+      "status": "open"
+    },
+    {
+      "key": "qq:gmvc13gw0",
+      "title": "参加社团宣讲会",
+      "detail": "社团下午场宣讲会将于今天15:00在天山堂举行，通知被截断，具体教室要回群里看。",
+      "due_at": "2026-10-17T15:00",
+      "priority": "high",
+      "needs_recommendation": false,
+      "content_hash": "a6f1fbe0c5261faa",
       "source": "qq",
       "source_label": "QQ 群",
       "url": "",
