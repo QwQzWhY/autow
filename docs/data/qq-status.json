@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-18T15:35:57+08:00",
+  "generated_at": "2026-10-18T15:36:08+08:00",
   "connected": true,
   "total_received": 75,
   "total_todos": 18,
@@ -7,11 +7,11 @@
   "today_todos": 3,
   "recent": [
     {
-      "at": "2026-10-18T15:35:55+08:00",
+      "at": "2026-10-18T15:36:06+08:00",
       "verdict": "todo",
       "verdict_label": "已生成待办",
       "title": "报名AI探索者联盟职能部门纳新",
-      "length": 263,
+      "length": 83,
       "nonce": ""
     },
     {

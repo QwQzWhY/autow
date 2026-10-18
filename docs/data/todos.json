@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-18T15:35:57+08:00",
+  "generated_at": "2026-10-18T15:36:08+08:00",
   "count": 15,
   "todos": [
     {
@@ -123,13 +123,13 @@
       "status": "open"
     },
     {
-      "key": "qq:gmvdhxndf",
+      "key": "qq:gmvdhxnea",
       "title": "报名AI探索者联盟职能部门纳新",
-      "detail": "AI探索者联盟组织部、宣传部、财务办公室招募干事，通过问卷链接报名，具体截止时间通知中未明确，可群内咨询。",
+      "detail": "AI探索者联盟职能部门正在纳新，需按通知要求报名。通知被截断，全文要回群里看。",
       "due_at": null,
-      "priority": "low",
+      "priority": "normal",
       "needs_recommendation": false,
-      "content_hash": "08304cd1bb77f5d3",
+      "content_hash": "bfdd6b8eb84b45c8",
       "source": "qq",
       "source_label": "QQ 群",
       "url": "",
