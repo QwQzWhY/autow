@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-18T16:47:11+08:00",
+  "generated_at": "2026-10-18T17:54:54+08:00",
   "extractor": {
     "configured": true,
     "mode": "live",
@@ -10,15 +10,15 @@
       "error": "JSONDecodeError: Expecting value: line 1 column 7 (char 6)",
       "carried_over": true
     },
-    "attempts": 0,
+    "attempts": 1,
     "failures": 0,
     "config_error": null,
     "ok": false,
     "last_error": "",
     "tokens": {
-      "calls": 0,
-      "prompt": 0,
-      "completion": 0
+      "calls": 1,
+      "prompt": 651,
+      "completion": 55
     }
   },
   "sources": {

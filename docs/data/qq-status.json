@@ -1,11 +1,19 @@
 {
-  "generated_at": "2026-10-18T16:47:11+08:00",
+  "generated_at": "2026-10-18T17:54:54+08:00",
   "connected": true,
-  "total_received": 75,
-  "total_todos": 18,
-  "today_received": 3,
-  "today_todos": 3,
+  "total_received": 76,
+  "total_todos": 19,
+  "today_received": 4,
+  "today_todos": 4,
   "recent": [
+    {
+      "at": "2026-10-18T17:54:53+08:00",
+      "verdict": "todo",
+      "verdict_label": "已生成待办",
+      "title": "报名参加火种计划",
+      "length": 71,
+      "nonce": ""
+    },
     {
       "at": "2026-10-18T15:36:06+08:00",
       "verdict": "todo",
@@ -75,14 +83,6 @@
       "verdict": "todo",
       "verdict_label": "已生成待办",
       "title": "参加社团宣传部面试",
-      "length": 71,
-      "nonce": ""
-    },
-    {
-      "at": "2026-10-17T14:41:55+08:00",
-      "verdict": "todo",
-      "verdict_label": "已生成待办",
-      "title": "参加社团宣讲会",
       "length": 71,
       "nonce": ""
     }

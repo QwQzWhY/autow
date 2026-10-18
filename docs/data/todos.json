@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-10-18T16:47:11+08:00",
-  "count": 15,
+  "generated_at": "2026-10-18T17:54:54+08:00",
+  "count": 16,
   "todos": [
     {
       "key": "qq:gmv9k1bjq",
@@ -121,6 +121,21 @@
       "category": "资助通知",
       "published_at": "2026-09-30",
       "status": "done"
+    },
+    {
+      "key": "qq:gmvdnf0vk",
+      "title": "报名参加火种计划",
+      "detail": "通知被截断，全文要回群里看。",
+      "due_at": null,
+      "priority": "normal",
+      "needs_recommendation": true,
+      "content_hash": "a0d396f4f2656440",
+      "source": "qq",
+      "source_label": "QQ 群",
+      "url": "",
+      "category": "QQ 群消息",
+      "published_at": "2026-10-18",
+      "status": "open"
     },
     {
       "key": "qq:gmvdhxnea",
