@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-18T17:55:06+08:00",
+  "generated_at": "2026-10-18T21:10:47+08:00",
   "count": 15,
   "todos": [
     {
@@ -90,7 +90,7 @@
       "url": "",
       "category": "手动录入",
       "published_at": "2026-10-17",
-      "status": "open"
+      "status": "done"
     },
     {
       "key": "lzu-news:1177915.htm",
@@ -121,21 +121,6 @@
       "category": "资助通知",
       "published_at": "2026-09-30",
       "status": "done"
-    },
-    {
-      "key": "qq:gmvdnf0vk",
-      "title": "报名参加火种计划",
-      "detail": "通知被截断，全文要回群里看。",
-      "due_at": null,
-      "priority": "normal",
-      "needs_recommendation": true,
-      "content_hash": "a0d396f4f2656440",
-      "source": "qq",
-      "source_label": "QQ 群",
-      "url": "",
-      "category": "QQ 群消息",
-      "published_at": "2026-10-18",
-      "status": "open"
     },
     {
       "key": "qq:gmvdhxnea",
