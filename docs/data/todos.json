@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-10-18T14:46:27+08:00",
-  "count": 14,
+  "generated_at": "2026-10-18T15:35:57+08:00",
+  "count": 15,
   "todos": [
     {
       "key": "qq:gmv9k1bjq",
@@ -120,6 +120,21 @@
       "url": "https://xgb.lzu.edu.cn/tongzhigonggao/zizhufuwu/2026/0930/338046.html",
       "category": "资助通知",
       "published_at": "2026-09-30",
+      "status": "open"
+    },
+    {
+      "key": "qq:gmvdhxndf",
+      "title": "报名AI探索者联盟职能部门纳新",
+      "detail": "AI探索者联盟组织部、宣传部、财务办公室招募干事，通过问卷链接报名，具体截止时间通知中未明确，可群内咨询。",
+      "due_at": null,
+      "priority": "low",
+      "needs_recommendation": false,
+      "content_hash": "08304cd1bb77f5d3",
+      "source": "qq",
+      "source_label": "QQ 群",
+      "url": "",
+      "category": "QQ 群消息",
+      "published_at": "2026-10-18",
       "status": "open"
     },
     {

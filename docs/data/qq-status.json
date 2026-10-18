@@ -1,11 +1,19 @@
 {
-  "generated_at": "2026-10-18T14:46:27+08:00",
+  "generated_at": "2026-10-18T15:35:57+08:00",
   "connected": true,
-  "total_received": 74,
-  "total_todos": 17,
-  "today_received": 2,
-  "today_todos": 2,
+  "total_received": 75,
+  "total_todos": 18,
+  "today_received": 3,
+  "today_todos": 3,
   "recent": [
+    {
+      "at": "2026-10-18T15:35:55+08:00",
+      "verdict": "todo",
+      "verdict_label": "已生成待办",
+      "title": "报名AI探索者联盟职能部门纳新",
+      "length": 263,
+      "nonce": ""
+    },
     {
       "at": "2026-10-18T14:46:26+08:00",
       "verdict": "todo",
@@ -76,14 +84,6 @@
       "verdict_label": "已生成待办",
       "title": "参加社团宣讲会",
       "length": 71,
-      "nonce": ""
-    },
-    {
-      "at": "2026-10-17T12:51:27+08:00",
-      "verdict": "ignored",
-      "verdict_label": "判断为无需行动",
-      "title": "",
-      "length": 104,
       "nonce": ""
     }
   ]
