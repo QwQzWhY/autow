@@ -1,11 +1,19 @@
 {
-  "generated_at": "2026-10-18T11:40:55+08:00",
+  "generated_at": "2026-10-18T14:46:27+08:00",
   "connected": true,
-  "total_received": 73,
-  "total_todos": 16,
-  "today_received": 1,
-  "today_todos": 1,
+  "total_received": 74,
+  "total_todos": 17,
+  "today_received": 2,
+  "today_todos": 2,
   "recent": [
+    {
+      "at": "2026-10-18T14:46:26+08:00",
+      "verdict": "todo",
+      "verdict_label": "已生成待办",
+      "title": "填写具身智能小组纳新报名",
+      "length": 50,
+      "nonce": ""
+    },
     {
       "at": "2026-10-18T00:10:59+08:00",
       "verdict": "todo",
@@ -76,14 +84,6 @@
       "verdict_label": "判断为无需行动",
       "title": "",
       "length": 104,
-      "nonce": ""
-    },
-    {
-      "at": "2026-10-17T12:44:52+08:00",
-      "verdict": "ignored",
-      "verdict_label": "判断为无需行动",
-      "title": "",
-      "length": 63,
       "nonce": ""
     }
   ]

@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-10-18T11:40:55+08:00",
-  "count": 13,
+  "generated_at": "2026-10-18T14:46:27+08:00",
+  "count": 14,
   "todos": [
     {
       "key": "qq:gmv9k1bjq",
@@ -120,6 +120,21 @@
       "url": "https://xgb.lzu.edu.cn/tongzhigonggao/zizhufuwu/2026/0930/338046.html",
       "category": "资助通知",
       "published_at": "2026-09-30",
+      "status": "open"
+    },
+    {
+      "key": "qq:gmvdgp4ru",
+      "title": "填写具身智能小组纳新报名",
+      "detail": "有加入具身智能小组意向的同学需填写报名信息，具体填写方式与截止时间通知未说明，请回群查看。",
+      "due_at": null,
+      "priority": "normal",
+      "needs_recommendation": false,
+      "content_hash": "03dcbd878cb1a887",
+      "source": "qq",
+      "source_label": "QQ 群",
+      "url": "",
+      "category": "QQ 群消息",
+      "published_at": "2026-10-18",
       "status": "open"
     },
     {
