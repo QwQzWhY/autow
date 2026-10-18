@@ -1,11 +1,19 @@
 {
-  "generated_at": "2026-10-18T21:10:47+08:00",
+  "generated_at": "2026-10-18T22:02:22+08:00",
   "connected": true,
-  "total_received": 76,
+  "total_received": 77,
   "total_todos": 18,
-  "today_received": 4,
+  "today_received": 5,
   "today_todos": 3,
   "recent": [
+    {
+      "at": "2026-10-18T22:02:22+08:00",
+      "verdict": "dismissed",
+      "verdict_label": "你在看板上删过这条，已跳过",
+      "title": "",
+      "length": 40,
+      "nonce": ""
+    },
     {
       "at": "2026-10-18T17:55:05+08:00",
       "verdict": "ignored",
@@ -76,14 +84,6 @@
       "verdict_label": "已生成待办",
       "title": "确认是否为智慧团建管理员并联系负责人",
       "length": 87,
-      "nonce": ""
-    },
-    {
-      "at": "2026-10-17T14:50:04+08:00",
-      "verdict": "todo",
-      "verdict_label": "已生成待办",
-      "title": "参加社团宣传部面试",
-      "length": 71,
       "nonce": ""
     }
   ]
