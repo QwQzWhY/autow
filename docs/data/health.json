@@ -1,24 +1,22 @@
 {
-  "generated_at": "2026-10-19T13:01:00+08:00",
+  "generated_at": "2026-10-19T13:58:21+08:00",
   "extractor": {
     "configured": true,
     "mode": "live",
     "model": "deepseek-chat",
     "base_url_host": "api.deepseek.com",
     "probe": {
-      "ok": false,
-      "error": "JSONDecodeError: Expecting value: line 1 column 7 (char 6)",
-      "carried_over": true
+      "ok": true
     },
-    "attempts": 1,
+    "attempts": 2,
     "failures": 0,
     "config_error": null,
-    "ok": false,
+    "ok": true,
     "last_error": "",
     "tokens": {
-      "calls": 1,
-      "prompt": 649,
-      "completion": 37
+      "calls": 3,
+      "prompt": 3708,
+      "completion": 58
     }
   },
   "sources": {
@@ -42,7 +40,7 @@
     },
     "lzu-news": {
       "listed": 20,
-      "ok": 0,
+      "ok": 2,
       "failed": 5,
       "error": ""
     }
