@@ -1,11 +1,19 @@
 {
-  "generated_at": "2026-10-19T09:01:44+08:00",
+  "generated_at": "2026-10-19T09:05:13+08:00",
   "connected": true,
-  "total_received": 77,
-  "total_todos": 18,
-  "today_received": 0,
-  "today_todos": 0,
+  "total_received": 78,
+  "total_todos": 19,
+  "today_received": 1,
+  "today_todos": 1,
   "recent": [
+    {
+      "at": "2026-10-19T09:05:12+08:00",
+      "verdict": "todo",
+      "verdict_label": "已生成待办",
+      "title": "充电结束后拔下充电设备并关闭插座电源",
+      "length": 63,
+      "nonce": ""
+    },
     {
       "at": "2026-10-18T22:02:22+08:00",
       "verdict": "dismissed",
@@ -76,14 +84,6 @@
       "verdict_label": "判断为无需行动",
       "title": "",
       "length": 91,
-      "nonce": ""
-    },
-    {
-      "at": "2026-10-17T17:46:42+08:00",
-      "verdict": "todo",
-      "verdict_label": "已生成待办",
-      "title": "确认是否为智慧团建管理员并联系负责人",
-      "length": 87,
       "nonce": ""
     }
   ]

@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-10-19T09:01:44+08:00",
-  "count": 15,
+  "generated_at": "2026-10-19T09:05:13+08:00",
+  "count": 16,
   "todos": [
     {
       "key": "qq:gmv9k1bjq",
@@ -121,6 +121,21 @@
       "category": "资助通知",
       "published_at": "2026-09-30",
       "status": "done"
+    },
+    {
+      "key": "qq:gmvejxmbq",
+      "title": "充电结束后拔下充电设备并关闭插座电源",
+      "detail": "请同学们在充电结束后，将所有充电设备从插座上拔下，并关闭插座电源，注意用电安全。",
+      "due_at": null,
+      "priority": "normal",
+      "needs_recommendation": false,
+      "content_hash": "c15ff47e07c83804",
+      "source": "qq",
+      "source_label": "QQ 群",
+      "url": "",
+      "category": "QQ 群消息",
+      "published_at": "2026-10-19",
+      "status": "open"
     },
     {
       "key": "qq:gmvdhxnea",
