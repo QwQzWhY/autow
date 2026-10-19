@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-10-19T22:00:39+08:00",
-  "count": 18,
+  "generated_at": "2026-10-19T22:59:48+08:00",
+  "count": 19,
   "todos": [
     {
       "key": "qq:gmv9k1bjq",
@@ -136,6 +136,21 @@
       "category": "资助通知",
       "published_at": "2026-09-30",
       "status": "done"
+    },
+    {
+      "key": "qq:gmvfdrcbk",
+      "title": "配合学生公寓安全卫生检查",
+      "detail": "学生公寓将开展安全与卫生检查，重点排查火灾隐患、保障住宿环境整洁。请按要求整理宿舍、清理违规电器和杂物，具体检查时间与要求通知被截断，全文请回群里查看。",
+      "due_at": null,
+      "priority": "normal",
+      "needs_recommendation": false,
+      "content_hash": "aa00fe92cf105ea1",
+      "source": "qq",
+      "source_label": "QQ 群",
+      "url": "",
+      "category": "QQ 群消息",
+      "published_at": "2026-10-19",
+      "status": "open"
     },
     {
       "key": "qq:gmvf75unl",
