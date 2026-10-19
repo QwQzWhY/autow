@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-10-19T19:39:33+08:00",
-  "count": 16,
+  "generated_at": "2026-10-19T19:55:03+08:00",
+  "count": 17,
   "todos": [
     {
       "key": "qq:gmv9k1bjq",
@@ -121,6 +121,21 @@
       "category": "资助通知",
       "published_at": "2026-09-30",
       "status": "done"
+    },
+    {
+      "key": "qq:gmvf75unl",
+      "title": "查看智慧团建核对团员在读状态及学历",
+      "detail": "班级团员的在读状态及学历信息已修改完毕，请登录智慧团建查看核对；如有问题，及时联系相关同学反馈。",
+      "due_at": null,
+      "priority": "normal",
+      "needs_recommendation": false,
+      "content_hash": "40ebabdf2bd2d2eb",
+      "source": "qq",
+      "source_label": "QQ 群",
+      "url": "",
+      "category": "QQ 群消息",
+      "published_at": "2026-10-19",
+      "status": "open"
     },
     {
       "key": "qq:gmvejxmbq",
