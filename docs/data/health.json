@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-19T22:59:48+08:00",
+  "generated_at": "2026-10-20T03:14:06+08:00",
   "extractor": {
     "configured": true,
     "mode": "live",
@@ -7,18 +7,17 @@
     "base_url_host": "api.deepseek.com",
     "probe": {
       "ok": false,
-      "error": "JSONDecodeError: Expecting value: line 1 column 7 (char 6)",
-      "carried_over": true
+      "error": "JSONDecodeError: Expecting value: line 1 column 7 (char 6)"
     },
-    "attempts": 1,
+    "attempts": 0,
     "failures": 0,
     "config_error": null,
     "ok": false,
     "last_error": "",
     "tokens": {
       "calls": 1,
-      "prompt": 633,
-      "completion": 91
+      "prompt": 42,
+      "completion": 12
     }
   },
   "sources": {
@@ -36,7 +35,7 @@
     },
     "lzu-xgb": {
       "listed": 45,
-      "ok": 2,
+      "ok": 0,
       "failed": 2,
       "error": ""
     },
