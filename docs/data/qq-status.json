@@ -1,11 +1,19 @@
 {
-  "generated_at": "2026-10-19T09:05:13+08:00",
+  "generated_at": "2026-10-19T11:02:05+08:00",
   "connected": true,
-  "total_received": 78,
+  "total_received": 79,
   "total_todos": 19,
-  "today_received": 1,
+  "today_received": 2,
   "today_todos": 1,
   "recent": [
+    {
+      "at": "2026-10-19T11:02:04+08:00",
+      "verdict": "ignored",
+      "verdict_label": "判断为无需行动",
+      "title": "",
+      "length": 31,
+      "nonce": ""
+    },
     {
       "at": "2026-10-19T09:05:12+08:00",
       "verdict": "todo",
@@ -76,14 +84,6 @@
       "verdict_label": "已生成待办",
       "title": "参加社团晚上场宣讲会",
       "length": 87,
-      "nonce": ""
-    },
-    {
-      "at": "2026-10-17T17:50:59+08:00",
-      "verdict": "ignored",
-      "verdict_label": "判断为无需行动",
-      "title": "",
-      "length": 91,
       "nonce": ""
     }
   ]
