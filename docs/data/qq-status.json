@@ -1,11 +1,19 @@
 {
-  "generated_at": "2026-10-19T19:39:18+08:00",
+  "generated_at": "2026-10-19T19:39:33+08:00",
   "connected": true,
-  "total_received": 87,
+  "total_received": 88,
   "total_todos": 19,
-  "today_received": 10,
+  "today_received": 11,
   "today_todos": 1,
   "recent": [
+    {
+      "at": "2026-10-19T19:39:31+08:00",
+      "verdict": "ignored",
+      "verdict_label": "判断为无需行动",
+      "title": "",
+      "length": 133,
+      "nonce": ""
+    },
     {
       "at": "2026-10-19T19:39:17+08:00",
       "verdict": "ignored",
@@ -76,14 +84,6 @@
       "verdict_label": "判断为无需行动",
       "title": "",
       "length": 31,
-      "nonce": ""
-    },
-    {
-      "at": "2026-10-19T09:05:12+08:00",
-      "verdict": "todo",
-      "verdict_label": "已生成待办",
-      "title": "充电结束后拔下充电设备并关闭插座电源",
-      "length": 63,
       "nonce": ""
     }
   ]
