@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-10-19T20:04:38+08:00",
-  "count": 17,
+  "generated_at": "2026-10-19T20:36:00+08:00",
+  "count": 18,
   "todos": [
     {
       "key": "qq:gmv9k1bjq",
@@ -108,6 +108,21 @@
       "status": "done"
     },
     {
+      "key": "lzu-xgb:338670.html",
+      "title": "查看助学金公示名单，有异议可提出",
+      "detail": "第九届感恩中国近现代科学家助学金拟推荐名单已公示，公示期为2026年10月20日至10月26日。如对结果有异议，可在公示期内通过电话0931-5292745/8912745或邮箱zzzx@lzu.edu.cn向孙老师反映。",
+      "due_at": "2026-10-26T23:59",
+      "priority": "normal",
+      "needs_recommendation": false,
+      "content_hash": "",
+      "source": "lzu-xgb",
+      "source_label": "学工部",
+      "url": "https://xgb.lzu.edu.cn/tongzhigonggao/zizhufuwu/2026/1019/338670.html",
+      "category": "资助通知",
+      "published_at": "2026-10-19",
+      "status": "open"
+    },
+    {
       "key": "lzu-xgb:338046.html",
       "title": "申请2026年本科生单项奖学金",
       "detail": "符合条件的本科生可登录学工系统提交申请并上传支撑材料，学院评审截止11月2日。获奖后学年内需完成不少于20小时志愿服务。",
@@ -150,7 +165,7 @@
       "url": "",
       "category": "QQ 群消息",
       "published_at": "2026-10-19",
-      "status": "open"
+      "status": "done"
     },
     {
       "key": "qq:gmvdhxnea",
@@ -180,7 +195,7 @@
       "url": "",
       "category": "QQ 群消息",
       "published_at": "2026-10-18",
-      "status": "open"
+      "status": "done"
     },
     {
       "key": "qq:gmvc7p2pd",
@@ -255,7 +270,7 @@
       "url": "",
       "category": "QQ 群消息",
       "published_at": "2026-10-14",
-      "status": "open"
+      "status": "done"
     }
   ]
 }
