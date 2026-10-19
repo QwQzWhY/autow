@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-19T16:14:35+08:00",
+  "generated_at": "2026-10-19T17:35:57+08:00",
   "count": 16,
   "todos": [
     {
@@ -75,21 +75,6 @@
       "url": "",
       "category": "QQ 群消息",
       "published_at": "2026-10-18",
-      "status": "open"
-    },
-    {
-      "key": "qq:gmveza11d",
-      "title": "参加新生安全教育讲座",
-      "detail": "本周四（2026-10-22）下午两点半参加新生安全教育讲座，讲座会组织签到/刷卡，请按时到场。",
-      "due_at": "2026-10-22T14:30",
-      "priority": "high",
-      "needs_recommendation": false,
-      "content_hash": "065008aba368c668",
-      "source": "qq",
-      "source_label": "QQ 群",
-      "url": "",
-      "category": "QQ 群消息",
-      "published_at": "2026-10-19",
       "status": "open"
     },
     {
