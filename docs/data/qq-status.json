@@ -1,11 +1,19 @@
 {
-  "generated_at": "2026-10-19T14:15:17+08:00",
+  "generated_at": "2026-10-19T15:47:36+08:00",
   "connected": true,
-  "total_received": 83,
+  "total_received": 84,
   "total_todos": 19,
-  "today_received": 6,
+  "today_received": 7,
   "today_todos": 1,
   "recent": [
+    {
+      "at": "2026-10-19T15:47:35+08:00",
+      "verdict": "ignored",
+      "verdict_label": "判断为无需行动",
+      "title": "",
+      "length": 71,
+      "nonce": ""
+    },
     {
       "at": "2026-10-19T14:15:16+08:00",
       "verdict": "ignored",
@@ -76,14 +84,6 @@
       "verdict_label": "已生成待办",
       "title": "报名AI探索者联盟职能部门纳新",
       "length": 83,
-      "nonce": ""
-    },
-    {
-      "at": "2026-10-18T14:46:26+08:00",
-      "verdict": "todo",
-      "verdict_label": "已生成待办",
-      "title": "填写具身智能小组纳新报名",
-      "length": 50,
       "nonce": ""
     }
   ]
