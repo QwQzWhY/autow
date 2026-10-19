@@ -1,11 +1,19 @@
 {
-  "generated_at": "2026-10-19T15:47:36+08:00",
+  "generated_at": "2026-10-19T16:14:23+08:00",
   "connected": true,
-  "total_received": 84,
-  "total_todos": 19,
-  "today_received": 7,
-  "today_todos": 1,
+  "total_received": 85,
+  "total_todos": 20,
+  "today_received": 8,
+  "today_todos": 2,
   "recent": [
+    {
+      "at": "2026-10-19T16:14:21+08:00",
+      "verdict": "todo",
+      "verdict_label": "已生成待办",
+      "title": "参加新生安全教育讲座",
+      "length": 78,
+      "nonce": ""
+    },
     {
       "at": "2026-10-19T15:47:35+08:00",
       "verdict": "ignored",
@@ -76,14 +84,6 @@
       "verdict_label": "判断为无需行动",
       "title": "",
       "length": 61,
-      "nonce": ""
-    },
-    {
-      "at": "2026-10-18T15:36:06+08:00",
-      "verdict": "todo",
-      "verdict_label": "已生成待办",
-      "title": "报名AI探索者联盟职能部门纳新",
-      "length": 83,
       "nonce": ""
     }
   ]
