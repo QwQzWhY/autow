@@ -1,11 +1,19 @@
 {
-  "generated_at": "2026-10-20T17:23:26+08:00",
+  "generated_at": "2026-10-20T22:01:53+08:00",
   "connected": true,
-  "total_received": 100,
+  "total_received": 101,
   "total_todos": 23,
-  "today_received": 8,
+  "today_received": 9,
   "today_todos": 2,
   "recent": [
+    {
+      "at": "2026-10-20T22:01:53+08:00",
+      "verdict": "dismissed",
+      "verdict_label": "你在看板上删过这条，已跳过",
+      "title": "",
+      "length": 40,
+      "nonce": ""
+    },
     {
       "at": "2026-10-20T16:19:50+08:00",
       "verdict": "ignored",
@@ -76,14 +84,6 @@
       "verdict_label": "已生成待办",
       "title": "配合学生公寓安全卫生检查",
       "length": 63,
-      "nonce": ""
-    },
-    {
-      "at": "2026-10-19T22:00:39+08:00",
-      "verdict": "dismissed",
-      "verdict_label": "你在看板上删过这条，已跳过",
-      "title": "",
-      "length": 40,
       "nonce": ""
     }
   ]
