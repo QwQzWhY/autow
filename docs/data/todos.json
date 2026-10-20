@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-10-20T14:01:33+08:00",
-  "count": 20,
+  "generated_at": "2026-10-20T15:12:08+08:00",
+  "count": 21,
   "todos": [
     {
       "key": "qq:gmv9k1bjq",
@@ -151,6 +151,21 @@
       "category": "资助通知",
       "published_at": "2026-09-30",
       "status": "done"
+    },
+    {
+      "key": "qq:gmvgchpe8",
+      "title": "报名AI探索者联盟职能部门纳新",
+      "detail": "社团职能部门正在纳新，有意向的同学按群内通知报名。通知被截断，全文要回群里看。",
+      "due_at": null,
+      "priority": "normal",
+      "needs_recommendation": false,
+      "content_hash": "0361dc041a739559",
+      "source": "qq",
+      "source_label": "QQ 群",
+      "url": "",
+      "category": "QQ 群消息",
+      "published_at": "2026-10-20",
+      "status": "open"
     },
     {
       "key": "qq:gmvfdrcbk",
