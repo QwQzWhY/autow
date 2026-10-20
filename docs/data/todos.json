@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-10-20T12:02:34+08:00",
-  "count": 19,
+  "generated_at": "2026-10-20T12:36:59+08:00",
+  "count": 20,
   "todos": [
     {
       "key": "qq:gmv9k1bjq",
@@ -61,6 +61,21 @@
       "category": "QQ 群消息",
       "published_at": "2026-10-17",
       "status": "done"
+    },
+    {
+      "key": "qq:gmvg6ycsa",
+      "title": "周三中午与班主任见面",
+      "detail": "班主任计划明天与同学见面熟悉，请于本周三中午12:15到14:00之间到场参加。通知被截断，具体地点等全文要回群里看。",
+      "due_at": "2026-10-21T12:15",
+      "priority": "high",
+      "needs_recommendation": false,
+      "content_hash": "103ff4b462cc13a8",
+      "source": "qq",
+      "source_label": "QQ 群",
+      "url": "",
+      "category": "QQ 群消息",
+      "published_at": "2026-10-20",
+      "status": "open"
     },
     {
       "key": "qq:gmvcle4m7",
