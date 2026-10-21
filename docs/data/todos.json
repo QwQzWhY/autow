@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-10-21T15:21:14+08:00",
-  "count": 24,
+  "generated_at": "2026-10-21T16:10:58+08:00",
+  "count": 25,
   "todos": [
     {
       "key": "qq:gmv9k1bjq",
@@ -75,6 +75,21 @@
       "url": "",
       "category": "QQ 群消息",
       "published_at": "2026-10-20",
+      "status": "open"
+    },
+    {
+      "key": "qq:gmvhu1ced",
+      "title": "今晚五点半后配合班主任谈话",
+      "detail": "学校要求班主任与全班同学谈话了解情况，今晚五点半以后老师有时间，请留意后续具体安排并按时参加。",
+      "due_at": "2026-10-21T17:30",
+      "priority": "high",
+      "needs_recommendation": false,
+      "content_hash": "2dbc1f2f94ed19d8",
+      "source": "qq",
+      "source_label": "QQ 群",
+      "url": "",
+      "category": "QQ 群消息",
+      "published_at": "2026-10-21",
       "status": "open"
     },
     {
