@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-10-21T20:13:22+08:00",
-  "count": 25,
+  "generated_at": "2026-10-21T21:40:53+08:00",
+  "count": 26,
   "todos": [
     {
       "key": "qq:gmv9k1bjq",
@@ -75,7 +75,7 @@
       "url": "",
       "category": "QQ 群消息",
       "published_at": "2026-10-20",
-      "status": "open"
+      "status": "done"
     },
     {
       "key": "qq:gmvhu1ced",
@@ -165,7 +165,7 @@
       "url": "https://xgb.lzu.edu.cn/xuegongdongtai/zizhufuwu/2026/1020/338810.html",
       "category": "资助通知",
       "published_at": "2026-10-20",
-      "status": "open"
+      "status": "done"
     },
     {
       "key": "lzu-xgb:338823.html",
@@ -180,6 +180,21 @@
       "url": "https://xgb.lzu.edu.cn/xuegongdongtai/zizhufuwu/2026/1020/338823.html",
       "category": "资助通知",
       "published_at": "2026-10-20",
+      "status": "done"
+    },
+    {
+      "key": "lzu-xgb:338865.html",
+      "title": "查看国奖国励公示名单，有异议可反映",
+      "detail": "2025-2026学年本科生国家奖学金、国家励志奖学金第一批拟推荐名单正在公示，公示期为2026年10月22日至10月28日。请查看附件名单，如有异议可在公示期内通过电话0931-5292745/8912745或邮箱zzzx@lzu.edu.cn实名反映。",
+      "due_at": "2026-10-28T23:59",
+      "priority": "normal",
+      "needs_recommendation": false,
+      "content_hash": "",
+      "source": "lzu-xgb",
+      "source_label": "学工部",
+      "url": "https://xgb.lzu.edu.cn/tongzhigonggao/zizhufuwu/2026/1021/338865.html",
+      "category": "资助通知",
+      "published_at": "2026-10-21",
       "status": "open"
     },
     {
@@ -210,7 +225,7 @@
       "url": "https://jwc.lzu.edu.cn/tongzhigonggao/kaoshizhongxin/2026/1021/338863.html",
       "category": "考试中心",
       "published_at": "2026-10-21",
-      "status": "open"
+      "status": "done"
     },
     {
       "key": "qq:gmvgchpe8",
@@ -225,7 +240,7 @@
       "url": "",
       "category": "QQ 群消息",
       "published_at": "2026-10-20",
-      "status": "open"
+      "status": "done"
     },
     {
       "key": "qq:gmvfdrcbk",
