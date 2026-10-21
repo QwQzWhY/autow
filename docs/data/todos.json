@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-10-21T13:43:30+08:00",
-  "count": 21,
+  "generated_at": "2026-10-21T15:21:14+08:00",
+  "count": 24,
   "todos": [
     {
       "key": "qq:gmv9k1bjq",
@@ -138,6 +138,36 @@
       "status": "done"
     },
     {
+      "key": "lzu-xgb:338810.html",
+      "title": "小米奖助学金拟获奖名单公示，可提异议",
+      "detail": "公示期为2026年10月21日至10月27日，如对拟获奖名单有异议，可在公示期内通过电话0931-5292745或邮箱zzzx@lzu.edu.cn向孙老师反映。",
+      "due_at": "2026-10-27T23:59",
+      "priority": "normal",
+      "needs_recommendation": false,
+      "content_hash": "",
+      "source": "lzu-xgb",
+      "source_label": "学工部",
+      "url": "https://xgb.lzu.edu.cn/xuegongdongtai/zizhufuwu/2026/1020/338810.html",
+      "category": "资助通知",
+      "published_at": "2026-10-20",
+      "status": "open"
+    },
+    {
+      "key": "lzu-xgb:338823.html",
+      "title": "奖学金评审结果公示期内可提异议",
+      "detail": "第九届感恩中国近现代科学家奖学金拟推荐名单正在公示，公示期至2026年10月27日。如对结果有异议，可在公示期内通过电话0931-5292745/8912745或邮箱zzzx@lzu.edu.cn向学生奖助中心反映。",
+      "due_at": "2026-10-27T23:59",
+      "priority": "normal",
+      "needs_recommendation": false,
+      "content_hash": "",
+      "source": "lzu-xgb",
+      "source_label": "学工部",
+      "url": "https://xgb.lzu.edu.cn/xuegongdongtai/zizhufuwu/2026/1020/338823.html",
+      "category": "资助通知",
+      "published_at": "2026-10-20",
+      "status": "open"
+    },
+    {
       "key": "lzu-xgb:338046.html",
       "title": "申请2026年本科生单项奖学金",
       "detail": "符合条件的本科生可登录学工系统提交申请并上传支撑材料，学院评审截止11月2日。获奖后学年内需完成不少于20小时志愿服务。",
@@ -151,6 +181,21 @@
       "category": "资助通知",
       "published_at": "2026-09-30",
       "status": "done"
+    },
+    {
+      "key": "lzu-jwc:338863.html",
+      "title": "关于2026年7月JLPT成绩单的领取说明",
+      "detail": "",
+      "due_at": null,
+      "priority": "normal",
+      "needs_recommendation": false,
+      "content_hash": "",
+      "source": "lzu-jwc",
+      "source_label": "教务处",
+      "url": "https://jwc.lzu.edu.cn/tongzhigonggao/kaoshizhongxin/2026/1021/338863.html",
+      "category": "考试中心",
+      "published_at": "2026-10-21",
+      "status": "open"
     },
     {
       "key": "qq:gmvgchpe8",
