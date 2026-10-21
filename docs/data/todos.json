@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-21T22:02:52+08:00",
+  "generated_at": "2026-10-22T02:35:34+08:00",
   "count": 26,
   "todos": [
     {
@@ -90,7 +90,7 @@
       "url": "",
       "category": "QQ 群消息",
       "published_at": "2026-10-21",
-      "status": "open"
+      "status": "done"
     },
     {
       "key": "qq:gmvcle4m7",
@@ -195,7 +195,7 @@
       "url": "https://xgb.lzu.edu.cn/tongzhigonggao/zizhufuwu/2026/1021/338865.html",
       "category": "资助通知",
       "published_at": "2026-10-21",
-      "status": "open"
+      "status": "done"
     },
     {
       "key": "lzu-xgb:338046.html",

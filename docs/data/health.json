@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-21T22:02:52+08:00",
+  "generated_at": "2026-10-22T02:35:34+08:00",
   "extractor": {
     "configured": true,
     "mode": "live",
@@ -35,7 +35,7 @@
     },
     "lzu-xgb": {
       "listed": 45,
-      "ok": 1,
+      "ok": 0,
       "failed": 2,
       "error": ""
     },
