@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-22T12:20:21+08:00",
+  "generated_at": "2026-10-22T12:20:50+08:00",
   "count": 27,
   "todos": [
     {
@@ -215,11 +215,11 @@
     {
       "key": "qq:gmvj18nk4",
       "title": "报名火种计划核心团队招募",
-      "detail": "兰州大学与启元实验室合作的“火种计划”正在招募核心团队成员，需报名参加。通知被截断，全文要回群里看。",
+      "detail": "兰州大学与启元实验室的“火种计划”核心团队正在招募，感兴趣的同学可报名，下周将组织面试。具体报名方式和截止时间通知中未说明，需回群里查看。",
       "due_at": null,
       "priority": "normal",
       "needs_recommendation": true,
-      "content_hash": "eaeab23b7c5d3917",
+      "content_hash": "0dee35f5ab42297e",
       "source": "qq",
       "source_label": "QQ 群",
       "url": "",
