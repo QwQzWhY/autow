@@ -1,17 +1,17 @@
 {
-  "generated_at": "2026-10-22T16:07:33+08:00",
+  "generated_at": "2026-10-22T16:07:47+08:00",
   "connected": true,
   "total_received": 113,
-  "total_todos": 27,
+  "total_todos": 26,
   "today_received": 5,
-  "today_todos": 3,
+  "today_todos": 2,
   "recent": [
     {
-      "at": "2026-10-22T16:07:31+08:00",
-      "verdict": "todo",
-      "verdict_label": "已生成待办",
-      "title": "报名参加周六学生代表大会",
-      "length": 91,
+      "at": "2026-10-22T16:07:46+08:00",
+      "verdict": "ignored",
+      "verdict_label": "判断为无需行动",
+      "title": "",
+      "length": 136,
       "nonce": ""
     },
     {
