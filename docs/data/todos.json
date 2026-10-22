@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-10-22T21:26:08+08:00",
-  "count": 29,
+  "generated_at": "2026-10-22T21:41:44+08:00",
+  "count": 30,
   "todos": [
     {
       "key": "qq:gmv9k1bjq",
@@ -243,6 +243,21 @@
       "status": "done"
     },
     {
+      "key": "lzu-news:1181085.htm",
+      "title": "申请2026年秋季社会类奖助学金",
+      "detail": "2026年秋季学期共51项社会类奖助学金项目开放评选，请关注学院通知，按要求提交申请材料，学院评选后于11月30日前报送基金会。",
+      "due_at": "2026-11-30T23:59",
+      "priority": "normal",
+      "needs_recommendation": true,
+      "content_hash": "",
+      "source": "lzu-news",
+      "source_label": "学校通知",
+      "url": "https://news.lzu.edu.cn/info/1056/1181085.htm",
+      "category": "学校通知",
+      "published_at": "2026-10-22",
+      "status": "open"
+    },
+    {
       "key": "qq:gmvj18nk4",
       "title": "报名火种计划核心团队招募",
       "detail": "兰州大学与启元实验室的“火种计划”核心团队正在招募，感兴趣的同学可报名，下周将组织面试。具体报名方式和截止时间通知中未说明，需回群里查看。",
@@ -255,7 +270,7 @@
       "url": "",
       "category": "QQ 群消息",
       "published_at": "2026-10-22",
-      "status": "open"
+      "status": "done"
     },
     {
       "key": "lzu-jwc:338863.html",
