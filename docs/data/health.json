@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-22T06:18:39+08:00",
+  "generated_at": "2026-10-22T09:28:01+08:00",
   "extractor": {
     "configured": true,
     "mode": "live",
@@ -7,17 +7,18 @@
     "base_url_host": "api.deepseek.com",
     "probe": {
       "ok": false,
-      "error": "JSONDecodeError: Expecting value: line 1 column 7 (char 6)"
+      "error": "JSONDecodeError: Expecting value: line 1 column 7 (char 6)",
+      "carried_over": true
     },
-    "attempts": 0,
+    "attempts": 3,
     "failures": 0,
     "config_error": null,
     "ok": false,
     "last_error": "",
     "tokens": {
-      "calls": 1,
-      "prompt": 42,
-      "completion": 12
+      "calls": 3,
+      "prompt": 6938,
+      "completion": 142
     }
   },
   "sources": {
@@ -28,20 +29,20 @@
       "error": ""
     },
     "lzu-jwc": {
-      "listed": 54,
+      "listed": 0,
       "ok": 0,
-      "failed": 3,
-      "error": ""
+      "failed": 0,
+      "error": "TimeoutError: Page.goto: Timeout 45000ms exceeded.\nCall log:\n  - navigating to \"https://jwc.lzu.edu.cn/tongzhigonggao/index.html\", waiting until \"domcontentload"
     },
     "lzu-xgb": {
-      "listed": 45,
+      "listed": 0,
       "ok": 0,
-      "failed": 2,
-      "error": ""
+      "failed": 0,
+      "error": "RuntimeError: 资助通知: URLError: <urlopen error [Errno 101] Network is unreachable>；国防教育: URLError: <urlopen error [Errno 101] Network is unreachable>；思政通知: URLErr"
     },
     "lzu-news": {
       "listed": 20,
-      "ok": 0,
+      "ok": 3,
       "failed": 5,
       "error": ""
     }
