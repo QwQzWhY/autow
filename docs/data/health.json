@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-22T21:41:44+08:00",
+  "generated_at": "2026-10-22T22:11:05+08:00",
   "extractor": {
     "configured": true,
     "mode": "live",
@@ -7,17 +7,18 @@
     "base_url_host": "api.deepseek.com",
     "probe": {
       "ok": false,
-      "error": "JSONDecodeError: Expecting value: line 1 column 7 (char 6)"
+      "error": "JSONDecodeError: Expecting value: line 1 column 7 (char 6)",
+      "carried_over": true
     },
-    "attempts": 3,
+    "attempts": 0,
     "failures": 0,
     "config_error": null,
     "ok": false,
     "last_error": "",
     "tokens": {
-      "calls": 4,
-      "prompt": 4242,
-      "completion": 197
+      "calls": 0,
+      "prompt": 0,
+      "completion": 0
     }
   },
   "sources": {
