@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-10-22T12:20:50+08:00",
-  "count": 27,
+  "generated_at": "2026-10-22T15:11:08+08:00",
+  "count": 28,
   "todos": [
     {
       "key": "qq:gmv9k1bjq",
@@ -121,6 +121,21 @@
       "category": "手动录入",
       "published_at": "2026-10-17",
       "status": "done"
+    },
+    {
+      "key": "qq:gmvj7c73f",
+      "title": "反馈是否更换学业导师",
+      "detail": "需要更换学业导师的同学，请于今天（10月22日）18:00前在备注栏填写要更换的导师姓名；未按时反馈的默认不需要更换。学业导师与毕业论文导师可以是不同导师。",
+      "due_at": "2026-10-22T18:00",
+      "priority": "high",
+      "needs_recommendation": false,
+      "content_hash": "88a33d63a4781ede",
+      "source": "qq",
+      "source_label": "QQ 群",
+      "url": "",
+      "category": "QQ 群消息",
+      "published_at": "2026-10-22",
+      "status": "open"
     },
     {
       "key": "lzu-news:1177915.htm",

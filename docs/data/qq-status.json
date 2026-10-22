@@ -1,11 +1,19 @@
 {
-  "generated_at": "2026-10-22T12:20:50+08:00",
+  "generated_at": "2026-10-22T15:11:08+08:00",
   "connected": true,
-  "total_received": 110,
-  "total_todos": 25,
-  "today_received": 2,
-  "today_todos": 1,
+  "total_received": 111,
+  "total_todos": 26,
+  "today_received": 3,
+  "today_todos": 2,
   "recent": [
+    {
+      "at": "2026-10-22T15:11:06+08:00",
+      "verdict": "todo",
+      "verdict_label": "已生成待办",
+      "title": "反馈是否更换学业导师",
+      "length": 138,
+      "nonce": ""
+    },
     {
       "at": "2026-10-22T12:20:43+08:00",
       "verdict": "duplicate",
@@ -76,14 +84,6 @@
       "verdict_label": "判断为无需行动",
       "title": "",
       "length": 239,
-      "nonce": ""
-    },
-    {
-      "at": "2026-10-20T22:01:53+08:00",
-      "verdict": "dismissed",
-      "verdict_label": "你在看板上删过这条，已跳过",
-      "title": "",
-      "length": 40,
       "nonce": ""
     }
   ]
