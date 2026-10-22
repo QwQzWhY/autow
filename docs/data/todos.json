@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-10-22T22:11:05+08:00",
-  "count": 30,
+  "generated_at": "2026-10-23T02:40:09+08:00",
+  "count": 32,
   "todos": [
     {
       "key": "qq:gmv9k1bjq",
@@ -226,6 +226,36 @@
       "category": "资助通知",
       "published_at": "2026-10-21",
       "status": "done"
+    },
+    {
+      "key": "lzu-xgb:338903.html",
+      "title": "港澳台侨学生奖学金结果公示，可提异议",
+      "detail": "2026年港澳及华侨学生奖学金、台湾学生奖学金拟获奖名单正在公示，公示期为10月23日至10月29日。如对结果有异议，可在公示期内通过电话0931-5292745/8912745或邮箱zzzx@lzu.edu.cn向孙老师反映。",
+      "due_at": "2026-10-29T23:59",
+      "priority": "normal",
+      "needs_recommendation": false,
+      "content_hash": "",
+      "source": "lzu-xgb",
+      "source_label": "学工部",
+      "url": "https://xgb.lzu.edu.cn/tongzhigonggao/zizhufuwu/2026/1022/338903.html",
+      "category": "资助通知",
+      "published_at": "2026-10-22",
+      "status": "open"
+    },
+    {
+      "key": "lzu-xgb:338878.html",
+      "title": "国家奖学金拟推荐名单公示，可提异议",
+      "detail": "2025-2026学年第二批本科生国家奖学金拟推荐名单正在公示，公示期为2026年10月23日至10月29日。如对名单有异议，可在公示期内通过电话0931-5292745/8912745或邮箱zzzx@lzu.edu.cn实名反映，反映内容须客观准确。",
+      "due_at": "2026-10-29T23:59",
+      "priority": "normal",
+      "needs_recommendation": false,
+      "content_hash": "",
+      "source": "lzu-xgb",
+      "source_label": "学工部",
+      "url": "https://xgb.lzu.edu.cn/tongzhigonggao/zizhufuwu/2026/1022/338878.html",
+      "category": "资助通知",
+      "published_at": "2026-10-22",
+      "status": "open"
     },
     {
       "key": "lzu-xgb:338046.html",

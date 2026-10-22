@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-22T22:11:05+08:00",
+  "generated_at": "2026-10-23T02:40:09+08:00",
   "extractor": {
     "configured": true,
     "mode": "live",
@@ -10,15 +10,15 @@
       "error": "JSONDecodeError: Expecting value: line 1 column 7 (char 6)",
       "carried_over": true
     },
-    "attempts": 0,
+    "attempts": 2,
     "failures": 0,
     "config_error": null,
     "ok": false,
     "last_error": "",
     "tokens": {
-      "calls": 0,
-      "prompt": 0,
-      "completion": 0
+      "calls": 2,
+      "prompt": 2874,
+      "completion": 244
     }
   },
   "sources": {
@@ -30,19 +30,19 @@
     },
     "lzu-jwc": {
       "listed": 54,
-      "ok": 1,
+      "ok": 0,
       "failed": 3,
       "error": ""
     },
     "lzu-xgb": {
       "listed": 45,
-      "ok": 0,
+      "ok": 2,
       "failed": 2,
       "error": ""
     },
     "lzu-news": {
       "listed": 20,
-      "ok": 2,
+      "ok": 0,
       "failed": 4,
       "error": ""
     }
