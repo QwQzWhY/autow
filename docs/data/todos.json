@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-10-22T09:28:01+08:00",
-  "count": 26,
+  "generated_at": "2026-10-22T12:20:21+08:00",
+  "count": 27,
   "todos": [
     {
       "key": "qq:gmv9k1bjq",
@@ -211,6 +211,21 @@
       "category": "资助通知",
       "published_at": "2026-09-30",
       "status": "done"
+    },
+    {
+      "key": "qq:gmvj18nk4",
+      "title": "报名火种计划核心团队招募",
+      "detail": "兰州大学与启元实验室合作的“火种计划”正在招募核心团队成员，需报名参加。通知被截断，全文要回群里看。",
+      "due_at": null,
+      "priority": "normal",
+      "needs_recommendation": true,
+      "content_hash": "eaeab23b7c5d3917",
+      "source": "qq",
+      "source_label": "QQ 群",
+      "url": "",
+      "category": "QQ 群消息",
+      "published_at": "2026-10-22",
+      "status": "open"
     },
     {
       "key": "lzu-jwc:338863.html",

@@ -1,11 +1,19 @@
 {
-  "generated_at": "2026-10-22T09:28:01+08:00",
+  "generated_at": "2026-10-22T12:20:21+08:00",
   "connected": true,
-  "total_received": 108,
-  "total_todos": 24,
-  "today_received": 0,
-  "today_todos": 0,
+  "total_received": 109,
+  "total_todos": 25,
+  "today_received": 1,
+  "today_todos": 1,
   "recent": [
+    {
+      "at": "2026-10-22T12:20:20+08:00",
+      "verdict": "todo",
+      "verdict_label": "已生成待办",
+      "title": "报名火种计划核心团队招募",
+      "length": 66,
+      "nonce": ""
+    },
     {
       "at": "2026-10-21T22:02:52+08:00",
       "verdict": "dismissed",
@@ -76,14 +84,6 @@
       "verdict_label": "判断为无需行动",
       "title": "",
       "length": 70,
-      "nonce": ""
-    },
-    {
-      "at": "2026-10-20T15:46:42+08:00",
-      "verdict": "ignored",
-      "verdict_label": "判断为无需行动",
-      "title": "",
-      "length": 42,
       "nonce": ""
     }
   ]
