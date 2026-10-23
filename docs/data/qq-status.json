@@ -1,11 +1,19 @@
 {
-  "generated_at": "2026-10-23T12:56:04+08:00",
+  "generated_at": "2026-10-23T14:25:56+08:00",
   "connected": true,
-  "total_received": 119,
+  "total_received": 120,
   "total_todos": 28,
-  "today_received": 3,
+  "today_received": 4,
   "today_todos": 1,
   "recent": [
+    {
+      "at": "2026-10-23T14:25:54+08:00",
+      "verdict": "ignored",
+      "verdict_label": "判断为无需行动",
+      "title": "",
+      "length": 69,
+      "nonce": ""
+    },
     {
       "at": "2026-10-23T12:56:03+08:00",
       "verdict": "todo",
@@ -76,14 +84,6 @@
       "verdict_label": "已生成待办",
       "title": "反馈是否更换学业导师",
       "length": 138,
-      "nonce": ""
-    },
-    {
-      "at": "2026-10-22T12:20:43+08:00",
-      "verdict": "duplicate",
-      "verdict_label": "重复消息，已忽略",
-      "title": "报名火种计划核心团队招募",
-      "length": 109,
       "nonce": ""
     }
   ]
