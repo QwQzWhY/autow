@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-10-23T19:26:52+08:00",
-  "count": 38,
+  "generated_at": "2026-10-23T21:17:28+08:00",
+  "count": 39,
   "todos": [
     {
       "key": "qq:gmv9k1bjq",
@@ -331,6 +331,21 @@
       "category": "学校通知",
       "published_at": "2026-10-22",
       "status": "done"
+    },
+    {
+      "key": "lzu-xgb:339082.html",
+      "title": "申请西藏地震临时困难补助",
+      "detail": "家庭所在地受西藏那曲地震影响、家庭经济出现临时困难的学生，登录新学工系统“临时补助”模块提交申请并上传证明材料（https://xg.lzu.edu.cn/subsidy/examine/list）。",
+      "due_at": null,
+      "priority": "high",
+      "needs_recommendation": false,
+      "content_hash": "",
+      "source": "lzu-xgb",
+      "source_label": "学工部",
+      "url": "https://xgb.lzu.edu.cn/tongzhigonggao/zizhufuwu/2026/1023/339082.html",
+      "category": "资助通知",
+      "published_at": "2026-10-23",
+      "status": "open"
     },
     {
       "key": "qq:gmvkody2z",
