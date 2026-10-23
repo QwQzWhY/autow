@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-10-23T06:27:51+08:00",
-  "count": 32,
+  "generated_at": "2026-10-23T09:24:43+08:00",
+  "count": 33,
   "todos": [
     {
       "key": "qq:gmv9k1bjq",
@@ -135,7 +135,7 @@
       "url": "",
       "category": "QQ 群消息",
       "published_at": "2026-10-22",
-      "status": "open"
+      "status": "done"
     },
     {
       "key": "qq:gmvjkqg7w",
@@ -150,7 +150,7 @@
       "url": "",
       "category": "QQ 群消息",
       "published_at": "2026-10-22",
-      "status": "open"
+      "status": "done"
     },
     {
       "key": "lzu-news:1177915.htm",
@@ -240,7 +240,7 @@
       "url": "https://xgb.lzu.edu.cn/tongzhigonggao/zizhufuwu/2026/1022/338903.html",
       "category": "资助通知",
       "published_at": "2026-10-22",
-      "status": "open"
+      "status": "done"
     },
     {
       "key": "lzu-xgb:338878.html",
@@ -255,6 +255,21 @@
       "url": "https://xgb.lzu.edu.cn/tongzhigonggao/zizhufuwu/2026/1022/338878.html",
       "category": "资助通知",
       "published_at": "2026-10-22",
+      "status": "done"
+    },
+    {
+      "key": "lzu-jwc:338879.html",
+      "title": "完成本学期期中学生评教",
+      "detail": "登录信息服务门户（my.lzu.edu.cn）进入“本科质量监测”评教任务，或通过兰州大学APP“更多-听评课-学生评教”完成匿名评价，截止10月31日。",
+      "due_at": "2026-10-31T23:59",
+      "priority": "high",
+      "needs_recommendation": false,
+      "content_hash": "",
+      "source": "lzu-jwc",
+      "source_label": "教务处",
+      "url": "https://jwc.lzu.edu.cn/tongzhigonggao/jiaoxuezhiliangguanli/2026/1023/338879.html",
+      "category": "教学质量管理",
+      "published_at": "2026-10-23",
       "status": "open"
     },
     {
@@ -285,7 +300,7 @@
       "url": "https://news.lzu.edu.cn/info/1056/1181085.htm",
       "category": "学校通知",
       "published_at": "2026-10-22",
-      "status": "open"
+      "status": "done"
     },
     {
       "key": "qq:gmvj18nk4",
