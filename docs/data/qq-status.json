@@ -1,11 +1,19 @@
 {
-  "generated_at": "2026-10-23T15:13:14+08:00",
+  "generated_at": "2026-10-23T15:56:09+08:00",
   "connected": true,
-  "total_received": 120,
-  "total_todos": 29,
-  "today_received": 4,
-  "today_todos": 2,
+  "total_received": 121,
+  "total_todos": 30,
+  "today_received": 5,
+  "today_todos": 3,
   "recent": [
+    {
+      "at": "2026-10-23T15:56:07+08:00",
+      "verdict": "todo",
+      "verdict_label": "已生成待办",
+      "title": "完成学生期中评教",
+      "length": 85,
+      "nonce": ""
+    },
     {
       "at": "2026-10-23T14:26:06+08:00",
       "verdict": "todo",
@@ -76,14 +84,6 @@
       "verdict_label": "判断为无需行动",
       "title": "",
       "length": 94,
-      "nonce": ""
-    },
-    {
-      "at": "2026-10-22T15:11:06+08:00",
-      "verdict": "todo",
-      "verdict_label": "已生成待办",
-      "title": "反馈是否更换学业导师",
-      "length": 138,
       "nonce": ""
     }
   ]

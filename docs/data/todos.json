@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-10-23T15:13:14+08:00",
-  "count": 36,
+  "generated_at": "2026-10-23T15:56:09+08:00",
+  "count": 37,
   "todos": [
     {
       "key": "qq:gmv9k1bjq",
@@ -316,6 +316,21 @@
       "category": "学校通知",
       "published_at": "2026-10-22",
       "status": "done"
+    },
+    {
+      "key": "qq:gmvkody2z",
+      "title": "完成学生期中评教",
+      "detail": "教务处已发布2026-2027学年第一学期学生期中评教通知，请按通知要求完成评教。通知被截断，全文要回群里看。",
+      "due_at": null,
+      "priority": "normal",
+      "needs_recommendation": false,
+      "content_hash": "323fe39dfcbbb71d",
+      "source": "qq",
+      "source_label": "QQ 群",
+      "url": "",
+      "category": "QQ 群消息",
+      "published_at": "2026-10-23",
+      "status": "open"
     },
     {
       "key": "qq:gmvkl66fg",
