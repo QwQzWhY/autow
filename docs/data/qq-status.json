@@ -1,11 +1,19 @@
 {
-  "generated_at": "2026-10-23T18:11:04+08:00",
+  "generated_at": "2026-10-23T19:26:52+08:00",
   "connected": true,
-  "total_received": 124,
+  "total_received": 125,
   "total_todos": 31,
-  "today_received": 8,
+  "today_received": 9,
   "today_todos": 4,
   "recent": [
+    {
+      "at": "2026-10-23T19:26:51+08:00",
+      "verdict": "ignored",
+      "verdict_label": "判断为无需行动",
+      "title": "",
+      "length": 51,
+      "nonce": ""
+    },
     {
       "at": "2026-10-23T18:11:03+08:00",
       "verdict": "todo",
@@ -76,14 +84,6 @@
       "verdict_label": "你在看板上删过这条，已跳过",
       "title": "",
       "length": 40,
-      "nonce": ""
-    },
-    {
-      "at": "2026-10-22T21:26:06+08:00",
-      "verdict": "todo",
-      "verdict_label": "已生成待办",
-      "title": "核对学业导师名单是否有遗漏",
-      "length": 120,
       "nonce": ""
     }
   ]
