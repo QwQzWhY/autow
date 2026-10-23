@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-10-23T17:11:30+08:00",
-  "count": 37,
+  "generated_at": "2026-10-23T18:11:04+08:00",
+  "count": 38,
   "todos": [
     {
       "key": "qq:gmv9k1bjq",
@@ -179,6 +179,21 @@
       "source_label": "教务处",
       "url": "https://jwc.lzu.edu.cn/tongzhigonggao/shijianjiaoxue/2026/1023/338977.html",
       "category": "实践教学",
+      "published_at": "2026-10-23",
+      "status": "open"
+    },
+    {
+      "key": "qq:gmvkt7j2x",
+      "title": "参加心理测评",
+      "detail": "下周一（2026-10-26）中午13:00到致远楼1楼会议厅参加心理测评，全体同学都要参加。",
+      "due_at": "2026-10-26T13:00",
+      "priority": "high",
+      "needs_recommendation": false,
+      "content_hash": "4bb9fb475e1e565f",
+      "source": "qq",
+      "source_label": "QQ 群",
+      "url": "",
+      "category": "QQ 群消息",
       "published_at": "2026-10-23",
       "status": "open"
     },

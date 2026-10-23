@@ -1,11 +1,19 @@
 {
-  "generated_at": "2026-10-23T17:11:30+08:00",
+  "generated_at": "2026-10-23T18:11:04+08:00",
   "connected": true,
-  "total_received": 123,
-  "total_todos": 30,
-  "today_received": 7,
-  "today_todos": 3,
+  "total_received": 124,
+  "total_todos": 31,
+  "today_received": 8,
+  "today_todos": 4,
   "recent": [
+    {
+      "at": "2026-10-23T18:11:03+08:00",
+      "verdict": "todo",
+      "verdict_label": "已生成待办",
+      "title": "参加心理测评",
+      "length": 79,
+      "nonce": ""
+    },
     {
       "at": "2026-10-23T17:11:29+08:00",
       "verdict": "ignored",
@@ -76,14 +84,6 @@
       "verdict_label": "已生成待办",
       "title": "核对学业导师名单是否有遗漏",
       "length": 120,
-      "nonce": ""
-    },
-    {
-      "at": "2026-10-22T16:08:03+08:00",
-      "verdict": "ignored",
-      "verdict_label": "判断为无需行动",
-      "title": "",
-      "length": 52,
       "nonce": ""
     }
   ]
