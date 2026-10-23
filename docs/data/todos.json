@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-10-23T23:55:57+08:00",
-  "count": 38,
+  "generated_at": "2026-10-24T02:16:55+08:00",
+  "count": 39,
   "todos": [
     {
       "key": "qq:gmv9k1bjq",
@@ -180,7 +180,7 @@
       "url": "https://jwc.lzu.edu.cn/tongzhigonggao/shijianjiaoxue/2026/1023/338977.html",
       "category": "实践教学",
       "published_at": "2026-10-23",
-      "status": "open"
+      "status": "done"
     },
     {
       "key": "qq:gmvkt7j2x",
@@ -333,6 +333,21 @@
       "status": "done"
     },
     {
+      "key": "lzu-xgb:339082.html",
+      "title": "申请西藏地震临时困难补助",
+      "detail": "家庭所在地受西藏那曲地震影响、家庭经济出现临时困难的学生，可登录新学工系统“临时补助”模块提交申请并上传证明材料（https://xg.lzu.edu.cn/subsidy/examine/list）。",
+      "due_at": null,
+      "priority": "high",
+      "needs_recommendation": false,
+      "content_hash": "",
+      "source": "lzu-xgb",
+      "source_label": "学工部",
+      "url": "https://xgb.lzu.edu.cn/tongzhigonggao/zizhufuwu/2026/1023/339082.html",
+      "category": "资助通知",
+      "published_at": "2026-10-23",
+      "status": "open"
+    },
+    {
       "key": "qq:gmvkody2z",
       "title": "完成学生期中评教",
       "detail": "教务处已发布2026-2027学年第一学期学生期中评教通知，请按通知要求完成评教。通知被截断，全文要回群里看。",
@@ -360,7 +375,7 @@
       "url": "",
       "category": "QQ 群消息",
       "published_at": "2026-10-23",
-      "status": "open"
+      "status": "done"
     },
     {
       "key": "qq:gmvkhyfs9",
@@ -375,7 +390,7 @@
       "url": "",
       "category": "QQ 群消息",
       "published_at": "2026-10-23",
-      "status": "open"
+      "status": "done"
     },
     {
       "key": "qq:gmvj18nk4",
