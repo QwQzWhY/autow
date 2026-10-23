@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-10-23T11:55:57+08:00",
-  "count": 33,
+  "generated_at": "2026-10-23T12:56:04+08:00",
+  "count": 34,
   "todos": [
     {
       "key": "qq:gmv9k1bjq",
@@ -301,6 +301,21 @@
       "category": "学校通知",
       "published_at": "2026-10-22",
       "status": "done"
+    },
+    {
+      "key": "qq:gmvkhyfs9",
+      "title": "尽快转接智慧团建组织关系",
+      "detail": "智慧团建组织关系尚未转到大学的同学，请尽快将组织关系转到大学所在学院班级支部。",
+      "due_at": null,
+      "priority": "normal",
+      "needs_recommendation": false,
+      "content_hash": "663d0655ade24b19",
+      "source": "qq",
+      "source_label": "QQ 群",
+      "url": "",
+      "category": "QQ 群消息",
+      "published_at": "2026-10-23",
+      "status": "open"
     },
     {
       "key": "qq:gmvj18nk4",
