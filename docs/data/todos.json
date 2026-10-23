@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-10-23T14:26:07+08:00",
-  "count": 35,
+  "generated_at": "2026-10-23T15:13:14+08:00",
+  "count": 36,
   "todos": [
     {
       "key": "qq:gmv9k1bjq",
@@ -166,6 +166,21 @@
       "category": "学校通知",
       "published_at": "2026-10-13",
       "status": "done"
+    },
+    {
+      "key": "lzu-jwc:338977.html",
+      "title": "对创新大赛校赛获奖名单提异议",
+      "detail": "2026年大学生新文科实践创新大赛校赛获奖名单正在公示，如对结果有异议，请在10月25日前以实名方式向教务处实践教学办公室反馈（电话0931-5298706，邮箱sjk@lzu.edu.cn）。",
+      "due_at": "2026-10-25T23:59",
+      "priority": "normal",
+      "needs_recommendation": false,
+      "content_hash": "",
+      "source": "lzu-jwc",
+      "source_label": "教务处",
+      "url": "https://jwc.lzu.edu.cn/tongzhigonggao/shijianjiaoxue/2026/1023/338977.html",
+      "category": "实践教学",
+      "published_at": "2026-10-23",
+      "status": "open"
     },
     {
       "key": "lzu-xgb:338670.html",
