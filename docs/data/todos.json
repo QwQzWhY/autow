@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-10-24T23:14:06+08:00",
-  "count": 46,
+  "generated_at": "2026-10-24T23:14:40+08:00",
+  "count": 47,
   "todos": [
     {
       "key": "qq:gmv9k1bjq",
@@ -331,6 +331,21 @@
       "category": "资助通知",
       "published_at": "2026-09-30",
       "status": "done"
+    },
+    {
+      "key": "manual:ozeca9gr",
+      "title": "U校园U3",
+      "detail": "",
+      "due_at": "2026-11-07T23:14",
+      "priority": "normal",
+      "needs_recommendation": false,
+      "content_hash": "",
+      "source": "manual",
+      "source_label": "manual",
+      "url": "",
+      "category": "手动录入",
+      "published_at": "2026-10-24",
+      "status": "open"
     },
     {
       "key": "note:y3qzjsg0",
