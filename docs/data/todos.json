@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-10-24T23:15:58+08:00",
-  "count": 49,
+  "generated_at": "2026-10-25T02:02:36+08:00",
+  "count": 43,
   "todos": [
     {
       "key": "qq:gmv9k1bjq",
@@ -166,21 +166,6 @@
       "category": "学校通知",
       "published_at": "2026-10-13",
       "status": "done"
-    },
-    {
-      "key": "note:h5tu2uvl",
-      "title": "按顺序完成Unit 1至Unit 6必修内容",
-      "detail": "先查阅“教程目录”确认所有单元的必修内容，再严格按Unit 1至Unit 6的顺序学习（单元内部可自由安排）。Course preview和Unit 6无时间限制、正确率达0%即可过关，但系统仅记录首次成绩，需谨慎作答；Unit 1至Unit 5客观题过关正确率须≥60%，且须在各自限定时间段内完成（Unit 1：2026/09/21至10/11；Unit 2：10/12至10/25；Unit 3：10/26至11/08；Unit 4：11/09至11/22；Unit 5：11/23至12/06），这五个单元记录最高一次成绩，可多次测试刷新高分。",
-      "due_at": "2026-10-25T23:59",
-      "priority": "high",
-      "needs_recommendation": false,
-      "content_hash": "",
-      "source": "note",
-      "source_label": "note",
-      "url": "",
-      "category": "手动录入",
-      "published_at": "2026-10-24",
-      "status": "open"
     },
     {
       "key": "lzu-jwc:338977.html",
@@ -360,7 +345,7 @@
       "url": "",
       "category": "手动录入",
       "published_at": "2026-10-24",
-      "status": "open"
+      "status": "done"
     },
     {
       "key": "manual:lpm56oic",
@@ -421,96 +406,6 @@
       "category": "资助通知",
       "published_at": "2026-10-23",
       "status": "done"
-    },
-    {
-      "key": "manual:gysxbsnb",
-      "title": "U校园U6",
-      "detail": "",
-      "due_at": null,
-      "priority": "normal",
-      "needs_recommendation": false,
-      "content_hash": "",
-      "source": "manual",
-      "source_label": "manual",
-      "url": "",
-      "category": "手动录入",
-      "published_at": "2026-10-24",
-      "status": "open"
-    },
-    {
-      "key": "note:pgbp1hqq",
-      "title": "Unit 4 What's the big idea?：请务必在2026/11/09 至 2026/11/22期间完成本…（后文略）",
-      "detail": "Unit 4 What's the big idea?：请务必在2026/11/09 至 2026/11/22期间完成本单元学习！客观题正确率需≥60%才能过关，成绩按“最高一次成绩”计算，记得在截止日期前完成测试。",
-      "due_at": null,
-      "priority": "normal",
-      "needs_recommendation": false,
-      "content_hash": "",
-      "source": "note",
-      "source_label": "note",
-      "url": "",
-      "category": "手动录入",
-      "published_at": "2026-10-24",
-      "status": "open"
-    },
-    {
-      "key": "manual:aj9bq9uc",
-      "title": "U校园U3",
-      "detail": "",
-      "due_at": null,
-      "priority": "normal",
-      "needs_recommendation": false,
-      "content_hash": "",
-      "source": "manual",
-      "source_label": "manual",
-      "url": "",
-      "category": "手动录入",
-      "published_at": "2026-10-24",
-      "status": "open"
-    },
-    {
-      "key": "note:151f0uaz",
-      "title": "Unit 4 What's the big idea?：请务必在2026/11/09 至 2026/11/22期间完成本…（后文略）",
-      "detail": "Unit 4 What's the big idea?：请务必在2026/11/09 至 2026/11/22期间完成本单元学习！客观题正确率需≥60%才能过关，成绩按“最高一次成绩”计算，记得在截止日期前完成测试。",
-      "due_at": null,
-      "priority": "normal",
-      "needs_recommendation": false,
-      "content_hash": "",
-      "source": "note",
-      "source_label": "note",
-      "url": "",
-      "category": "手动录入",
-      "published_at": "2026-10-24",
-      "status": "open"
-    },
-    {
-      "key": "note:jf9l7ibt",
-      "title": "完成 Unit 6 客观题练习",
-      "detail": "本单元无时间限制，过关条件为客观题正确率≥0%，成绩按“首次成绩”统计，建议复习充分后再提交。",
-      "due_at": null,
-      "priority": "normal",
-      "needs_recommendation": false,
-      "content_hash": "",
-      "source": "note",
-      "source_label": "note",
-      "url": "",
-      "category": "手动录入",
-      "published_at": "2026-10-24",
-      "status": "open"
-    },
-    {
-      "key": "note:2vyst0bh",
-      "title": "Unit 4 What's the big idea?：请务必在2026/11/09 至 2026/11/22期间完成本…（后文略）",
-      "detail": "Unit 4 What's the big idea?：请务必在2026/11/09 至 2026/11/22期间完成本单元学习！客观题正确率需≥60%才能过关，成绩按“最高一次成绩”计算，记得在截止日期前完成测试。",
-      "due_at": null,
-      "priority": "normal",
-      "needs_recommendation": false,
-      "content_hash": "",
-      "source": "note",
-      "source_label": "note",
-      "url": "",
-      "category": "手动录入",
-      "published_at": "2026-10-24",
-      "status": "open"
     },
     {
       "key": "qq:gmvkody2z",
