@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-10-24T23:15:12+08:00",
-  "count": 48,
+  "generated_at": "2026-10-24T23:15:32+08:00",
+  "count": 49,
   "todos": [
     {
       "key": "qq:gmv9k1bjq",
@@ -391,6 +391,21 @@
       "category": "学校通知",
       "published_at": "2026-10-22",
       "status": "done"
+    },
+    {
+      "key": "manual:fwdi31hw",
+      "title": "U校园U5",
+      "detail": "",
+      "due_at": "2026-12-05T23:15",
+      "priority": "normal",
+      "needs_recommendation": false,
+      "content_hash": "",
+      "source": "manual",
+      "source_label": "manual",
+      "url": "",
+      "category": "手动录入",
+      "published_at": "2026-10-24",
+      "status": "open"
     },
     {
       "key": "lzu-xgb:339082.html",
