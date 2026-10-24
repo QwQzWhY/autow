@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-10-24T23:08:20+08:00",
-  "count": 40,
+  "generated_at": "2026-10-24T23:10:13+08:00",
+  "count": 41,
   "todos": [
     {
       "key": "qq:gmv9k1bjq",
@@ -331,6 +331,21 @@
       "category": "资助通知",
       "published_at": "2026-09-30",
       "status": "done"
+    },
+    {
+      "key": "note:y3qzjsg0",
+      "title": "完成 Unit 3 学习并达到客观题正确率≥60%",
+      "detail": "请在 2026/10/26 至 2026/11/08 期间完成 Unit 3 Love your neighbor 的学习，客观题正确率需≥60% 才能过关，成绩按最高一次成绩计算，可安排多次练习。",
+      "due_at": "2026-11-08T23:59",
+      "priority": "normal",
+      "needs_recommendation": false,
+      "content_hash": "",
+      "source": "note",
+      "source_label": "note",
+      "url": "",
+      "category": "手动录入",
+      "published_at": "2026-10-24",
+      "status": "open"
     },
     {
       "key": "lzu-news:1181085.htm",
