@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-24T23:10:13+08:00",
+  "generated_at": "2026-10-24T23:10:25+08:00",
   "count": 41,
   "todos": [
     {
@@ -376,6 +376,21 @@
       "category": "资助通知",
       "published_at": "2026-10-23",
       "status": "done"
+    },
+    {
+      "key": "note:2vyst0bh",
+      "title": "Unit 4 What's the big idea?：请务必在2026/11/09 至 2026/11/22期间完成本…（后文略）",
+      "detail": "Unit 4 What's the big idea?：请务必在2026/11/09 至 2026/11/22期间完成本单元学习！客观题正确率需≥60%才能过关，成绩按“最高一次成绩”计算，记得在截止日期前完成测试。",
+      "due_at": null,
+      "priority": "normal",
+      "needs_recommendation": false,
+      "content_hash": "",
+      "source": "note",
+      "source_label": "note",
+      "url": "",
+      "category": "手动录入",
+      "published_at": "2026-10-24",
+      "status": "open"
     },
     {
       "key": "qq:gmvkody2z",
