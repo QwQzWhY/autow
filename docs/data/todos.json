@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-10-24T23:10:42+08:00",
-  "count": 42,
+  "generated_at": "2026-10-24T23:12:12+08:00",
+  "count": 43,
   "todos": [
     {
       "key": "qq:gmv9k1bjq",
@@ -376,6 +376,21 @@
       "category": "资助通知",
       "published_at": "2026-10-23",
       "status": "done"
+    },
+    {
+      "key": "note:jf9l7ibt",
+      "title": "完成 Unit 6 客观题练习",
+      "detail": "本单元无时间限制，过关条件为客观题正确率≥0%，成绩按“首次成绩”统计，建议复习充分后再提交。",
+      "due_at": null,
+      "priority": "normal",
+      "needs_recommendation": false,
+      "content_hash": "",
+      "source": "note",
+      "source_label": "note",
+      "url": "",
+      "category": "手动录入",
+      "published_at": "2026-10-24",
+      "status": "open"
     },
     {
       "key": "note:2vyst0bh",
