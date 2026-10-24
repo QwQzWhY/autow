@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-10-24T22:25:43+08:00",
-  "count": 39,
+  "generated_at": "2026-10-24T23:08:20+08:00",
+  "count": 40,
   "todos": [
     {
       "key": "qq:gmv9k1bjq",
@@ -166,6 +166,21 @@
       "category": "学校通知",
       "published_at": "2026-10-13",
       "status": "done"
+    },
+    {
+      "key": "note:h5tu2uvl",
+      "title": "按顺序完成Unit 1至Unit 6必修内容",
+      "detail": "先查阅“教程目录”确认所有单元的必修内容，再严格按Unit 1至Unit 6的顺序学习（单元内部可自由安排）。Course preview和Unit 6无时间限制、正确率达0%即可过关，但系统仅记录首次成绩，需谨慎作答；Unit 1至Unit 5客观题过关正确率须≥60%，且须在各自限定时间段内完成（Unit 1：2026/09/21至10/11；Unit 2：10/12至10/25；Unit 3：10/26至11/08；Unit 4：11/09至11/22；Unit 5：11/23至12/06），这五个单元记录最高一次成绩，可多次测试刷新高分。",
+      "due_at": "2026-10-25T23:59",
+      "priority": "high",
+      "needs_recommendation": false,
+      "content_hash": "",
+      "source": "note",
+      "source_label": "note",
+      "url": "",
+      "category": "手动录入",
+      "published_at": "2026-10-24",
+      "status": "open"
     },
     {
       "key": "lzu-jwc:338977.html",
