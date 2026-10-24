@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-10-24T23:14:40+08:00",
-  "count": 47,
+  "generated_at": "2026-10-24T23:15:12+08:00",
+  "count": 48,
   "todos": [
     {
       "key": "qq:gmv9k1bjq",
@@ -357,6 +357,21 @@
       "content_hash": "",
       "source": "note",
       "source_label": "note",
+      "url": "",
+      "category": "手动录入",
+      "published_at": "2026-10-24",
+      "status": "open"
+    },
+    {
+      "key": "manual:lpm56oic",
+      "title": "U校园U4",
+      "detail": "",
+      "due_at": "2026-11-21T23:14",
+      "priority": "normal",
+      "needs_recommendation": false,
+      "content_hash": "",
+      "source": "manual",
+      "source_label": "manual",
       "url": "",
       "category": "手动录入",
       "published_at": "2026-10-24",
