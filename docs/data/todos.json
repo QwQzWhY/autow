@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-10-26T17:58:43+08:00",
-  "count": 43,
+  "generated_at": "2026-10-27T00:43:24+08:00",
+  "count": 44,
   "todos": [
     {
       "key": "qq:gmv9k1bjq",
@@ -286,6 +286,21 @@
       "category": "资助通知",
       "published_at": "2026-10-22",
       "status": "done"
+    },
+    {
+      "key": "lzu-xgb:339233.html",
+      "title": "国家奖学金补充公示期内可提异议",
+      "detail": "2025-2026学年国家奖学金、国家励志奖学金拟推荐人选补充公示，公示期为2026年10月26日至10月30日。如对名单有异议，可在公示期内通过电话0931-5292745或邮箱zzzx@lzu.edu.cn实名反映。",
+      "due_at": "2026-10-30T23:59",
+      "priority": "normal",
+      "needs_recommendation": false,
+      "content_hash": "",
+      "source": "lzu-xgb",
+      "source_label": "学工部",
+      "url": "https://xgb.lzu.edu.cn/tongzhigonggao/zizhufuwu/2026/1026/339233.html",
+      "category": "资助通知",
+      "published_at": "2026-10-26",
+      "status": "open"
     },
     {
       "key": "lzu-jwc:338879.html",
