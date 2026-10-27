@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-10-27T09:22:14+08:00",
-  "count": 44,
+  "generated_at": "2026-10-27T15:35:09+08:00",
+  "count": 45,
   "todos": [
     {
       "key": "qq:gmv9k1bjq",
@@ -286,6 +286,21 @@
       "category": "资助通知",
       "published_at": "2026-10-22",
       "status": "done"
+    },
+    {
+      "key": "lzu-news:1182885.htm",
+      "title": "报名参加第十二届“至公杯”法律辩论赛",
+      "detail": "各学院组建1支代表队参赛，每队4至12人（含1名领队），全体在校本科生均可参加。10月30日前填写参赛报名表发送至weimch2024@lzu.edu.cn，需先经学院组队选拔。",
+      "due_at": "2026-10-30T23:59",
+      "priority": "high",
+      "needs_recommendation": true,
+      "content_hash": "",
+      "source": "lzu-news",
+      "source_label": "学校通知",
+      "url": "https://news.lzu.edu.cn/info/1056/1182885.htm",
+      "category": "学校通知",
+      "published_at": "2026-10-27",
+      "status": "open"
     },
     {
       "key": "lzu-xgb:339233.html",
