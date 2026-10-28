@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-10-28T12:43:43+08:00",
-  "count": 45,
+  "generated_at": "2026-10-28T19:11:59+08:00",
+  "count": 46,
   "todos": [
     {
       "key": "qq:gmv9k1bjq",
@@ -436,6 +436,21 @@
       "category": "资助通知",
       "published_at": "2026-10-23",
       "status": "done"
+    },
+    {
+      "key": "lzu-jwc:339407.html",
+      "title": "领取188回J.TEST成绩证书",
+      "detail": "携带身份证原件到城关校区东区杏林楼705室领取，周一至周五工作时间；无法现场领取可发邮件至kszx@lzu.edu.cn申请邮寄，费用自理。",
+      "due_at": null,
+      "priority": "normal",
+      "needs_recommendation": false,
+      "content_hash": "",
+      "source": "lzu-jwc",
+      "source_label": "教务处",
+      "url": "https://jwc.lzu.edu.cn/tongzhigonggao/kaoshizhongxin/2026/1028/339407.html",
+      "category": "考试中心",
+      "published_at": "2026-10-28",
+      "status": "open"
     },
     {
       "key": "qq:gmvkody2z",
