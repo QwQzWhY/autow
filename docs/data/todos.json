@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-29T16:57:07+08:00",
+  "generated_at": "2026-10-29T16:57:19+08:00",
   "count": 48,
   "todos": [
     {
@@ -256,6 +256,21 @@
       "category": "资助通知",
       "published_at": "2026-10-21",
       "status": "done"
+    },
+    {
+      "key": "qq:gmvtb7nzw",
+      "title": "安全讲座后留下开年级大会",
+      "detail": "安全讲座结束后不要离开，仍在原教室继续参加年级大会；需要交同意书的同学可当场交给负责同学。",
+      "due_at": "2026-10-29T17:00",
+      "priority": "high",
+      "needs_recommendation": false,
+      "content_hash": "1ef7cf5e0d7a2a7c",
+      "source": "qq",
+      "source_label": "QQ 群",
+      "url": "",
+      "category": "QQ 群消息",
+      "published_at": "2026-10-29",
+      "status": "open"
     },
     {
       "key": "lzu-xgb:338903.html",

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-29T16:57:07+08:00",
+  "generated_at": "2026-10-29T16:57:19+08:00",
   "connected": true,
   "total_received": 138,
   "total_todos": 33,
@@ -7,11 +7,11 @@
   "today_todos": 2,
   "recent": [
     {
-      "at": "2026-10-29T16:57:06+08:00",
+      "at": "2026-10-29T16:57:18+08:00",
       "verdict": "todo",
       "verdict_label": "已生成待办",
-      "title": "完成群内签到",
-      "length": 112,
+      "title": "安全讲座后留下开年级大会",
+      "length": 177,
       "nonce": ""
     },
     {
