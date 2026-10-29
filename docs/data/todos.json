@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-10-29T14:39:33+08:00",
-  "count": 46,
+  "generated_at": "2026-10-29T14:47:37+08:00",
+  "count": 47,
   "todos": [
     {
       "key": "qq:gmv9k1bjq",
@@ -286,6 +286,21 @@
       "category": "资助通知",
       "published_at": "2026-10-22",
       "status": "done"
+    },
+    {
+      "key": "qq:gmvt6ge1y",
+      "title": "报名社团部门干事纳新",
+      "detail": "社团部门干事纳新报名截止到明晚23:00（2026-10-30T23:00），后天进行线下面试，想报名部门干事的同学请尽快报名。",
+      "due_at": "2026-10-30T23:00",
+      "priority": "high",
+      "needs_recommendation": false,
+      "content_hash": "829ee552ebbbfeca",
+      "source": "qq",
+      "source_label": "QQ 群",
+      "url": "",
+      "category": "QQ 群消息",
+      "published_at": "2026-10-29",
+      "status": "open"
     },
     {
       "key": "lzu-news:1182885.htm",

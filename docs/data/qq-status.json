@@ -1,11 +1,19 @@
 {
-  "generated_at": "2026-10-29T14:39:33+08:00",
+  "generated_at": "2026-10-29T14:47:37+08:00",
   "connected": true,
-  "total_received": 136,
-  "total_todos": 31,
-  "today_received": 1,
-  "today_todos": 0,
+  "total_received": 137,
+  "total_todos": 32,
+  "today_received": 2,
+  "today_todos": 1,
   "recent": [
+    {
+      "at": "2026-10-29T14:47:36+08:00",
+      "verdict": "todo",
+      "verdict_label": "已生成待办",
+      "title": "报名社团部门干事纳新",
+      "length": 179,
+      "nonce": ""
+    },
     {
       "at": "2026-10-29T14:39:32+08:00",
       "verdict": "ignored",
@@ -76,14 +84,6 @@
       "verdict_label": "判断为无需行动",
       "title": "",
       "length": 66,
-      "nonce": ""
-    },
-    {
-      "at": "2026-10-23T22:25:58+08:00",
-      "verdict": "dismissed",
-      "verdict_label": "你在看板上删过这条，已跳过",
-      "title": "",
-      "length": 40,
       "nonce": ""
     }
   ]
