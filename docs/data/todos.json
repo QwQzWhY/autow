@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-10-29T17:40:03+08:00",
-  "count": 48,
+  "generated_at": "2026-10-29T20:49:05+08:00",
+  "count": 49,
   "todos": [
     {
       "key": "qq:gmv9k1bjq",
@@ -466,6 +466,21 @@
       "category": "资助通知",
       "published_at": "2026-10-23",
       "status": "done"
+    },
+    {
+      "key": "qq:gmvtjht6d",
+      "title": "填写社团问卷",
+      "detail": "群内发布了问卷链接，需要填写。通知被截断，全文要回群里看。",
+      "due_at": null,
+      "priority": "normal",
+      "needs_recommendation": false,
+      "content_hash": "28057fb401d21130",
+      "source": "qq",
+      "source_label": "QQ 群",
+      "url": "",
+      "category": "QQ 群消息",
+      "published_at": "2026-10-29",
+      "status": "open"
     },
     {
       "key": "lzu-jwc:339407.html",

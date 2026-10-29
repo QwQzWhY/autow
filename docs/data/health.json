@@ -1,22 +1,23 @@
 {
-  "generated_at": "2026-10-29T17:40:03+08:00",
+  "generated_at": "2026-10-29T20:49:05+08:00",
   "extractor": {
     "configured": true,
     "mode": "live",
     "model": "deepseek-chat",
     "base_url_host": "api.deepseek.com",
     "probe": {
-      "ok": true
+      "ok": true,
+      "carried_over": true
     },
-    "attempts": 2,
+    "attempts": 1,
     "failures": 0,
     "config_error": null,
     "ok": true,
     "last_error": "",
     "tokens": {
-      "calls": 3,
-      "prompt": 2750,
-      "completion": 54
+      "calls": 1,
+      "prompt": 645,
+      "completion": 62
     }
   },
   "sources": {
