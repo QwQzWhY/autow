@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-10-29T14:47:37+08:00",
-  "count": 47,
+  "generated_at": "2026-10-29T16:57:07+08:00",
+  "count": 48,
   "todos": [
     {
       "key": "qq:gmv9k1bjq",
@@ -435,6 +435,21 @@
       "url": "",
       "category": "手动录入",
       "published_at": "2026-10-24",
+      "status": "open"
+    },
+    {
+      "key": "qq:gmvt8k4ys",
+      "title": "完成群内签到",
+      "detail": "群内发布了签到要求，请按要求完成签到。",
+      "due_at": null,
+      "priority": "high",
+      "needs_recommendation": false,
+      "content_hash": "9ec065a9ad647707",
+      "source": "qq",
+      "source_label": "QQ 群",
+      "url": "",
+      "category": "QQ 群消息",
+      "published_at": "2026-10-29",
       "status": "open"
     },
     {

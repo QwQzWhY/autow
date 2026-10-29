@@ -1,11 +1,19 @@
 {
-  "generated_at": "2026-10-29T14:47:37+08:00",
+  "generated_at": "2026-10-29T16:57:07+08:00",
   "connected": true,
-  "total_received": 137,
-  "total_todos": 32,
-  "today_received": 2,
-  "today_todos": 1,
+  "total_received": 138,
+  "total_todos": 33,
+  "today_received": 3,
+  "today_todos": 2,
   "recent": [
+    {
+      "at": "2026-10-29T16:57:06+08:00",
+      "verdict": "todo",
+      "verdict_label": "已生成待办",
+      "title": "完成群内签到",
+      "length": 112,
+      "nonce": ""
+    },
     {
       "at": "2026-10-29T14:47:36+08:00",
       "verdict": "todo",
@@ -76,14 +84,6 @@
       "verdict_label": "判断为无需行动",
       "title": "",
       "length": 189,
-      "nonce": ""
-    },
-    {
-      "at": "2026-10-23T23:55:56+08:00",
-      "verdict": "ignored",
-      "verdict_label": "判断为无需行动",
-      "title": "",
-      "length": 66,
       "nonce": ""
     }
   ]
