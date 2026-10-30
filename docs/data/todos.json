@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-10-30T16:21:35+08:00",
-  "count": 49,
+  "generated_at": "2026-10-30T18:26:49+08:00",
+  "count": 50,
   "todos": [
     {
       "key": "qq:gmv9k1bjq",
@@ -346,6 +346,21 @@
       "category": "资助通知",
       "published_at": "2026-10-26",
       "status": "done"
+    },
+    {
+      "key": "qq:gmvutu5d4",
+      "title": "参加组织部面试",
+      "detail": "组织部面试定于明天（10月31日）下午1点开始，具体地点通知被截断，全文要回群里看。",
+      "due_at": "2026-10-31T13:00",
+      "priority": "high",
+      "needs_recommendation": false,
+      "content_hash": "d5ce8198a661ab73",
+      "source": "qq",
+      "source_label": "QQ 群",
+      "url": "",
+      "category": "QQ 群消息",
+      "published_at": "2026-10-30",
+      "status": "open"
     },
     {
       "key": "lzu-jwc:338879.html",
