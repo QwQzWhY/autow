@@ -1,11 +1,19 @@
 {
-  "generated_at": "2026-10-30T20:11:37+08:00",
+  "generated_at": "2026-10-30T20:41:59+08:00",
   "connected": true,
-  "total_received": 147,
-  "total_todos": 36,
-  "today_received": 6,
-  "today_todos": 2,
+  "total_received": 148,
+  "total_todos": 37,
+  "today_received": 7,
+  "today_todos": 3,
   "recent": [
+    {
+      "at": "2026-10-30T20:41:58+08:00",
+      "verdict": "todo",
+      "verdict_label": "已生成待办",
+      "title": "参加AI探索者联盟宣传部面试",
+      "length": 71,
+      "nonce": ""
+    },
     {
       "at": "2026-10-30T20:11:36+08:00",
       "verdict": "ignored",
@@ -76,14 +84,6 @@
       "verdict_label": "已生成待办",
       "title": "填写社团问卷",
       "length": 71,
-      "nonce": ""
-    },
-    {
-      "at": "2026-10-29T16:57:18+08:00",
-      "verdict": "todo",
-      "verdict_label": "已生成待办",
-      "title": "安全讲座后留下开年级大会",
-      "length": 177,
       "nonce": ""
     }
   ]

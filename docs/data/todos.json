@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-10-30T20:11:37+08:00",
-  "count": 51,
+  "generated_at": "2026-10-30T20:41:59+08:00",
+  "count": 52,
   "todos": [
     {
       "key": "qq:gmv9k1bjq",
@@ -346,6 +346,21 @@
       "category": "资助通知",
       "published_at": "2026-10-26",
       "status": "done"
+    },
+    {
+      "key": "qq:gmvuyoafw",
+      "title": "参加AI探索者联盟宣传部面试",
+      "detail": "AI探索者联盟宣传部面试定于明天（2026-10-31）上午9:00—11:00进行，请按时参加。",
+      "due_at": "2026-10-31T09:00",
+      "priority": "high",
+      "needs_recommendation": false,
+      "content_hash": "e30f412aa21d7b11",
+      "source": "qq",
+      "source_label": "QQ 群",
+      "url": "",
+      "category": "QQ 群消息",
+      "published_at": "2026-10-30",
+      "status": "open"
     },
     {
       "key": "qq:gmvutu5d4",
