@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-10-30T18:26:49+08:00",
-  "count": 50,
+  "generated_at": "2026-10-30T18:43:19+08:00",
+  "count": 51,
   "todos": [
     {
       "key": "qq:gmv9k1bjq",
@@ -355,6 +355,21 @@
       "priority": "high",
       "needs_recommendation": false,
       "content_hash": "d5ce8198a661ab73",
+      "source": "qq",
+      "source_label": "QQ 群",
+      "url": "",
+      "category": "QQ 群消息",
+      "published_at": "2026-10-30",
+      "status": "open"
+    },
+    {
+      "key": "qq:gmvuufj7l",
+      "title": "参加宣传部面试",
+      "detail": "宣传部面试定于明天（10月31日）下午15:00—18:00进行，具体地点通知被截断，全文要回群里看。",
+      "due_at": "2026-10-31T15:00",
+      "priority": "high",
+      "needs_recommendation": false,
+      "content_hash": "70f946ebef83e886",
       "source": "qq",
       "source_label": "QQ 群",
       "url": "",
