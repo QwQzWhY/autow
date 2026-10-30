@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-10-30T22:01:10+08:00",
-  "count": 52,
+  "generated_at": "2026-10-30T23:46:42+08:00",
+  "count": 53,
   "todos": [
     {
       "key": "qq:gmv9k1bjq",
@@ -270,7 +270,7 @@
       "url": "",
       "category": "QQ 群消息",
       "published_at": "2026-10-29",
-      "status": "open"
+      "status": "done"
     },
     {
       "key": "lzu-xgb:338903.html",
@@ -315,7 +315,7 @@
       "url": "",
       "category": "QQ 群消息",
       "published_at": "2026-10-29",
-      "status": "open"
+      "status": "done"
     },
     {
       "key": "lzu-news:1182885.htm",
@@ -360,7 +360,7 @@
       "url": "",
       "category": "QQ 群消息",
       "published_at": "2026-10-30",
-      "status": "open"
+      "status": "done"
     },
     {
       "key": "qq:gmvutu5d4",
@@ -375,7 +375,7 @@
       "url": "",
       "category": "QQ 群消息",
       "published_at": "2026-10-30",
-      "status": "open"
+      "status": "done"
     },
     {
       "key": "qq:gmvuufj7l",
@@ -390,7 +390,7 @@
       "url": "",
       "category": "QQ 群消息",
       "published_at": "2026-10-30",
-      "status": "open"
+      "status": "done"
     },
     {
       "key": "lzu-jwc:338879.html",
@@ -421,6 +421,21 @@
       "category": "资助通知",
       "published_at": "2026-09-30",
       "status": "done"
+    },
+    {
+      "key": "lzu-jwc:339530.html",
+      "title": "报名教务处勤工助学项目制岗位",
+      "detail": "教务处面向全校学生招聘40人左右，共4类9个岗位，不限专业。填写附件2报名表，附个人简历及证明材料合并为PDF，并在链接提交课表截图，每人限报2个岗位。截止2026年11月6日。",
+      "due_at": "2026-11-06T23:59",
+      "priority": "high",
+      "needs_recommendation": false,
+      "content_hash": "",
+      "source": "lzu-jwc",
+      "source_label": "教务处",
+      "url": "https://jwc.lzu.edu.cn/tongzhigonggao/jxyxygl/2026/1030/339530.html",
+      "category": "教学运行与管理",
+      "published_at": "2026-10-30",
+      "status": "open"
     },
     {
       "key": "manual:ozeca9gr",
