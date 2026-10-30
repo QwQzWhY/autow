@@ -1,11 +1,19 @@
 {
-  "generated_at": "2026-10-30T18:43:19+08:00",
+  "generated_at": "2026-10-30T20:11:37+08:00",
   "connected": true,
-  "total_received": 146,
+  "total_received": 147,
   "total_todos": 36,
-  "today_received": 5,
+  "today_received": 6,
   "today_todos": 2,
   "recent": [
+    {
+      "at": "2026-10-30T20:11:36+08:00",
+      "verdict": "ignored",
+      "verdict_label": "判断为无需行动",
+      "title": "",
+      "length": 47,
+      "nonce": ""
+    },
     {
       "at": "2026-10-30T18:43:18+08:00",
       "verdict": "todo",
@@ -76,14 +84,6 @@
       "verdict_label": "已生成待办",
       "title": "安全讲座后留下开年级大会",
       "length": 177,
-      "nonce": ""
-    },
-    {
-      "at": "2026-10-29T14:47:36+08:00",
-      "verdict": "todo",
-      "verdict_label": "已生成待办",
-      "title": "报名社团部门干事纳新",
-      "length": 179,
       "nonce": ""
     }
   ]
