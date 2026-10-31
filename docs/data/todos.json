@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-10-31T14:51:44+08:00",
-  "count": 56,
+  "generated_at": "2026-10-31T15:04:04+08:00",
+  "count": 57,
   "todos": [
     {
       "key": "qq:gmv9k1bjq",
@@ -541,6 +541,21 @@
       "category": "资助通知",
       "published_at": "2026-10-23",
       "status": "done"
+    },
+    {
+      "key": "qq:gmvw21v6r",
+      "title": "参加组织部等部门干事面试",
+      "detail": "组织部、宣传部、财务部干事面试在致远楼51进行，通知被截断，具体时间和地点全文要回群里看。",
+      "due_at": null,
+      "priority": "normal",
+      "needs_recommendation": false,
+      "content_hash": "57b023fbfdc6e6a5",
+      "source": "qq",
+      "source_label": "QQ 群",
+      "url": "",
+      "category": "QQ 群消息",
+      "published_at": "2026-10-31",
+      "status": "open"
     },
     {
       "key": "qq:gmvvu8rg1",
