@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-10-31T10:24:48+08:00",
-  "count": 54,
+  "generated_at": "2026-10-31T10:39:06+08:00",
+  "count": 55,
   "todos": [
     {
       "key": "qq:gmv9k1bjq",
@@ -541,6 +541,21 @@
       "category": "资助通知",
       "published_at": "2026-10-23",
       "status": "done"
+    },
+    {
+      "key": "qq:gmvvsl3wc",
+      "title": "到致远楼512面试财务办公室干事",
+      "detail": "有意愿面试财务办公室干事的同学可前往致远楼512参加面试，未报名的也欢迎。",
+      "due_at": null,
+      "priority": "normal",
+      "needs_recommendation": false,
+      "content_hash": "b11285d55b394289",
+      "source": "qq",
+      "source_label": "QQ 群",
+      "url": "",
+      "category": "QQ 群消息",
+      "published_at": "2026-10-31",
+      "status": "open"
     },
     {
       "key": "qq:gmvtjht6d",
