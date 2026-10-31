@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-31T10:24:24+08:00",
+  "generated_at": "2026-10-31T10:24:48+08:00",
   "count": 54,
   "todos": [
     {
@@ -393,21 +393,6 @@
       "status": "done"
     },
     {
-      "key": "qq:gmvvs261j",
-      "title": "在辅导猫上完成查课签到",
-      "detail": "今天班级查课，请及时在辅导猫上完成签到。",
-      "due_at": "2026-10-31T23:59",
-      "priority": "high",
-      "needs_recommendation": false,
-      "content_hash": "069a64ff297ff28d",
-      "source": "qq",
-      "source_label": "QQ 群",
-      "url": "",
-      "category": "QQ 群消息",
-      "published_at": "2026-10-31",
-      "status": "open"
-    },
-    {
       "key": "lzu-jwc:338879.html",
       "title": "完成本学期期中学生评教",
       "detail": "登录信息服务门户（my.lzu.edu.cn）进入“本科质量监测”评教任务，或通过兰州大学APP“更多-听评课-学生评教”完成匿名评价，截止10月31日。",
@@ -525,6 +510,21 @@
       "url": "",
       "category": "手动录入",
       "published_at": "2026-10-24",
+      "status": "open"
+    },
+    {
+      "key": "qq:gmvvs261j",
+      "title": "在辅导猫上完成查课签到",
+      "detail": "今天班级查课，需在辅导猫上签到，签到在一小时后开始，请及时完成。",
+      "due_at": null,
+      "priority": "high",
+      "needs_recommendation": false,
+      "content_hash": "fdf86320b9dcc812",
+      "source": "qq",
+      "source_label": "QQ 群",
+      "url": "",
+      "category": "QQ 群消息",
+      "published_at": "2026-10-31",
       "status": "open"
     },
     {
