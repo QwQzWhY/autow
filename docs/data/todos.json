@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-10-31T08:37:13+08:00",
-  "count": 53,
+  "generated_at": "2026-10-31T10:24:24+08:00",
+  "count": 54,
   "todos": [
     {
       "key": "qq:gmv9k1bjq",
@@ -391,6 +391,21 @@
       "category": "QQ 群消息",
       "published_at": "2026-10-30",
       "status": "done"
+    },
+    {
+      "key": "qq:gmvvs261j",
+      "title": "在辅导猫上完成查课签到",
+      "detail": "今天班级查课，请及时在辅导猫上完成签到。",
+      "due_at": "2026-10-31T23:59",
+      "priority": "high",
+      "needs_recommendation": false,
+      "content_hash": "069a64ff297ff28d",
+      "source": "qq",
+      "source_label": "QQ 群",
+      "url": "",
+      "category": "QQ 群消息",
+      "published_at": "2026-10-31",
+      "status": "open"
     },
     {
       "key": "lzu-jwc:338879.html",
