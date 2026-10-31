@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-10-31T10:39:59+08:00",
-  "count": 55,
+  "generated_at": "2026-10-31T11:25:31+08:00",
+  "count": 56,
   "todos": [
     {
       "key": "qq:gmv9k1bjq",
@@ -541,6 +541,21 @@
       "category": "资助通知",
       "published_at": "2026-10-23",
       "status": "done"
+    },
+    {
+      "key": "qq:gmvvu8rg1",
+      "title": "完成签到",
+      "detail": "在群里按要求完成签到。",
+      "due_at": null,
+      "priority": "normal",
+      "needs_recommendation": false,
+      "content_hash": "b1305210143e9f7d",
+      "source": "qq",
+      "source_label": "QQ 群",
+      "url": "",
+      "category": "QQ 群消息",
+      "published_at": "2026-10-31",
+      "status": "open"
     },
     {
       "key": "qq:gmvvsl3wc",
