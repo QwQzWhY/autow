@@ -1,11 +1,19 @@
 {
-  "generated_at": "2026-10-31T21:31:22+08:00",
+  "generated_at": "2026-10-31T22:01:15+08:00",
   "connected": true,
-  "total_received": 158,
+  "total_received": 159,
   "total_todos": 41,
-  "today_received": 9,
+  "today_received": 10,
   "today_todos": 4,
   "recent": [
+    {
+      "at": "2026-10-31T22:01:15+08:00",
+      "verdict": "dismissed",
+      "verdict_label": "你在看板上删过这条，已跳过",
+      "title": "",
+      "length": 40,
+      "nonce": ""
+    },
     {
       "at": "2026-10-31T17:49:49+08:00",
       "verdict": "ignored",
@@ -76,14 +84,6 @@
       "verdict_label": "已生成待办",
       "title": "在辅导猫上完成查课签到",
       "length": 70,
-      "nonce": ""
-    },
-    {
-      "at": "2026-10-30T22:01:10+08:00",
-      "verdict": "dismissed",
-      "verdict_label": "你在看板上删过这条，已跳过",
-      "title": "",
-      "length": 40,
       "nonce": ""
     }
   ]
