@@ -1,11 +1,19 @@
 {
-  "generated_at": "2026-10-31T11:25:31+08:00",
+  "generated_at": "2026-10-31T12:13:37+08:00",
   "connected": true,
-  "total_received": 154,
+  "total_received": 155,
   "total_todos": 40,
-  "today_received": 5,
+  "today_received": 6,
   "today_todos": 3,
   "recent": [
+    {
+      "at": "2026-10-31T12:13:36+08:00",
+      "verdict": "ignored",
+      "verdict_label": "判断为无需行动",
+      "title": "",
+      "length": 66,
+      "nonce": ""
+    },
     {
       "at": "2026-10-31T11:25:29+08:00",
       "verdict": "todo",
@@ -76,14 +84,6 @@
       "verdict_label": "已生成待办",
       "title": "参加宣传部面试",
       "length": 78,
-      "nonce": ""
-    },
-    {
-      "at": "2026-10-30T18:26:48+08:00",
-      "verdict": "todo",
-      "verdict_label": "已生成待办",
-      "title": "参加组织部面试",
-      "length": 71,
       "nonce": ""
     }
   ]
