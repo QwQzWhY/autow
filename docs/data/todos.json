@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-01T19:42:12+08:00",
-  "count": 58,
+  "generated_at": "2026-11-01T21:48:29+08:00",
+  "count": 59,
   "todos": [
     {
       "key": "qq:gmv9k1bjq",
@@ -541,6 +541,21 @@
       "category": "资助通知",
       "published_at": "2026-10-23",
       "status": "done"
+    },
+    {
+      "key": "note:focfjtcj",
+      "title": "关注纳新通知并准备参加下周六纳新",
+      "detail": "本次纳新预计在下周六进行，形式和之前一样，地点等待后续通知，纳新人数未定但不多于10人，请留意后续通知并提前做好准备。",
+      "due_at": null,
+      "priority": "normal",
+      "needs_recommendation": false,
+      "content_hash": "",
+      "source": "note",
+      "source_label": "note",
+      "url": "",
+      "category": "手动录入",
+      "published_at": "2026-11-01",
+      "status": "open"
     },
     {
       "key": "qq:gmvxodkit",
