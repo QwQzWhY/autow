@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-02T09:02:03+08:00",
-  "count": 60,
+  "generated_at": "2026-11-02T11:52:24+08:00",
+  "count": 61,
   "todos": [
     {
       "key": "qq:gmv9k1bjq",
@@ -541,6 +541,21 @@
       "category": "资助通知",
       "published_at": "2026-10-23",
       "status": "done"
+    },
+    {
+      "key": "note:d65wjm1x",
+      "title": "一、预赛时间和地点：",
+      "detail": "一、预赛时间和地点：\n\n时间：2026年11月14日（星期六）上午9:00－11:30\n\n地点：兰州大学榆中校区（具体地点另行通知）",
+      "due_at": null,
+      "priority": "normal",
+      "needs_recommendation": false,
+      "content_hash": "",
+      "source": "note",
+      "source_label": "note",
+      "url": "",
+      "category": "手动录入",
+      "published_at": "2026-11-02",
+      "status": "open"
     },
     {
       "key": "qq:gmvyjxsxq",
