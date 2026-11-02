@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-02T11:52:24+08:00",
-  "count": 61,
+  "generated_at": "2026-11-02T11:57:41+08:00",
+  "count": 62,
   "todos": [
     {
       "key": "qq:gmv9k1bjq",
@@ -541,6 +541,21 @@
       "category": "资助通知",
       "published_at": "2026-10-23",
       "status": "done"
+    },
+    {
+      "key": "qq:gmvyq9ueb",
+      "title": "规范停放自行车",
+      "detail": "将自行车停放在划定的白色标线区域内，整齐摆放，严禁乱停乱放。",
+      "due_at": null,
+      "priority": "normal",
+      "needs_recommendation": false,
+      "content_hash": "cefcc59254ddabd9",
+      "source": "qq",
+      "source_label": "QQ 群",
+      "url": "",
+      "category": "QQ 群消息",
+      "published_at": "2026-11-02",
+      "status": "open"
     },
     {
       "key": "note:d65wjm1x",

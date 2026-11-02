@@ -1,11 +1,19 @@
 {
-  "generated_at": "2026-11-02T11:52:24+08:00",
+  "generated_at": "2026-11-02T11:57:41+08:00",
   "connected": true,
-  "total_received": 165,
-  "total_todos": 43,
-  "today_received": 1,
-  "today_todos": 1,
+  "total_received": 166,
+  "total_todos": 44,
+  "today_received": 2,
+  "today_todos": 2,
   "recent": [
+    {
+      "at": "2026-11-02T11:57:40+08:00",
+      "verdict": "todo",
+      "verdict_label": "已生成待办",
+      "title": "规范停放自行车",
+      "length": 66,
+      "nonce": ""
+    },
     {
       "at": "2026-11-02T09:02:01+08:00",
       "verdict": "todo",
@@ -75,14 +83,6 @@
       "verdict": "ignored",
       "verdict_label": "判断为无需行动",
       "title": "",
-      "length": 71,
-      "nonce": ""
-    },
-    {
-      "at": "2026-10-31T15:04:02+08:00",
-      "verdict": "todo",
-      "verdict_label": "已生成待办",
-      "title": "参加组织部等部门干事面试",
       "length": 71,
       "nonce": ""
     }
