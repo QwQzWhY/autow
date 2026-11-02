@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-02T22:17:14+08:00",
-  "count": 62,
+  "generated_at": "2026-11-03T02:03:23+08:00",
+  "count": 66,
   "todos": [
     {
       "key": "qq:gmv9k1bjq",
@@ -423,6 +423,36 @@
       "status": "done"
     },
     {
+      "key": "lzu-xgb:339618.html",
+      "title": "申请火箭军砺剑助学金",
+      "detail": "面向2026级少数民族新生，符合条件者登录学工系统提交申请，并填写申请表、名册等材料，11月4日前向学院提交，纸质版一式两份报送榆中校区行远楼108或医学校区学生事务大厅，电子版发至zzzx@lzu.edu.cn。",
+      "due_at": "2026-11-04T23:59",
+      "priority": "high",
+      "needs_recommendation": false,
+      "content_hash": "",
+      "source": "lzu-xgb",
+      "source_label": "学工部",
+      "url": "https://xgb.lzu.edu.cn/tongzhigonggao/zizhufuwu/2026/1102/339618.html",
+      "category": "资助通知",
+      "published_at": "2026-11-02",
+      "status": "open"
+    },
+    {
+      "key": "lzu-news:1184925.htm",
+      "title": "报名四六级帮扶志愿服务队",
+      "detail": "面向全校本科生招募四六级帮扶志愿者，需扫码填写报名问卷并加入群聊，报名截止11月6日12:00；四级志愿者要求四级550分以上，六级志愿者要求六级500分以上。",
+      "due_at": "2026-11-06T12:00",
+      "priority": "high",
+      "needs_recommendation": false,
+      "content_hash": "",
+      "source": "lzu-news",
+      "source_label": "学校通知",
+      "url": "https://news.lzu.edu.cn/info/1056/1184925.htm",
+      "category": "学校通知",
+      "published_at": "2026-11-02",
+      "status": "open"
+    },
+    {
       "key": "lzu-jwc:339530.html",
       "title": "报名教务处勤工助学项目制岗位",
       "detail": "教务处面向全校学生招聘40人左右，共4类9个岗位，不限专业。填写附件2报名表，附个人简历及证明材料合并为PDF，并在链接提交课表截图，每人限报2个岗位。截止2026年11月6日。",
@@ -466,6 +496,36 @@
       "category": "手动录入",
       "published_at": "2026-10-24",
       "status": "done"
+    },
+    {
+      "key": "lzu-xgb:339640.html",
+      "title": "查看助学金公示名单并可提异议",
+      "detail": "2026-2027学年家庭经济困难学生认定及国家助学金拟受助名单（第一批）已公示，公示期11月3日至11月9日。请查看附件名单，如有异议可在公示期内通过电话0931-8912745或邮箱zzzx@lzu.edu.cn实名反映。",
+      "due_at": "2026-11-09T23:59",
+      "priority": "normal",
+      "needs_recommendation": false,
+      "content_hash": "",
+      "source": "lzu-xgb",
+      "source_label": "学工部",
+      "url": "https://xgb.lzu.edu.cn/tongzhigonggao/zizhufuwu/2026/1102/339640.html",
+      "category": "资助通知",
+      "published_at": "2026-11-02",
+      "status": "open"
+    },
+    {
+      "key": "lzu-news:1155125.htm",
+      "title": "报名参加优秀理论宣讲微视频征集",
+      "detail": "可个人或团队创作理论宣讲微视频（时长不超过8分钟，2025年11月以来原创），填写申报表并经所在单位签字盖章后，于11月10日17:00前将电子版发至dwxcb@lzu.edu.cn或报送贵勤楼B413。",
+      "due_at": "2026-11-10T17:00",
+      "priority": "normal",
+      "needs_recommendation": false,
+      "content_hash": "",
+      "source": "lzu-news",
+      "source_label": "学校通知",
+      "url": "https://news.lzu.edu.cn/info/1056/1155125.htm",
+      "category": "学校通知",
+      "published_at": "2026-07-13",
+      "status": "open"
     },
     {
       "key": "manual:lpm56oic",
