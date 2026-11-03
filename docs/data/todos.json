@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-03T10:12:24+08:00",
-  "count": 67,
+  "generated_at": "2026-11-03T15:47:27+08:00",
+  "count": 70,
   "todos": [
     {
       "key": "qq:gmv9k1bjq",
@@ -540,6 +540,51 @@
       "url": "https://news.lzu.edu.cn/info/1056/1155125.htm",
       "category": "学校通知",
       "published_at": "2026-07-13",
+      "status": "open"
+    },
+    {
+      "key": "lzu-xgb:339668.html",
+      "title": "小米奖学金补充公示，可提异议",
+      "detail": "公示期为2026年11月4日至11月10日，如对拟获奖名单有异议，可在公示期内通过电话0931-5292745或邮箱zzzx@lzu.edu.cn向学生奖助中心反映。",
+      "due_at": "2026-11-10T23:59",
+      "priority": "normal",
+      "needs_recommendation": false,
+      "content_hash": "",
+      "source": "lzu-xgb",
+      "source_label": "学工部",
+      "url": "https://xgb.lzu.edu.cn/tongzhigonggao/zizhufuwu/2026/1103/339668.html",
+      "category": "资助通知",
+      "published_at": "2026-11-03",
+      "status": "open"
+    },
+    {
+      "key": "lzu-xgb:339658.html",
+      "title": "查看助学金公示名单，有异议可在公示期内反映",
+      "detail": "2026-2027学年家庭经济困难学生认定及国家助学金评定第二批名单已公示，请查看附件确认本人情况；如有异议，可在11月10日前通过电话0931-8912745或邮箱zzzx@lzu.edu.cn实名反映。",
+      "due_at": "2026-11-10T23:59",
+      "priority": "normal",
+      "needs_recommendation": false,
+      "content_hash": "",
+      "source": "lzu-xgb",
+      "source_label": "学工部",
+      "url": "https://xgb.lzu.edu.cn/tongzhigonggao/zizhufuwu/2026/1103/339658.html",
+      "category": "资助通知",
+      "published_at": "2026-11-03",
+      "status": "open"
+    },
+    {
+      "key": "lzu-xgb:339670.html",
+      "title": "启帆探索奖学金拟获奖名单公示",
+      "detail": "公示期为2026年11月4日至11月10日，如对拟获奖团队有异议，可在公示期内通过电话0931-5292745或邮箱zzzx@lzu.edu.cn向学生奖助中心反映。",
+      "due_at": "2026-11-10T23:59",
+      "priority": "normal",
+      "needs_recommendation": false,
+      "content_hash": "",
+      "source": "lzu-xgb",
+      "source_label": "学工部",
+      "url": "https://xgb.lzu.edu.cn/tongzhigonggao/zizhufuwu/2026/1103/339670.html",
+      "category": "资助通知",
+      "published_at": "2026-11-03",
       "status": "open"
     },
     {
