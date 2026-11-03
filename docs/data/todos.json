@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-03T15:47:27+08:00",
-  "count": 70,
+  "generated_at": "2026-11-03T16:42:23+08:00",
+  "count": 71,
   "todos": [
     {
       "key": "qq:gmv9k1bjq",
@@ -661,6 +661,21 @@
       "category": "资助通知",
       "published_at": "2026-10-23",
       "status": "done"
+    },
+    {
+      "key": "qq:gmw0fvsfm",
+      "title": "查看数学竞赛考场与个人信息表",
+      "detail": "群内发布了考场信息与个人信息拟定表，请查看核对；到场、涂卡等后续事宜另行通知。",
+      "due_at": null,
+      "priority": "normal",
+      "needs_recommendation": false,
+      "content_hash": "07f1d8a8df79f194",
+      "source": "qq",
+      "source_label": "QQ 群",
+      "url": "",
+      "category": "QQ 群消息",
+      "published_at": "2026-11-03",
+      "status": "open"
     },
     {
       "key": "qq:gmvyq9ueb",
