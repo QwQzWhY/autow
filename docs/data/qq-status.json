@@ -1,11 +1,19 @@
 {
-  "generated_at": "2026-11-03T16:42:23+08:00",
+  "generated_at": "2026-11-03T18:57:22+08:00",
   "connected": true,
-  "total_received": 170,
+  "total_received": 171,
   "total_todos": 46,
-  "today_received": 2,
+  "today_received": 3,
   "today_todos": 2,
   "recent": [
+    {
+      "at": "2026-11-03T18:57:21+08:00",
+      "verdict": "ignored",
+      "verdict_label": "判断为无需行动",
+      "title": "",
+      "length": 69,
+      "nonce": ""
+    },
     {
       "at": "2026-11-03T16:42:22+08:00",
       "verdict": "todo",
@@ -76,14 +84,6 @@
       "verdict_label": "已生成待办",
       "title": "规范停放自行车",
       "length": 66,
-      "nonce": ""
-    },
-    {
-      "at": "2026-11-01T10:07:49+08:00",
-      "verdict": "ignored",
-      "verdict_label": "判断为无需行动",
-      "title": "",
-      "length": 220,
       "nonce": ""
     }
   ]
