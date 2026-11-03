@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-03T08:54:27+08:00",
-  "count": 66,
+  "generated_at": "2026-11-03T10:12:24+08:00",
+  "count": 67,
   "todos": [
     {
       "key": "qq:gmv9k1bjq",
@@ -421,6 +421,21 @@
       "category": "资助通知",
       "published_at": "2026-09-30",
       "status": "done"
+    },
+    {
+      "key": "qq:gmw01y8v3",
+      "title": "参加今晚职规赛经验分享活动",
+      "detail": "今晚19:00-21:00在至公楼A214举办《职规赛选手经验分享》活动，由省赛、国赛获奖选手分享参赛经验。欢迎参加，请提前到场；可现场签到，二课积分后续补发。",
+      "due_at": "2026-11-03T19:00",
+      "priority": "high",
+      "needs_recommendation": false,
+      "content_hash": "810f95887d4891ab",
+      "source": "qq",
+      "source_label": "QQ 群",
+      "url": "",
+      "category": "QQ 群消息",
+      "published_at": "2026-11-03",
+      "status": "open"
     },
     {
       "key": "lzu-xgb:339618.html",
