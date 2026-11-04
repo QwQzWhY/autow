@@ -1,11 +1,19 @@
 {
-  "generated_at": "2026-11-04T11:22:27+08:00",
+  "generated_at": "2026-11-04T15:52:14+08:00",
   "connected": true,
-  "total_received": 173,
-  "total_todos": 46,
-  "today_received": 1,
-  "today_todos": 0,
+  "total_received": 174,
+  "total_todos": 47,
+  "today_received": 2,
+  "today_todos": 1,
   "recent": [
+    {
+      "at": "2026-11-04T15:52:13+08:00",
+      "verdict": "todo",
+      "verdict_label": "已生成待办",
+      "title": "报名第三届CCF算法能力大赛区域赛",
+      "length": 73,
+      "nonce": ""
+    },
     {
       "at": "2026-11-04T11:22:26+08:00",
       "verdict": "ignored",
@@ -76,14 +84,6 @@
       "verdict_label": "已生成待办",
       "title": "取回放在大厅门外的快递",
       "length": 92,
-      "nonce": ""
-    },
-    {
-      "at": "2026-11-01T22:00:23+08:00",
-      "verdict": "dismissed",
-      "verdict_label": "你在看板上删过这条，已跳过",
-      "title": "",
-      "length": 40,
       "nonce": ""
     }
   ]

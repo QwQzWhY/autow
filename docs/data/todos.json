@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-04T11:22:27+08:00",
-  "count": 71,
+  "generated_at": "2026-11-04T15:52:14+08:00",
+  "count": 72,
   "todos": [
     {
       "key": "qq:gmv9k1bjq",
@@ -661,6 +661,21 @@
       "category": "资助通知",
       "published_at": "2026-10-23",
       "status": "done"
+    },
+    {
+      "key": "qq:gmw1t01sx",
+      "title": "报名第三届CCF算法能力大赛区域赛",
+      "detail": "CACC区域赛（第三届CCF算法能力大赛）正在报名，区域赛优秀者可获相应资格。通知被截断，全文要回群里看。",
+      "due_at": null,
+      "priority": "normal",
+      "needs_recommendation": false,
+      "content_hash": "09501c01c154071c",
+      "source": "qq",
+      "source_label": "QQ 群",
+      "url": "",
+      "category": "QQ 群消息",
+      "published_at": "2026-11-04",
+      "status": "open"
     },
     {
       "key": "qq:gmw0fvsfm",
