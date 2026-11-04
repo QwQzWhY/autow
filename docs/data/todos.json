@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-04T17:33:47+08:00",
-  "count": 72,
+  "generated_at": "2026-11-04T17:46:15+08:00",
+  "count": 73,
   "todos": [
     {
       "key": "qq:gmv9k1bjq",
@@ -451,6 +451,21 @@
       "category": "资助通知",
       "published_at": "2026-11-02",
       "status": "done"
+    },
+    {
+      "key": "qq:gmw1xipex",
+      "title": "参加26秋集训队宣讲",
+      "detail": "明天（2026-11-05）的集训队宣讲照常进行，虽然近期无法申请到梦空间活动，但宣讲不受影响，请按时参加。",
+      "due_at": "2026-11-05T23:59",
+      "priority": "high",
+      "needs_recommendation": false,
+      "content_hash": "ce3f2be789b976f9",
+      "source": "qq",
+      "source_label": "QQ 群",
+      "url": "",
+      "category": "QQ 群消息",
+      "published_at": "2026-11-04",
+      "status": "open"
     },
     {
       "key": "lzu-news:1184925.htm",
