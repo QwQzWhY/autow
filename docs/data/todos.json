@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-04T15:52:14+08:00",
+  "generated_at": "2026-11-04T17:04:01+08:00",
   "count": 72,
   "todos": [
     {
@@ -435,7 +435,7 @@
       "url": "",
       "category": "QQ 群消息",
       "published_at": "2026-11-03",
-      "status": "open"
+      "status": "done"
     },
     {
       "key": "lzu-xgb:339618.html",
@@ -450,7 +450,7 @@
       "url": "https://xgb.lzu.edu.cn/tongzhigonggao/zizhufuwu/2026/1102/339618.html",
       "category": "资助通知",
       "published_at": "2026-11-02",
-      "status": "open"
+      "status": "done"
     },
     {
       "key": "lzu-news:1184925.htm",
@@ -465,7 +465,7 @@
       "url": "https://news.lzu.edu.cn/info/1056/1184925.htm",
       "category": "学校通知",
       "published_at": "2026-11-02",
-      "status": "open"
+      "status": "done"
     },
     {
       "key": "lzu-jwc:339530.html",
@@ -525,7 +525,7 @@
       "url": "https://xgb.lzu.edu.cn/tongzhigonggao/zizhufuwu/2026/1102/339640.html",
       "category": "资助通知",
       "published_at": "2026-11-02",
-      "status": "open"
+      "status": "done"
     },
     {
       "key": "lzu-news:1155125.htm",
@@ -540,7 +540,7 @@
       "url": "https://news.lzu.edu.cn/info/1056/1155125.htm",
       "category": "学校通知",
       "published_at": "2026-07-13",
-      "status": "open"
+      "status": "done"
     },
     {
       "key": "lzu-xgb:339668.html",
@@ -555,7 +555,7 @@
       "url": "https://xgb.lzu.edu.cn/tongzhigonggao/zizhufuwu/2026/1103/339668.html",
       "category": "资助通知",
       "published_at": "2026-11-03",
-      "status": "open"
+      "status": "done"
     },
     {
       "key": "lzu-xgb:339658.html",
@@ -570,7 +570,7 @@
       "url": "https://xgb.lzu.edu.cn/tongzhigonggao/zizhufuwu/2026/1103/339658.html",
       "category": "资助通知",
       "published_at": "2026-11-03",
-      "status": "open"
+      "status": "done"
     },
     {
       "key": "lzu-xgb:339670.html",
@@ -585,7 +585,7 @@
       "url": "https://xgb.lzu.edu.cn/tongzhigonggao/zizhufuwu/2026/1103/339670.html",
       "category": "资助通知",
       "published_at": "2026-11-03",
-      "status": "open"
+      "status": "done"
     },
     {
       "key": "manual:lpm56oic",
@@ -690,7 +690,7 @@
       "url": "",
       "category": "QQ 群消息",
       "published_at": "2026-11-03",
-      "status": "open"
+      "status": "done"
     },
     {
       "key": "qq:gmvyq9ueb",
@@ -705,7 +705,7 @@
       "url": "",
       "category": "QQ 群消息",
       "published_at": "2026-11-02",
-      "status": "open"
+      "status": "done"
     },
     {
       "key": "note:d65wjm1x",
@@ -720,7 +720,7 @@
       "url": "",
       "category": "手动录入",
       "published_at": "2026-11-02",
-      "status": "open"
+      "status": "done"
     },
     {
       "key": "qq:gmvyjxsxq",
@@ -735,7 +735,7 @@
       "url": "",
       "category": "QQ 群消息",
       "published_at": "2026-11-02",
-      "status": "open"
+      "status": "done"
     },
     {
       "key": "note:focfjtcj",
