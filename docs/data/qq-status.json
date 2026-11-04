@@ -1,11 +1,19 @@
 {
-  "generated_at": "2026-11-04T17:46:15+08:00",
+  "generated_at": "2026-11-04T22:07:13+08:00",
   "connected": true,
-  "total_received": 177,
+  "total_received": 178,
   "total_todos": 48,
-  "today_received": 5,
+  "today_received": 6,
   "today_todos": 2,
   "recent": [
+    {
+      "at": "2026-11-04T22:07:13+08:00",
+      "verdict": "dismissed",
+      "verdict_label": "你在看板上删过这条，已跳过",
+      "title": "",
+      "length": 40,
+      "nonce": ""
+    },
     {
       "at": "2026-11-04T17:46:14+08:00",
       "verdict": "todo",
@@ -76,14 +84,6 @@
       "verdict_label": "已生成待办",
       "title": "参加今晚职规赛经验分享活动",
       "length": 248,
-      "nonce": ""
-    },
-    {
-      "at": "2026-11-02T22:17:14+08:00",
-      "verdict": "dismissed",
-      "verdict_label": "你在看板上删过这条，已跳过",
-      "title": "",
-      "length": 40,
       "nonce": ""
     }
   ]
