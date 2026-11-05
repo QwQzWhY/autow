@@ -1,11 +1,19 @@
 {
-  "generated_at": "2026-11-05T07:26:05+08:00",
+  "generated_at": "2026-11-05T09:52:14+08:00",
   "connected": true,
-  "total_received": 178,
+  "total_received": 179,
   "total_todos": 48,
-  "today_received": 0,
+  "today_received": 1,
   "today_todos": 0,
   "recent": [
+    {
+      "at": "2026-11-05T09:52:13+08:00",
+      "verdict": "ignored",
+      "verdict_label": "判断为无需行动",
+      "title": "",
+      "length": 78,
+      "nonce": ""
+    },
     {
       "at": "2026-11-04T22:07:13+08:00",
       "verdict": "dismissed",
@@ -76,14 +84,6 @@
       "verdict_label": "已生成待办",
       "title": "查看数学竞赛考场与个人信息表",
       "length": 70,
-      "nonce": ""
-    },
-    {
-      "at": "2026-11-03T10:12:23+08:00",
-      "verdict": "todo",
-      "verdict_label": "已生成待办",
-      "title": "参加今晚职规赛经验分享活动",
-      "length": 248,
       "nonce": ""
     }
   ]
