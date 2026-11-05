@@ -1,11 +1,19 @@
 {
-  "generated_at": "2026-11-05T17:35:08+08:00",
+  "generated_at": "2026-11-05T18:31:04+08:00",
   "connected": true,
-  "total_received": 183,
+  "total_received": 184,
   "total_todos": 50,
-  "today_received": 5,
+  "today_received": 6,
   "today_todos": 2,
   "recent": [
+    {
+      "at": "2026-11-05T18:31:03+08:00",
+      "verdict": "ignored",
+      "verdict_label": "判断为无需行动",
+      "title": "",
+      "length": 141,
+      "nonce": ""
+    },
     {
       "at": "2026-11-05T17:35:07+08:00",
       "verdict": "todo",
@@ -76,14 +84,6 @@
       "verdict_label": "判断为无需行动",
       "title": "",
       "length": 71,
-      "nonce": ""
-    },
-    {
-      "at": "2026-11-04T15:52:13+08:00",
-      "verdict": "todo",
-      "verdict_label": "已生成待办",
-      "title": "报名第三届CCF算法能力大赛区域赛",
-      "length": 73,
       "nonce": ""
     }
   ]
