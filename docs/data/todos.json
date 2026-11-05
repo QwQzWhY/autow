@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-05T12:07:48+08:00",
-  "count": 73,
+  "generated_at": "2026-11-05T12:38:03+08:00",
+  "count": 74,
   "todos": [
     {
       "key": "qq:gmv9k1bjq",
@@ -676,6 +676,21 @@
       "category": "资助通知",
       "published_at": "2026-10-23",
       "status": "done"
+    },
+    {
+      "key": "qq:gmw320fx4",
+      "title": "报名参加周六画板子活动",
+      "detail": "群里通知本周六组织画板子活动，需要先报名，具体报名方式和地点请回群里查看。",
+      "due_at": null,
+      "priority": "normal",
+      "needs_recommendation": false,
+      "content_hash": "507330817ecbb757",
+      "source": "qq",
+      "source_label": "QQ 群",
+      "url": "",
+      "category": "QQ 群消息",
+      "published_at": "2026-11-05",
+      "status": "open"
     },
     {
       "key": "qq:gmw1t01sx",

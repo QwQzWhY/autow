@@ -1,11 +1,19 @@
 {
-  "generated_at": "2026-11-05T12:07:48+08:00",
+  "generated_at": "2026-11-05T12:38:03+08:00",
   "connected": true,
-  "total_received": 181,
-  "total_todos": 48,
-  "today_received": 3,
-  "today_todos": 0,
+  "total_received": 182,
+  "total_todos": 49,
+  "today_received": 4,
+  "today_todos": 1,
   "recent": [
+    {
+      "at": "2026-11-05T12:38:01+08:00",
+      "verdict": "todo",
+      "verdict_label": "已生成待办",
+      "title": "报名参加周六画板子活动",
+      "length": 51,
+      "nonce": ""
+    },
     {
       "at": "2026-11-05T12:07:47+08:00",
       "verdict": "ignored",
@@ -76,14 +84,6 @@
       "verdict_label": "判断为无需行动",
       "title": "",
       "length": 164,
-      "nonce": ""
-    },
-    {
-      "at": "2026-11-03T22:27:13+08:00",
-      "verdict": "dismissed",
-      "verdict_label": "你在看板上删过这条，已跳过",
-      "title": "",
-      "length": 40,
       "nonce": ""
     }
   ]
