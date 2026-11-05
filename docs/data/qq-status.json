@@ -1,11 +1,19 @@
 {
-  "generated_at": "2026-11-05T13:46:10+08:00",
+  "generated_at": "2026-11-05T17:35:08+08:00",
   "connected": true,
-  "total_received": 182,
-  "total_todos": 49,
-  "today_received": 4,
-  "today_todos": 1,
+  "total_received": 183,
+  "total_todos": 50,
+  "today_received": 5,
+  "today_todos": 2,
   "recent": [
+    {
+      "at": "2026-11-05T17:35:07+08:00",
+      "verdict": "todo",
+      "verdict_label": "已生成待办",
+      "title": "确认团组织关系并联系团支书",
+      "length": 198,
+      "nonce": ""
+    },
     {
       "at": "2026-11-05T12:38:01+08:00",
       "verdict": "todo",
@@ -76,14 +84,6 @@
       "verdict_label": "已生成待办",
       "title": "报名第三届CCF算法能力大赛区域赛",
       "length": 73,
-      "nonce": ""
-    },
-    {
-      "at": "2026-11-04T11:22:26+08:00",
-      "verdict": "ignored",
-      "verdict_label": "判断为无需行动",
-      "title": "",
-      "length": 164,
       "nonce": ""
     }
   ]

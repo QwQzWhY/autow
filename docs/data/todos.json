@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-05T13:46:10+08:00",
-  "count": 75,
+  "generated_at": "2026-11-05T17:35:08+08:00",
+  "count": 76,
   "todos": [
     {
       "key": "qq:gmv9k1bjq",
@@ -691,6 +691,21 @@
       "category": "资助通知",
       "published_at": "2026-10-23",
       "status": "done"
+    },
+    {
+      "key": "qq:gmw3cncav",
+      "title": "确认团组织关系并联系团支书",
+      "detail": "核对团支部名单，若不在列表中的团员需联系负责人办理转入；11月中旬左右有团员培训，有意向向团组织靠拢的同学可联系负责人报名。",
+      "due_at": null,
+      "priority": "normal",
+      "needs_recommendation": false,
+      "content_hash": "1b32934e619b6421",
+      "source": "qq",
+      "source_label": "QQ 群",
+      "url": "",
+      "category": "QQ 群消息",
+      "published_at": "2026-11-05",
+      "status": "open"
     },
     {
       "key": "qq:gmw320fx4",
