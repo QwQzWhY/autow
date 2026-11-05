@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-05T12:38:03+08:00",
-  "count": 74,
+  "generated_at": "2026-11-05T13:46:10+08:00",
+  "count": 75,
   "todos": [
     {
       "key": "qq:gmv9k1bjq",
@@ -615,6 +615,21 @@
       "url": "",
       "category": "手动录入",
       "published_at": "2026-10-24",
+      "status": "open"
+    },
+    {
+      "key": "lzu-news:1185965.htm",
+      "title": "报名多语种校歌演唱及视频参演",
+      "detail": "面向全校学生招募各语种主唱及混声合唱团成员，需填写报名表并经学院党委审核推荐后，将PDF版提交至指定链接并加入QQ群1025667272，报名截止2026年11月30日。",
+      "due_at": "2026-11-30T23:59",
+      "priority": "normal",
+      "needs_recommendation": true,
+      "content_hash": "",
+      "source": "lzu-news",
+      "source_label": "学校通知",
+      "url": "https://news.lzu.edu.cn/info/1056/1185965.htm",
+      "category": "学校通知",
+      "published_at": "2026-11-04",
       "status": "open"
     },
     {
