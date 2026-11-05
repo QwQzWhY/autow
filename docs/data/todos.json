@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-05T22:01:01+08:00",
-  "count": 76,
+  "generated_at": "2026-11-05T22:19:38+08:00",
+  "count": 77,
   "todos": [
     {
       "key": "qq:gmv9k1bjq",
@@ -601,6 +601,21 @@
       "category": "资助通知",
       "published_at": "2026-11-03",
       "status": "done"
+    },
+    {
+      "key": "lzu-xgb:339829.html",
+      "title": "申请2026年秋季社会类奖助学金",
+      "detail": "符合条件的学生填写申请表并提交所在学院，同时在学工系统提交申请，11月18日前完成；获资助后需签署承诺保证书并完成不少于20小时志愿服务。具体项目条件、材料及名额见附件。",
+      "due_at": "2026-11-18T23:59",
+      "priority": "high",
+      "needs_recommendation": false,
+      "content_hash": "",
+      "source": "lzu-xgb",
+      "source_label": "学工部",
+      "url": "https://xgb.lzu.edu.cn/tongzhigonggao/zizhufuwu/2026/1105/339829.html",
+      "category": "资助通知",
+      "published_at": "2026-11-05",
+      "status": "open"
     },
     {
       "key": "manual:lpm56oic",
