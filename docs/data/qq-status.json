@@ -1,11 +1,19 @@
 {
-  "generated_at": "2026-11-06T05:27:26+08:00",
+  "generated_at": "2026-11-06T08:22:30+08:00",
   "connected": true,
-  "total_received": 185,
+  "total_received": 186,
   "total_todos": 50,
-  "today_received": 0,
+  "today_received": 1,
   "today_todos": 0,
   "recent": [
+    {
+      "at": "2026-11-06T08:22:29+08:00",
+      "verdict": "ignored",
+      "verdict_label": "判断为无需行动",
+      "title": "",
+      "length": 73,
+      "nonce": ""
+    },
     {
       "at": "2026-11-05T22:01:01+08:00",
       "verdict": "dismissed",
@@ -76,14 +84,6 @@
       "verdict_label": "已生成待办",
       "title": "参加26秋集训队宣讲",
       "length": 64,
-      "nonce": ""
-    },
-    {
-      "at": "2026-11-04T17:33:46+08:00",
-      "verdict": "ignored",
-      "verdict_label": "判断为无需行动",
-      "title": "",
-      "length": 69,
       "nonce": ""
     }
   ]
