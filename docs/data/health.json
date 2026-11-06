@@ -1,23 +1,22 @@
 {
-  "generated_at": "2026-11-06T10:04:47+08:00",
+  "generated_at": "2026-11-06T18:39:28+08:00",
   "extractor": {
     "configured": true,
     "mode": "live",
     "model": "deepseek-chat",
     "base_url_host": "api.deepseek.com",
     "probe": {
-      "ok": true,
-      "carried_over": true
+      "ok": true
     },
-    "attempts": 0,
+    "attempts": 1,
     "failures": 0,
     "config_error": null,
     "ok": true,
     "last_error": "",
     "tokens": {
-      "calls": 0,
-      "prompt": 0,
-      "completion": 0
+      "calls": 2,
+      "prompt": 1330,
+      "completion": 43
     }
   },
   "sources": {
@@ -36,14 +35,14 @@
     "lzu-xgb": {
       "listed": 45,
       "ok": 0,
-      "failed": 2,
+      "failed": 3,
       "error": ""
     },
     "lzu-news": {
-      "listed": 0,
-      "ok": 0,
-      "failed": 0,
-      "error": "TimeoutError: Page.goto: Timeout 45000ms exceeded.\nCall log:\n  - navigating to \"https://news.lzu.edu.cn/tzgg.htm\", waiting until \"domcontentloaded\"\n"
+      "listed": 20,
+      "ok": 1,
+      "failed": 5,
+      "error": ""
     }
   }
 }
