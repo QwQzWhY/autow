@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-06T20:53:30+08:00",
+  "generated_at": "2026-11-06T20:53:41+08:00",
   "connected": true,
   "total_received": 188,
   "total_todos": 50,
@@ -7,11 +7,11 @@
   "today_todos": 0,
   "recent": [
     {
-      "at": "2026-11-06T20:53:29+08:00",
+      "at": "2026-11-06T20:53:40+08:00",
       "verdict": "ignored",
       "verdict_label": "判断为无需行动",
       "title": "",
-      "length": 137,
+      "length": 123,
       "nonce": ""
     },
     {
