@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-07T12:09:54+08:00",
-  "count": 77,
+  "generated_at": "2026-11-07T17:48:11+08:00",
+  "count": 78,
   "todos": [
     {
       "key": "qq:gmv9k1bjq",
@@ -465,7 +465,7 @@
       "url": "",
       "category": "QQ 群消息",
       "published_at": "2026-11-04",
-      "status": "open"
+      "status": "done"
     },
     {
       "key": "lzu-news:1184925.htm",
@@ -510,7 +510,7 @@
       "url": "",
       "category": "手动录入",
       "published_at": "2026-10-24",
-      "status": "open"
+      "status": "done"
     },
     {
       "key": "note:y3qzjsg0",
@@ -526,6 +526,21 @@
       "category": "手动录入",
       "published_at": "2026-10-24",
       "status": "done"
+    },
+    {
+      "key": "lzu-news:1187405.htm",
+      "title": "报名参加“秋宵吟”短剧大赛",
+      "detail": "以学院或学生组织为单位组队报名，每队不少于3人，剧本时长10-15分钟。需在11月9日中午12:00前由学院负责人将节目信息汇总表、节目信息收集表与剧本打包发送至894429727@qq.com。个人参演节目不得超过2个，想参加可联系学院负责同学争取进队。",
+      "due_at": "2026-11-09T12:00",
+      "priority": "high",
+      "needs_recommendation": true,
+      "content_hash": "",
+      "source": "lzu-news",
+      "source_label": "学校通知",
+      "url": "https://news.lzu.edu.cn/info/1056/1187405.htm",
+      "category": "学校通知",
+      "published_at": "2026-11-06",
+      "status": "open"
     },
     {
       "key": "lzu-xgb:339640.html",
@@ -615,7 +630,7 @@
       "url": "https://xgb.lzu.edu.cn/tongzhigonggao/zizhufuwu/2026/1105/339829.html",
       "category": "资助通知",
       "published_at": "2026-11-05",
-      "status": "open"
+      "status": "done"
     },
     {
       "key": "manual:lpm56oic",
@@ -645,7 +660,7 @@
       "url": "https://news.lzu.edu.cn/info/1056/1185965.htm",
       "category": "学校通知",
       "published_at": "2026-11-04",
-      "status": "open"
+      "status": "done"
     },
     {
       "key": "lzu-news:1181085.htm",
@@ -750,7 +765,7 @@
       "url": "",
       "category": "QQ 群消息",
       "published_at": "2026-11-04",
-      "status": "open"
+      "status": "done"
     },
     {
       "key": "qq:gmw0fvsfm",
