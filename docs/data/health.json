@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-08T15:03:18+08:00",
+  "generated_at": "2026-11-08T22:19:06+08:00",
   "extractor": {
     "configured": true,
     "mode": "live",
@@ -15,8 +15,8 @@
     "last_error": "",
     "tokens": {
       "calls": 2,
-      "prompt": 1604,
-      "completion": 43
+      "prompt": 2069,
+      "completion": 218
     }
   },
   "sources": {
@@ -28,7 +28,7 @@
     },
     "lzu-jwc": {
       "listed": 54,
-      "ok": 1,
+      "ok": 0,
       "failed": 1,
       "error": ""
     },
@@ -40,7 +40,7 @@
     },
     "lzu-news": {
       "listed": 20,
-      "ok": 0,
+      "ok": 1,
       "failed": 4,
       "error": ""
     }

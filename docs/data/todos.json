@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-08T15:03:18+08:00",
-  "count": 79,
+  "generated_at": "2026-11-08T22:19:06+08:00",
+  "count": 80,
   "todos": [
     {
       "key": "qq:gmv9k1bjq",
@@ -540,7 +540,7 @@
       "url": "https://news.lzu.edu.cn/info/1056/1187405.htm",
       "category": "学校通知",
       "published_at": "2026-11-06",
-      "status": "open"
+      "status": "done"
     },
     {
       "key": "lzu-xgb:339640.html",
@@ -723,6 +723,21 @@
       "status": "done"
     },
     {
+      "key": "lzu-news:1187575.htm",
+      "title": "关于开展2026年消防宣传月活动的通知",
+      "detail": "",
+      "due_at": null,
+      "priority": "normal",
+      "needs_recommendation": false,
+      "content_hash": "",
+      "source": "lzu-news",
+      "source_label": "学校通知",
+      "url": "https://news.lzu.edu.cn/info/1056/1187575.htm",
+      "category": "学校通知",
+      "published_at": "2026-11-08",
+      "status": "open"
+    },
+    {
       "key": "qq:gmw75t1lj",
       "title": "填写查寝签到",
       "detail": "在群里填写查寝签到，收到通知后尽快完成。",
@@ -735,7 +750,7 @@
       "url": "",
       "category": "QQ 群消息",
       "published_at": "2026-11-08",
-      "status": "open"
+      "status": "done"
     },
     {
       "key": "qq:gmw3cncav",
@@ -750,7 +765,7 @@
       "url": "",
       "category": "QQ 群消息",
       "published_at": "2026-11-05",
-      "status": "open"
+      "status": "done"
     },
     {
       "key": "qq:gmw320fx4",
@@ -765,7 +780,7 @@
       "url": "",
       "category": "QQ 群消息",
       "published_at": "2026-11-05",
-      "status": "open"
+      "status": "done"
     },
     {
       "key": "qq:gmw1t01sx",
@@ -855,7 +870,7 @@
       "url": "",
       "category": "手动录入",
       "published_at": "2026-11-01",
-      "status": "open"
+      "status": "done"
     },
     {
       "key": "qq:gmvxodkit",
