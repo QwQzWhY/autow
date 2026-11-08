@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-08T11:10:47+08:00",
-  "count": 78,
+  "generated_at": "2026-11-08T11:10:58+08:00",
+  "count": 79,
   "todos": [
     {
       "key": "qq:gmv9k1bjq",
@@ -721,6 +721,21 @@
       "category": "资助通知",
       "published_at": "2026-10-23",
       "status": "done"
+    },
+    {
+      "key": "qq:gmw75t1lj",
+      "title": "填写查寝签到",
+      "detail": "在群里填写查寝签到，收到通知后尽快完成。",
+      "due_at": null,
+      "priority": "normal",
+      "needs_recommendation": false,
+      "content_hash": "d0185c916fb63005",
+      "source": "qq",
+      "source_label": "QQ 群",
+      "url": "",
+      "category": "QQ 群消息",
+      "published_at": "2026-11-08",
+      "status": "open"
     },
     {
       "key": "qq:gmw3cncav",
