@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-09T16:51:25+08:00",
-  "count": 80,
+  "generated_at": "2026-11-09T23:35:06+08:00",
+  "count": 82,
   "todos": [
     {
       "key": "qq:gmv9k1bjq",
@@ -618,6 +618,21 @@
       "status": "done"
     },
     {
+      "key": "lzu-jwc:339955.html",
+      "title": "报名参加2026年人工智能竞赛",
+      "detail": "本科生均可参加，可选知识竞赛（个人线上答题）、创意设计或项目设计（可3人组队）。知识竞赛需11月15日前加QQ群722496139，11月20日前在U+平台完成首次登录注册，11月29日13:00-13:50线上考试；专题二、三需11月30日前在人工智能教学实训平台加入赛道，12月27日前提交作品。",
+      "due_at": "2026-11-15T23:59",
+      "priority": "high",
+      "needs_recommendation": false,
+      "content_hash": "",
+      "source": "lzu-jwc",
+      "source_label": "教务处",
+      "url": "https://jwc.lzu.edu.cn/tongzhigonggao/shijianjiaoxue/2026/1109/339955.html",
+      "category": "实践教学",
+      "published_at": "2026-11-09",
+      "status": "open"
+    },
+    {
       "key": "lzu-xgb:339829.html",
       "title": "申请2026年秋季社会类奖助学金",
       "detail": "符合条件的学生填写申请表并提交所在学院，同时在学工系统提交申请，11月18日前完成；获资助后需签署承诺保证书并完成不少于20小时志愿服务。具体项目条件、材料及名额见附件。",
@@ -645,6 +660,21 @@
       "url": "",
       "category": "手动录入",
       "published_at": "2026-10-24",
+      "status": "open"
+    },
+    {
+      "key": "lzu-jwc:339979.html",
+      "title": "提交思政课实践论文",
+      "detail": "2026年11月16日08:30至11月22日23:59，将5000字以上实践论文PDF（正文+查重报告）提交至学习通系统lzumks.mh.chaoxing.com，提交后不可修改撤回。",
+      "due_at": "2026-11-22T23:59",
+      "priority": "high",
+      "needs_recommendation": false,
+      "content_hash": "",
+      "source": "lzu-jwc",
+      "source_label": "教务处",
+      "url": "https://jwc.lzu.edu.cn/tongzhigonggao/shijianjiaoxue/2026/1109/339979.html",
+      "category": "实践教学",
+      "published_at": "2026-11-09",
       "status": "open"
     },
     {
