@@ -1,17 +1,17 @@
 {
-  "generated_at": "2026-11-10T20:41:24+08:00",
+  "generated_at": "2026-11-10T20:41:34+08:00",
   "connected": true,
   "total_received": 197,
-  "total_todos": 54,
+  "total_todos": 53,
   "today_received": 3,
-  "today_todos": 3,
+  "today_todos": 2,
   "recent": [
     {
-      "at": "2026-11-10T20:41:22+08:00",
-      "verdict": "todo",
-      "verdict_label": "已生成待办",
-      "title": "报名Blender MT线下兼职项目",
-      "length": 479,
+      "at": "2026-11-10T20:41:33+08:00",
+      "verdict": "ignored",
+      "verdict_label": "判断为无需行动",
+      "title": "",
+      "length": 302,
       "nonce": ""
     },
     {
