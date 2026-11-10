@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-10T15:09:46+08:00",
-  "count": 87,
+  "generated_at": "2026-11-10T20:41:24+08:00",
+  "count": 88,
   "todos": [
     {
       "key": "qq:gmv9k1bjq",
@@ -796,6 +796,21 @@
       "category": "资助通知",
       "published_at": "2026-10-23",
       "status": "done"
+    },
+    {
+      "key": "qq:gmwami2pi",
+      "title": "报名Blender MT线下兼职项目",
+      "detail": "按要求填写项目报名表（飞书链接）。项目为线下兼职，工作地点致远楼603，工作时间课余尽量出勤，薪资30-50元/时。",
+      "due_at": null,
+      "priority": "normal",
+      "needs_recommendation": false,
+      "content_hash": "1ab28c13e8e9943b",
+      "source": "qq",
+      "source_label": "QQ 群",
+      "url": "",
+      "category": "QQ 群消息",
+      "published_at": "2026-11-10",
+      "status": "open"
     },
     {
       "key": "qq:gmwa6tfo7",
