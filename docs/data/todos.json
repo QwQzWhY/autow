@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-10T08:04:25+08:00",
-  "count": 82,
+  "generated_at": "2026-11-10T12:26:10+08:00",
+  "count": 83,
   "todos": [
     {
       "key": "qq:gmv9k1bjq",
@@ -751,6 +751,21 @@
       "category": "资助通知",
       "published_at": "2026-10-23",
       "status": "done"
+    },
+    {
+      "key": "qq:gmw95g3qa",
+      "title": "完成思政实践课程考核",
+      "detail": "按教务处通知要求完成2026-2027学年“思想政治理论课实践”课程考核，具体安排见通知链接（jwc.lzu.edu.cn 相关页面）。",
+      "due_at": null,
+      "priority": "normal",
+      "needs_recommendation": false,
+      "content_hash": "492b92a7a0cb9cb3",
+      "source": "qq",
+      "source_label": "QQ 群",
+      "url": "",
+      "category": "QQ 群消息",
+      "published_at": "2026-11-10",
+      "status": "open"
     },
     {
       "key": "lzu-news:1187575.htm",

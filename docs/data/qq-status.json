@@ -1,11 +1,19 @@
 {
-  "generated_at": "2026-11-10T08:04:25+08:00",
+  "generated_at": "2026-11-10T12:26:10+08:00",
   "connected": true,
-  "total_received": 194,
-  "total_todos": 51,
-  "today_received": 0,
-  "today_todos": 0,
+  "total_received": 195,
+  "total_todos": 52,
+  "today_received": 1,
+  "today_todos": 1,
   "recent": [
+    {
+      "at": "2026-11-10T12:26:09+08:00",
+      "verdict": "todo",
+      "verdict_label": "已生成待办",
+      "title": "完成思政实践课程考核",
+      "length": 169,
+      "nonce": ""
+    },
     {
       "at": "2026-11-09T16:51:23+08:00",
       "verdict": "ignored",
@@ -76,14 +84,6 @@
       "verdict_label": "判断为无需行动",
       "title": "",
       "length": 73,
-      "nonce": ""
-    },
-    {
-      "at": "2026-11-05T22:01:01+08:00",
-      "verdict": "dismissed",
-      "verdict_label": "你在看板上删过这条，已跳过",
-      "title": "",
-      "length": 40,
       "nonce": ""
     }
   ]
