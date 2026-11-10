@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-10T12:26:52+08:00",
-  "count": 84,
+  "generated_at": "2026-11-10T15:09:46+08:00",
+  "count": 87,
   "todos": [
     {
       "key": "qq:gmv9k1bjq",
@@ -618,6 +618,36 @@
       "status": "done"
     },
     {
+      "key": "lzu-xgb:340039.html",
+      "title": "到梦空间报名古田会议精神宣讲",
+      "detail": "11月12日16:00在榆中校区宏远楼大思政课实验室举行，需通过“到梦空间”系统报名，可获1个思想成长类积分。",
+      "due_at": "2026-11-12T16:00",
+      "priority": "normal",
+      "needs_recommendation": false,
+      "content_hash": "",
+      "source": "lzu-xgb",
+      "source_label": "学工部",
+      "url": "https://xgb.lzu.edu.cn/tongzhigonggao/sizhengjiaoyu/2026/1110/340039.html",
+      "category": "思政通知",
+      "published_at": "2026-11-10",
+      "status": "open"
+    },
+    {
+      "key": "lzu-news:1188215.htm",
+      "title": "报名参加2026年度体测补测",
+      "detail": "补测对象为2026年度体测不及格、未参加正常测试或申请缓测的本科生。一二年级无体育课且总分不及格者凭学院盖章的《体测成绩记录单》在测试时段参加；三四年级须于11月11日至13日通过“体适能”APP或 https://tybtc.lzu.edu.cn 预约。测试时携带本人身份证实体卡，提前15分钟检录。",
+      "due_at": "2026-11-15T23:59",
+      "priority": "high",
+      "needs_recommendation": false,
+      "content_hash": "",
+      "source": "lzu-news",
+      "source_label": "学校通知",
+      "url": "https://news.lzu.edu.cn/info/1056/1188215.htm",
+      "category": "学校通知",
+      "published_at": "2026-11-10",
+      "status": "open"
+    },
+    {
       "key": "lzu-jwc:339955.html",
       "title": "报名参加2026年人工智能竞赛",
       "detail": "本科生均可参加，可选知识竞赛（个人线上答题）、创意设计或项目设计（可3人组队）。知识竞赛需11月15日前加QQ群722496139，11月20日前在U+平台完成首次登录注册，11月29日13:00-13:50线上考试；专题二、三需11月30日前在人工智能教学实训平台加入赛道，12月27日前提交作品。",
@@ -646,6 +676,21 @@
       "category": "资助通知",
       "published_at": "2026-11-05",
       "status": "done"
+    },
+    {
+      "key": "lzu-jwc:340032.html",
+      "title": "填写2026年在校生学情调查问卷",
+      "detail": "11月20日前登录个人工作台（本科质量监测-问卷调查）或兰州大学APP（听评课-我参与的问卷）匿名填写学情调查问卷，为学校改进教学提供依据。",
+      "due_at": "2026-11-20T23:59",
+      "priority": "normal",
+      "needs_recommendation": false,
+      "content_hash": "",
+      "source": "lzu-jwc",
+      "source_label": "教务处",
+      "url": "https://jwc.lzu.edu.cn/tongzhigonggao/jiaoxuezhiliangguanli/2026/1110/340032.html",
+      "category": "教学质量管理",
+      "published_at": "2026-11-10",
+      "status": "open"
     },
     {
       "key": "manual:lpm56oic",
@@ -723,21 +768,6 @@
       "status": "open"
     },
     {
-      "key": "qq:gmwa6tfo3",
-      "title": "填写项目意向收集表报名",
-      "detail": "以班级为单位报名参加该项目，需填写意向收集表；学院提供经费支持，立项结项可获得加分。通知要求全体成员报名参加，具体截止时间未说明，请尽快填写。",
-      "due_at": null,
-      "priority": "high",
-      "needs_recommendation": false,
-      "content_hash": "e0300eed6b90cda2",
-      "source": "qq",
-      "source_label": "QQ 群",
-      "url": "",
-      "category": "QQ 群消息",
-      "published_at": "2026-11-10",
-      "status": "open"
-    },
-    {
       "key": "qq:gmvvs261j",
       "title": "在辅导猫上完成查课签到",
       "detail": "今天班级查课，需在辅导猫上签到，签到在一小时后开始，请及时完成。",
@@ -780,7 +810,7 @@
       "url": "",
       "category": "QQ 群消息",
       "published_at": "2026-11-10",
-      "status": "open"
+      "status": "done"
     },
     {
       "key": "qq:gmw95g3qa",
@@ -810,7 +840,7 @@
       "url": "https://news.lzu.edu.cn/info/1056/1187575.htm",
       "category": "学校通知",
       "published_at": "2026-11-08",
-      "status": "open"
+      "status": "done"
     },
     {
       "key": "qq:gmw75t1lj",
