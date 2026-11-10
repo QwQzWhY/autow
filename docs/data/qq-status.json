@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-10T12:26:39+08:00",
+  "generated_at": "2026-11-10T12:26:52+08:00",
   "connected": true,
   "total_received": 196,
   "total_todos": 53,
@@ -7,11 +7,11 @@
   "today_todos": 2,
   "recent": [
     {
-      "at": "2026-11-10T12:26:37+08:00",
+      "at": "2026-11-10T12:26:50+08:00",
       "verdict": "todo",
       "verdict_label": "已生成待办",
-      "title": "填写项目意向收集表报名",
-      "length": 161,
+      "title": "填写学风建设意向统计表",
+      "length": 335,
       "nonce": ""
     },
     {
