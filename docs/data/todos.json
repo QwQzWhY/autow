@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-10T20:41:34+08:00",
-  "count": 87,
+  "generated_at": "2026-11-11T00:18:24+08:00",
+  "count": 88,
   "todos": [
     {
       "key": "qq:gmv9k1bjq",
@@ -798,17 +798,17 @@
       "status": "done"
     },
     {
-      "key": "qq:gmwami2pi",
-      "title": "报名Blender MT线下兼职项目",
-      "detail": "按要求填写项目报名表（飞书链接）。项目为线下兼职，工作地点致远楼603，工作时间课余尽量出勤，薪资30-50元/时。",
+      "key": "lzu-news:1188315.htm",
+      "title": "关于全面征集兰州大学2027版本科专业人才培养方案修订建议的通知",
+      "detail": "",
       "due_at": null,
       "priority": "normal",
       "needs_recommendation": false,
-      "content_hash": "1ab28c13e8e9943b",
-      "source": "qq",
-      "source_label": "QQ 群",
-      "url": "",
-      "category": "QQ 群消息",
+      "content_hash": "",
+      "source": "lzu-news",
+      "source_label": "学校通知",
+      "url": "https://news.lzu.edu.cn/info/1056/1188315.htm",
+      "category": "学校通知",
       "published_at": "2026-11-10",
       "status": "open"
     },
