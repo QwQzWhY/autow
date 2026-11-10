@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-11T00:18:24+08:00",
+  "generated_at": "2026-11-11T06:16:33+08:00",
   "count": 88,
   "todos": [
     {
@@ -630,7 +630,7 @@
       "url": "https://xgb.lzu.edu.cn/tongzhigonggao/sizhengjiaoyu/2026/1110/340039.html",
       "category": "思政通知",
       "published_at": "2026-11-10",
-      "status": "open"
+      "status": "done"
     },
     {
       "key": "lzu-news:1188215.htm",
@@ -645,7 +645,7 @@
       "url": "https://news.lzu.edu.cn/info/1056/1188215.htm",
       "category": "学校通知",
       "published_at": "2026-11-10",
-      "status": "open"
+      "status": "done"
     },
     {
       "key": "lzu-jwc:339955.html",
@@ -660,7 +660,7 @@
       "url": "https://jwc.lzu.edu.cn/tongzhigonggao/shijianjiaoxue/2026/1109/339955.html",
       "category": "实践教学",
       "published_at": "2026-11-09",
-      "status": "open"
+      "status": "done"
     },
     {
       "key": "lzu-xgb:339829.html",
@@ -690,7 +690,7 @@
       "url": "https://jwc.lzu.edu.cn/tongzhigonggao/jiaoxuezhiliangguanli/2026/1110/340032.html",
       "category": "教学质量管理",
       "published_at": "2026-11-10",
-      "status": "open"
+      "status": "done"
     },
     {
       "key": "manual:lpm56oic",
@@ -720,7 +720,7 @@
       "url": "https://jwc.lzu.edu.cn/tongzhigonggao/shijianjiaoxue/2026/1109/339979.html",
       "category": "实践教学",
       "published_at": "2026-11-09",
-      "status": "open"
+      "status": "done"
     },
     {
       "key": "lzu-news:1185965.htm",
@@ -840,7 +840,7 @@
       "url": "",
       "category": "QQ 群消息",
       "published_at": "2026-11-10",
-      "status": "open"
+      "status": "done"
     },
     {
       "key": "lzu-news:1187575.htm",
