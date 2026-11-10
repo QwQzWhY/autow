@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-10T12:26:10+08:00",
-  "count": 83,
+  "generated_at": "2026-11-10T12:26:39+08:00",
+  "count": 84,
   "todos": [
     {
       "key": "qq:gmv9k1bjq",
@@ -720,6 +720,21 @@
       "url": "",
       "category": "手动录入",
       "published_at": "2026-10-24",
+      "status": "open"
+    },
+    {
+      "key": "qq:gmwa6tfo3",
+      "title": "填写项目意向收集表报名",
+      "detail": "以班级为单位报名参加该项目，需填写意向收集表；学院提供经费支持，立项结项可获得加分。通知要求全体成员报名参加，具体截止时间未说明，请尽快填写。",
+      "due_at": null,
+      "priority": "high",
+      "needs_recommendation": false,
+      "content_hash": "e0300eed6b90cda2",
+      "source": "qq",
+      "source_label": "QQ 群",
+      "url": "",
+      "category": "QQ 群消息",
+      "published_at": "2026-11-10",
       "status": "open"
     },
     {

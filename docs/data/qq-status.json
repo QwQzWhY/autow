@@ -1,11 +1,19 @@
 {
-  "generated_at": "2026-11-10T12:26:10+08:00",
+  "generated_at": "2026-11-10T12:26:39+08:00",
   "connected": true,
-  "total_received": 195,
-  "total_todos": 52,
-  "today_received": 1,
-  "today_todos": 1,
+  "total_received": 196,
+  "total_todos": 53,
+  "today_received": 2,
+  "today_todos": 2,
   "recent": [
+    {
+      "at": "2026-11-10T12:26:37+08:00",
+      "verdict": "todo",
+      "verdict_label": "已生成待办",
+      "title": "填写项目意向收集表报名",
+      "length": 161,
+      "nonce": ""
+    },
     {
       "at": "2026-11-10T12:26:09+08:00",
       "verdict": "todo",
@@ -76,14 +84,6 @@
       "verdict_label": "判断为无需行动",
       "title": "",
       "length": 139,
-      "nonce": ""
-    },
-    {
-      "at": "2026-11-06T08:22:29+08:00",
-      "verdict": "ignored",
-      "verdict_label": "判断为无需行动",
-      "title": "",
-      "length": 73,
       "nonce": ""
     }
   ]
