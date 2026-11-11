@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-11T15:46:21+08:00",
-  "count": 90,
+  "generated_at": "2026-11-11T16:47:58+08:00",
+  "count": 91,
   "todos": [
     {
       "key": "qq:gmv9k1bjq",
@@ -616,6 +616,21 @@
       "category": "资助通知",
       "published_at": "2026-11-03",
       "status": "done"
+    },
+    {
+      "key": "qq:gmwbvj49f",
+      "title": "参加明天上午的急救培训",
+      "detail": "明天（2026-11-12）上午10:30开始急救培训，具体地点稍后通知，请留意群内后续消息。",
+      "due_at": "2026-11-12T10:30",
+      "priority": "high",
+      "needs_recommendation": false,
+      "content_hash": "7232e369d32d68c4",
+      "source": "qq",
+      "source_label": "QQ 群",
+      "url": "",
+      "category": "QQ 群消息",
+      "published_at": "2026-11-11",
+      "status": "open"
     },
     {
       "key": "qq:gmwboxsfk",
