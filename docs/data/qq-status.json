@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-11T15:07:09+08:00",
+  "generated_at": "2026-11-11T15:07:21+08:00",
   "connected": true,
   "total_received": 198,
   "total_todos": 54,
@@ -7,11 +7,11 @@
   "today_todos": 1,
   "recent": [
     {
-      "at": "2026-11-11T15:07:07+08:00",
+      "at": "2026-11-11T15:07:20+08:00",
       "verdict": "todo",
       "verdict_label": "已生成待办",
-      "title": "规范停放自行车",
-      "length": 296,
+      "title": "参加行云集团实习宣讲会",
+      "length": 253,
       "nonce": ""
     },
     {

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-11T15:07:09+08:00",
+  "generated_at": "2026-11-11T15:07:21+08:00",
   "count": 89,
   "todos": [
     {
@@ -616,6 +616,21 @@
       "category": "资助通知",
       "published_at": "2026-11-03",
       "status": "done"
+    },
+    {
+      "key": "qq:gmwboxsfk",
+      "title": "参加行云集团实习宣讲会",
+      "detail": "明天（周四）中午1点在致远楼1楼大厅参加行云集团合伙人CTO余青的产业项目分享及驻校带薪实习说明会。",
+      "due_at": "2026-11-12T13:00",
+      "priority": "high",
+      "needs_recommendation": false,
+      "content_hash": "a08e914063f2637a",
+      "source": "qq",
+      "source_label": "QQ 群",
+      "url": "",
+      "category": "QQ 群消息",
+      "published_at": "2026-11-11",
+      "status": "open"
     },
     {
       "key": "lzu-xgb:340039.html",
