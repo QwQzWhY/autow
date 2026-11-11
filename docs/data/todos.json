@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-11T15:07:21+08:00",
+  "generated_at": "2026-11-11T15:46:11+08:00",
   "count": 89,
   "todos": [
     {
@@ -811,21 +811,6 @@
       "category": "资助通知",
       "published_at": "2026-10-23",
       "status": "done"
-    },
-    {
-      "key": "qq:gmwboxsg3",
-      "title": "规范停放自行车",
-      "detail": "请将自行车停放在划定的白色标线区域内，整齐摆放，严禁乱停乱放，避免占用消防通道及人行通道，共同维护宿舍区通行秩序。",
-      "due_at": null,
-      "priority": "normal",
-      "needs_recommendation": false,
-      "content_hash": "53d2d3a3a6885468",
-      "source": "qq",
-      "source_label": "QQ 群",
-      "url": "",
-      "category": "QQ 群消息",
-      "published_at": "2026-11-11",
-      "status": "open"
     },
     {
       "key": "lzu-news:1188315.htm",
