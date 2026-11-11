@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-11T15:46:11+08:00",
-  "count": 89,
+  "generated_at": "2026-11-11T15:46:21+08:00",
+  "count": 90,
   "todos": [
     {
       "key": "qq:gmv9k1bjq",
@@ -811,6 +811,21 @@
       "category": "资助通知",
       "published_at": "2026-10-23",
       "status": "done"
+    },
+    {
+      "key": "qq:gmwbs096y",
+      "title": "按桌面准考证位置就座参加数学竞赛",
+      "detail": "兰大考点不再单独发放准考证，监考老师会在考试开始前按座位号把准考证放在桌面上，到场后按准考证摆放位置就座即可。具体考试时间地点以群内前期通知为准。",
+      "due_at": null,
+      "priority": "normal",
+      "needs_recommendation": false,
+      "content_hash": "88e4f49d3d20a3ab",
+      "source": "qq",
+      "source_label": "QQ 群",
+      "url": "",
+      "category": "QQ 群消息",
+      "published_at": "2026-11-11",
+      "status": "open"
     },
     {
       "key": "lzu-news:1188315.htm",
