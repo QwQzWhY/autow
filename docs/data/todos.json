@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-12T23:26:37+08:00",
-  "count": 93,
+  "generated_at": "2026-11-12T23:32:59+08:00",
+  "count": 94,
   "todos": [
     {
       "key": "qq:gmv9k1bjq",
@@ -663,21 +663,6 @@
       "status": "done"
     },
     {
-      "key": "qq:gmwdjslkw",
-      "title": "参加周六晚7点心理活动",
-      "detail": "本周六晚上7点参加班级心理活动，请勿忘记。",
-      "due_at": "2026-11-14T19:00",
-      "priority": "normal",
-      "needs_recommendation": false,
-      "content_hash": "c8c1f3eced267632",
-      "source": "qq",
-      "source_label": "QQ 群",
-      "url": "",
-      "category": "QQ 群消息",
-      "published_at": "2026-11-12",
-      "status": "open"
-    },
-    {
       "key": "lzu-news:1188215.htm",
       "title": "报名参加2026年度体测补测",
       "detail": "补测对象为2026年度体测不及格、未参加正常测试或申请缓测的本科生。一二年级无体育课且总分不及格者凭学院盖章的《体测成绩记录单》在测试时段参加；三四年级须于11月11日至13日通过“体适能”APP或 https://tybtc.lzu.edu.cn 预约。测试时携带本人身份证实体卡，提前15分钟检录。",
@@ -871,6 +856,21 @@
       "category": "资助通知",
       "published_at": "2026-10-23",
       "status": "done"
+    },
+    {
+      "key": "qq:gmwdpa5lp",
+      "title": "报名兰州大学2026人工智能竞赛",
+      "detail": "兰州大学2026人工智能竞赛开始报名，需按要求报名参加。通知被截断，具体报名方式、截止时间等全文要回群里查看。",
+      "due_at": null,
+      "priority": "normal",
+      "needs_recommendation": false,
+      "content_hash": "56b0e4b0f54852b3",
+      "source": "qq",
+      "source_label": "QQ 群",
+      "url": "",
+      "category": "QQ 群消息",
+      "published_at": "2026-11-12",
+      "status": "open"
     },
     {
       "key": "qq:gmwbs096y",
