@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-12T02:32:45+08:00",
-  "count": 91,
+  "generated_at": "2026-11-12T09:26:57+08:00",
+  "count": 92,
   "todos": [
     {
       "key": "qq:gmv9k1bjq",
@@ -721,6 +721,21 @@
       "category": "教学质量管理",
       "published_at": "2026-11-10",
       "status": "done"
+    },
+    {
+      "key": "lzu-jwc:340117.html",
+      "title": "打印四六级口语考试准考证",
+      "detail": "11月17日9:00起登录CET报名网站（cet-bm.neea.edu.cn）自行打印口试准考证，考试当天携带准考证、身份证件及学生证/校园卡，按准考证报到时间提前到场。",
+      "due_at": "2026-11-21T00:00",
+      "priority": "high",
+      "needs_recommendation": false,
+      "content_hash": "",
+      "source": "lzu-jwc",
+      "source_label": "教务处",
+      "url": "https://jwc.lzu.edu.cn/tongzhigonggao/kaoshizhongxin/2026/1112/340117.html",
+      "category": "考试中心",
+      "published_at": "2026-11-12",
+      "status": "open"
     },
     {
       "key": "manual:lpm56oic",

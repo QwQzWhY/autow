@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-12T02:32:45+08:00",
+  "generated_at": "2026-11-12T09:26:57+08:00",
   "extractor": {
     "configured": true,
     "mode": "live",
@@ -8,15 +8,15 @@
     "probe": {
       "ok": true
     },
-    "attempts": 0,
+    "attempts": 1,
     "failures": 0,
     "config_error": null,
     "ok": true,
     "last_error": "",
     "tokens": {
-      "calls": 1,
-      "prompt": 42,
-      "completion": 6
+      "calls": 2,
+      "prompt": 1973,
+      "completion": 118
     }
   },
   "sources": {
@@ -28,7 +28,7 @@
     },
     "lzu-jwc": {
       "listed": 53,
-      "ok": 0,
+      "ok": 1,
       "failed": 1,
       "error": ""
     },
