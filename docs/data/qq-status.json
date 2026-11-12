@@ -1,11 +1,19 @@
 {
-  "generated_at": "2026-11-12T14:26:00+08:00",
+  "generated_at": "2026-11-12T14:29:16+08:00",
   "connected": true,
-  "total_received": 201,
-  "total_todos": 56,
-  "today_received": 1,
-  "today_todos": 0,
+  "total_received": 202,
+  "total_todos": 57,
+  "today_received": 2,
+  "today_todos": 1,
   "recent": [
+    {
+      "at": "2026-11-12T14:29:14+08:00",
+      "verdict": "todo",
+      "verdict_label": "已生成待办",
+      "title": "填写查寝签到",
+      "length": 219,
+      "nonce": ""
+    },
     {
       "at": "2026-11-12T14:25:59+08:00",
       "verdict": "ignored",
@@ -76,14 +84,6 @@
       "verdict_label": "判断为无需行动",
       "title": "",
       "length": 124,
-      "nonce": ""
-    },
-    {
-      "at": "2026-11-08T11:10:56+08:00",
-      "verdict": "todo",
-      "verdict_label": "已生成待办",
-      "title": "填写查寝签到",
-      "length": 40,
       "nonce": ""
     }
   ]
