@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-12T23:32:59+08:00",
+  "generated_at": "2026-11-12T23:33:12+08:00",
   "count": 94,
   "todos": [
     {
@@ -661,6 +661,21 @@
       "category": "思政通知",
       "published_at": "2026-11-10",
       "status": "done"
+    },
+    {
+      "key": "qq:gmwdpa5ly",
+      "title": "参加火种计划第二轮面试",
+      "detail": "火种计划第二轮面试定于本周六（2026-11-15）下午，与社团纳新嘉年华同期进行，具体时间地点请留意群内后续通知。",
+      "due_at": "2026-11-15T18:00",
+      "priority": "high",
+      "needs_recommendation": false,
+      "content_hash": "557a0da6e04ecebb",
+      "source": "qq",
+      "source_label": "QQ 群",
+      "url": "",
+      "category": "QQ 群消息",
+      "published_at": "2026-11-12",
+      "status": "open"
     },
     {
       "key": "lzu-news:1188215.htm",
