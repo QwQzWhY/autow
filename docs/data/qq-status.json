@@ -1,17 +1,17 @@
 {
-  "generated_at": "2026-11-12T23:26:25+08:00",
+  "generated_at": "2026-11-12T23:26:37+08:00",
   "connected": true,
   "total_received": 203,
-  "total_todos": 57,
+  "total_todos": 56,
   "today_received": 3,
-  "today_todos": 1,
+  "today_todos": 0,
   "recent": [
     {
-      "at": "2026-11-12T23:26:23+08:00",
-      "verdict": "todo",
-      "verdict_label": "已生成待办",
-      "title": "参加周六晚7点心理活动",
-      "length": 192,
+      "at": "2026-11-12T23:26:37+08:00",
+      "verdict": "ignored",
+      "verdict_label": "判断为无需行动",
+      "title": "",
+      "length": 134,
       "nonce": ""
     },
     {
