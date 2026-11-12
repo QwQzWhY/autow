@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-12T23:33:12+08:00",
-  "count": 94,
+  "generated_at": "2026-11-13T02:03:42+08:00",
+  "count": 95,
   "todos": [
     {
       "key": "qq:gmv9k1bjq",
@@ -873,17 +873,17 @@
       "status": "done"
     },
     {
-      "key": "qq:gmwdpa5lp",
-      "title": "报名兰州大学2026人工智能竞赛",
-      "detail": "兰州大学2026人工智能竞赛开始报名，需按要求报名参加。通知被截断，具体报名方式、截止时间等全文要回群里查看。",
+      "key": "lzu-news:1188905.htm",
+      "title": "关于开展兰州大学第四届法治知识竞赛的通知",
+      "detail": "",
       "due_at": null,
       "priority": "normal",
       "needs_recommendation": false,
-      "content_hash": "56b0e4b0f54852b3",
-      "source": "qq",
-      "source_label": "QQ 群",
-      "url": "",
-      "category": "QQ 群消息",
+      "content_hash": "",
+      "source": "lzu-news",
+      "source_label": "学校通知",
+      "url": "https://news.lzu.edu.cn/info/1056/1188905.htm",
+      "category": "学校通知",
       "published_at": "2026-11-12",
       "status": "open"
     },
