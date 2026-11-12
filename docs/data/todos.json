@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-12T14:29:25+08:00",
-  "count": 92,
+  "generated_at": "2026-11-12T17:33:28+08:00",
+  "count": 93,
   "todos": [
     {
       "key": "qq:gmv9k1bjq",
@@ -708,6 +708,21 @@
       "status": "done"
     },
     {
+      "key": "lzu-xgb:340096.html",
+      "title": "查看比亚迪奖学金拟推荐名单并提异议",
+      "detail": "2026年比亚迪奖学金本科生拟推荐名单已公示，公示期为11月13日至11月19日。请查看附件名单，如有异议可在公示期内通过电话0931-5292745或邮箱zzzx@lzu.edu.cn向孙老师反映。",
+      "due_at": "2026-11-19T23:59",
+      "priority": "normal",
+      "needs_recommendation": false,
+      "content_hash": "",
+      "source": "lzu-xgb",
+      "source_label": "学工部",
+      "url": "https://xgb.lzu.edu.cn/tongzhigonggao/zizhufuwu/2026/1112/340096.html",
+      "category": "资助通知",
+      "published_at": "2026-11-12",
+      "status": "open"
+    },
+    {
       "key": "lzu-jwc:340032.html",
       "title": "填写2026年在校生学情调查问卷",
       "detail": "11月20日前登录个人工作台（本科质量监测-问卷调查）或兰州大学APP（听评课-我参与的问卷）匿名填写学情调查问卷，为学校改进教学提供依据。",
@@ -841,21 +856,6 @@
       "category": "资助通知",
       "published_at": "2026-10-23",
       "status": "done"
-    },
-    {
-      "key": "qq:gmwd0hqmf",
-      "title": "填写查寝签到",
-      "detail": "在群里完成查寝签到填写。",
-      "due_at": null,
-      "priority": "normal",
-      "needs_recommendation": false,
-      "content_hash": "63c44fea00dbefda",
-      "source": "qq",
-      "source_label": "QQ 群",
-      "url": "",
-      "category": "QQ 群消息",
-      "published_at": "2026-11-12",
-      "status": "open"
     },
     {
       "key": "qq:gmwbs096y",
