@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-13T07:34:09+08:00",
+  "generated_at": "2026-11-13T13:41:58+08:00",
   "count": 95,
   "todos": [
     {
@@ -630,7 +630,7 @@
       "url": "",
       "category": "QQ 群消息",
       "published_at": "2026-11-11",
-      "status": "open"
+      "status": "done"
     },
     {
       "key": "qq:gmwboxsfk",
@@ -645,7 +645,7 @@
       "url": "",
       "category": "QQ 群消息",
       "published_at": "2026-11-11",
-      "status": "open"
+      "status": "done"
     },
     {
       "key": "lzu-xgb:340039.html",
@@ -675,7 +675,7 @@
       "url": "",
       "category": "QQ 群消息",
       "published_at": "2026-11-12",
-      "status": "open"
+      "status": "done"
     },
     {
       "key": "lzu-news:1188215.htm",
@@ -735,7 +735,7 @@
       "url": "https://xgb.lzu.edu.cn/tongzhigonggao/zizhufuwu/2026/1112/340096.html",
       "category": "资助通知",
       "published_at": "2026-11-12",
-      "status": "open"
+      "status": "done"
     },
     {
       "key": "lzu-jwc:340032.html",
@@ -765,7 +765,7 @@
       "url": "https://jwc.lzu.edu.cn/tongzhigonggao/kaoshizhongxin/2026/1112/340117.html",
       "category": "考试中心",
       "published_at": "2026-11-12",
-      "status": "open"
+      "status": "done"
     },
     {
       "key": "manual:lpm56oic",
