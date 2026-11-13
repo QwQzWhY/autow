@@ -1,11 +1,19 @@
 {
-  "generated_at": "2026-11-14T00:28:30+08:00",
+  "generated_at": "2026-11-14T00:29:21+08:00",
   "connected": true,
-  "total_received": 209,
+  "total_received": 210,
   "total_todos": 60,
-  "today_received": 1,
+  "today_received": 2,
   "today_todos": 1,
   "recent": [
+    {
+      "at": "2026-11-14T00:29:20+08:00",
+      "verdict": "ignored",
+      "verdict_label": "判断为无需行动",
+      "title": "",
+      "length": 38,
+      "nonce": ""
+    },
     {
       "at": "2026-11-14T00:28:29+08:00",
       "verdict": "todo",
@@ -76,14 +84,6 @@
       "verdict_label": "判断为无需行动",
       "title": "",
       "length": 144,
-      "nonce": ""
-    },
-    {
-      "at": "2026-11-11T16:47:57+08:00",
-      "verdict": "todo",
-      "verdict_label": "已生成待办",
-      "title": "参加明天上午的急救培训",
-      "length": 69,
       "nonce": ""
     }
   ]
