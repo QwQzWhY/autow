@@ -1,11 +1,19 @@
 {
-  "generated_at": "2026-11-13T22:13:03+08:00",
+  "generated_at": "2026-11-13T22:13:17+08:00",
   "connected": true,
-  "total_received": 207,
+  "total_received": 208,
   "total_todos": 59,
-  "today_received": 3,
+  "today_received": 4,
   "today_todos": 2,
   "recent": [
+    {
+      "at": "2026-11-13T22:13:17+08:00",
+      "verdict": "dismissed",
+      "verdict_label": "你在看板上删过这条，已跳过",
+      "title": "",
+      "length": 40,
+      "nonce": ""
+    },
     {
       "at": "2026-11-13T20:50:43+08:00",
       "verdict": "todo",
@@ -76,14 +84,6 @@
       "verdict_label": "已生成待办",
       "title": "按桌面准考证位置就座参加数学竞赛",
       "length": 349,
-      "nonce": ""
-    },
-    {
-      "at": "2026-11-11T15:07:20+08:00",
-      "verdict": "todo",
-      "verdict_label": "已生成待办",
-      "title": "参加行云集团实习宣讲会",
-      "length": 253,
       "nonce": ""
     }
   ]
