@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-13T17:39:32+08:00",
+  "generated_at": "2026-11-13T17:39:44+08:00",
   "connected": true,
   "total_received": 205,
   "total_todos": 58,
@@ -7,11 +7,11 @@
   "today_todos": 1,
   "recent": [
     {
-      "at": "2026-11-13T17:39:30+08:00",
+      "at": "2026-11-13T17:39:42+08:00",
       "verdict": "todo",
       "verdict_label": "已生成待办",
-      "title": "参加法治知识竞赛线上答题",
-      "length": 338,
+      "title": "参加社团招新考核",
+      "length": 78,
       "nonce": ""
     },
     {

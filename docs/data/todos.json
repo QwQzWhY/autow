@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-13T17:39:32+08:00",
+  "generated_at": "2026-11-13T17:39:44+08:00",
   "count": 96,
   "todos": [
     {
@@ -766,6 +766,21 @@
       "category": "考试中心",
       "published_at": "2026-11-12",
       "status": "done"
+    },
+    {
+      "key": "qq:gmwes6qla",
+      "title": "参加社团招新考核",
+      "detail": "社团将于11月21日（周六）20:00-22:00举行正式招新考核，如无突发情况按此时间进行，请留意后续具体安排。",
+      "due_at": "2026-11-21T20:00",
+      "priority": "normal",
+      "needs_recommendation": false,
+      "content_hash": "678aa74275091a82",
+      "source": "qq",
+      "source_label": "QQ 群",
+      "url": "",
+      "category": "QQ 群消息",
+      "published_at": "2026-11-13",
+      "status": "open"
     },
     {
       "key": "manual:lpm56oic",
