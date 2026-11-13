@@ -1,11 +1,19 @@
 {
-  "generated_at": "2026-11-13T13:41:58+08:00",
+  "generated_at": "2026-11-13T17:39:32+08:00",
   "connected": true,
-  "total_received": 204,
-  "total_todos": 57,
-  "today_received": 0,
-  "today_todos": 0,
+  "total_received": 205,
+  "total_todos": 58,
+  "today_received": 1,
+  "today_todos": 1,
   "recent": [
+    {
+      "at": "2026-11-13T17:39:30+08:00",
+      "verdict": "todo",
+      "verdict_label": "已生成待办",
+      "title": "参加法治知识竞赛线上答题",
+      "length": 338,
+      "nonce": ""
+    },
     {
       "at": "2026-11-12T23:33:11+08:00",
       "verdict": "todo",
@@ -76,14 +84,6 @@
       "verdict_label": "已生成待办",
       "title": "填写学风建设意向统计表",
       "length": 335,
-      "nonce": ""
-    },
-    {
-      "at": "2026-11-10T12:26:09+08:00",
-      "verdict": "todo",
-      "verdict_label": "已生成待办",
-      "title": "完成思政实践课程考核",
-      "length": 169,
       "nonce": ""
     }
   ]

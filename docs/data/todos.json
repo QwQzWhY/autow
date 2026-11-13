@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-13T13:41:58+08:00",
-  "count": 95,
+  "generated_at": "2026-11-13T17:39:32+08:00",
+  "count": 96,
   "todos": [
     {
       "key": "qq:gmv9k1bjq",
@@ -796,6 +796,21 @@
       "category": "实践教学",
       "published_at": "2026-11-09",
       "status": "done"
+    },
+    {
+      "key": "qq:gmwes6qky",
+      "title": "参加法治知识竞赛线上答题",
+      "detail": "兰州大学第四届法治知识竞赛线上阶段已开始，答题截止时间为11月26日，请通过通知链接参与答题。",
+      "due_at": "2026-11-26T23:59",
+      "priority": "normal",
+      "needs_recommendation": false,
+      "content_hash": "4a2e93f85c91aa2a",
+      "source": "qq",
+      "source_label": "QQ 群",
+      "url": "",
+      "category": "QQ 群消息",
+      "published_at": "2026-11-13",
+      "status": "open"
     },
     {
       "key": "lzu-news:1185965.htm",
