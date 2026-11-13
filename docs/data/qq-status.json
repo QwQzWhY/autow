@@ -1,11 +1,19 @@
 {
-  "generated_at": "2026-11-13T22:13:17+08:00",
+  "generated_at": "2026-11-14T00:28:30+08:00",
   "connected": true,
-  "total_received": 208,
-  "total_todos": 59,
-  "today_received": 4,
-  "today_todos": 2,
+  "total_received": 209,
+  "total_todos": 60,
+  "today_received": 1,
+  "today_todos": 1,
   "recent": [
+    {
+      "at": "2026-11-14T00:28:29+08:00",
+      "verdict": "todo",
+      "verdict_label": "已生成待办",
+      "title": "填写社团年度考核参加表",
+      "length": 74,
+      "nonce": ""
+    },
     {
       "at": "2026-11-13T22:13:17+08:00",
       "verdict": "dismissed",
@@ -76,14 +84,6 @@
       "verdict_label": "已生成待办",
       "title": "参加明天上午的急救培训",
       "length": 69,
-      "nonce": ""
-    },
-    {
-      "at": "2026-11-11T15:46:20+08:00",
-      "verdict": "todo",
-      "verdict_label": "已生成待办",
-      "title": "按桌面准考证位置就座参加数学竞赛",
-      "length": 349,
       "nonce": ""
     }
   ]
