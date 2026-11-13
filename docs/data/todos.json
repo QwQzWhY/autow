@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-13T20:50:32+08:00",
-  "count": 96,
+  "generated_at": "2026-11-13T20:50:45+08:00",
+  "count": 97,
   "todos": [
     {
       "key": "qq:gmv9k1bjq",
@@ -795,6 +795,21 @@
       "url": "",
       "category": "手动录入",
       "published_at": "2026-10-24",
+      "status": "open"
+    },
+    {
+      "key": "qq:gmwez10bo",
+      "title": "确认11月21日晚天山堂C102机房考试安排",
+      "detail": "已借到11月21日（下周六）晚上天山堂C102机房用于考试，具体考试时间请留意群内后续通知。",
+      "due_at": "2026-11-21T23:59",
+      "priority": "normal",
+      "needs_recommendation": false,
+      "content_hash": "f2a4716dcc92e6dc",
+      "source": "qq",
+      "source_label": "QQ 群",
+      "url": "",
+      "category": "QQ 群消息",
+      "published_at": "2026-11-13",
       "status": "open"
     },
     {
