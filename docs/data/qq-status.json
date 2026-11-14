@@ -1,17 +1,17 @@
 {
-  "generated_at": "2026-11-14T22:53:04+08:00",
+  "generated_at": "2026-11-14T22:53:15+08:00",
   "connected": true,
   "total_received": 213,
-  "total_todos": 60,
+  "total_todos": 61,
   "today_received": 5,
-  "today_todos": 1,
+  "today_todos": 2,
   "recent": [
     {
-      "at": "2026-11-14T22:53:04+08:00",
-      "verdict": "dismissed",
-      "verdict_label": "你在看板上删过这条，已跳过",
-      "title": "",
-      "length": 40,
+      "at": "2026-11-14T22:53:14+08:00",
+      "verdict": "todo",
+      "verdict_label": "已生成待办",
+      "title": "取消文汇观众报名",
+      "length": 76,
       "nonce": ""
     },
     {
