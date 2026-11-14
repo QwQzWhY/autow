@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-14T21:42:52+08:00",
-  "count": 98,
+  "generated_at": "2026-11-14T21:43:11+08:00",
+  "count": 99,
   "todos": [
     {
       "key": "qq:gmv9k1bjq",
@@ -901,6 +901,21 @@
       "category": "资助通知",
       "published_at": "2026-10-23",
       "status": "done"
+    },
+    {
+      "key": "qq:gmwgggi91",
+      "title": "参加具身智能培训",
+      "detail": "具身智能培训预计下周末开展，围绕论文《Attention is all you need》相关内容，请认真对待。通知被截断，全文要回群里看。",
+      "due_at": null,
+      "priority": "normal",
+      "needs_recommendation": false,
+      "content_hash": "44941049d0a13a57",
+      "source": "qq",
+      "source_label": "QQ 群",
+      "url": "",
+      "category": "QQ 群消息",
+      "published_at": "2026-11-14",
+      "status": "open"
     },
     {
       "key": "qq:gmwf22rbp",
