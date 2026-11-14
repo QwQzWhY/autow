@@ -1,13 +1,12 @@
 {
-  "generated_at": "2026-11-14T22:53:15+08:00",
+  "generated_at": "2026-11-14T23:44:14+08:00",
   "extractor": {
     "configured": true,
     "mode": "live",
     "model": "deepseek-chat",
     "base_url_host": "api.deepseek.com",
     "probe": {
-      "ok": true,
-      "carried_over": true
+      "ok": true
     },
     "attempts": 0,
     "failures": 0,
@@ -16,8 +15,8 @@
     "last_error": "",
     "tokens": {
       "calls": 1,
-      "prompt": 665,
-      "completion": 64
+      "prompt": 42,
+      "completion": 6
     }
   },
   "sources": {
