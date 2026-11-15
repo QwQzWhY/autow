@@ -1,11 +1,19 @@
 {
-  "generated_at": "2026-11-15T15:43:54+08:00",
+  "generated_at": "2026-11-15T19:48:02+08:00",
   "connected": true,
-  "total_received": 213,
+  "total_received": 214,
   "total_todos": 61,
-  "today_received": 0,
+  "today_received": 1,
   "today_todos": 0,
   "recent": [
+    {
+      "at": "2026-11-15T19:48:01+08:00",
+      "verdict": "ignored",
+      "verdict_label": "判断为无需行动",
+      "title": "",
+      "length": 115,
+      "nonce": ""
+    },
     {
       "at": "2026-11-14T22:53:14+08:00",
       "verdict": "todo",
@@ -75,14 +83,6 @@
       "verdict": "todo",
       "verdict_label": "已生成待办",
       "title": "参加社团招新考核",
-      "length": 78,
-      "nonce": ""
-    },
-    {
-      "at": "2026-11-12T23:33:11+08:00",
-      "verdict": "todo",
-      "verdict_label": "已生成待办",
-      "title": "参加火种计划第二轮面试",
       "length": 78,
       "nonce": ""
     }
