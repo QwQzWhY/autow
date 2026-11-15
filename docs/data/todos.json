@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-15T08:56:03+08:00",
+  "generated_at": "2026-11-15T15:43:54+08:00",
   "count": 99,
   "todos": [
     {
@@ -810,7 +810,7 @@
       "url": "",
       "category": "QQ 群消息",
       "published_at": "2026-11-13",
-      "status": "open"
+      "status": "done"
     },
     {
       "key": "lzu-jwc:339979.html",
@@ -915,7 +915,7 @@
       "url": "",
       "category": "QQ 群消息",
       "published_at": "2026-11-14",
-      "status": "open"
+      "status": "done"
     },
     {
       "key": "qq:gmwf22rbp",
@@ -930,7 +930,7 @@
       "url": "",
       "category": "QQ 群消息",
       "published_at": "2026-11-14",
-      "status": "open"
+      "status": "done"
     },
     {
       "key": "lzu-news:1188905.htm",
@@ -945,7 +945,7 @@
       "url": "https://news.lzu.edu.cn/info/1056/1188905.htm",
       "category": "学校通知",
       "published_at": "2026-11-12",
-      "status": "open"
+      "status": "done"
     },
     {
       "key": "qq:gmwbs096y",
@@ -960,7 +960,7 @@
       "url": "",
       "category": "QQ 群消息",
       "published_at": "2026-11-11",
-      "status": "open"
+      "status": "done"
     },
     {
       "key": "lzu-news:1188315.htm",
@@ -975,7 +975,7 @@
       "url": "https://news.lzu.edu.cn/info/1056/1188315.htm",
       "category": "学校通知",
       "published_at": "2026-11-10",
-      "status": "open"
+      "status": "done"
     },
     {
       "key": "qq:gmwa6tfo7",
