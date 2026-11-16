@@ -1,23 +1,22 @@
 {
-  "generated_at": "2026-11-16T19:39:56+08:00",
+  "generated_at": "2026-11-17T02:08:26+08:00",
   "extractor": {
     "configured": true,
     "mode": "live",
     "model": "deepseek-chat",
     "base_url_host": "api.deepseek.com",
     "probe": {
-      "ok": true,
-      "carried_over": true
+      "ok": true
     },
-    "attempts": 1,
+    "attempts": 2,
     "failures": 0,
     "config_error": null,
     "ok": true,
     "last_error": "",
     "tokens": {
-      "calls": 1,
-      "prompt": 635,
-      "completion": 37
+      "calls": 3,
+      "prompt": 2871,
+      "completion": 245
     }
   },
   "sources": {
@@ -35,13 +34,13 @@
     },
     "lzu-xgb": {
       "listed": 45,
-      "ok": 1,
+      "ok": 2,
       "failed": 3,
       "error": ""
     },
     "lzu-news": {
       "listed": 20,
-      "ok": 1,
+      "ok": 0,
       "failed": 5,
       "error": ""
     }

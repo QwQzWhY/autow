@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-16T19:39:56+08:00",
-  "count": 102,
+  "generated_at": "2026-11-17T02:08:26+08:00",
+  "count": 104,
   "todos": [
     {
       "key": "qq:gmv9k1bjq",
@@ -738,6 +738,21 @@
       "status": "done"
     },
     {
+      "key": "lzu-xgb:340322.html",
+      "title": "助学金补充公示期内可提异议",
+      "detail": "2026-2027学年家庭经济困难学生认定及国家助学金评定补充公示，公示期至11月20日。如对公示名单有异议，可在公示期内通过电话0931-8912745、邮箱zzzx@lzu.edu.cn或来访向学生奖助中心反映，个人反映需署真实信息。",
+      "due_at": "2026-11-20T23:59",
+      "priority": "normal",
+      "needs_recommendation": false,
+      "content_hash": "",
+      "source": "lzu-xgb",
+      "source_label": "学工部",
+      "url": "https://xgb.lzu.edu.cn/tongzhigonggao/zizhufuwu/2026/1116/340322.html",
+      "category": "资助通知",
+      "published_at": "2026-11-16",
+      "status": "open"
+    },
+    {
       "key": "lzu-jwc:340032.html",
       "title": "填写2026年在校生学情调查问卷",
       "detail": "11月20日前登录个人工作台（本科质量监测-问卷调查）或兰州大学APP（听评课-我参与的问卷）匿名填写学情调查问卷，为学校改进教学提供依据。",
@@ -826,6 +841,21 @@
       "category": "实践教学",
       "published_at": "2026-11-09",
       "status": "done"
+    },
+    {
+      "key": "lzu-xgb:340310.html",
+      "title": "查看砺剑助学金公示名单",
+      "detail": "2026年火箭军砺剑助学金拟推荐名单已公示，公示期为11月17日至11月23日。请查看附件确认本人是否在名单内，如有异议可在公示期内联系孙老师（0931-5292745）或发邮件至zzzx@lzu.edu.cn。",
+      "due_at": "2026-11-23T23:59",
+      "priority": "normal",
+      "needs_recommendation": false,
+      "content_hash": "",
+      "source": "lzu-xgb",
+      "source_label": "学工部",
+      "url": "https://xgb.lzu.edu.cn/tongzhigonggao/zizhufuwu/2026/1116/340310.html",
+      "category": "资助通知",
+      "published_at": "2026-11-16",
+      "status": "open"
     },
     {
       "key": "lzu-xgb:340274.html",
