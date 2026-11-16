@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-16T14:24:04+08:00",
-  "count": 99,
+  "generated_at": "2026-11-16T14:24:15+08:00",
+  "count": 100,
   "todos": [
     {
       "key": "qq:gmv9k1bjq",
@@ -901,6 +901,21 @@
       "category": "资助通知",
       "published_at": "2026-10-23",
       "status": "done"
+    },
+    {
+      "key": "qq:gmwivnv3a",
+      "title": "报名青年反诈活动并留意签到码",
+      "detail": "2026年“青年反诈在行动”活动已录取28位同学，周六参加活动但尚未报名的同学请尽快报名。周四晚上19:00-20:30群里会发签到码，参加的同学注意查收。",
+      "due_at": null,
+      "priority": "normal",
+      "needs_recommendation": false,
+      "content_hash": "7197227b8e047245",
+      "source": "qq",
+      "source_label": "QQ 群",
+      "url": "",
+      "category": "QQ 群消息",
+      "published_at": "2026-11-16",
+      "status": "open"
     },
     {
       "key": "qq:gmwgip2je",
