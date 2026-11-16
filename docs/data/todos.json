@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-16T14:52:20+08:00",
-  "count": 100,
+  "generated_at": "2026-11-16T15:30:11+08:00",
+  "count": 101,
   "todos": [
     {
       "key": "qq:gmv9k1bjq",
@@ -901,6 +901,21 @@
       "category": "资助通知",
       "published_at": "2026-10-23",
       "status": "done"
+    },
+    {
+      "key": "qq:gmwixvtuz",
+      "title": "按流程绑定冷水直饮机校园卡",
+      "detail": "在支付宝按群内说明的步骤完成冷水直饮机设备绑定校园卡操作。通知被截断，全文要回群里看。",
+      "due_at": null,
+      "priority": "normal",
+      "needs_recommendation": false,
+      "content_hash": "e630ec09310bb5c9",
+      "source": "qq",
+      "source_label": "QQ 群",
+      "url": "",
+      "category": "QQ 群消息",
+      "published_at": "2026-11-16",
+      "status": "open"
     },
     {
       "key": "qq:gmwivnv3a",
