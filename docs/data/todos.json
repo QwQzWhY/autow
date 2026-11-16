@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-16T15:30:11+08:00",
-  "count": 101,
+  "generated_at": "2026-11-16T15:50:22+08:00",
+  "count": 102,
   "todos": [
     {
       "key": "qq:gmv9k1bjq",
@@ -826,6 +826,21 @@
       "category": "实践教学",
       "published_at": "2026-11-09",
       "status": "done"
+    },
+    {
+      "key": "lzu-xgb:340274.html",
+      "title": "申请2026-2027学年本科生学费减免",
+      "detail": "登录新学工系统—学费减免管理模块提交申请，并向学院提交《兰州大学本科生学费减免申请表》及相关证明材料电子扫描件；学院报送截止11月30日，逾期不再受理。",
+      "due_at": "2026-11-30T23:59",
+      "priority": "high",
+      "needs_recommendation": false,
+      "content_hash": "",
+      "source": "lzu-xgb",
+      "source_label": "学工部",
+      "url": "https://xgb.lzu.edu.cn/tongzhigonggao/2026/1116/340274.html",
+      "category": "资助通知",
+      "published_at": "2026-11-16",
+      "status": "open"
     },
     {
       "key": "lzu-news:1185965.htm",
