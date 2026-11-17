@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-17T10:36:38+08:00",
-  "count": 105,
+  "generated_at": "2026-11-17T10:43:16+08:00",
+  "count": 106,
   "todos": [
     {
       "key": "qq:gmv9k1bjq",
@@ -781,6 +781,21 @@
       "category": "考试中心",
       "published_at": "2026-11-12",
       "status": "done"
+    },
+    {
+      "key": "qq:gmwk33tvf",
+      "title": "参加社团招新考核并带齐设备",
+      "detail": "本周六11月21日19:30-21:30进行本学年正式招新考核，需携带电脑、电脑充电器、纸笔、开发板（含模块、线材等所有用于写程序的东西，开发板具体要求见往期群精华）。通知被截断，全文要回群里看。",
+      "due_at": "2026-11-21T19:30",
+      "priority": "high",
+      "needs_recommendation": false,
+      "content_hash": "440c73542baa3f49",
+      "source": "qq",
+      "source_label": "QQ 群",
+      "url": "",
+      "category": "QQ 群消息",
+      "published_at": "2026-11-17",
+      "status": "open"
     },
     {
       "key": "qq:gmwes6qla",

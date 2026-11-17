@@ -1,11 +1,19 @@
 {
-  "generated_at": "2026-11-17T10:36:38+08:00",
+  "generated_at": "2026-11-17T10:43:16+08:00",
   "connected": true,
-  "total_received": 222,
-  "total_todos": 64,
-  "today_received": 2,
-  "today_todos": 1,
+  "total_received": 223,
+  "total_todos": 65,
+  "today_received": 3,
+  "today_todos": 2,
   "recent": [
+    {
+      "at": "2026-11-17T10:43:14+08:00",
+      "verdict": "todo",
+      "verdict_label": "已生成待办",
+      "title": "参加社团招新考核并带齐设备",
+      "length": 163,
+      "nonce": ""
+    },
     {
       "at": "2026-11-17T10:36:36+08:00",
       "verdict": "todo",
@@ -76,14 +84,6 @@
       "verdict_label": "判断为无需行动",
       "title": "",
       "length": 115,
-      "nonce": ""
-    },
-    {
-      "at": "2026-11-14T22:53:14+08:00",
-      "verdict": "todo",
-      "verdict_label": "已生成待办",
-      "title": "取消文汇观众报名",
-      "length": 76,
       "nonce": ""
     }
   ]
