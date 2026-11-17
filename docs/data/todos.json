@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-17T10:43:16+08:00",
-  "count": 106,
+  "generated_at": "2026-11-17T19:40:35+08:00",
+  "count": 107,
   "todos": [
     {
       "key": "qq:gmv9k1bjq",
@@ -856,6 +856,21 @@
       "category": "实践教学",
       "published_at": "2026-11-09",
       "status": "done"
+    },
+    {
+      "key": "lzu-jwc:340360.html",
+      "title": "对省级人才培养项目推荐名单提异议",
+      "detail": "公示期至11月23日，如对拟推荐的教学名师、教学团队、青年教师成才奖等名单有异议，可发邮件至 jwcjxjsb@lzu.edu.cn 反映，个人须署真实姓名、身份证号并留联系方式。",
+      "due_at": "2026-11-23T23:59",
+      "priority": "low",
+      "needs_recommendation": false,
+      "content_hash": "",
+      "source": "lzu-jwc",
+      "source_label": "教务处",
+      "url": "https://jwc.lzu.edu.cn/tongzhigonggao/jiaoxuejianshe/2026/1117/340360.html",
+      "category": "教学建设",
+      "published_at": "2026-11-17",
+      "status": "open"
     },
     {
       "key": "lzu-xgb:340310.html",
