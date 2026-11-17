@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-17T10:26:43+08:00",
-  "count": 104,
+  "generated_at": "2026-11-17T10:36:38+08:00",
+  "count": 105,
   "todos": [
     {
       "key": "qq:gmv9k1bjq",
@@ -946,6 +946,21 @@
       "category": "资助通知",
       "published_at": "2026-10-23",
       "status": "done"
+    },
+    {
+      "key": "qq:gmwk2v99a",
+      "title": "填写2026年在校生学情调查问卷",
+      "detail": "教务处发布《关于开展2026年在校生学情调查》通知，需按要求参与学情调查。通知被截断，全文要回群里看。",
+      "due_at": null,
+      "priority": "normal",
+      "needs_recommendation": false,
+      "content_hash": "c21b25fcf95729a6",
+      "source": "qq",
+      "source_label": "QQ 群",
+      "url": "",
+      "category": "QQ 群消息",
+      "published_at": "2026-11-17",
+      "status": "open"
     },
     {
       "key": "qq:gmwixvtuz",
