@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-19T07:13:47+08:00",
+  "generated_at": "2026-11-19T07:13:57+08:00",
   "connected": true,
   "total_received": 228,
   "total_todos": 66,
@@ -7,11 +7,11 @@
   "today_todos": 0,
   "recent": [
     {
-      "at": "2026-11-19T07:13:46+08:00",
-      "verdict": "ignored",
-      "verdict_label": "判断为无需行动",
+      "at": "2026-11-19T07:13:57+08:00",
+      "verdict": "dismissed",
+      "verdict_label": "你在看板上删过这条，已跳过",
       "title": "",
-      "length": 119,
+      "length": 40,
       "nonce": ""
     },
     {
