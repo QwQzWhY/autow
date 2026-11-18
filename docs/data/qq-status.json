@@ -1,11 +1,19 @@
 {
-  "generated_at": "2026-11-19T04:19:36+08:00",
+  "generated_at": "2026-11-19T07:13:47+08:00",
   "connected": true,
-  "total_received": 227,
+  "total_received": 228,
   "total_todos": 66,
-  "today_received": 0,
+  "today_received": 1,
   "today_todos": 0,
   "recent": [
+    {
+      "at": "2026-11-19T07:13:46+08:00",
+      "verdict": "ignored",
+      "verdict_label": "判断为无需行动",
+      "title": "",
+      "length": 119,
+      "nonce": ""
+    },
     {
       "at": "2026-11-18T14:32:57+08:00",
       "verdict": "ignored",
@@ -75,14 +83,6 @@
       "verdict": "ignored",
       "verdict_label": "判断为无需行动",
       "title": "",
-      "length": 65,
-      "nonce": ""
-    },
-    {
-      "at": "2026-11-16T15:30:09+08:00",
-      "verdict": "todo",
-      "verdict_label": "已生成待办",
-      "title": "按流程绑定冷水直饮机校园卡",
       "length": 65,
       "nonce": ""
     }
