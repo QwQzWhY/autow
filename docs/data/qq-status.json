@@ -1,11 +1,19 @@
 {
-  "generated_at": "2026-11-19T11:00:23+08:00",
+  "generated_at": "2026-11-19T11:03:47+08:00",
   "connected": true,
-  "total_received": 229,
+  "total_received": 230,
   "total_todos": 66,
-  "today_received": 2,
+  "today_received": 3,
   "today_todos": 0,
   "recent": [
+    {
+      "at": "2026-11-19T11:03:46+08:00",
+      "verdict": "ignored",
+      "verdict_label": "判断为无需行动",
+      "title": "",
+      "length": 73,
+      "nonce": ""
+    },
     {
       "at": "2026-11-19T11:00:22+08:00",
       "verdict": "ignored",
@@ -76,14 +84,6 @@
       "verdict_label": "判断为无需行动",
       "title": "",
       "length": 152,
-      "nonce": ""
-    },
-    {
-      "at": "2026-11-16T19:39:55+08:00",
-      "verdict": "ignored",
-      "verdict_label": "判断为无需行动",
-      "title": "",
-      "length": 41,
       "nonce": ""
     }
   ]
