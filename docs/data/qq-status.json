@@ -1,11 +1,19 @@
 {
-  "generated_at": "2026-11-19T15:53:21+08:00",
+  "generated_at": "2026-11-19T16:17:02+08:00",
   "connected": true,
-  "total_received": 231,
-  "total_todos": 67,
-  "today_received": 4,
-  "today_todos": 1,
+  "total_received": 232,
+  "total_todos": 68,
+  "today_received": 5,
+  "today_todos": 2,
   "recent": [
+    {
+      "at": "2026-11-19T16:17:01+08:00",
+      "verdict": "todo",
+      "verdict_label": "已生成待办",
+      "title": "完成签到",
+      "length": 135,
+      "nonce": ""
+    },
     {
       "at": "2026-11-19T15:53:19+08:00",
       "verdict": "todo",
@@ -76,14 +84,6 @@
       "verdict_label": "已生成待办",
       "title": "参加社团招新考核并带齐设备",
       "length": 163,
-      "nonce": ""
-    },
-    {
-      "at": "2026-11-17T10:36:36+08:00",
-      "verdict": "todo",
-      "verdict_label": "已生成待办",
-      "title": "填写2026年在校生学情调查问卷",
-      "length": 78,
       "nonce": ""
     }
   ]
