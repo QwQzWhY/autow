@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-19T11:03:47+08:00",
-  "count": 108,
+  "generated_at": "2026-11-19T15:53:21+08:00",
+  "count": 109,
   "todos": [
     {
       "key": "qq:gmv9k1bjq",
@@ -991,6 +991,21 @@
       "category": "资助通知",
       "published_at": "2026-10-23",
       "status": "done"
+    },
+    {
+      "key": "qq:gmwn92843",
+      "title": "填写社交投稿项目报名表",
+      "detail": "有意报名的同学需按要求填写项目报名表，链接见群内飞书文档。项目为线下全职L4项目，工作地点榆中致远楼603涉密室，工作日出勤8小时，完成每日人效要求后可休息。通知被截断，全文要回群里看。",
+      "due_at": null,
+      "priority": "normal",
+      "needs_recommendation": false,
+      "content_hash": "afc4399996f8a3c1",
+      "source": "qq",
+      "source_label": "QQ 群",
+      "url": "",
+      "category": "QQ 群消息",
+      "published_at": "2026-11-19",
+      "status": "open"
     },
     {
       "key": "qq:gmwk2v99a",

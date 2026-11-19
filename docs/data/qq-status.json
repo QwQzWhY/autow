@@ -1,11 +1,19 @@
 {
-  "generated_at": "2026-11-19T11:03:47+08:00",
+  "generated_at": "2026-11-19T15:53:21+08:00",
   "connected": true,
-  "total_received": 230,
-  "total_todos": 66,
-  "today_received": 3,
-  "today_todos": 0,
+  "total_received": 231,
+  "total_todos": 67,
+  "today_received": 4,
+  "today_todos": 1,
   "recent": [
+    {
+      "at": "2026-11-19T15:53:19+08:00",
+      "verdict": "todo",
+      "verdict_label": "已生成待办",
+      "title": "填写社交投稿项目报名表",
+      "length": 360,
+      "nonce": ""
+    },
     {
       "at": "2026-11-19T11:03:46+08:00",
       "verdict": "ignored",
@@ -76,14 +84,6 @@
       "verdict_label": "已生成待办",
       "title": "填写2026年在校生学情调查问卷",
       "length": 78,
-      "nonce": ""
-    },
-    {
-      "at": "2026-11-17T07:11:20+08:00",
-      "verdict": "ignored",
-      "verdict_label": "判断为无需行动",
-      "title": "",
-      "length": 152,
       "nonce": ""
     }
   ]

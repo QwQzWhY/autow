@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-19T11:03:47+08:00",
+  "generated_at": "2026-11-19T15:53:21+08:00",
   "extractor": {
     "configured": true,
     "mode": "live",
@@ -16,8 +16,8 @@
     "last_error": "",
     "tokens": {
       "calls": 1,
-      "prompt": 655,
-      "completion": 37
+      "prompt": 817,
+      "completion": 107
     }
   },
   "sources": {
