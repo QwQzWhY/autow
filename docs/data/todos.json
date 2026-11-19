@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-19T21:11:10+08:00",
-  "count": 111,
+  "generated_at": "2026-11-19T21:13:35+08:00",
+  "count": 112,
   "todos": [
     {
       "key": "qq:gmv9k1bjq",
@@ -1006,6 +1006,21 @@
       "category": "资助通知",
       "published_at": "2026-10-23",
       "status": "done"
+    },
+    {
+      "key": "qq:gmwnklzoi",
+      "title": "查看校赛获奖标准变动",
+      "detail": "第9届兰州大学程序设计竞赛的获奖标准有变动，请及时查看群内发布的最新标准。",
+      "due_at": null,
+      "priority": "normal",
+      "needs_recommendation": false,
+      "content_hash": "ce9334eb87cf44fb",
+      "source": "qq",
+      "source_label": "QQ 群",
+      "url": "",
+      "category": "QQ 群消息",
+      "published_at": "2026-11-19",
+      "status": "open"
     },
     {
       "key": "qq:gmwncwsfg",
