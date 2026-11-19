@@ -1,11 +1,19 @@
 {
-  "generated_at": "2026-11-19T21:19:41+08:00",
+  "generated_at": "2026-11-19T22:00:30+08:00",
   "connected": true,
-  "total_received": 235,
+  "total_received": 236,
   "total_todos": 70,
-  "today_received": 8,
+  "today_received": 9,
   "today_todos": 4,
   "recent": [
+    {
+      "at": "2026-11-19T22:00:30+08:00",
+      "verdict": "dismissed",
+      "verdict_label": "你在看板上删过这条，已跳过",
+      "title": "",
+      "length": 40,
+      "nonce": ""
+    },
     {
       "at": "2026-11-19T21:19:40+08:00",
       "verdict": "ignored",
@@ -76,14 +84,6 @@
       "verdict_label": "判断为无需行动",
       "title": "",
       "length": 35,
-      "nonce": ""
-    },
-    {
-      "at": "2026-11-18T11:50:07+08:00",
-      "verdict": "todo",
-      "verdict_label": "已生成待办",
-      "title": "参加程序设计竞赛宣讲暨赛前培训",
-      "length": 165,
       "nonce": ""
     }
   ]
