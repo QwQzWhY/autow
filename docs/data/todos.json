@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-19T19:22:46+08:00",
-  "count": 110,
+  "generated_at": "2026-11-19T21:11:10+08:00",
+  "count": 111,
   "todos": [
     {
       "key": "qq:gmv9k1bjq",
@@ -1006,6 +1006,21 @@
       "category": "资助通知",
       "published_at": "2026-10-23",
       "status": "done"
+    },
+    {
+      "key": "qq:gmwncwsfg",
+      "title": "报名迎新晚会主持人或礼仪招募",
+      "detail": "学院12月中上旬举办2026年迎新晚会，现面向全院本科生和研究生招募主持人（两男两女，本科生一男一女、研究生一男一女，女生160cm以上、男生175cm以上）及礼仪人员，具体报名方式和截止时间见群内图片，通知被截断，全文要回群里看。",
+      "due_at": null,
+      "priority": "normal",
+      "needs_recommendation": false,
+      "content_hash": "d8f1ebcf3585a83e",
+      "source": "qq",
+      "source_label": "QQ 群",
+      "url": "",
+      "category": "QQ 群消息",
+      "published_at": "2026-11-19",
+      "status": "open"
     },
     {
       "key": "qq:gmwn92843",

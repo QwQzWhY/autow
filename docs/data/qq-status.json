@@ -1,11 +1,19 @@
 {
-  "generated_at": "2026-11-19T19:22:46+08:00",
+  "generated_at": "2026-11-19T21:11:10+08:00",
   "connected": true,
-  "total_received": 232,
-  "total_todos": 68,
-  "today_received": 5,
-  "today_todos": 2,
+  "total_received": 233,
+  "total_todos": 69,
+  "today_received": 6,
+  "today_todos": 3,
   "recent": [
+    {
+      "at": "2026-11-19T21:11:09+08:00",
+      "verdict": "todo",
+      "verdict_label": "已生成待办",
+      "title": "报名迎新晚会主持人或礼仪招募",
+      "length": 231,
+      "nonce": ""
+    },
     {
       "at": "2026-11-19T16:17:01+08:00",
       "verdict": "todo",
@@ -76,14 +84,6 @@
       "verdict_label": "你在看板上删过这条，已跳过",
       "title": "",
       "length": 40,
-      "nonce": ""
-    },
-    {
-      "at": "2026-11-17T10:43:14+08:00",
-      "verdict": "todo",
-      "verdict_label": "已生成待办",
-      "title": "参加社团招新考核并带齐设备",
-      "length": 163,
       "nonce": ""
     }
   ]
