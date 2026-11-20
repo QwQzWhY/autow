@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-20T20:15:01+08:00",
-  "count": 113,
+  "generated_at": "2026-11-20T20:24:37+08:00",
+  "count": 114,
   "todos": [
     {
       "key": "qq:gmv9k1bjq",
@@ -751,6 +751,21 @@
       "category": "资助通知",
       "published_at": "2026-11-12",
       "status": "done"
+    },
+    {
+      "key": "qq:gmwoyaniu",
+      "title": "十点前修改群昵称",
+      "detail": "在今晚十点前修改群昵称，未改名的默认退出具身智能小组。",
+      "due_at": "2026-11-20T22:00",
+      "priority": "high",
+      "needs_recommendation": false,
+      "content_hash": "ce9ab3280081cb6a",
+      "source": "qq",
+      "source_label": "QQ 群",
+      "url": "",
+      "category": "QQ 群消息",
+      "published_at": "2026-11-20",
+      "status": "open"
     },
     {
       "key": "lzu-xgb:340322.html",

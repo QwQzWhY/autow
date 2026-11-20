@@ -1,11 +1,19 @@
 {
-  "generated_at": "2026-11-20T20:15:01+08:00",
+  "generated_at": "2026-11-20T20:24:37+08:00",
   "connected": true,
-  "total_received": 242,
-  "total_todos": 71,
-  "today_received": 6,
-  "today_todos": 1,
+  "total_received": 243,
+  "total_todos": 72,
+  "today_received": 7,
+  "today_todos": 2,
   "recent": [
+    {
+      "at": "2026-11-20T20:24:35+08:00",
+      "verdict": "todo",
+      "verdict_label": "已生成待办",
+      "title": "十点前修改群昵称",
+      "length": 100,
+      "nonce": ""
+    },
     {
       "at": "2026-11-20T20:15:00+08:00",
       "verdict": "ignored",
@@ -76,14 +84,6 @@
       "verdict_label": "已生成待办",
       "title": "查看校赛获奖标准变动",
       "length": 62,
-      "nonce": ""
-    },
-    {
-      "at": "2026-11-19T21:11:09+08:00",
-      "verdict": "todo",
-      "verdict_label": "已生成待办",
-      "title": "报名迎新晚会主持人或礼仪招募",
-      "length": 231,
       "nonce": ""
     }
   ]
