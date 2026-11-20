@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-20T09:18:18+08:00",
+  "generated_at": "2026-11-20T10:10:04+08:00",
   "extractor": {
     "configured": true,
     "mode": "live",
@@ -9,21 +9,21 @@
       "ok": true,
       "carried_over": true
     },
-    "attempts": 1,
+    "attempts": 0,
     "failures": 0,
     "config_error": null,
     "ok": true,
     "last_error": "",
     "tokens": {
-      "calls": 1,
-      "prompt": 642,
-      "completion": 37
+      "calls": 0,
+      "prompt": 0,
+      "completion": 0
     }
   },
   "sources": {
     "lzu-ai": {
       "listed": 10,
-      "ok": 1,
+      "ok": 0,
       "failed": 0,
       "error": ""
     },
