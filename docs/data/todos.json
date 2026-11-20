@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-20T22:00:35+08:00",
-  "count": 114,
+  "generated_at": "2026-11-21T03:09:40+08:00",
+  "count": 115,
   "todos": [
     {
       "key": "qq:gmv9k1bjq",
@@ -931,6 +931,21 @@
       "category": "资助通知",
       "published_at": "2026-11-16",
       "status": "done"
+    },
+    {
+      "key": "lzu-ai:A063EPP0",
+      "title": "报名《人工智能应用与实践》微课",
+      "detail": "面向全校本科生的通识试点微课，限额40人，按报名先后确定名单。11月26日18:00前点击通知中的链接报名，第14-16周每周一晚在榆中校区明远楼122室上课，入选后须全程参与。",
+      "due_at": "2026-11-26T18:00",
+      "priority": "high",
+      "needs_recommendation": false,
+      "content_hash": "",
+      "source": "lzu-ai",
+      "source_label": "学院通知",
+      "url": "https://ai.lzu.edu.cn/news/A063EPP0",
+      "category": "通知公告",
+      "published_at": "2026-11-20",
+      "status": "open"
     },
     {
       "key": "lzu-xgb:340274.html",
