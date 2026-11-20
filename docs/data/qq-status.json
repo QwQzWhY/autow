@@ -1,11 +1,19 @@
 {
-  "generated_at": "2026-11-20T20:02:40+08:00",
+  "generated_at": "2026-11-20T20:15:01+08:00",
   "connected": true,
-  "total_received": 241,
+  "total_received": 242,
   "total_todos": 71,
-  "today_received": 5,
+  "today_received": 6,
   "today_todos": 1,
   "recent": [
+    {
+      "at": "2026-11-20T20:15:00+08:00",
+      "verdict": "ignored",
+      "verdict_label": "判断为无需行动",
+      "title": "",
+      "length": 76,
+      "nonce": ""
+    },
     {
       "at": "2026-11-20T20:02:39+08:00",
       "verdict": "ignored",
@@ -76,14 +84,6 @@
       "verdict_label": "已生成待办",
       "title": "报名迎新晚会主持人或礼仪招募",
       "length": 231,
-      "nonce": ""
-    },
-    {
-      "at": "2026-11-19T16:17:01+08:00",
-      "verdict": "todo",
-      "verdict_label": "已生成待办",
-      "title": "完成签到",
-      "length": 135,
       "nonce": ""
     }
   ]
