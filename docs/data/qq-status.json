@@ -1,11 +1,19 @@
 {
-  "generated_at": "2026-11-20T19:57:28+08:00",
+  "generated_at": "2026-11-20T20:02:40+08:00",
   "connected": true,
-  "total_received": 240,
+  "total_received": 241,
   "total_todos": 71,
-  "today_received": 4,
+  "today_received": 5,
   "today_todos": 1,
   "recent": [
+    {
+      "at": "2026-11-20T20:02:39+08:00",
+      "verdict": "ignored",
+      "verdict_label": "判断为无需行动",
+      "title": "",
+      "length": 53,
+      "nonce": ""
+    },
     {
       "at": "2026-11-20T19:57:27+08:00",
       "verdict": "todo",
@@ -76,14 +84,6 @@
       "verdict_label": "已生成待办",
       "title": "完成签到",
       "length": 135,
-      "nonce": ""
-    },
-    {
-      "at": "2026-11-19T15:53:19+08:00",
-      "verdict": "todo",
-      "verdict_label": "已生成待办",
-      "title": "填写社交投稿项目报名表",
-      "length": 360,
       "nonce": ""
     }
   ]
