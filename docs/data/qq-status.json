@@ -1,11 +1,19 @@
 {
-  "generated_at": "2026-11-21T10:00:51+08:00",
+  "generated_at": "2026-11-21T10:13:02+08:00",
   "connected": true,
-  "total_received": 246,
-  "total_todos": 72,
-  "today_received": 2,
-  "today_todos": 0,
+  "total_received": 247,
+  "total_todos": 73,
+  "today_received": 3,
+  "today_todos": 1,
   "recent": [
+    {
+      "at": "2026-11-21T10:13:01+08:00",
+      "verdict": "todo",
+      "verdict_label": "已生成待办",
+      "title": "今天内完成程序设计竞赛报名",
+      "length": 73,
+      "nonce": ""
+    },
     {
       "at": "2026-11-21T10:00:50+08:00",
       "verdict": "ignored",
@@ -76,14 +84,6 @@
       "verdict_label": "判断为无需行动",
       "title": "",
       "length": 69,
-      "nonce": ""
-    },
-    {
-      "at": "2026-11-20T08:50:35+08:00",
-      "verdict": "ignored",
-      "verdict_label": "判断为无需行动",
-      "title": "",
-      "length": 58,
       "nonce": ""
     }
   ]
