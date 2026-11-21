@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-21T23:15:21+08:00",
-  "count": 117,
+  "generated_at": "2026-11-21T23:16:24+08:00",
+  "count": 118,
   "todos": [
     {
       "key": "qq:gmv9k1bjq",
@@ -1066,6 +1066,21 @@
       "category": "资助通知",
       "published_at": "2026-10-23",
       "status": "done"
+    },
+    {
+      "key": "qq:gmwqjvwj8",
+      "title": "归还闲置开发板",
+      "detail": "不再使用的开发板请尽快归还。",
+      "due_at": null,
+      "priority": "normal",
+      "needs_recommendation": false,
+      "content_hash": "7ce799916986ad55",
+      "source": "qq",
+      "source_label": "QQ 群",
+      "url": "",
+      "category": "QQ 群消息",
+      "published_at": "2026-11-21",
+      "status": "open"
     },
     {
       "key": "qq:gmwqjuifz",
