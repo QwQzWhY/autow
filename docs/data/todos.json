@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-22T10:58:14+08:00",
+  "generated_at": "2026-11-22T18:56:02+08:00",
   "count": 118,
   "todos": [
     {
@@ -870,7 +870,7 @@
       "url": "",
       "category": "手动录入",
       "published_at": "2026-10-24",
-      "status": "open"
+      "status": "done"
     },
     {
       "key": "qq:gmwprwezi",
@@ -1080,7 +1080,7 @@
       "url": "",
       "category": "QQ 群消息",
       "published_at": "2026-11-21",
-      "status": "open"
+      "status": "done"
     },
     {
       "key": "qq:gmwqjuifz",
@@ -1095,7 +1095,7 @@
       "url": "",
       "category": "QQ 群消息",
       "published_at": "2026-11-21",
-      "status": "open"
+      "status": "done"
     },
     {
       "key": "qq:gmwnklzoi",
@@ -1125,7 +1125,7 @@
       "url": "",
       "category": "QQ 群消息",
       "published_at": "2026-11-19",
-      "status": "open"
+      "status": "done"
     },
     {
       "key": "qq:gmwn92843",
