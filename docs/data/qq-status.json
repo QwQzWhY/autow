@@ -1,11 +1,19 @@
 {
-  "generated_at": "2026-11-23T16:46:26+08:00",
+  "generated_at": "2026-11-23T18:22:43+08:00",
   "connected": true,
-  "total_received": 256,
-  "total_todos": 76,
-  "today_received": 3,
-  "today_todos": 1,
+  "total_received": 257,
+  "total_todos": 77,
+  "today_received": 4,
+  "today_todos": 2,
   "recent": [
+    {
+      "at": "2026-11-23T18:22:42+08:00",
+      "verdict": "todo",
+      "verdict_label": "已生成待办",
+      "title": "报名参加第9届兰州大学程序设计竞赛",
+      "length": 55,
+      "nonce": ""
+    },
     {
       "at": "2026-11-23T14:48:04+08:00",
       "verdict": "todo",
@@ -76,14 +84,6 @@
       "verdict_label": "你在看板上删过这条，已跳过",
       "title": "",
       "length": 40,
-      "nonce": ""
-    },
-    {
-      "at": "2026-11-21T10:13:01+08:00",
-      "verdict": "todo",
-      "verdict_label": "已生成待办",
-      "title": "今天内完成程序设计竞赛报名",
-      "length": 73,
       "nonce": ""
     }
   ]
