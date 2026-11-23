@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-23T14:47:42+08:00",
-  "count": 118,
+  "generated_at": "2026-11-23T14:48:05+08:00",
+  "count": 119,
   "todos": [
     {
       "key": "qq:gmv9k1bjq",
@@ -1066,6 +1066,21 @@
       "category": "资助通知",
       "published_at": "2026-10-23",
       "status": "done"
+    },
+    {
+      "key": "qq:gmwswlf6n",
+      "title": "填写压缩合成项目报名表",
+      "detail": "线上全职L2项目，工作日出勤8小时（完成每日人效要求后可休息）。有意报名的同学请通过群内飞书链接填写项目报名表。通知末尾内容被截断，全文需回群里查看。",
+      "due_at": null,
+      "priority": "normal",
+      "needs_recommendation": false,
+      "content_hash": "b6889639f7f9af8c",
+      "source": "qq",
+      "source_label": "QQ 群",
+      "url": "",
+      "category": "QQ 群消息",
+      "published_at": "2026-11-23",
+      "status": "open"
     },
     {
       "key": "qq:gmwqjvwj8",
