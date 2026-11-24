@@ -1,11 +1,19 @@
 {
-  "generated_at": "2026-11-24T13:18:35+08:00",
+  "generated_at": "2026-11-24T17:37:07+08:00",
   "connected": true,
-  "total_received": 259,
+  "total_received": 260,
   "total_todos": 78,
-  "today_received": 2,
+  "today_received": 3,
   "today_todos": 1,
   "recent": [
+    {
+      "at": "2026-11-24T17:37:06+08:00",
+      "verdict": "ignored",
+      "verdict_label": "判断为无需行动",
+      "title": "",
+      "length": 201,
+      "nonce": ""
+    },
     {
       "at": "2026-11-24T10:48:33+08:00",
       "verdict": "todo",
@@ -76,14 +84,6 @@
       "verdict_label": "已生成待办",
       "title": "加入社团负责人QQ",
       "length": 97,
-      "nonce": ""
-    },
-    {
-      "at": "2026-11-21T23:13:36+08:00",
-      "verdict": "ignored",
-      "verdict_label": "判断为无需行动",
-      "title": "",
-      "length": 58,
       "nonce": ""
     }
   ]
