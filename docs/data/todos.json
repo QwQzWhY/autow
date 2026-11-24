@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-24T10:48:22+08:00",
-  "count": 120,
+  "generated_at": "2026-11-24T10:48:34+08:00",
+  "count": 121,
   "todos": [
     {
       "key": "qq:gmv9k1bjq",
@@ -1066,6 +1066,21 @@
       "category": "资助通知",
       "published_at": "2026-10-23",
       "status": "done"
+    },
+    {
+      "key": "qq:gmwu2z4xb",
+      "title": "收回窗台外侧花盆等物品",
+      "detail": "公寓值班员提醒：请勿在窗台外侧放置花盆等物品，请及时收回，避免高空坠物。",
+      "due_at": null,
+      "priority": "normal",
+      "needs_recommendation": false,
+      "content_hash": "4782a636dd9cab94",
+      "source": "qq",
+      "source_label": "QQ 群",
+      "url": "",
+      "category": "QQ 群消息",
+      "published_at": "2026-11-24",
+      "status": "open"
     },
     {
       "key": "qq:gmwt45pmk",
