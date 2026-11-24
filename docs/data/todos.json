@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-24T10:48:34+08:00",
-  "count": 121,
+  "generated_at": "2026-11-24T13:18:35+08:00",
+  "count": 123,
   "todos": [
     {
       "key": "qq:gmv9k1bjq",
@@ -948,6 +948,21 @@
       "status": "done"
     },
     {
+      "key": "lzu-news:1193715.htm",
+      "title": "一卡通系统割接前提前充值",
+      "detail": "11月26日14:00至27日7:00系统割接，期间仅支持持卡消费，充值、扫码消费、挂失等业务暂停，请提前完成充值以免影响使用。",
+      "due_at": "2026-11-26T14:00",
+      "priority": "high",
+      "needs_recommendation": false,
+      "content_hash": "",
+      "source": "lzu-news",
+      "source_label": "学校通知",
+      "url": "https://news.lzu.edu.cn/info/1056/1193715.htm",
+      "category": "学校通知",
+      "published_at": "2026-11-23",
+      "status": "open"
+    },
+    {
       "key": "lzu-ai:A063EPP0",
       "title": "报名《人工智能应用与实践》微课",
       "detail": "面向全校本科生的通识试点微课，限额40人，按报名先后确定名单。11月26日18:00前点击通知中的链接报名，第14-16周每周一晚在榆中校区明远楼122室上课，入选后须全程参与。",
@@ -960,6 +975,21 @@
       "url": "https://ai.lzu.edu.cn/news/A063EPP0",
       "category": "通知公告",
       "published_at": "2026-11-20",
+      "status": "open"
+    },
+    {
+      "key": "lzu-xgb:340929.html",
+      "title": "报名参加君政基金项目启动大会",
+      "detail": "2027年君政基金项目面向本科二、三年级遴选，大一学生暂不符合申报条件，但可提前了解。有意参加论坛的同学需通过链接填写信息，主论坛需凭券入场（由学院统一领取发放）。",
+      "due_at": "2026-11-28T15:00",
+      "priority": "normal",
+      "needs_recommendation": false,
+      "content_hash": "",
+      "source": "lzu-xgb",
+      "source_label": "学工部",
+      "url": "https://xgb.lzu.edu.cn/tongzhigonggao/sizhengjiaoyu/2026/1124/340929.html",
+      "category": "思政通知",
+      "published_at": "2026-11-24",
       "status": "open"
     },
     {
