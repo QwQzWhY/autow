@@ -1,11 +1,19 @@
 {
-  "generated_at": "2026-11-24T17:37:07+08:00",
+  "generated_at": "2026-11-25T00:12:32+08:00",
   "connected": true,
-  "total_received": 260,
+  "total_received": 261,
   "total_todos": 78,
-  "today_received": 3,
-  "today_todos": 1,
+  "today_received": 1,
+  "today_todos": 0,
   "recent": [
+    {
+      "at": "2026-11-25T00:12:32+08:00",
+      "verdict": "dismissed",
+      "verdict_label": "你在看板上删过这条，已跳过",
+      "title": "",
+      "length": 40,
+      "nonce": ""
+    },
     {
       "at": "2026-11-24T17:37:06+08:00",
       "verdict": "ignored",
@@ -76,14 +84,6 @@
       "verdict_label": "已生成待办",
       "title": "归还闲置开发板",
       "length": 108,
-      "nonce": ""
-    },
-    {
-      "at": "2026-11-21T23:15:20+08:00",
-      "verdict": "todo",
-      "verdict_label": "已生成待办",
-      "title": "加入社团负责人QQ",
-      "length": 97,
       "nonce": ""
     }
   ]
