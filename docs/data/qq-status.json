@@ -1,11 +1,19 @@
 {
-  "generated_at": "2026-11-25T19:14:11+08:00",
+  "generated_at": "2026-11-25T20:37:42+08:00",
   "connected": true,
-  "total_received": 264,
-  "total_todos": 78,
-  "today_received": 4,
-  "today_todos": 0,
+  "total_received": 265,
+  "total_todos": 79,
+  "today_received": 5,
+  "today_todos": 1,
   "recent": [
+    {
+      "at": "2026-11-25T20:37:41+08:00",
+      "verdict": "todo",
+      "verdict_label": "已生成待办",
+      "title": "查阅程序设计竞赛参赛手册",
+      "length": 69,
+      "nonce": ""
+    },
     {
       "at": "2026-11-25T17:22:53+08:00",
       "verdict": "ignored",
@@ -76,14 +84,6 @@
       "verdict_label": "已生成待办",
       "title": "填写压缩合成项目报名表",
       "length": 288,
-      "nonce": ""
-    },
-    {
-      "at": "2026-11-23T14:47:40+08:00",
-      "verdict": "ignored",
-      "verdict_label": "判断为无需行动",
-      "title": "",
-      "length": 189,
       "nonce": ""
     }
   ]
