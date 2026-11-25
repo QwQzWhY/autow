@@ -1,11 +1,19 @@
 {
-  "generated_at": "2026-11-25T20:37:42+08:00",
+  "generated_at": "2026-11-25T20:44:56+08:00",
   "connected": true,
-  "total_received": 265,
+  "total_received": 266,
   "total_todos": 79,
-  "today_received": 5,
+  "today_received": 6,
   "today_todos": 1,
   "recent": [
+    {
+      "at": "2026-11-25T20:44:55+08:00",
+      "verdict": "ignored",
+      "verdict_label": "判断为无需行动",
+      "title": "",
+      "length": 76,
+      "nonce": ""
+    },
     {
       "at": "2026-11-25T20:37:41+08:00",
       "verdict": "todo",
@@ -76,14 +84,6 @@
       "verdict_label": "已生成待办",
       "title": "报名参加第9届兰州大学程序设计竞赛",
       "length": 55,
-      "nonce": ""
-    },
-    {
-      "at": "2026-11-23T14:48:04+08:00",
-      "verdict": "todo",
-      "verdict_label": "已生成待办",
-      "title": "填写压缩合成项目报名表",
-      "length": 288,
       "nonce": ""
     }
   ]
