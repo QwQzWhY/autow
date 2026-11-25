@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-25T17:22:55+08:00",
-  "count": 123,
+  "generated_at": "2026-11-25T19:14:11+08:00",
+  "count": 124,
   "todos": [
     {
       "key": "qq:gmv9k1bjq",
@@ -975,6 +975,21 @@
       "url": "https://ai.lzu.edu.cn/news/A063EPP0",
       "category": "通知公告",
       "published_at": "2026-11-20",
+      "status": "open"
+    },
+    {
+      "key": "lzu-xgb:341000.html",
+      "title": "查看新生班级实践立项结果并提异议",
+      "detail": "2026级新生班级建设集体实践项目立项结果已公示，公示期为11月25日至27日。可查看附件确认本班是否立项，如有异议可在公示期内通过电话5337528或邮箱xsjy@lzu.edu.cn反映。",
+      "due_at": "2026-11-27T23:59",
+      "priority": "high",
+      "needs_recommendation": false,
+      "content_hash": "",
+      "source": "lzu-xgb",
+      "source_label": "学工部",
+      "url": "https://xgb.lzu.edu.cn/tongzhigonggao/sizhengjiaoyu/2026/1125/341000.html",
+      "category": "思政通知",
+      "published_at": "2026-11-25",
       "status": "open"
     },
     {
