@@ -1,17 +1,17 @@
 {
-  "generated_at": "2026-11-25T15:23:10+08:00",
+  "generated_at": "2026-11-25T15:23:22+08:00",
   "connected": true,
   "total_received": 262,
-  "total_todos": 78,
+  "total_todos": 79,
   "today_received": 2,
-  "today_todos": 0,
+  "today_todos": 1,
   "recent": [
     {
-      "at": "2026-11-25T15:23:09+08:00",
-      "verdict": "ignored",
-      "verdict_label": "判断为无需行动",
-      "title": "",
-      "length": 64,
+      "at": "2026-11-25T15:23:21+08:00",
+      "verdict": "todo",
+      "verdict_label": "已生成待办",
+      "title": "查阅程序设计竞赛参赛手册并做好准备",
+      "length": 249,
       "nonce": ""
     },
     {

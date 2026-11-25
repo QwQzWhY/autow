@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-25T15:23:10+08:00",
-  "count": 123,
+  "generated_at": "2026-11-25T15:23:22+08:00",
+  "count": 124,
   "todos": [
     {
       "key": "qq:gmv9k1bjq",
@@ -1096,6 +1096,21 @@
       "category": "资助通知",
       "published_at": "2026-10-23",
       "status": "done"
+    },
+    {
+      "key": "qq:gmwvmkr65",
+      "title": "查阅程序设计竞赛参赛手册并做好准备",
+      "detail": "群内已发布第9届兰州大学程序设计竞赛参赛手册，需自行查阅并仔细阅读，按要求做好准备。",
+      "due_at": null,
+      "priority": "normal",
+      "needs_recommendation": false,
+      "content_hash": "ce94a4d27af0fa6e",
+      "source": "qq",
+      "source_label": "QQ 群",
+      "url": "",
+      "category": "QQ 群消息",
+      "published_at": "2026-11-25",
+      "status": "open"
     },
     {
       "key": "qq:gmwu2z4xb",
