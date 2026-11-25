@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-25T15:23:46+08:00",
-  "count": 123,
+  "generated_at": "2026-11-25T17:22:43+08:00",
+  "count": 124,
   "todos": [
     {
       "key": "qq:gmv9k1bjq",
@@ -1098,13 +1098,13 @@
       "status": "done"
     },
     {
-      "key": "qq:gmwvmkr65",
-      "title": "查阅程序设计竞赛参赛手册并做好准备",
-      "detail": "群内已发布第9届兰州大学程序设计竞赛参赛手册，需自行查阅并仔细阅读，按要求做好准备。",
+      "key": "qq:gmwvwekgo",
+      "title": "填写表格参加周末PCB焊接培训",
+      "detail": "本周六、周日社团开放嘉立创PCB培训的焊接环节，想参加的同学需要填写表格报名。",
       "due_at": null,
       "priority": "normal",
       "needs_recommendation": false,
-      "content_hash": "ce94a4d27af0fa6e",
+      "content_hash": "0c227141eff02db5",
       "source": "qq",
       "source_label": "QQ 群",
       "url": "",
