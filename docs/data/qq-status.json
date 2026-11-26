@@ -1,11 +1,19 @@
 {
-  "generated_at": "2026-11-26T12:07:21+08:00",
+  "generated_at": "2026-11-26T14:29:41+08:00",
   "connected": true,
-  "total_received": 268,
+  "total_received": 269,
   "total_todos": 79,
-  "today_received": 1,
+  "today_received": 2,
   "today_todos": 0,
   "recent": [
+    {
+      "at": "2026-11-26T14:29:40+08:00",
+      "verdict": "ignored",
+      "verdict_label": "判断为无需行动",
+      "title": "",
+      "length": 65,
+      "nonce": ""
+    },
     {
       "at": "2026-11-26T09:53:28+08:00",
       "verdict": "ignored",
@@ -76,14 +84,6 @@
       "verdict_label": "判断为无需行动",
       "title": "",
       "length": 201,
-      "nonce": ""
-    },
-    {
-      "at": "2026-11-24T10:48:33+08:00",
-      "verdict": "todo",
-      "verdict_label": "已生成待办",
-      "title": "收回窗台外侧花盆等物品",
-      "length": 66,
       "nonce": ""
     }
   ]
