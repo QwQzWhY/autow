@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-27T12:55:34+08:00",
-  "count": 126,
+  "generated_at": "2026-11-27T17:43:07+08:00",
+  "count": 127,
   "todos": [
     {
       "key": "qq:gmv9k1bjq",
@@ -1111,6 +1111,21 @@
       "category": "资助通知",
       "published_at": "2026-10-23",
       "status": "done"
+    },
+    {
+      "key": "qq:gmwysmahv",
+      "title": "报名参加工创赛",
+      "detail": "学校已开放明年工创赛报名，请有意参赛的同学访问 http://www.gcxl.edu.cn/new/index.html 了解并报名。",
+      "due_at": null,
+      "priority": "normal",
+      "needs_recommendation": false,
+      "content_hash": "6284c746284f84f5",
+      "source": "qq",
+      "source_label": "QQ 群",
+      "url": "",
+      "category": "QQ 群消息",
+      "published_at": "2026-11-27",
+      "status": "open"
     },
     {
       "key": "qq:gmwydnhzl",

@@ -1,11 +1,19 @@
 {
-  "generated_at": "2026-11-27T12:55:34+08:00",
+  "generated_at": "2026-11-27T17:43:07+08:00",
   "connected": true,
-  "total_received": 277,
-  "total_todos": 80,
-  "today_received": 2,
-  "today_todos": 1,
+  "total_received": 278,
+  "total_todos": 81,
+  "today_received": 3,
+  "today_todos": 2,
   "recent": [
+    {
+      "at": "2026-11-27T17:43:06+08:00",
+      "verdict": "todo",
+      "verdict_label": "已生成待办",
+      "title": "报名参加工创赛",
+      "length": 100,
+      "nonce": ""
+    },
     {
       "at": "2026-11-27T10:44:05+08:00",
       "verdict": "todo",
@@ -76,14 +84,6 @@
       "verdict_label": "判断为无需行动",
       "title": "",
       "length": 65,
-      "nonce": ""
-    },
-    {
-      "at": "2026-11-26T09:53:28+08:00",
-      "verdict": "ignored",
-      "verdict_label": "判断为无需行动",
-      "title": "",
-      "length": 84,
       "nonce": ""
     }
   ]
