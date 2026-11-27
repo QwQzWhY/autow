@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-27T10:14:13+08:00",
-  "count": 125,
+  "generated_at": "2026-11-27T10:44:07+08:00",
+  "count": 126,
   "todos": [
     {
       "key": "qq:gmv9k1bjq",
@@ -1111,6 +1111,21 @@
       "category": "资助通知",
       "published_at": "2026-10-23",
       "status": "done"
+    },
+    {
+      "key": "qq:gmwydnhzl",
+      "title": "报名AI赋能比赛队伍",
+      "detail": "比赛分教师队、硕博研究生队、本科生一队和本科生二队，每队5-10人。本科生报名联系辛嘉安，研究生报名联系朱嘉鑫。",
+      "due_at": null,
+      "priority": "normal",
+      "needs_recommendation": false,
+      "content_hash": "abb17cc2c582dc7f",
+      "source": "qq",
+      "source_label": "QQ 群",
+      "url": "",
+      "category": "QQ 群消息",
+      "published_at": "2026-11-27",
+      "status": "open"
     },
     {
       "key": "qq:gmww3z11t",
