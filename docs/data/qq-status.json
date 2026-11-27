@@ -1,11 +1,19 @@
 {
-  "generated_at": "2026-11-27T06:57:08+08:00",
+  "generated_at": "2026-11-27T10:14:13+08:00",
   "connected": true,
-  "total_received": 275,
+  "total_received": 276,
   "total_todos": 79,
-  "today_received": 0,
+  "today_received": 1,
   "today_todos": 0,
   "recent": [
+    {
+      "at": "2026-11-27T10:14:11+08:00",
+      "verdict": "ignored",
+      "verdict_label": "判断为无需行动",
+      "title": "",
+      "length": 57,
+      "nonce": ""
+    },
     {
       "at": "2026-11-26T22:00:41+08:00",
       "verdict": "dismissed",
@@ -76,14 +84,6 @@
       "verdict_label": "你在看板上删过这条，已跳过",
       "title": "",
       "length": 40,
-      "nonce": ""
-    },
-    {
-      "at": "2026-11-25T20:44:55+08:00",
-      "verdict": "ignored",
-      "verdict_label": "判断为无需行动",
-      "title": "",
-      "length": 76,
       "nonce": ""
     }
   ]
