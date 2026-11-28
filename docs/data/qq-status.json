@@ -1,11 +1,19 @@
 {
-  "generated_at": "2026-11-28T14:54:18+08:00",
+  "generated_at": "2026-11-28T15:14:01+08:00",
   "connected": true,
-  "total_received": 286,
+  "total_received": 287,
   "total_todos": 83,
-  "today_received": 6,
+  "today_received": 7,
   "today_todos": 2,
   "recent": [
+    {
+      "at": "2026-11-28T15:14:00+08:00",
+      "verdict": "ignored",
+      "verdict_label": "判断为无需行动",
+      "title": "",
+      "length": 71,
+      "nonce": ""
+    },
     {
       "at": "2026-11-28T14:54:17+08:00",
       "verdict": "ignored",
@@ -76,14 +84,6 @@
       "verdict_label": "已生成待办",
       "title": "报名参加工创赛",
       "length": 100,
-      "nonce": ""
-    },
-    {
-      "at": "2026-11-27T10:44:05+08:00",
-      "verdict": "todo",
-      "verdict_label": "已生成待办",
-      "title": "报名AI赋能比赛队伍",
-      "length": 282,
       "nonce": ""
     }
   ]
