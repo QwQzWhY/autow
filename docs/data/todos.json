@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-28T15:53:24+08:00",
-  "count": 130,
+  "generated_at": "2026-11-28T15:55:08+08:00",
+  "count": 131,
   "todos": [
     {
       "key": "qq:gmv9k1bjq",
@@ -1126,6 +1126,21 @@
       "category": "资助通知",
       "published_at": "2026-10-23",
       "status": "done"
+    },
+    {
+      "key": "qq:gmx047d98",
+      "title": "报名参加算法集训队选拔",
+      "detail": "2026年算法集训队选拔暂定12月10日举行，具体时间待定。有意参加的同学请加入通知群1135713436，入群验证码为2026LZU，后续具体时间和安排将在通知群发布。通知被截断，全文要回群里看。",
+      "due_at": null,
+      "priority": "normal",
+      "needs_recommendation": false,
+      "content_hash": "b483dfd444b92940",
+      "source": "qq",
+      "source_label": "QQ 群",
+      "url": "",
+      "category": "QQ 群消息",
+      "published_at": "2026-11-28",
+      "status": "open"
     },
     {
       "key": "qq:gmx044zzm",
