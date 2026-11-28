@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-28T14:40:43+08:00",
+  "generated_at": "2026-11-28T14:41:42+08:00",
   "count": 128,
   "todos": [
     {
@@ -1005,21 +1005,6 @@
       "url": "https://xgb.lzu.edu.cn/tongzhigonggao/sizhengjiaoyu/2026/1124/340929.html",
       "category": "思政通知",
       "published_at": "2026-11-24",
-      "status": "open"
-    },
-    {
-      "key": "qq:gmx01jcmd",
-      "title": "参加蓝桥杯宣讲答疑会",
-      "detail": "今天下午蓝桥杯组委会老师来宣讲和答疑，欢迎前往参加。",
-      "due_at": "2026-11-28T23:59",
-      "priority": "high",
-      "needs_recommendation": false,
-      "content_hash": "85bd1ed9ef47af2e",
-      "source": "qq",
-      "source_label": "QQ 群",
-      "url": "",
-      "category": "QQ 群消息",
-      "published_at": "2026-11-28",
       "status": "open"
     },
     {
