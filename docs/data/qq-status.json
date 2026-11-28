@@ -1,11 +1,19 @@
 {
-  "generated_at": "2026-11-28T17:14:48+08:00",
+  "generated_at": "2026-11-28T18:24:34+08:00",
   "connected": true,
-  "total_received": 291,
+  "total_received": 292,
   "total_todos": 86,
-  "today_received": 11,
+  "today_received": 12,
   "today_todos": 5,
   "recent": [
+    {
+      "at": "2026-11-28T18:24:33+08:00",
+      "verdict": "ignored",
+      "verdict_label": "判断为无需行动",
+      "title": "",
+      "length": 78,
+      "nonce": ""
+    },
     {
       "at": "2026-11-28T17:14:48+08:00",
       "verdict": "ignored",
@@ -76,14 +84,6 @@
       "verdict_label": "判断为无需行动",
       "title": "",
       "length": 71,
-      "nonce": ""
-    },
-    {
-      "at": "2026-11-28T14:40:42+08:00",
-      "verdict": "todo",
-      "verdict_label": "已生成待办",
-      "title": "参加蓝桥杯宣讲答疑会",
-      "length": 73,
       "nonce": ""
     }
   ]
