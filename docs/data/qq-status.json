@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-28T14:40:31+08:00",
+  "generated_at": "2026-11-28T14:40:43+08:00",
   "connected": true,
   "total_received": 282,
   "total_todos": 82,
@@ -7,7 +7,7 @@
   "today_todos": 1,
   "recent": [
     {
-      "at": "2026-11-28T14:40:30+08:00",
+      "at": "2026-11-28T14:40:42+08:00",
       "verdict": "todo",
       "verdict_label": "已生成待办",
       "title": "参加蓝桥杯宣讲答疑会",
