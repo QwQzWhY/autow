@@ -1,11 +1,19 @@
 {
-  "generated_at": "2026-11-28T15:14:01+08:00",
+  "generated_at": "2026-11-28T15:53:24+08:00",
   "connected": true,
-  "total_received": 287,
-  "total_todos": 83,
-  "today_received": 7,
-  "today_todos": 2,
+  "total_received": 288,
+  "total_todos": 84,
+  "today_received": 8,
+  "today_todos": 3,
   "recent": [
+    {
+      "at": "2026-11-28T15:53:22+08:00",
+      "verdict": "todo",
+      "verdict_label": "已生成待办",
+      "title": "报名参加算法集训队选拔",
+      "length": 162,
+      "nonce": ""
+    },
     {
       "at": "2026-11-28T15:14:00+08:00",
       "verdict": "ignored",
@@ -76,14 +84,6 @@
       "verdict_label": "你在看板上删过这条，已跳过",
       "title": "",
       "length": 40,
-      "nonce": ""
-    },
-    {
-      "at": "2026-11-27T17:43:06+08:00",
-      "verdict": "todo",
-      "verdict_label": "已生成待办",
-      "title": "报名参加工创赛",
-      "length": 100,
       "nonce": ""
     }
   ]
